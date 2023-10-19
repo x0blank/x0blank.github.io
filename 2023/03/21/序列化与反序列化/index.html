@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        3-序列化与反序列化 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">3-序列化与反序列化</div>
+        <div class="post-info">
+          
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+
+          <span class="post-date">2023-03-21</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">序列化基础知识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">序列化的作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">表达方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">**数组序列化： **</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">对象序列化</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">反序列化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">反序列化例题</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+
+<p><a name="Cerdq"></a></p>
+<h1><span id="序列化基础知识">序列化基础知识</span></h1><p><a name="yff2U"></a></p>
+<h2><span id="序列化的作用">序列化的作用</span></h2><p>序列化(serialization)是将对象的状态信息 （属性） 转化为可以存储或传输的形式的过程<br>对象 ———— &gt;序列化 —————-&gt; 字符串 <br>将对象或者数组转化为可储存&#x2F;传输的字符串。<br>在php中使用函数serialize()来将对象或者数组进行序列化，并返回一个包含字节流的字符串来表示。</p>
+<p><a name="IOoHy"></a></p>
+<h2><span id="表达方式">表达方式</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679362147880-5b0ba479-3ea6-419c-b5de-efece0e34ae8.png#averageHue=%23242322&clientId=u76bfdbbf-f77c-4&from=paste&height=349&id=uf3cb1772&name=image.png&originHeight=349&originWidth=930&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35149&status=done&style=none&taskId=u07d8b18c-92eb-43ae-8dae-d2e9d851057&title=&width=930" alt="image.png"><br>可以看到是个N;<br>后面这个分号一定要的记得 ，<br><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/22356351/1679362835020-bec3c47f-8db9-489f-84c0-2c5553dcb384.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679362932637-e6618d5a-a3bf-4c1f-93cf-1b0b6f683bad.png#averageHue=%23272523&clientId=u76bfdbbf-f77c-4&from=paste&height=468&id=u1abae604&name=image.png&originHeight=468&originWidth=853&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56090&status=done&style=none&taskId=u08667283-1ef0-4d8c-b418-e8b69c66454&title=&width=853" alt="image.png"></p>
+<p><a name="eQZs6"></a></p>
+<h3><span id="数组序列化">**数组序列化： **</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$a</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;abc&#x27;</span>,<span class="hljs-string">&#x27;def&#x27;</span>,<span class="hljs-string">&#x27;jhk&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>[<span class="hljs-number">0</span>].<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679363089853-1bbda79d-1073-4540-8d86-51645968cbba.png#averageHue=%23bcbcbc&clientId=u76bfdbbf-f77c-4&from=paste&height=220&id=ub63530b1&name=image.png&originHeight=220&originWidth=1217&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13329&status=done&style=none&taskId=u894787e7-4312-434e-9a77-1481b41a7ba&title=&width=1217" alt="image.png"></p>
+<p>先出现 数组 下标为0  的 数值<br>0 下标为 abc ;</p>
+<blockquote>
+<p>a:3:{i:0;s:3:”abc”;i:1;s:3:”def”;i:2;s:3:”jhk”;}</p>
+</blockquote>
+<p>解释 ： <br>a array :3 参数数量 :{i:0 编号 ;s:3 字符型;长度:”abc”;i:1;s:3:”def”;i:2;s:3:”jhk”;}</p>
+<p><a name="ORjWL"></a></p>
+<h3><span id="对象序列化">对象序列化</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679363606422-b70a56a2-9195-4376-87d2-731850e28097.png#averageHue=%231f1f1e&clientId=u76bfdbbf-f77c-4&from=paste&height=291&id=udbeaae0a&name=image.png&originHeight=291&originWidth=532&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16782&status=done&style=none&taskId=udf27e093-b9f5-46ae-b674-7c7cb83bdfd&title=&width=532" alt="image.png"><br>序列化内容</p>
+<blockquote>
+<p>O:4:”test”:1:{s:3:”pub”;s:6:”benben”;}</p>
+</blockquote>
+<p>不能序列化‘类’可以序列化′对象’<br>对象序列化 不会序列化方法 ，只会序列化成员属性和他对应的值；<br>解释 ： </p>
+<blockquote>
+<p>O object :4 类名长度 :”test” 类名 :1 变量数量:{s:3 变量名字长度 :”pub” 变量名字 ;s:6 值的长度 :”benben” 变量值;}</p>
+</blockquote>
+<p>增加一个 他也会随之增加 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679364089887-2dcae4c7-c29a-40c1-a753-af9ebd3040b9.png#averageHue=%23fdfcfb&clientId=u76bfdbbf-f77c-4&from=paste&height=120&id=uddfde27c&name=image.png&originHeight=120&originWidth=666&originalType=binary&ratio=1&rotation=0&showTitle=false&size=3851&status=done&style=none&taskId=ued89ee44-0589-43e0-a6c5-492bd63380f&title=&width=666" alt="image.png"></p>
+<p>**私有属性 ： **<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679364249568-dadf0b2d-d848-4d39-b231-e3548b8e3b82.png#averageHue=%2380807f&clientId=u76bfdbbf-f77c-4&from=paste&height=429&id=ue1dae159&name=image.png&originHeight=429&originWidth=1228&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46706&status=done&style=none&taskId=u644cdbe6-25ce-43db-9aa2-4091e30441f&title=&width=1228" alt="image.png"></p>
+<blockquote>
+<p>private私有属性序列化时<br>在变量名前加”url编码之后的%00类名%00”</p>
+</blockquote>
+<p>这里为什么是9  个呢  <br>因为在类名前后都要加一个%00 <br>%00 为空代表一个字符 </p>
+<blockquote>
+<p>O:4:”test”:1:{s:9:”%00testpub%00”;s:6:”benben”;}</p>
+</blockquote>
+<p>受保护属性序列化 ：</p>
+<blockquote>
+<p>protected受保护属性序列化时，在变量名前加”%00*%00”</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679364687047-15159f1d-0041-49fc-988c-ea192b1ff008.png#averageHue=%2380807f&clientId=u76bfdbbf-f77c-4&from=paste&height=359&id=u76d5326f&name=image.png&originHeight=359&originWidth=1059&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43886&status=done&style=none&taskId=ud0e184bd-de74-48fb-af7b-9b1f37d84a3&title=&width=1059" alt="image.png"></p>
+<blockquote>
+<p>O:4:”test”:1:{s:6 变量名长度:”0<em>0pub”;s:6:”benben”;}<br>加了0</em>0 所以是6个</p>
+</blockquote>
+<p><strong>成员属性调用对象 ：</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679365624891-d52385c9-5372-451c-8141-7fec762ed938.png#averageHue=%23fefefe&clientId=u76bfdbbf-f77c-4&from=paste&height=354&id=u2af83e5b&name=image.png&originHeight=354&originWidth=821&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9633&status=done&style=none&taskId=u8d2a2c53-2154-4cea-a3ba-917d16f75bd&title=&width=821" alt="image.png"></p>
+<blockquote>
+<p>O:5:”test2”:1:{s:3:”ben”;O:4:”test”:1:{s:3:”pub”;s:6:”benben”;}}</p>
+</blockquote>
+<p>去new 一个test2()的时候 就已经把 test() 序列化了 <br>去调用test2  对应的 成员属性是ben    但是ben对应的 是 一个完整的object 对象 赋值给ben 了 </p>
+<p>再来一个列子<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679366118288-d3d605f6-f234-4c19-96e3-6cdbb2e5f48e.png#averageHue=%23777777&clientId=u76bfdbbf-f77c-4&from=paste&height=466&id=ub433b30f&name=image.png&originHeight=466&originWidth=1488&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54646&status=done&style=none&taskId=ud1900655-83bf-4669-bb51-a69b0bb456a&title=&width=1488" alt="image.png"><br>实例化后的对象$a的成员变量’ben’调用实例化后的对象$b</p>
+<p><a name="RfnkP"></a></p>
+<h1><span id="反序列化">反序列化</span></h1><p>反序列化的作用 <br>将序列化后的参数还原成实例化的对象 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679366330270-1c287912-e7bb-4738-8677-4783054a5018.png#averageHue=%23fcfafa&clientId=u76bfdbbf-f77c-4&from=paste&height=278&id=u14169c86&name=image.png&originHeight=278&originWidth=730&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45021&status=done&style=none&taskId=u94375a9f-40da-469e-a9a7-ce5f0aeb2bb&title=&width=730" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679370363803-22d66847-5d8a-4ede-8e35-906df715bc06.png#averageHue=%238a8989&clientId=u76bfdbbf-f77c-4&from=paste&height=392&id=u88f44751&name=image.png&originHeight=392&originWidth=1392&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51317&status=done&style=none&taskId=ucc3229b7-34fb-48db-b3b3-088f5d02180&title=&width=1392" alt="image.png"><br>这样就拿到了个序列化 </p>
+<blockquote>
+<p>O:4:”test”:3:{s:1:”a”;s:6:”benben”;s:4:”*b”;i:666;s:7:”testc”;b:0;}</p>
+</blockquote>
+<p>反序列化：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679370648864-bbc88b4f-b30c-4069-8615-00888928dc0f.png#averageHue=%23747373&clientId=u76bfdbbf-f77c-4&from=paste&height=443&id=u47e52e59&name=image.png&originHeight=443&originWidth=1598&originalType=binary&ratio=1&rotation=0&showTitle=false&size=78973&status=done&style=none&taskId=u4ec390fb-5417-43b0-a8df-96837ef52fb&title=&width=1598" alt="image.png"><br>这里要将序列化的内容 , 受保护的 和私有的  类名要加上%00 <br>再对其进行urldecode 进行解码  <br>然后再进行反序列 （unserialize）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php">C:\Users\chenxL\Desktop\PHP\反序列化\反序列化.php:<span class="hljs-number">15</span>:<br><span class="hljs-keyword">object</span>(test)[<span class="hljs-number">1</span>]<br>  <span class="hljs-keyword">public</span> <span class="hljs-string">&#x27;a&#x27;</span> =&gt; <span class="hljs-keyword">string</span> <span class="hljs-string">&#x27;benben&#x27;</span> (length=<span class="hljs-number">6</span>)<br>  <span class="hljs-keyword">protected</span> <span class="hljs-string">&#x27;b&#x27;</span> =&gt; <span class="hljs-keyword">int</span> <span class="hljs-number">666</span><br>  <span class="hljs-keyword">private</span> <span class="hljs-string">&#x27;c&#x27;</span> =&gt; <span class="hljs-keyword">boolean</span> <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<p>这是反序列化后的内容 和 还没有序列化的数据是一样的</p>
+<blockquote>
+<p>反序列化生成的对象里的值，由反序列化里的值(字符串$a)提供;与原有类预定义的值无关;</p>
+</blockquote>
+<p>意思就是原类里面的值是可以随便修改的 <br>例如  <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679371124177-8596302f-f3fb-4ff6-ab3a-6033626a342c.png#averageHue=%23262422&clientId=u76bfdbbf-f77c-4&from=paste&height=477&id=uceb442f1&name=image.png&originHeight=477&originWidth=817&originalType=binary&ratio=1&rotation=0&showTitle=false&size=53030&status=done&style=none&taskId=uf6d4c7f6-3093-46be-9376-e6cba1c275c&title=&width=817" alt="image.png"><br>现在 0 是flase   我们该成true  然后再修改一下数据<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679371204599-a89390d3-31c3-4b4f-869c-5b4d73f1ec38.png#averageHue=%23232221&clientId=u76bfdbbf-f77c-4&from=paste&height=537&id=u2731e517&name=image.png&originHeight=537&originWidth=867&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48908&status=done&style=none&taskId=uaceb8f42-de99-4ae4-a3b5-5d63acb601a&title=&width=867" alt="image.png"><br>完全是可以修改的<br>调用成员方法  <br>$f-&gt;displayVar();  <br>调用的是  $d里面的成员属性<br>所属的值就 不是 benben  而是 abcdef<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679371581571-ebde7124-d88f-4163-be19-2497c822e8a1.png#averageHue=%23242221&clientId=u76bfdbbf-f77c-4&from=paste&height=436&id=uc2fbd312&name=image.png&originHeight=436&originWidth=846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42376&status=done&style=none&taskId=u0c607203-05fb-42d6-82eb-5d8b41eeefd&title=&width=846" alt="image.png"><br>反序列化不改变类的成员方法;需要调用方法后才能触发;</p>
+<p><a name="lCziB"></a></p>
+<h1><span id="反序列化例题">反序列化例题</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679380862447-283c4e82-34ee-4043-9919-5c557266f751.png#averageHue=%23fefefe&clientId=u76bfdbbf-f77c-4&from=paste&height=304&id=uf4f480e0&name=image.png&originHeight=304&originWidth=901&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5751&status=done&style=none&taskId=u981cb4b7-940d-470e-a775-e234fcd6cda&title=&width=901" alt="image.png"><br>定义 test 类 <br> 定义了 $a  的 一个成员变量    输出一个 this istest!!<br> 然后还有一个动作 ，displayVar  <br>里面有一个eval 函数  （危险函数 ） 可以执行命令<br>存在一个 可控变量 benben      <br>然后 对传进来的值进行反序列化 ， 再赋值给  $b  去调用了 test类里面的 displayVar()<br>就是这么个过程</p>
+<p>但是由于benben 可以构造<br>$b把字符串$get反序列化为对象，<br>通过更改字符串可改变得到的对象中$a的值,通过调用方法触发可控代码 <br>构建payload :<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679381608047-0f8a1b47-be7d-4ced-846b-8ed0b298061d.png#averageHue=%231f1e1e&clientId=u76bfdbbf-f77c-4&from=paste&height=346&id=ube89d166&name=image.png&originHeight=346&originWidth=775&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23442&status=done&style=none&taskId=u73bba339-9c10-47a9-999f-782f9704ed3&title=&width=775" alt="image.png"><br>序列化后的内容 ：</p>
+<blockquote>
+<p>O:4:”test”:1:{s:1:”a”;s:10:”phpinfo();”;}</p>
+</blockquote>
+<p>然后去把序列化的内容 给  ?benben   就可以执行phpinfo()；<br><code>http://localhost:8002/class06/index.php?benben=O:4:&quot;test&quot;:1:&#123;s:1:&quot;a&quot;;s:10:&quot;phpinfo();&quot;;&#125;</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679381664004-b5334b03-234c-45b2-89da-ac406eb68b99.png#averageHue=%23c2a06f&clientId=u76bfdbbf-f77c-4&from=paste&height=894&id=u2dac94b4&name=image.png&originHeight=894&originWidth=1374&originalType=binary&ratio=1&rotation=0&showTitle=false&size=99683&status=done&style=none&taskId=u73021db6-9b38-4bcf-b7c9-a5cafa619a7&title=&width=1374" alt="image.png"><br>这样就执行了反序列化 执行 php命令</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/21/%E5%85%B3%E4%BA%8E%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%EF%BC%9F/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>4-关于魔术方法？</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/20/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      1-PHP反序列化靶场环境搭建
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

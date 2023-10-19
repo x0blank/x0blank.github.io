@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        4-关于魔术方法？ | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">4-关于魔术方法？</div>
+        <div class="post-info">
+          
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+
+          <span class="post-date">2023-03-21</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">什么是魔术方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">魔术方法的作用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">常见的魔术方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">魔术方法相关机制</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">__construct()</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">__destruct()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">例题 :  __destruct()</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">__sleep()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">例题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">__wakeup()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">例题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">__toStrings()</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">__invoke()</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">错误调用相关魔术方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">__call()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">__callStatic()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">__get()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">__set()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">__isset()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">__unset()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">__clone()</span></a></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="Mhij0"></a></p>
+<h1><span id="什么是魔术方法">什么是魔术方法</span></h1><p>一个预定义好的，在特定情况下自动触发的行为方法。</p>
+<p><a name="EGtgh"></a></p>
+<h1><span id="魔术方法的作用">魔术方法的作用</span></h1><p>反序列化漏洞的成因:<br>反序列化过程中，unserialize()接收的值（字符串)可控;<br>通过更改这个值（字符串)，得到所需要的代码;<br>通过调用方法，触发代码执行。<br><a name="wVLOS"></a></p>
+<h2><span id="常见的魔术方法">常见的魔术方法</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679383537141-7ba73305-4da3-45cb-9e3c-e9c64c8566dc.png#averageHue=%23f9f7f6&clientId=ua4fb6d66-6128-4&from=paste&height=593&id=uf08a8532&name=image.png&originHeight=593&originWidth=933&originalType=binary&ratio=1&rotation=0&showTitle=false&size=70554&status=done&style=none&taskId=u0f3f5efd-8047-4b39-9fd4-a664150a3ec&title=&width=933" alt="image.png"></p>
+<p><a name="A2bGR"></a></p>
+<h2><span id="魔术方法相关机制">魔术方法相关机制</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679383789753-1fcda536-9a91-455f-bdb2-6bc5cf0c77e8.png#averageHue=%23fcfcf9&clientId=ua4fb6d66-6128-4&from=paste&height=296&id=u1269ef8d&name=image.png&originHeight=296&originWidth=1162&originalType=binary&ratio=1&rotation=0&showTitle=false&size=131509&status=done&style=none&taskId=uf5222594-132c-4bd0-9c1f-6582efa6898&title=&width=1162" alt="image.png"></p>
+<p><a name="CfxeQ"></a></p>
+<h1><span id="__construct">__construct()</span></h1><p>构造函数，在实例化一个对象的时候，首先会去自动执行的一个方法;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$username</span></span>) </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$username</span>;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;触发了构造函数1次&quot;</span> ;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;benben&quot;</span>);   <span class="hljs-comment">//实例化对象时触发构造函数_construct()</span><br><span class="hljs-variable">$ser</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$test</span>);<br><span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$ser</span>);<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p><strong>触发时机:</strong><br>实例化对象功能: 提前清理不必要内容<br>参数:非必要<br>返回值:</p>
+<p>就是在 new 一个  User 实例化的时候 自动执行了 __construct 方法<br>然后 去调用了 username  执行了echo  <br>并不是 $ser 去触发的 <br>**验证 ：  **</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679384758812-88f8be27-8450-4799-9b78-95554fadaea4.png#averageHue=%23222120&clientId=ua4fb6d66-6128-4&from=paste&height=688&id=u835feaf1&name=image.png&originHeight=688&originWidth=846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56632&status=done&style=none&taskId=udedd8fd5-472a-4dc6-b268-87f5b83b1d2&title=&width=846" alt="image.png"><br>这样他还是去执行了  echo  <br>证明是实例化的时候触发了__construct()方法</p>
+<p><a name="YhH49"></a></p>
+<h1><span id="__destruct">__destruct()</span></h1><p>析构函数，在对象的所有引用被删除或者当对象被显式销毁时执行的魔术方法。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;触发了析构函数1次&quot;</span>.<span class="hljs-string">&quot;&lt;br /&gt;&quot;</span> ;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;benben&quot;</span>);   <span class="hljs-comment">//创建不触发 ，但是创建完执行下一个就触发 了 __destruct </span><br><span class="hljs-variable">$ser</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$test</span>);<br><span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$ser</span>);   <span class="hljs-comment">//反序列化之后 会触发 </span><br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>实例化对象结束后，代码运行完会销毁，触发析构函数_destruct()<br>这个代码会触发两次 __destruct() 方法<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679385134946-4d1d706c-dbf9-4df3-ab11-4f340a6b8604.png#averageHue=%23fefdfd&clientId=ua4fb6d66-6128-4&from=paste&height=293&id=ua503d0bf&name=image.png&originHeight=293&originWidth=635&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9125&status=done&style=none&taskId=u3288c3df-d3fc-411f-bc61-192da9f8b6f&title=&width=635" alt="image.png"></p>
+<p><a name="Ja82U"></a></p>
+<h2><span id="例题-__destruct">例题 :  __destruct()</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679385221865-23ee74f0-e0d5-48f5-97fb-58d6b6b59cbc.png#averageHue=%23fefefe&clientId=ua4fb6d66-6128-4&from=paste&height=276&id=u62a10622&name=image.png&originHeight=276&originWidth=742&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5014&status=done&style=none&taskId=u755dd5fd-f337-4d2c-8c4a-b03b325abb8&title=&width=742" alt="image.png"><br>这个题了会执行一次  __destruct </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$cmd</span> = <span class="hljs-string">&quot;echo &#x27;dazhuang666!!&#x27;;&quot;</span> ;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">eval</span> (<span class="hljs-variable language_">$this</span>-&gt;cmd);<br>    &#125;<br>&#125;<br><span class="hljs-variable">$ser</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;benben&quot;</span>];<br><span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$ser</span>);   <span class="hljs-comment">// 在这里结束了反序列化之后会去调用 __destruct() 方法</span><br> <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>构造 payload ：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679385562373-dfbb5dd4-d896-424d-8d7c-cf2bec594b20.png#averageHue=%231f1e1e&clientId=ua4fb6d66-6128-4&from=paste&height=350&id=ued80b7b7&name=image.png&originHeight=350&originWidth=615&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19881&status=done&style=none&taskId=u8f139652-90b2-43b0-b4ed-0ca48188cc8&title=&width=615" alt="image.png"><br>这个会执行几次 __destruct 呢 <br>答案 是两次 <br>new 的时候不执行 ，但是当new完之后就 执行了一次 __destruct()方法<br>所以会出现phpinfo();<br>然后第二执行 是 echo 完 去调用了 __destruct();<br> <img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679385769800-aec0041d-dc59-426e-ae37-75db2cd9ad31.png#averageHue=%23d1b78e&clientId=ua4fb6d66-6128-4&from=paste&height=1114&id=u73f5b506&name=image.png&originHeight=1114&originWidth=1301&originalType=binary&ratio=1&rotation=0&showTitle=false&size=113844&status=done&style=none&taskId=u66182ee4-cc11-4443-b227-072712aa785&title=&width=1301" alt="image.png"><br>验证  ：<br>当注释了$a  之后还是会去执行 phpinfo()<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679385840479-8668dd8a-ce4d-4fcf-9a9f-bfbc9299b424.png#averageHue=%23bdac7b&clientId=ua4fb6d66-6128-4&from=paste&height=668&id=uf9657568&name=image.png&originHeight=668&originWidth=1824&originalType=binary&ratio=1&rotation=0&showTitle=false&size=114711&status=done&style=none&taskId=ua92b5a30-c2ad-4211-9481-2f0e29a3df4&title=&width=1824" alt="image.png"><br>例题payload:</p>
+<blockquote>
+<p>O:4:”User”:1:{s:3:”cmd”;s:10:”phpinfo();”;}</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679390448930-b44ce974-c3c5-483b-b92d-faf0073f2494.png#averageHue=%23c29f6e&clientId=ua4fb6d66-6128-4&from=paste&height=881&id=ud9a49f4e&name=image.png&originHeight=881&originWidth=1292&originalType=binary&ratio=1&rotation=0&showTitle=false&size=96476&status=done&style=none&taskId=u540e7682-bd9c-43da-9612-307b1309652&title=&width=1292" alt="image.png"></p>
+<p><a name="dvoKV"></a></p>
+<h1><span id="__sleep">__sleep()</span></h1><p>序列化serialize()函数会检查类中是否存在一个魔术方法_sleep()。<br>如果存在，该方法会先被调用，然后才执行序列化操作。<br>此功能可以用于清理对象，并返回一个包含对象中所有应被序列化的变量名称的数组。<br>如果该方法未返回任何内容，则NULL被序列化，并产生一个E_NOTICE级别的错误。</p>
+<blockquote>
+<p>触发时机:序列化serialize()之前<br>功能:对象被序列化之前触发，返回需要被序列化存储的成员属性，删除不必要的属性。<br>参数:成员属性<br>返回值:需要被序列化存储的成员属性</p>
+</blockquote>
+<p>例子：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679390854615-14c82ff9-5250-43a4-bdaa-07fbb296a14e.png#averageHue=%23fefefe&clientId=ua4fb6d66-6128-4&from=paste&height=422&id=udd2bbdf0&name=image.png&originHeight=422&originWidth=908&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11830&status=done&style=none&taskId=u23cb4bca-3c31-4b0a-99c0-fcb8557945e&title=&width=908" alt="image.png"><br>代码分析 ： </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">SITE</span> = <span class="hljs-string">&#x27;uusama&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$nickname</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$password</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$username</span>, <span class="hljs-variable">$nickname</span>, <span class="hljs-variable">$password</span></span>)    </span>&#123;   <span class="hljs-comment">//第一个触发 </span><br>        <span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$username</span>;   <span class="hljs-comment">//   username = a</span><br>        <span class="hljs-variable language_">$this</span>-&gt;nickname = <span class="hljs-variable">$nickname</span>;   <span class="hljs-comment">//   nickname = b</span><br>        <span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$password</span>;   <span class="hljs-comment">//   password = c</span><br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__sleep</span>(<span class="hljs-params"></span>) </span>&#123;    <span class="hljs-comment">//第二次触发 </span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;nickname&#x27;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-variable">$user</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>);    <span class="hljs-comment">//new User 传入值 a b c  这里会触发 __construct</span><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$user</span>);  <span class="hljs-comment">// 然后去输出 一个序列化的$user  ,然后回触发一个__sleep()</span><br><span class="hljs-comment">// 因为如果序列化前，存在__sleep()方法就会先调用__sleep()方法。</span><br><span class="hljs-meta">?&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>先注释掉 序列化的内容 看是否先调用了 __construct 方法  ，成功赋值呢 ？<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679391507893-f5936d3e-c448-4a96-9d7e-ea2105815e96.png#averageHue=%2321201f&clientId=ua4fb6d66-6128-4&from=paste&height=838&id=u54eefc46&name=image.png&originHeight=838&originWidth=914&originalType=binary&ratio=1&rotation=0&showTitle=false&size=85809&status=done&style=none&taskId=u99b3a12e-b337-489b-bea2-f46c635c835&title=&width=914" alt="image.png"><br>可以看出是成功调用了 __construct 方法，成功赋值了的<br>然后在加上 序列化 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679391575849-039abcbc-440b-40a9-a53c-6f25963bb854.png#averageHue=%2320201f&clientId=ua4fb6d66-6128-4&from=paste&height=850&id=u0e50318c&name=image.png&originHeight=850&originWidth=1237&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98300&status=done&style=none&taskId=uea1673ab-9253-4f37-8750-985a111cf2e&title=&width=1237" alt="image.png"><br> 看调用了 __sleep() <br>只返回了 username 和  nickname 的值</p>
+<p><a name="Txwt8"></a></p>
+<h2><span id="例题">例题</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679391777781-3ae97415-7b53-4780-ac11-77bcc39bfffd.png#averageHue=%23fefefe&clientId=ua4fb6d66-6128-4&from=paste&height=458&id=ub689db30&name=image.png&originHeight=458&originWidth=800&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10197&status=done&style=none&taskId=u813d95a2-8fd2-467c-bc16-0c970f88d5a&title=&width=800" alt="image.png"><br>很简单只需要传入一个值 ，?benben &#x3D; 需要执行的命令 <br>因为实例化的时候会去调用__construct 去赋值 <br>$cmd 等于你 要执行的命令 , 就等于 username &#x3D; $cmd   ;nickname&#x3D; b ; password &#x3D; c <br>但是在序列化之前会去调用 __sleep() 方法 然后会吧传入的$cmd 赋值给 username ，然后__sleep() 去调用 username   就执行了 system($cmd );<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679392433727-358742b3-17dd-49bf-8bf7-643736bf1334.png#averageHue=%23cacaca&clientId=ua4fb6d66-6128-4&from=paste&height=927&id=ub93cff78&name=image.png&originHeight=927&originWidth=1177&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47222&status=done&style=none&taskId=u8a53655a-577e-4b14-96b0-a1b6206e2e8&title=&width=1177" alt="image.png"><br>本地测试 ：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679392506353-95d99f8c-130e-4da9-9f20-22a9a3b3649d.png#averageHue=%23201f1f&clientId=ua4fb6d66-6128-4&from=paste&height=822&id=ue461969d&name=image.png&originHeight=822&originWidth=1147&originalType=binary&ratio=1&rotation=0&showTitle=false&size=75249&status=done&style=none&taskId=u222e3834-42a5-492b-a7f6-9d37981193f&title=&width=1147" alt="image.png"><br>没有序列化前之调用了__construct() 方法 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679392570702-eeb4ea44-ed32-44f3-9f60-bdffe9d3ab74.png#averageHue=%2320201f&clientId=ua4fb6d66-6128-4&from=paste&height=736&id=u0051b581&name=image.png&originHeight=736&originWidth=1017&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64561&status=done&style=none&taskId=uc8542f38-9c40-4b2a-a59f-f142307fa00&title=&width=1017" alt="image.png"><br>成功执行了 __sleep()方法</p>
+<p><a name="RsLzy"></a></p>
+<h1><span id="__wakeup">__wakeup()</span></h1><p>unserialize()会检查是否存在一个_wakeup()方法。<br>如果存在，则会先调用_wakeup()方法，预先准备对象需要的资源。预先准备对象资源，返回void，常用于反序列化操作中重新建立数据库连接或执行其他初始化操作。</p>
+<blockquote>
+<p>触发时机:反序列化unserialize()之前<br>功能:<br>参数:<br>返回值:</p>
+</blockquote>
+<p>___wakeup()在反序列化unserialize()之前<br>__destruct()在反序列化unserialize()之后</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">SITE</span> = <span class="hljs-string">&#x27;uusama&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$nickname</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$password</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$order</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable language_">$this</span>-&gt;username;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$user_ser</span> = <span class="hljs-string">&#x27;O:4:&quot;User&quot;:2:&#123;s:8:&quot;username&quot;;s:1:&quot;a&quot;;s:8:&quot;nickname&quot;;s:1:&quot;b&quot;;&#125;&#x27;</span>;  <br><span class="hljs-comment">//字符串里面并没有password </span><br><span class="hljs-comment">//但是还是输出了password </span><br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$user_ser</span>));<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<blockquote>
+<p>object(User)#1 (4) { [“username”]&#x3D;&gt; string(1) “a” [“nickname”]&#x3D;&gt; string(1) “b” [“password”:”User”:private]&#x3D;&gt; string(1) “a” [“order”:”User”:private]&#x3D;&gt; NULL }</p>
+</blockquote>
+<p>在反序列化之前触发了__wakeup  给 password赋值 </p>
+<p><a name="pD3Dp"></a></p>
+<h2><span id="例题">例题</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679402861452-ba2108ba-e181-4143-9ea4-b1fe3b91fd5c.png#averageHue=%23fefefe&clientId=u548d902d-18de-4&from=paste&height=296&id=u976ae4cc&name=image.png&originHeight=296&originWidth=599&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6107&status=done&style=none&taskId=u6e99964b-7878-4b92-8a9a-ee7aeb30149&title=&width=599" alt="image.png"><br>很简单 运行反序列化之前会去调用 __wakeup() 方法 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679403695573-0d5837ef-bfc6-4066-b4f9-fbca6b084b35.png#averageHue=%23797978&clientId=u548d902d-18de-4&from=paste&height=766&id=u2fad9ce8&name=image.png&originHeight=766&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54466&status=done&style=none&taskId=u9e448f4e-e78e-4856-8f91-646db970c72&title=&width=826" alt="image.png"><br>把其他几个都去掉只留一个 username 因为本来也就只需要这一个 </p>
+<blockquote>
+<p>O:4:”User”:1:{s:8:”username”;s:2:”id”;}</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679403763936-f252d4b9-2396-4816-a022-43be0c9c6422.png#averageHue=%23d6d6d6&clientId=u548d902d-18de-4&from=paste&height=881&id=u68dfff2d&name=image.png&originHeight=881&originWidth=1207&originalType=binary&ratio=1&rotation=0&showTitle=false&size=60901&status=done&style=none&taskId=uc8e84fdf-95f5-4644-905f-31235f5d395&title=&width=1207" alt="image.png"><br>成功执行id 命令 </p>
+<p><a name="lvQeI"></a></p>
+<h1><span id="__tostrings">__toStrings()</span></h1><p>表达方式错误误导魔术方法触发</p>
+<blockquote>
+<p>触发时机:把对象被当成字符串调用<br>功能:<br>参数:<br>返回值:</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679405447924-597038c8-252a-40b5-9984-43da335882b5.png#averageHue=%23232221&clientId=u548d902d-18de-4&from=paste&height=857&id=uff97c439&name=image.png&originHeight=857&originWidth=943&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87592&status=done&style=none&taskId=ua664f756-e43c-4c96-b0f6-85ec98a14a3&title=&width=943" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$benben</span> = <span class="hljs-string">&quot;this is test!!&quot;</span>;<br>         <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__toString</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">         </span>&#123;<br>             <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;格式不对，输出不了!&#x27;</span>;<br>          &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>() ;<br><span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$test</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br /&gt;&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$test</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>new 一个 user对象的时候 <br>print_r（$test） <br>是不会去调用 __toString方法的<br>但是去echo 的时候 就会去调用__toString方法 <br>输出了 格式不对 ，输出不了 </p>
+<p><a name="B8V7y"></a></p>
+<h1><span id="__invoke">__invoke()</span></h1><p>格式表达错误导致魔术方法触发</p>
+<blockquote>
+<p>触发时机:把对象当成函数调用<br>功能:<br>参数:<br>返回值:</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679406255449-6f2580f7-590f-4060-9e8b-0a098956215a.png#averageHue=%23252322&clientId=u548d902d-18de-4&from=paste&height=703&id=u6e068e03&name=image.png&originHeight=703&originWidth=740&originalType=binary&ratio=1&rotation=0&showTitle=false&size=74079&status=done&style=none&taskId=ue449cb7a-4a70-4f92-9693-924ff29b9d8&title=&width=740" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$benben</span> = <span class="hljs-string">&quot;this is test!!&quot;</span>;<br>         <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">         </span>&#123;<br>             <span class="hljs-keyword">echo</span>  <span class="hljs-string">&#x27;它不是个函数!&#x27;</span>;<br>          &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>() ;<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$test</span> -&gt;benben;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br /&gt;&quot;</span>;<br><span class="hljs-comment">//$test();   //这里就当成一个函数来执行了 </span><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>把类User实体化并赋值给$test为对象正常输出对象里的值benben<br>加()是把test当成函数test()来调用,此时触发invoke()</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679406389025-d90dada8-6d9a-4af4-9102-c5aeea5ad1e6.png#averageHue=%23696867&clientId=u548d902d-18de-4&from=paste&height=632&id=u87b3ef2d&name=image.png&originHeight=632&originWidth=627&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41289&status=done&style=none&taskId=u2b9ad85b-4733-4483-92bc-5f0cd63ab35&title=&width=627" alt="image.png"></p>
+<p><a name="TB6x5"></a></p>
+<h1><span id="错误调用相关魔术方法">错误调用相关魔术方法</span></h1><p><a name="Ib3Rc"></a></p>
+<h2><span id="__call">__call()</span></h2><blockquote>
+<p>触发时机:调用一个不存在的方法<br>功能:<br>参数:2个参数传参$arg1,$arg2<br>返回值:调用的不存在的方法的名称和参数</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679406864864-8269fddd-d1b4-457d-b4e1-2a579b3ad394.png#averageHue=%23c4aa67&clientId=u548d902d-18de-4&from=paste&height=457&id=ue85e6017&name=image.png&originHeight=457&originWidth=465&originalType=binary&ratio=1&rotation=0&showTitle=false&size=29834&status=done&style=none&taskId=u688e8a15-b4f4-4fd1-af78-44b21084753&title=&width=465" alt="image.png"></p>
+<blockquote>
+<p>调用的方法abc()不存在，触发魔术方法call()<br>触发call()，传参$arg1,$arg2 ( abc,b)<br>$arg1,调用的不存在的方法的名称;<br>$arg2,调用的不存在的方法的参数;</p>
+</blockquote>
+<p><a name="EUej1"></a></p>
+<h2><span id="__callstatic">__callStatic()</span></h2><blockquote>
+<p>触发时机:静态调用或调用成员常量时使用的方法不存在<br>功能:<br>参数:2个参数传参$arg1,$arg2<br>返回值:调用的不存在的方法的名称和参数</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__callStatic</span>(<span class="hljs-params"><span class="hljs-variable">$arg1</span>,<span class="hljs-variable">$arg2</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;<span class="hljs-subst">$arg1</span>,<span class="hljs-subst">$arg2</span>[0]&quot;</span>;<br>          &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>() ;<br><span class="hljs-variable">$test</span>::<span class="hljs-title function_ invoke__">callxxx</span>(<span class="hljs-string">&#x27;a&#x27;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679406997696-b1a07299-d26e-4d5e-9519-c99454d9c200.png#clientId=u548d902d-18de-4&from=paste&height=437&id=u2d624892&name=image.png&originHeight=437&originWidth=1082&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13154&status=done&style=none&taskId=uf19fc20b-62ba-408c-a80b-7ba55404ac3&title=&width=1082" alt="image.png"></p>
+<p>静态调用::时的方法callxxx()不存在<br>触发callStatic()，<br>传参$arg1,$arg2 (callxxx,a)</p>
+<p><a name="v6zhY"></a></p>
+<h2><span id="__get">__get()</span></h2><blockquote>
+<p>触发时机:调用的成员属性不存在<br>功能:<br>参数:传参$arg1<br>返回值:不存在的成员属性的名称</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$var1</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$arg1</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>  <span class="hljs-variable">$arg1</span>;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>() ;<br><span class="hljs-variable">$test</span> -&gt;var2;   <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>这里调用的var2 但是成员属性里面没有var2  ，只有var1 所以触发了 __get()方法<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679407357720-dfac71fa-1f56-4eff-b5b5-c5af9d7b67a4.png#averageHue=%23fefefe&clientId=u548d902d-18de-4&from=paste&height=389&id=u9b8743d1&name=image.png&originHeight=389&originWidth=677&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5962&status=done&style=none&taskId=ueeda731a-d055-4599-b87b-8d7eacc3069&title=&width=677" alt="image.png"><br>在尝试不触发 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679407590623-f96692c3-1a11-4501-87e7-975107610a74.png#clientId=u548d902d-18de-4&from=paste&height=577&id=ued95edb9&name=image.png&originHeight=577&originWidth=936&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51292&status=done&style=none&taskId=u24d68515-108f-4653-97b2-3471a669a32&title=&width=936" alt="image.png"><br>给 var1 赋值 <br>然后去调用 var1  <br>就会输出 没有触发，</p>
+<p><a name="tWVQq"></a></p>
+<h2><span id="__set">__set()</span></h2><blockquote>
+<p>触发时机:给不存在的成员属性赋值<br>功能:<br>参数:传参$arg1,$arg2<br>返回值:不存在的成员属性的名称和赋的值</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679407723241-e7803c66-670a-490c-8b85-46b5e8a97bdd.png#averageHue=%23222120&clientId=u548d902d-18de-4&from=paste&height=606&id=uc242463c&name=image.png&originHeight=606&originWidth=820&originalType=binary&ratio=1&rotation=0&showTitle=false&size=50895&status=done&style=none&taskId=uc164041b-d1fc-485d-8f77-a1ce200e083&title=&width=820" alt="image.png"><br>就会输出 var2 ,1<br>和__get 差不多的意思 ，<br>测试存在成员变量 会成功赋值并输出<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679407777766-ec7f2286-9d2b-442f-a340-5f8ec622dd77.png#averageHue=%23252322&clientId=u548d902d-18de-4&from=paste&height=690&id=ub204a266&name=image.png&originHeight=690&originWidth=733&originalType=binary&ratio=1&rotation=0&showTitle=false&size=70410&status=done&style=none&taskId=u4c5255e5-b419-499f-b5d6-a8e1676c8f7&title=&width=733" alt="image.png"></p>
+<p><a name="B75Il"></a></p>
+<h2><span id="__isset">__isset()</span></h2><blockquote>
+<p>触发时机:对不可访问属性使用isset()或empty()时，_isset()会被调用。<br>功能:<br>参数:传参$arg1<br>返回值:不存在的成员属性的名称</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$var</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__isset</span>(<span class="hljs-params"><span class="hljs-variable">$arg1</span> </span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>  <span class="hljs-variable">$arg1</span>;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>() ;<br><span class="hljs-keyword">isset</span>(<span class="hljs-variable">$test</span>-&gt;<span class="hljs-keyword">var</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>isset()调用的成员属性var不可访问或不存在<br>这里是存在的 ，但是变量是不可访问的 所以还是会返回他的var  参数值<br>触发 __isset() <br>返回$arg1 不存在成员属性的名称</p>
+<p><a name="Hvcdy"></a></p>
+<h2><span id="__unset">__unset()</span></h2><blockquote>
+<p>触发时机:对不可访问属性使用unset()时<br>功能:<br>参数:传参$arg1<br>返回值:不存在的成员属性的名称</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$var</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__unset</span>(<span class="hljs-params"><span class="hljs-variable">$arg1</span> </span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>  <span class="hljs-variable">$arg1</span>;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>() ;<br><span class="hljs-keyword">unset</span>(<span class="hljs-variable">$test</span>-&gt;<span class="hljs-keyword">var</span>);<br><span class="hljs-meta">?&gt;</span><br><br><span class="hljs-keyword">var</span><br></code></pre></td></tr></table></figure>
+<p>和 __isset差不多的</p>
+<p>使用的时候是unset 去调用 的时候不存在 或不可访问 就会触发 unset()</p>
+<p><a name="eNHkf"></a></p>
+<h2><span id="__clone">__clone()</span></h2><blockquote>
+<p>触发时机:当使用clone关键字拷贝完成一个对象后，新对象会自动调用定义的魔术方法_clone()<br>功能:<br>参数:<br>返回值:</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$var</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__clone</span>(<span class="hljs-params"> </span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>  <span class="hljs-string">&quot;__clone test&quot;</span>;<br>          &#125;<br>&#125;<br><span class="hljs-variable">$test</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>() ;<br><span class="hljs-variable">$newclass</span> = <span class="hljs-keyword">clone</span>(<span class="hljs-variable">$test</span>)<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>使用clone()克隆对象完成后，触发魔术方法_clone()<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679408544711-7711424b-c3d5-4967-866c-28058ee9c11d.png#averageHue=%23c3a765&clientId=u548d902d-18de-4&from=paste&height=558&id=u5f747a15&name=image.png&originHeight=558&originWidth=433&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30869&status=done&style=none&taskId=ue01cc45e-84b1-4d02-a404-2f97fb493ea&title=&width=433" alt="image.png"><br>—————————————————————————————————————–<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679408566162-163cf76c-1d95-4bb4-a6c7-7112c6ee7f9a.png#averageHue=%23f4eae7&clientId=u548d902d-18de-4&from=paste&height=535&id=u42b0172b&name=image.png&originHeight=535&originWidth=1129&originalType=binary&ratio=1&rotation=0&showTitle=false&size=342030&status=done&style=none&taskId=u509c79bc-d109-4f8a-b449-20259ffab56&title=&width=1129" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679408625416-6126fb5f-ae64-47b4-9870-0b54aecbbaa0.png#averageHue=%23f6f3ef&clientId=u548d902d-18de-4&from=paste&height=476&id=u41aa1493&name=image.png&originHeight=476&originWidth=1102&originalType=binary&ratio=1&rotation=0&showTitle=false&size=356351&status=done&style=none&taskId=uef736c15-4e4f-4a2a-9845-d19b794dfae&title=&width=1102" alt="image.png"><br>——————————————————————————————————————-</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/22/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8%E5%9F%BA%E7%A1%80/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>5-字符串逃逸</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/21/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      3-序列化与反序列化
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Challenge-21-25 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Challenge-21-25</div>
+        <div class="post-info">
+          
+  <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="post-tag">#PHP代码审计</a>
+
+
+          <span class="post-date">2023-03-24</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Twenty-one</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Twenty-two</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Twenty-three</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Twenty-four</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Twenty-five</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+
+<p><a name="qbXIz"></a></p>
+<h1><span id="twenty-one">Twenty-one</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679571197334-eff91bf7-1aa6-4e33-979e-0a5c9aca8fef.png#averageHue=%23fefdfd&clientId=u3668e4ba-acc6-4&from=paste&height=598&id=u49907114&name=image.png&originHeight=598&originWidth=843&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13059&status=done&style=none&taskId=uc54cbabe-f916-4a1f-9f57-dc7e9b9a4c9&title=&width=843" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> &gt;= <span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^[[:graph:]]&#123;12,&#125;$/&#x27;</span>, <span class="hljs-variable">$password</span>))<br>&#123;<br>  <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Wrong Format&#x27;</span>;<br>  <span class="hljs-keyword">exit</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>正则匹配 </p>
+<blockquote>
+<p>[:graph:]：是除空格符(空格键与[TAB]键)之外的所有按<br>^ ：匹配你要用来查找的字符串的开头<br>$：匹配结尾<br>{12,} :匹配重复12次或多次–&gt;长度大于12</p>
+</blockquote>
+<p>所以可见字符超过12个</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$reg</span> = <span class="hljs-string">&#x27;/([[:punct:]]+|[[:digit:]]+|[[:upper:]]+|[[:lower:]]+)/&#x27;</span>;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-number">6</span> &gt; <span class="hljs-title function_ invoke__">preg_match_all</span>(<span class="hljs-variable">$reg</span>, <span class="hljs-variable">$password</span>, <span class="hljs-variable">$arr</span>))<br>        <span class="hljs-keyword">break</span>;<br></code></pre></td></tr></table></figure>
+<p>字符串中，把连续的符合，数字，大写，小写作为一段，<br>至少分六段，例如a12SD+io8可以分成a 12 SD + io 8六段</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$ps</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;punct&#x27;</span>, <span class="hljs-string">&#x27;digit&#x27;</span>, <span class="hljs-string">&#x27;upper&#x27;</span>, <span class="hljs-string">&#x27;lower&#x27;</span>);<br>        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$ps</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$pt</span>)<br>        &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/[[:<span class="hljs-subst">$pt</span>:]]+/&quot;</span>, <span class="hljs-variable">$password</span>))<br>            <span class="hljs-variable">$c</span> += <span class="hljs-number">1</span>;<br>        &#125;<br></code></pre></td></tr></table></figure>
+<p>$ps &#x3D; 数组&#x2F;&#x2F;[[:punct:]] 任何标点符号 [[:digit:]] 任何数字 [[:upper:]] 任何大写字母 [[:lower:]] 任何小写字母<br>进行匹配 ，如果password 匹配到了 就进行  +1 操作 赋给$c </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (<span class="hljs-variable">$c</span> &lt; <span class="hljs-number">3</span>) <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;42&quot;</span> == <span class="hljs-variable">$password</span>) <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br></code></pre></td></tr></table></figure>
+<p>在匹配次数里面 $c 要大于3 <br>大写，小写，数字，符号这四种类型至少要出现三种<br>但是最后$password 还要等于 42  就有点困难了<br>42 转换 <br>转换成16进制 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679573273495-163aa90f-7d5f-4015-b037-2a80d7d8872f.png#averageHue=%23131313&clientId=u30ad62f3-67dd-4&from=paste&height=51&id=u18f0f5bf&name=image.png&originHeight=51&originWidth=273&originalType=binary&ratio=1&rotation=0&showTitle=false&size=2070&status=done&style=none&taskId=u88d85f23-9898-4da9-9cd6-d35476fa974&title=&width=273" alt="image.png"><br>已经符合了正则3  这里的a 可以写成大写  x是小写<br>让它符合正则1也很容易，在前面补0就可以<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679573354802-ccb3abe5-86ed-4cfe-ad4d-36353a9ce36c.png#averageHue=%231c1c1c&clientId=u30ad62f3-67dd-4&from=paste&height=160&id=u0c14053b&name=image.png&originHeight=160&originWidth=360&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7076&status=done&style=none&taskId=u8176f250-b818-40b2-bf44-05ea1a34b7d&title=&width=360" alt="image.png"><br>但是还没有满足正则二的条件 差符合 <br>可以使用科学计数法<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679573871090-3a980f90-370d-48f3-8d09-8358f758bf49.png#averageHue=%23131313&clientId=u30ad62f3-67dd-4&from=paste&height=237&id=uf87c3bec&name=image.png&originHeight=237&originWidth=545&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14009&status=done&style=none&taskId=u8786030d-5b65-4d6d-9b86-203728de940&title=&width=545" alt="image.png"><br>但是感觉输入进去只有 <br>420.000000000000e-1<br>这样才成功 ，因为.点会破坏判断相等时进行的转换 <br>所以有- 才满足正则二<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679573991396-fdba84b7-08df-4232-8632-547c218c1457.png#averageHue=%23bdbdbd&clientId=u30ad62f3-67dd-4&from=paste&height=984&id=u047f8433&name=image.png&originHeight=984&originWidth=762&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38900&status=done&style=none&taskId=ub204b264-36ba-4d71-a294-493f2b06b1e&title=&width=762" alt="image.png"></p>
+<p><a name="rhDE2"></a></p>
+<h1><span id="twenty-two">Twenty-two</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679575932464-588cbae8-37d0-446c-9bf5-cb871884eede.png#averageHue=%23fbfbfa&clientId=u6400961d-d5df-4&from=paste&height=165&id=u350b84f3&name=image.png&originHeight=165&originWidth=506&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6034&status=done&style=none&taskId=u6aba2a35-c2d3-48f8-a4d2-c25b820f64e&title=&width=506" alt="image.png"><br>找到一个MD5等于自己的字符串<br>源代码：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679575976612-1dd530ec-218d-48e0-b270-2c1e71fb13f7.png#averageHue=%23fdfdfd&clientId=u6400961d-d5df-4&from=paste&height=533&id=u0caaddde&name=image.png&originHeight=533&originWidth=907&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11053&status=done&style=none&taskId=uc455a913-dfad-43ed-a425-4524a374052&title=&width=907" alt="image.png"><br>md5加密后两者还是相等，php弱类型比较，php若比较会截取字符串的数字，直到遇到字符才会停止，比如‘12x34’会被读取为12，而‘ee123’就会被读取为0。而在以0x开头的字符串进行弱比较的时候，就总是被认为是相同的。在这里我们就需要找到一个是0x开头并且md5加密后还是0x开头的字符串</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679576103122-8b543d94-4988-4764-bdb2-b672018c3b2c.png#averageHue=%23c6c6c6&clientId=u6400961d-d5df-4&from=paste&height=935&id=u164a3644&name=image.png&originHeight=935&originWidth=1062&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43472&status=done&style=none&taskId=u31927a13-51bb-44c2-af27-14b49d9b691&title=&width=1062" alt="image.png"><br><a name="rq4Ad"></a></p>
+<h1><span id="twenty-three">Twenty-three</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679623655325-221fe596-b167-41eb-a4d0-f1926e5f04b5.png#averageHue=%23fefefe&clientId=u9278ec40-3e50-4&from=paste&height=752&id=udd517a5a&name=image.png&originHeight=752&originWidth=1243&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69745&status=done&style=none&taskId=u66554d1c-cef1-4769-8d1d-6044981c062&title=&width=1243" alt="image.png"><br>大概意思是传入 key1 key2 <br>key1 的数据要&#x3D;&#x3D;&#x3D; Hello hacker! <br>key2 输入的数据md5 要大于 666666&gt;666666<br>key3 要等于 666,但是有 intval函数 默认转成10进制<br>key4 如果大于0  ，k3 + k4 要小于 666<br>看着逻辑不是很难<br>一步步来</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(@<span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$k1</span>)===<span class="hljs-string">&quot;Hello hacker!&quot;</span>)&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;welcome! Hacker!&lt;br&gt;&#x27;</span>;<br><br></code></pre></td></tr></table></figure>
+<p>k1 要强等于 Hello hacker!<br>一开始想到用php:&#x2F;&#x2F;input 去写 但是发现没有用 ，php:&#x2F;&#x2F;input 是要传post 数据的 （放弃）<br>又想到数据流 data 可以写入数据 ，<br><code>data://text/plain,base64,....</code><br><code>key1=data://test/plain;base64,SGVsbG8gaGFja2VyIQ==</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679624259090-4d7fc581-e9a4-4679-8cdb-e9d836f5b908.png#averageHue=%23a0a09f&clientId=u92d3cd7e-f100-4&from=paste&height=366&id=ud0c20e1c&name=image.png&originHeight=366&originWidth=1141&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33379&status=done&style=none&taskId=ueb4e1445-429d-4d14-b366-01c63d2a629&title=&width=1141" alt="image.png"><br>绕过第一步 key1 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$k2</span>)&gt;<span class="hljs-number">666666</span>*<span class="hljs-number">666666</span>)<br></code></pre></td></tr></table></figure>
+<p>传入key2 的md5 值要大于 他们相乘的值<br>使用作者的值 ：1518375<br>他的md5 值全是数字<br>93240121540327474319550261818423<br>然后也可以使用弱类型<br>字符串为： skwerl11 <br>MD5值为 ：1e21ff98693770b768e4a1a4a704811b<br>1e 是科学计数法 ，然后后面的字符会当成数字来比较，直到没有数字为止<br>然后就是ke3了 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-variable">$k3</span>)&lt;<span class="hljs-number">666</span>)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(<span class="hljs-variable">$k3</span>==<span class="hljs-number">666</span>)<br>                &#123;<br>                    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Come on, flag is coming&lt;br&gt;&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>k3 小于666 又要等于 666 <br>采用 16进制 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679625840950-05385e58-a227-4168-981d-d42371cf4e53.png#averageHue=%231c1c1c&clientId=u92d3cd7e-f100-4&from=paste&height=68&id=u1b1e98ed&name=image.png&originHeight=68&originWidth=227&originalType=binary&ratio=1&rotation=0&showTitle=false&size=3693&status=done&style=none&taskId=ub2a738f8-d2cc-4f17-baa7-48bfd2ce280&title=&width=227" alt="image.png"><br>成功绕过 <img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679625848226-0d465514-47fc-4248-9a73-e2c23863598e.png#averageHue=%23959494&clientId=u92d3cd7e-f100-4&from=paste&height=348&id=u06aa1eb9&name=image.png&originHeight=348&originWidth=1238&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45296&status=done&style=none&taskId=u98d47ee0-2118-4930-b236-215532a35e4&title=&width=1238" alt="image.png"><br>来到 key4 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-variable">$k4</span>&gt;<span class="hljs-number">0</span>)<br>                    &#123;<br>                        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-variable">$k3</span>+<span class="hljs-variable">$k4</span>)&lt;<span class="hljs-number">666</span>)<br>                            <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>                    &#125;<br></code></pre></td></tr></table></figure>
+<p>小于 0  然后 相加还要小于 666 <br>。。。。。<br>看了wp ，才了解到intval的表达范围是有限制的，取决于操作系统<br>可以使用溢出，<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679626130442-01a2c743-f07d-48dd-afbc-086fe6346192.png#averageHue=%23f8f7f7&clientId=u92d3cd7e-f100-4&from=paste&height=937&id=u30e5b659&name=image.png&originHeight=937&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=95971&status=done&style=none&taskId=ub391adac-c51a-495c-9925-1884f93f50a&title=&width=826" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679626500066-3c215382-5fff-4cbb-9427-2860bd9dee30.png#averageHue=%23222120&clientId=u92d3cd7e-f100-4&from=paste&height=399&id=u4394ba0b&name=image.png&originHeight=399&originWidth=717&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30751&status=done&style=none&taskId=u7ccdd696-7c0c-4f87-a975-4be44da4c51&title=&width=717" alt="image.png"><br>使用这个去绕过<br>999999999999999999999999999999999999999999999999996666<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679626531923-105f8f4f-7b0f-4717-b504-dcda51c6e8a4.png#averageHue=%239f9e9e&clientId=u92d3cd7e-f100-4&from=paste&height=435&id=u7cad9681&name=image.png&originHeight=435&originWidth=1353&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54942&status=done&style=none&taskId=uedf97c1b-edb5-4d39-b160-914fbe3e7bc&title=&width=1353" alt="image.png"><br>完整的payload ：<br><code>key1=data://test/plain;base64,SGVsbG8gaGFja2VyIQ==&amp;key2=skwerl11&amp;key3=0x29a&amp;key4=999999999999999999999999999999999999999999999999996666</code><br><a name="lSDao"></a></p>
+<h1><span id="twenty-four">Twenty-four</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679628237884-2b7212a3-605c-4bcf-ba95-960420e0b779.png#averageHue=%23fefefd&clientId=u7a3e48b8-c19b-4&from=paste&height=745&id=u6a645e84&name=image.png&originHeight=745&originWidth=963&originalType=binary&ratio=1&rotation=0&showTitle=false&size=102968&status=done&style=none&taskId=ub0f26f5e-638f-45f7-83f5-ce604a395a4&title=&width=963" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$a</span>=(<span class="hljs-keyword">array</span>)<span class="hljs-title function_ invoke__">json_decode</span>(@<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;foo&#x27;</span>]);<br></code></pre></td></tr></table></figure>
+<p>传入 foo 参数json格式的 数组</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">is_array</span>(<span class="hljs-variable">$a</span>))&#123;<br>   <span class="hljs-title function_ invoke__">is_numeric</span>(@<span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;bar1&quot;</span>])?<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope&quot;</span>):<span class="hljs-literal">NULL</span>;<br>   <span class="hljs-keyword">if</span>(@<span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;bar1&quot;</span>])&#123;<br>       (<span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;bar1&quot;</span>]&gt;<span class="hljs-number">2016</span>)?<span class="hljs-variable">$v1</span>=<span class="hljs-number">1</span>:<span class="hljs-literal">NULL</span>;<br>   &#125;<br></code></pre></td></tr></table></figure>
+<p>判断 $a[“bar1”] 是否满足 is_numeric，若满足则die掉。接下来又判断 $a[“bar1”] 是否大于 2016 。<br>使用弱类型绕过 <br>bar1&#x3D;2017a<br>这样is_numeric时会判断其为字符串而不是数字，而在与2016的比较中，会直接转换成2017，满足大于2016。这样 v1 就被设置为 1 了。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">is_array</span>(@<span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;bar2&quot;</span>]))&#123;<br>       <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;bar2&quot;</span>])!==<span class="hljs-number">5</span> OR !<span class="hljs-title function_ invoke__">is_array</span>(<span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;bar2&quot;</span>][<span class="hljs-number">0</span>])) <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope&quot;</span>);<br>       <span class="hljs-variable">$pos</span> = <span class="hljs-title function_ invoke__">array_search</span>(<span class="hljs-string">&quot;nudt&quot;</span>, <span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;a2&quot;</span>]);<br>       <span class="hljs-variable">$pos</span>===<span class="hljs-literal">false</span>?<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope&quot;</span>):<span class="hljs-literal">NULL</span>;<br>       <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$a</span>[<span class="hljs-string">&quot;bar2&quot;</span>] <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span>=&gt;<span class="hljs-variable">$val</span>)&#123;<br>           <span class="hljs-variable">$val</span>===<span class="hljs-string">&quot;nudt&quot;</span>?<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope&quot;</span>):<span class="hljs-literal">NULL</span>;<br>       &#125;<br>       <span class="hljs-variable">$v2</span>=<span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>要求<code>$a[&quot;bar2&quot;]</code>是个数组，其中元素的个数为5个<code>（count($a[&quot;bar2&quot;])!==5）</code>，<br>同时要求<code>$a[&quot;bar2&quot;][0]</code>是数组。所以我们设置:<code>$a[&quot;bar2&quot;] = [[],2,3,4,5]</code><br>对于 <code>$pos = array_search(&quot;nudt&quot;, $a[&quot;a2&quot;]);</code>，它搜索字符串<code>“nudt”</code>在<code>$a[&quot;a2&quot;]</code>中的位置。若没有找到，<code>array_search</code>返回<code>false</code>，会通过严格比较导致die掉。所以这里要设置<code>$a[&quot;a2&quot;] = “nudt”</code><br>注意这里因为用了<code>$pos===false?</code>的严格比较，所以0不<code>===false</code>。<br>之后就能设置 <code>v2 = 1</code><br>结合<code>$a</code>是由<code>json_decode</code>得来，所以第一个payload为：</p>
+</blockquote>
+<blockquote>
+<p><code>foo=&#123;&quot;bar1&quot;:&quot;2017a&quot;,&quot;bar2&quot;:[[],2,3,4,5],&quot;a2&quot;:[&quot;nudt&quot;]&#125;</code></p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$c</span>=@<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cat&#x27;</span>];<br><span class="hljs-variable">$d</span>=@<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;dog&#x27;</span>];<br><span class="hljs-keyword">if</span>(@<span class="hljs-variable">$c</span>[<span class="hljs-number">1</span>])&#123;<br>   <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">strcmp</span>(<span class="hljs-variable">$c</span>[<span class="hljs-number">1</span>],<span class="hljs-variable">$d</span>) &amp;&amp; <span class="hljs-variable">$c</span>[<span class="hljs-number">1</span>]!==<span class="hljs-variable">$d</span>)&#123;<br>       <span class="hljs-title function_ invoke__">eregi</span>(<span class="hljs-string">&quot;3|1|c&quot;</span>,<span class="hljs-variable">$d</span>.<span class="hljs-variable">$c</span>[<span class="hljs-number">0</span>])?<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nope&quot;</span>):<span class="hljs-literal">NULL</span>;<br>       <span class="hljs-title function_ invoke__">strpos</span>((<span class="hljs-variable">$c</span>[<span class="hljs-number">0</span>].<span class="hljs-variable">$d</span>), <span class="hljs-string">&quot;htctf2016&quot;</span>)?<span class="hljs-variable">$v3</span>=<span class="hljs-number">1</span>:<span class="hljs-literal">NULL</span>;<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>先会用<code>strcmp</code>进行比较，利用数组array和字符串进行strcmp比较会返回null，而且数组array也不会等于字符串，我们可以设置<code>cat[1]</code>为一个数组。</p>
+<p>接下来用<code>eregi</code>对拼接后的字符串<code>$d.$c[0]</code>进行正则匹配，若匹配到则die掉。而下一步又要求拼接字符串<code>$c[0]</code>.<code>$d</code>中要有字符串<code>“htctf2016”</code>。这里利用<code>%00</code>对<code>eregi</code>的截断功能，则在正则匹配<code>eregi</code>时在开头时就匹配结束掉。<br><code>strpos(($c[0].$d), &quot;htctf2016&quot;)</code>中，还要求<code>“htctf2016”</code>不能出现在开头。</p>
+<p>payload:<br><code>?foo=&#123;&quot;bar1&quot;:&quot;2017e&quot;,&quot;bar2&quot;:[[],2,3,4,5],&quot;a2&quot;:[&quot;nudt&quot;]&#125;&amp;cat[0]=ahtctf2016&amp;cat[1][]=&amp;dog=%00</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679629696415-9dd54324-93d6-48c2-bef8-f265b32a2294.png#averageHue=%23848483&clientId=u7a3e48b8-c19b-4&from=paste&height=366&id=u5ad87c92&name=image.png&originHeight=366&originWidth=1345&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42628&status=done&style=none&taskId=ud4bca00d-f89a-4558-8e5c-f3ce136fce8&title=&width=1345" alt="image.png"><br><a name="zbHyq"></a></p>
+<h1><span id="twenty-five">Twenty-five</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679642197346-185ec2ce-7375-467e-90f7-6053cc6550bb.png#averageHue=%23fefefe&clientId=uc4695034-3756-4&from=paste&height=730&id=ucc92f76b&name=image.png&originHeight=730&originWidth=1126&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82517&status=done&style=none&taskId=u106866dc-1625-4124-8d6a-661ff4b9dc7&title=&width=1126" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$key</span>, <span class="hljs-string">&quot;do_you_want_flag&quot;</span>) !== <span class="hljs-literal">false</span> || <span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$value</span>, <span class="hljs-string">&quot;yes&quot;</span>) !== <span class="hljs-literal">false</span>)&#123;<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;no hack&quot;</span>);<br>        &#125;<br></code></pre></td></tr></table></figure>
+<p>这里不能使用 do_you_want_flag  <br>然后这里和题目又很矛盾。。。。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679642331635-67f5099a-a756-4f3f-9c37-4edbd42530eb.png#averageHue=%23e2e2e2&clientId=uc4695034-3756-4&from=paste&height=1052&id=u00f2977c&name=image.png&originHeight=1052&originWidth=965&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32205&status=done&style=none&taskId=ub26653e8-4b21-4db5-bd38-91f44c3ee29&title=&width=965" alt="image.png"></p>
+<p>查看师傅的wp  知道</p>
+<blockquote>
+<p>在函数parse_url内部，如果url是以&#x2F;&#x2F;开始，就认为它是相对url<br>而后认为url的部件从url+2开始。若p-s &lt; 1也就是如果url为&#x2F;&#x2F;&#x2F;x.php，则p &#x3D; e &#x3D; s &#x3D; s + 2，函数将返回 NULL。<br>再看PHP_FUNCTION,line 351：<br>存在版本 :存在于php5.4.7以前</p>
+</blockquote>
+<p>我这里和wp 又不太一样 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679642640086-cea22f34-b0d5-4d16-bf1e-3e663c9936e6.png#averageHue=%23e3e3e3&clientId=uc4695034-3756-4&from=paste&height=1053&id=uba98573b&name=image.png&originHeight=1053&originWidth=913&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34488&status=done&style=none&taskId=u8f983c37-ec2e-4c93-a8e5-a9d4aca8299&title=&width=913" alt="image.png"><br></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/26/EvilBox---One/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>EvilBox---One</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/23/Challenge-11-20/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Challenge-11-20
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="post-tag">#PHP代码审计</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

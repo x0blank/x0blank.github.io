@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Challenge-1-10 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Challenge-1-10</div>
+        <div class="post-info">
+          
+  <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="post-tag">#PHP代码审计</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">One</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Two</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Three</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Four</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Five</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Six</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Seven</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Eight</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Nine</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Ten</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="CCLUh"></a></p>
+<h1><span id="one">One</span></h1><p>使用docker 拉取环境 <br><code>docker-compose.exe  -f .\docker-compose.yml  up -d</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760302558-5b0cffcb-1350-4349-9c1f-cb36aa8019db.png#averageHue=%230d0d0d&clientId=ub70d79ea-7321-4&from=paste&height=415&id=u42f9e2f9&name=image.png&originHeight=415&originWidth=1110&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71324&status=done&style=none&taskId=u9f6a186e-5a61-4f55-ba34-5b576466954&title=&width=1110" alt="image.png"><br>进行访问 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760326761-1ff38625-fd85-4039-9b83-79cfacf920d0.png#averageHue=%23fdfdfd&clientId=ub70d79ea-7321-4&from=paste&height=284&id=ud0cc8055&name=image.png&originHeight=284&originWidth=999&originalType=binary&ratio=1&rotation=0&showTitle=false&size=8984&status=done&style=none&taskId=u2123f485-b304-4b89-997d-03c4781bbec&title=&width=999" alt="image.png"><br>首先看到从上而下看到一个 base64 编码的数据 <br> 然后就是 引入lib.php<br>然后就是输出一个 编码过的flag <br>对第一行的base64 编码进行解密操作 ，进行反向解密操作<br>对每一个函数进行解释<br>:::info<br>base64-encode()   进行base64加密 <br>hex2bin  16进行转换为 ASCII 码  <br>strrev  进行反转 <br>bin2hex  ASCII 码转为 16 进制<br>:::<br>  编写PHP 脚本 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760683675-10904dc0-4fb6-432f-812f-06ee46fddacc.png#averageHue=%23201f1e&clientId=ub70d79ea-7321-4&from=paste&height=270&id=u04dded9b&name=image.png&originHeight=270&originWidth=591&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12625&status=done&style=none&taskId=u5810407f-f723-4d54-a788-a1e2b000777&title=&width=591" alt="image.png"><br>对其进行反转操作就可以了  我们最终的数据是ASCII码 不是 16 进行 所以这里不要按照直的顺序进行编码<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760746533-b6be0816-ddf2-4223-9aaa-51685bd4324c.png#averageHue=%23fbfbfa&clientId=ub70d79ea-7321-4&from=paste&height=102&id=u157b2820&name=image.png&originHeight=102&originWidth=636&originalType=binary&ratio=1&rotation=0&showTitle=false&size=3748&status=done&style=none&taskId=u120d4f67-b429-4c98-bb26-bc172165186&title=&width=636" alt="image.png"><br>得到flag <br>如果按照纯顺序来做会报错<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760841724-446ce8b6-e2b4-4905-839a-da2f5b0de8cf.png#averageHue=%23a59d95&clientId=ub70d79ea-7321-4&from=paste&height=379&id=uc245f098&name=image.png&originHeight=379&originWidth=2122&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82212&status=done&style=none&taskId=u68b0c525-231b-44ed-bc0e-92decabf2e6&title=&width=2122" alt="image.png"></p>
+<p><a name="eQjdd"></a></p>
+<h1><span id="two">Two</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678761772697-ca166db8-f1db-4be7-95c0-7444df90e135.png#averageHue=%23fefdfd&clientId=u3dfafe24-b61b-4&from=paste&height=314&id=ud24a3905&name=image.png&originHeight=314&originWidth=794&originalType=binary&ratio=1&rotation=0&showTitle=false&size=8285&status=done&style=none&taskId=u0f9ab3e5-03a7-4ff9-a498-6d55e9bbcd5&title=&width=794" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span>.<span class="hljs-string">&#x27;/lib.php&#x27;</span>;<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;time&#x27;</span>]))&#123;<br>    <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">is_numeric</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;time&#x27;</span>]))&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;The time must be number.&#x27;</span>;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;time&#x27;</span>] &lt; <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">30</span> * <span class="hljs-number">2</span>)&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;This time is too short.&#x27;</span>;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;time&#x27;</span>] &gt; <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">30</span> * <span class="hljs-number">3</span>)&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;This time is too long.&#x27;</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-title function_ invoke__">sleep</span>((<span class="hljs-keyword">int</span>)<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;time&#x27;</span>]);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>    &#125;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;hr&gt;&#x27;</span>;<br>&#125;<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br></code></pre></td></tr></table></figure>
+<p> <br>参数 time <br>第一个if  不能为数字 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678763270266-bc0c1daa-3980-40e1-9b48-f0abd50bac63.png#averageHue=%23c3c2c2&clientId=u3dfafe24-b61b-4&from=paste&height=583&id=ue8c0ec95&name=image.png&originHeight=583&originWidth=658&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31839&status=done&style=none&taskId=u6a5940cd-bd06-44da-8420-8f9a54e3f7e&title=&width=658" alt="image.png"><br>第二个判断<br>必须大于<br>&gt;&gt;&gt; 60<em>60</em>24<em>30</em>2<br>5184000<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678763476919-f3dc39cd-9f22-407f-a710-42f6078a8b2f.png#averageHue=%23cecdcd&clientId=u3dfafe24-b61b-4&from=paste&height=554&id=u1ce64466&name=image.png&originHeight=554&originWidth=863&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33216&status=done&style=none&taskId=uab549c1d-bc43-4a10-b274-96563c3ba5f&title=&width=863" alt="image.png"><br>第三个判断  必须小于 <br>&gt;&gt;&gt; 60<em>60</em>24<em>30</em>3<br>7776000<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678763507442-d56a88b6-6844-4db0-9e1d-823e656d1f9a.png#averageHue=%23c7c6c6&clientId=u3dfafe24-b61b-4&from=paste&height=573&id=u49160198&name=image.png&originHeight=573&originWidth=800&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33211&status=done&style=none&taskId=u6a44979b-210f-4156-8fc0-076638748d6&title=&width=800" alt="image.png"><br>第四个判断  <br>sleep(int())<br>必须要在 5184000 和 7776000 之间<br>然后这里又是sleep 函数  必须是整数 <br>在中间的值取个整数 6000000 <br>但是这样的话他会执行 6000000秒 这不行 <br>这里可以使用科学计数法 <br>6e6<br>———————————————————————————————————–<br>1、当一个字符串被当作一个数值来取值，其结果和类型如下:如果该字符串没有包含’.’,’e’,’E’并且其数值值在整形的范围之内，该字符串被当作int来取值。其他所有情况下都被作为float来取值，该字符串的开始部分决定了它的值，如果该字符串以合法的数值开始，则使用该数值，否则其值为0。<br>2、在进行比较运算时，如果遇到了0e这类字符串，PHP会将它解析为科学计数法。(也就是说只靠最前面的进行判断)<br>3、在进行比较运算时，如果遇到了0x这类字符串，PHP会将它解析为十六进制。</p>
+<p><a name="EOr22"></a></p>
+<h1><span id="three">Three</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678847880531-6aa8f4ea-ae5a-416d-b149-9c7119d4cf72.png#averageHue=%23141414&clientId=u9bca5384-c77c-4&from=paste&height=538&id=u4020bcf8&name=image.png&originHeight=538&originWidth=1171&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15224&status=done&style=none&taskId=uce8db277-58c4-4b5c-910f-3cfdb6b6a35&title=&width=1171" alt="image.png"><br>三个传参值 id  a  b <br>前两个好绕过 </p>
+<blockquote>
+<p>and $id&#x3D;&#x3D;0 </p>
+</blockquote>
+<p>利用php弱类型比较，数字与字符串等值比较时，字符串取开头的有效数字，无则为0，结合id不为0或null,id可取值开头不带有效数字的字符串，$id&#x3D;a0<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678848250762-3d5a1508-7618-4f45-8801-f0bf19a2d936.png#averageHue=%23ede6e5&clientId=u9bca5384-c77c-4&from=paste&height=20&id=ufa1a5ca4&name=image.png&originHeight=20&originWidth=173&originalType=binary&ratio=1&rotation=0&showTitle=false&size=2151&status=done&style=none&taskId=uf10d30b7-c97c-4ad9-a1e3-63b2ea5e7c5&title=&width=173" alt="image.png"></p>
+<p>绕过 a  </p>
+<blockquote>
+<p>if(stripos($a,’.’))  </p>
+</blockquote>
+<p>$a要么没有. 要么.在字符串的第一位</p>
+<blockquote>
+<p>$data &#x3D; @file_get_contents($a,’r’); if($data&#x3D;&#x3D;”1112 is a nice lab!”  </p>
+</blockquote>
+<p>data 可以使用php伪协议  php:&#x2F;&#x2F;input <br>当$a&#x3D;php:&#x2F;&#x2F;input，即file_get_contents(‘php:&#x2F;&#x2F;input’,’r’)时<br>$data取请求原始数据流，即post的内容，$a&#x3D;php:&#x2F;&#x2F;input<br>$data取post的数据，post 1112 is a nice lab! 即可<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678848482669-641eb268-26df-4838-836d-cba74ececb66.png#averageHue=%23f4f3f3&clientId=u9bca5384-c77c-4&from=paste&height=223&id=ub660d135&name=image.png&originHeight=223&originWidth=255&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17154&status=done&style=none&taskId=ue9dce7aa-1711-46e7-bb23-5d15e0f1912&title=&width=255" alt="image.png"><br>绕过 b </p>
+<blockquote>
+<p>eregi(“111”.substr($b,0,1),”1114”) and substr($b,0,1)!&#x3D;4</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678848554863-31858387-1bed-40fb-97db-ac94e551a654.png#averageHue=%23fefcfb&clientId=u9bca5384-c77c-4&from=paste&height=167&id=u9ac4c1c6&name=image.png&originHeight=167&originWidth=730&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17756&status=done&style=none&taskId=u75666ab1-2ede-4cef-99f0-26530f5a921&title=&width=730" alt="image.png"><br>%00能截断substr，但注意get传递时会自动解码一次</p>
+<blockquote>
+<p>strlen($b)&gt;5</p>
+</blockquote>
+<p>$b 长度大于 5   12345 </p>
+<blockquote>
+<p>substr($b,0,1)!&#x3D;4)</p>
+</blockquote>
+<p>b 的 第一位不能为4 </p>
+<blockquote>
+<p>eregi(“111”.substr($b,0,1),”1114”)</p>
+</blockquote>
+<p>111与$b字符串被截取的第一位字符连结后形成的字符串能在1114中匹配到，即连结后的字符串可以是111也可以是1114<br>利用%00截断，使substr截取$b字符串时被截断，从而形成eregi(“111”,”1114”)，匹配成功，同时%00不会对strlen截断，$b&#x3D;%0012345</p>
+<p>完整的payload<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678849154375-b4272d92-7217-4fa1-9294-2f7a169a053f.png#averageHue=%23fafafa&clientId=uee7bc24a-6161-4&from=paste&height=406&id=u0342baad&name=image.png&originHeight=406&originWidth=946&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46285&status=done&style=none&taskId=u80180a86-de90-45be-9ad1-e49aa14721b&title=&width=946" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">POST /challenge3.php?id=a0&amp;a=php://input&amp;b=%0012345 HTTP/1.1<br>Host: 172.18.52.58:23113<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.78 Safari/537.36<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q=0.9<br>Connection: close<br>Content-Length: 19<br><br>1112 is a nice lab!<br></code></pre></td></tr></table></figure>
+
+<p><a name="o1U1c"></a></p>
+<h1><span id="four">Four</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678849927742-a7f8b991-3492-46e6-ab06-5e5f49450eb8.png#averageHue=%23fefdfd&clientId=u37a442e5-bbd3-4&from=paste&height=136&id=ud15c916a&name=image.png&originHeight=136&originWidth=431&originalType=binary&ratio=1&rotation=0&showTitle=false&size=2425&status=done&style=none&taskId=u38665742-f7ac-453b-a2fc-8c85afe626f&title=&width=431" alt="image.png"><br>首先看见eval  应该是可以执行php代码的 </p>
+<p>@_REQUEST[‘hello’]<br>一个超全局变量，可以接收_get，_post，_cookie发送的数据</p>
+<blockquote>
+<p>eval(“var_dump($a);”);使用了双引号，意味着，会先计算$a的值(也可以理解为先解析$a)再执行eval函数<br>利用先计算$a的值再执行eval函数这一特点，通过gpc传递给$a特殊的字符串，经过计算后与原本的var_dump();组合造成拼接效果，形成一个新的字符串，使eval函数执行我们预期的php代码<br>GPC(GET、POST、COOKIE）</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>var_dump（）方法是判断一个变量的类型与长度,并输出变量的数值,如果变量有值输的是变量的值并回返数据类型.<br>此函数显示关于一个或多个表达式的结构信息，包括表达式的类型与值。数组将递归展开值，通过缩进显示其结构。<br>这里是将变量a的值打印到界面中。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>单双引号<br>PHP对于双引号包裹起来的字符串要进行扫描计算，单引号则不管内容如何都会原样输出而不会进行计算。<br>所以’比”执行快</p>
+</blockquote>
+<p>先使用eval 执行phpinfo 看是否执行成功</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://172.18.52.58:23114/challenge4.php?hello=);eval(phpinfo()">http://172.18.52.58:23114/challenge4.php?hello=);eval(phpinfo()</a></p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678850357314-d76c657d-cd68-4499-bc18-e04c105e447d.png#averageHue=%23e8e7e6&clientId=u37a442e5-bbd3-4&from=paste&height=805&id=uf349b34d&name=image.png&originHeight=805&originWidth=1206&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89708&status=done&style=none&taskId=ud8d624d8-fd12-4f95-b26a-fdf63eb04f2&title=&width=1206" alt="image.png"><br>是可以成功执行 的 <br>那就可以写一句去连shell</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://172.18.52.58:23114/challenge4.php?hello=);eval">http://172.18.52.58:23114/challenge4.php?hello=);eval</a>($_POST[cmd]</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678850524794-5e2574b7-a632-4bd2-bf5a-267b3772fb24.png#averageHue=%23ededec&clientId=u37a442e5-bbd3-4&from=paste&height=550&id=u94179ed2&name=image.png&originHeight=550&originWidth=813&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38719&status=done&style=none&taskId=uc4e44eee-5adb-47b2-b5dd-44b36b48e4b&title=&width=813" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678850581797-734496cb-382c-45e7-8974-98c13311db93.png#averageHue=%23f6f6f6&clientId=u37a442e5-bbd3-4&from=paste&height=343&id=u9bbc408a&name=image.png&originHeight=343&originWidth=612&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11558&status=done&style=none&taskId=uc4be961d-c3ea-4c9c-be2f-57485c049c5&title=&width=612" alt="image.png"></p>
+<p><a name="jhNRT"></a></p>
+<h1><span id="five">Five</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678934924415-9610c6da-8715-48b6-b286-8cc3e78e1b15.png#averageHue=%23fdfdfd&clientId=uc002a022-86fa-4&from=paste&height=719&id=ud4ac3930&name=image.png&originHeight=719&originWidth=1371&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15021&status=done&style=none&taskId=u5e2a8840-3584-4f84-955e-f27a03cd752&title=&width=1371" alt="image.png"><br>就没见过 sha1 &#x3D;&#x3D;&#x3D; sha1 这种<br>但是尝试一下md5 弱比较绕过 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678934975693-ee7521b6-927c-4a19-b94a-134a0ddbb713.png#averageHue=%23dbdbda&clientId=uc002a022-86fa-4&from=paste&height=1218&id=u70d4018a&name=image.png&originHeight=1218&originWidth=1447&originalType=binary&ratio=1&rotation=0&showTitle=false&size=58613&status=done&style=none&taskId=u531702c8-baaa-4b3e-8335-4953b64504f&title=&width=1447" alt="image.png"><br>就绕过了 …. <br>我也没想到 。。。。</p>
+<blockquote>
+<p>“分析代码逻辑，发现GET了两个字段name和password，获得flag要求的条件是：name !&#x3D; password &amp; sha1(name) &#x3D;&#x3D; sha1(password)，乍看起来这是不可能的，其实可以利用sha1()函数的漏洞来绕过。如果把这两个字段构造为数组，如：?name[]&#x3D;a&amp;password[]&#x3D;b，这样在第一处判断时两数组确实是不同的，但在第二处判断时由于sha1()函数无法处理数组类型，将报错并返回false，if 条件成立，获得flag。</p>
+</blockquote>
+<p>这里是因为sha1 无法处理数组就可以绕过成功了</p>
+<p><a name="zd4xN"></a></p>
+<h1><span id="six">Six</span></h1><p>拉取不了 参考一下其他师傅的<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/CliffordR/article/details/104276924/">https://blog.csdn.net/CliffordR/article/details/104276924/</a></p>
+<p><a name="coUJM"></a></p>
+<h1><span id="seven">Seven</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679037203969-73e15084-9716-43c6-8679-a64aafdfe59a.png#averageHue=%23caa970&clientId=ucbfc0129-8cb9-4&from=paste&height=327&id=u7de86b24&name=image.png&originHeight=327&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10717&status=done&style=none&taskId=u09a939d8-b2c9-411e-bf62-84ca25cf28e&title=&width=826" alt="image.png"><br>查看源代码也没有发现啥数据 <br>扫描目录也没有发现啥 发现了 flag.php  和 index.php 但是没有数据 <br>后面才才发现 代码在docker 启动目录下 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679037284535-9efb4912-d6e3-47b4-b852-974223f0f861.png#averageHue=%23e6bb7b&clientId=ucbfc0129-8cb9-4&from=paste&height=463&id=udd1ff963&name=image.png&originHeight=463&originWidth=521&originalType=binary&ratio=1&rotation=0&showTitle=false&size=29782&status=done&style=none&taskId=u5681d311-ef37-46f0-add6-5577e4e276c&title=&width=521" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>  <span class="hljs-keyword">include</span> <span class="hljs-string">&quot;flag.php&quot;</span>;<br><span class="hljs-variable">$_403</span> = <span class="hljs-string">&quot;Access Denied&quot;</span>;<br><span class="hljs-variable">$_200</span> = <span class="hljs-string">&quot;Welcome Admin&quot;</span>;<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&quot;REQUEST_METHOD&quot;</span>] != <span class="hljs-string">&quot;POST&quot;</span>)<br>  <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;BugsBunnyCTF is here :p...&quot;</span>);<br><span class="hljs-keyword">if</span> ( !<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;flag&quot;</span>]) )<br>  <span class="hljs-keyword">die</span>(<span class="hljs-variable">$_403</span>);<br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_GET</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>)<br>  <span class="hljs-variable">$$key</span> = <span class="hljs-variable">$$value</span>;<br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_POST</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>)<br>  <span class="hljs-variable">$$key</span> = <span class="hljs-variable">$value</span>;<br><span class="hljs-keyword">if</span> ( <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;flag&quot;</span>] !== <span class="hljs-variable">$flag</span> )<br>  <span class="hljs-keyword">die</span>(<span class="hljs-variable">$_403</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;This is your flag : &quot;</span>. <span class="hljs-variable">$flag</span> . <span class="hljs-string">&quot;\n&quot;</span>;<br><span class="hljs-keyword">die</span>(<span class="hljs-variable">$_200</span>);<br><br><br></code></pre></td></tr></table></figure>
+<p>定义了两个变量   <br>$_403 $_200 <br>这里如果不是 POST去 访问 就会BugsBunnyCTF is here :p…<br>所以一开始 是 GET  就会出现 BugsBunnyCTF is here :p…</p>
+<p>首先传入的参数 是flag<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679037588388-2cc47609-4095-4085-af80-6a8d39f7baa6.png#averageHue=%23fbfbfb&clientId=ucbfc0129-8cb9-4&from=paste&height=418&id=uc4480bde&name=image.png&originHeight=418&originWidth=965&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42427&status=done&style=none&taskId=u01f7676d-2b95-4a57-b596-a7b8a5d6158&title=&width=965" alt="image.png"><br>flag &#x3D;1  <br>会报 Access Denied  拒绝访问<br>我们的目的是 Welcome Admin<br>再来看 foreach 循环 </p>
+<blockquote>
+<p>foreach ($_GET as $key &#x3D;&gt; $value)<br>    $$key &#x3D; $$value;<br>foreach ($_POST as $key &#x3D;&gt; $value)<br>    $$key &#x3D; $value;</p>
+</blockquote>
+<p>$$，变量覆盖<br>第一个foreach处，能将任意变量的值赋予任意变量<br>第二个foreach处，能将输入的值赋予任意变量<br>第三个 IF</p>
+<blockquote>
+<p>if ( $_POST[“flag”] !&#x3D;&#x3D; $flag )<br>    die($_403);<br>echo “This is your flag : “. $flag . “\n”;<br>die($_200);</p>
+</blockquote>
+<p>$_POST[“flag”]如果与$flag不完全相等，即值和类型都比较时，输出$_403<br>如果完全相等，则输出$flag和$_200</p>
+<blockquote>
+<p>die </p>
+</blockquote>
+<p>die() 函数输出一条消息，并退出当前脚本。<br>该函数是 <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/php/func_misc_exit.asp">exit()</a> 函数的别名。<br>die()函数用于移除匹配元素上绑定的一个或多个事件的事件处理函数。 die()函数主要用于解除由live()函数绑定的事件处理函数。 该函数属于jQuery对象(实例)。</p>
+<p>解法:  CTF中的变量覆盖 </p>
+<blockquote>
+<p>foreach ($_POST as $key &#x3D;&gt; $value)<br>$$key &#x3D; $value;<br>当只POST一个值为1的变量flag，$$key &#x3D; $valu&#x3D;&gt;$flag &#x3D; 1，使可能原本存在的变量$flag被赋值为1，<br>即真实的flag被修改为变量flag的值，由于前面的两个if，这是无法被改变的<br>所以，需要在真实的flag被修改前将其值给其他变量并能输出出来<br>能输出的只有die($_403);和die($_200);，<br>所以思路是利用变量覆盖在flag被改前将真实的$flag的值覆盖$_403或$_200并输出<br>而能利用变量覆盖将一个变量的值覆盖其他变量的地方只有第一个foreach处</p>
+</blockquote>
+<p>$$ 变量覆盖 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-variable">$flag1</span> =  <span class="hljs-number">100</span>;<br><span class="hljs-variable">$flag2</span> =  <span class="hljs-number">200</span>;<br><span class="hljs-variable">$flag3</span> =  <span class="hljs-number">300</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;$flag1=&#x27;</span>.<span class="hljs-variable">$flag1</span>.<span class="hljs-string">&quot;\n&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><br><span class="hljs-variable">$a</span> = <span class="hljs-string">&#x27;flag1&#x27;</span>;  <span class="hljs-comment">// 通俗易懂 就是  把 a  的变量名替换成 flag1 </span><br><span class="hljs-variable">$$a</span> = <span class="hljs-variable">$flag2</span>;   <span class="hljs-comment">// 将flag2 的值 覆盖给flag1 </span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;$flag1=&#x27;</span>.<span class="hljs-variable">$flag1</span>.<span class="hljs-string">&quot;\n&quot;</span>;  <span class="hljs-comment">//这里输出 看是否 成功覆盖掉 flag1 </span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;br&gt;&#x27;</span>;<br><br><span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>]=<span class="hljs-string">&#x27;flag3&#x27;</span>;   <span class="hljs-comment">#这里只是换了POST 方法输入  ， #这里设置 b 的值 为 flag3 </span><br><span class="hljs-variable">$b</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>];       <span class="hljs-comment">#把名为 $_POST[&#x27;b&#x27;] 的 变量覆盖给 flag1 </span><br><span class="hljs-variable">$$a</span> = <span class="hljs-variable">$$b</span>;               <br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;$flag1=&#x27;</span>.<span class="hljs-variable">$flag1</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;br&gt;&#x27;</span>;<br><span class="hljs-comment">#---------------------------------</span><br><br><span class="hljs-variable">$flag2</span> = <span class="hljs-variable">$flag3</span>;   <span class="hljs-comment">#这种是正常的传值  但没有做到变量覆盖 </span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;这是正常赋值——flag2=flag3:&#x27;</span>.<span class="hljs-variable">$flag2</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679039636274-d930b16e-f4d9-40d5-bb71-a142ab534432.png#averageHue=%235b5b5a&clientId=ucbfc0129-8cb9-4&from=paste&height=519&id=u83ff0182&name=image.png&originHeight=519&originWidth=1367&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64879&status=done&style=none&taskId=u6cff95ff-4cd5-4745-89fe-e45bd6e48cf&title=&width=1367" alt="image.png"><br>这样就完成了 变量覆盖  </p>
+<p>解法 1 : 将真实的flag覆盖$_200并输出$_200<br>GET传一个变量_200 的 值 为flag<br> POST 方法传 一个变量为flag 值 为 任何数 ，这里传一个flag&#x3D;1<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679040372550-be9496be-04e8-4f89-995e-570d4595d98c.png#averageHue=%23fafafa&clientId=ucbfc0129-8cb9-4&from=paste&height=453&id=ueb502532&name=image.png&originHeight=453&originWidth=891&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51071&status=done&style=none&taskId=u26958454-d50f-4347-bc89-4a9dc26f0ea&title=&width=891" alt="image.png"><br>相当于$_200&#x3D;$flag，将真flag给了$_200<br>$flag被修改为1，与$_POST[‘flag’]等值等类型，不满足$_POST[“flag”] !&#x3D;&#x3D; $flag<br>输出$_200即输出真flag</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php">POST /challenge7.php?_200=flag HTTP/<span class="hljs-number">1.1</span><br>Host: <span class="hljs-number">172.18</span>.<span class="hljs-number">52.58</span>:<span class="hljs-number">2317</span><br>Content-Length: <span class="hljs-number">9</span><br>Cache-Control: max-age=<span class="hljs-number">0</span><br>Upgrade-Insecure-Requests: <span class="hljs-number">1</span><br>Origin: http:<span class="hljs-comment">//172.18.52.58:2317</span><br>Content-Type: application/x-www-form-urlencoded<br>User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">111.0</span>.<span class="hljs-number">0.0</span> Safari/<span class="hljs-number">537.36</span><br>Accept: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0.9</span>,image/avif,image/webp,image/apng,*<span class="hljs-comment">/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="hljs-comment">Referer: http://172.18.52.58:2317/challenge7.php?</span><br><span class="hljs-comment">Accept-Encoding: gzip, deflate</span><br><span class="hljs-comment">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="hljs-comment">Connection: close</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">flag=1</span><br></code></pre></td></tr></table></figure>
+
+<p>解法二 ： 将真实的flag 覆盖给 $_403 并构造$_403 能输出<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679040945569-8c4f9416-b5d3-4b83-80a8-0909c5951848.png#averageHue=%23f9f9f9&clientId=ucbfc0129-8cb9-4&from=paste&height=337&id=u981272bb&name=image.png&originHeight=337&originWidth=861&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47291&status=done&style=none&taskId=u78296956-8fa7-4ead-88a9-3dec6111e47&title=&width=861" alt="image.png"><br>把真实的flag 传给了 403 <br>然后构造两个flag&#x3D;2  flag&#x3D;1  <br>$flag被修改为1，与$_POST[‘flag’]不等，满足$_POST[“flag”] !&#x3D;&#x3D; $flag，输出$_403</p>
+<p><a name="xVXwJ"></a></p>
+<h1><span id="eight">Eight</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679052843357-94d415e7-465f-447d-a0f2-c5f16d48a539.png#averageHue=%23fefdfd&clientId=u5f00c667-010e-4&from=paste&height=622&id=ua540bc71&name=image.png&originHeight=622&originWidth=1128&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18739&status=done&style=none&taskId=ud65bd024-9156-4204-8731-37c4410338b&title=&width=1128" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&quot;display_errors&quot;</span>, <span class="hljs-string">&quot;On&quot;</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(E_ALL | E_STRICT);<br><span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;c&#x27;</span>]))&#123;<br>    <span class="hljs-title function_ invoke__">show_source</span>(<span class="hljs-keyword">__FILE__</span>);<br>    <span class="hljs-keyword">die</span>();<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rand_string</span>(<span class="hljs-params"> <span class="hljs-variable">$length</span> </span>) </span>&#123;<br>    <span class="hljs-variable">$chars</span> = <span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;</span>;<br>    <span class="hljs-variable">$size</span> = <span class="hljs-title function_ invoke__">strlen</span>( <span class="hljs-variable">$chars</span> );<br>    <span class="hljs-variable">$str</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-keyword">for</span>( <span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-variable">$length</span>; <span class="hljs-variable">$i</span>++)<br>   &#123;<br>       <span class="hljs-variable">$str</span> .= <span class="hljs-variable">$chars</span>[ <span class="hljs-title function_ invoke__">rand</span>( <span class="hljs-number">0</span>, <span class="hljs-variable">$size</span> - <span class="hljs-number">1</span> ) ];<br>   &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$str</span>;<br>&#125;<br><span class="hljs-variable">$data</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;c&#x27;</span>];<br><span class="hljs-variable">$black_list</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;!&#x27;</span>, <span class="hljs-string">&#x27;&quot;&#x27;</span>, <span class="hljs-string">&#x27;#&#x27;</span>, <span class="hljs-string">&#x27;%&#x27;</span>, <span class="hljs-string">&#x27;&amp;&#x27;</span>, <span class="hljs-string">&#x27;*&#x27;</span>, <span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;4&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;7&#x27;</span>, <span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&#x27;9&#x27;</span>, <span class="hljs-string">&#x27;:&#x27;</span>, <span class="hljs-string">&#x27;&lt;&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-string">&#x27;@&#x27;</span>, <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>, <span class="hljs-string">&#x27;F&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;H&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>, <span class="hljs-string">&#x27;J&#x27;</span>, <span class="hljs-string">&#x27;K&#x27;</span>, <span class="hljs-string">&#x27;L&#x27;</span>, <span class="hljs-string">&#x27;M&#x27;</span>, <span class="hljs-string">&#x27;N&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;P&#x27;</span>, <span class="hljs-string">&#x27;Q&#x27;</span>, <span class="hljs-string">&#x27;R&#x27;</span>, <span class="hljs-string">&#x27;S&#x27;</span>, <span class="hljs-string">&#x27;T&#x27;</span>, <span class="hljs-string">&#x27;U&#x27;</span>, <span class="hljs-string">&#x27;V&#x27;</span>, <span class="hljs-string">&#x27;W&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;Y&#x27;</span>, <span class="hljs-string">&#x27;Z&#x27;</span>, <span class="hljs-string">&#x27;\\&#x27;</span>, <span class="hljs-string">&#x27;^&#x27;</span>, <span class="hljs-string">&#x27;`&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&#x27;e&#x27;</span>, <span class="hljs-string">&#x27;f&#x27;</span>, <span class="hljs-string">&#x27;g&#x27;</span>, <span class="hljs-string">&#x27;h&#x27;</span>, <span class="hljs-string">&#x27;i&#x27;</span>, <span class="hljs-string">&#x27;j&#x27;</span>, <span class="hljs-string">&#x27;k&#x27;</span>, <span class="hljs-string">&#x27;l&#x27;</span>, <span class="hljs-string">&#x27;m&#x27;</span>, <span class="hljs-string">&#x27;n&#x27;</span>, <span class="hljs-string">&#x27;o&#x27;</span>, <span class="hljs-string">&#x27;p&#x27;</span>, <span class="hljs-string">&#x27;q&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, <span class="hljs-string">&#x27;s&#x27;</span>, <span class="hljs-string">&#x27;t&#x27;</span>, <span class="hljs-string">&#x27;u&#x27;</span>, <span class="hljs-string">&#x27;v&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>, <span class="hljs-string">&#x27;z&#x27;</span>, <span class="hljs-string">&#x27;|&#x27;</span>, <span class="hljs-string">&#x27;~&#x27;</span>);<br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$black_list</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$b</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$data</span>, <span class="hljs-variable">$b</span>) !== <span class="hljs-literal">false</span>)&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;WAF!&quot;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-variable">$filename</span>=<span class="hljs-title function_ invoke__">rand_string</span>(<span class="hljs-number">0x20</span>).<span class="hljs-string">&#x27;.php&#x27;</span>;<br><span class="hljs-variable">$folder</span>=<span class="hljs-string">&#x27;uploads/&#x27;</span>;<br><span class="hljs-variable">$full_filename</span> = <span class="hljs-variable">$folder</span>.<span class="hljs-variable">$filename</span>;<br><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$full_filename</span>, <span class="hljs-string">&#x27;&lt;?php &#x27;</span>.<span class="hljs-variable">$data</span>))&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;a href=&#x27;&quot;</span>.<span class="hljs-variable">$full_filename</span>.<span class="hljs-string">&quot;&#x27;&gt;WebShell&lt;/a&gt;&lt;/br&gt;&quot;</span>;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Enjoy your webshell~&quot;</span>;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Some thing wrong...&quot;</span>;<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>一道php  无数字字母webshell 的题 <br>挺难得 ， 看p神的blog  有几种解法 <br>方法一 是 位运算 进行 异或  <br>方法二 是 进行取反运算<br>方法三 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679053003083-0e0debbf-b1b5-4d48-b1c5-6ebd44e888d8.png#averageHue=%23212426&clientId=u5f00c667-010e-4&from=paste&height=299&id=uaab928cd&name=image.png&originHeight=299&originWidth=1070&originalType=binary&ratio=1&rotation=0&showTitle=false&size=78001&status=done&style=none&taskId=uc6cca3d3-4370-4191-9708-9070b89ab8a&title=&width=1070" alt="image.png"></p>
+<p>方法是理解了但是实际操作还是不会 。。。。。 哎 </p>
+<p>参考师傅们的文章：<br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Rain99-/p/12642550.html">https://www.cnblogs.com/Rain99-/p/12642550.html</a><br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/186298.html">https://www.freebuf.com/articles/web/186298.html</a><br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/SHARE/some-tricks-from-my-secret-group.html">https://www.leavesongs.com/SHARE/some-tricks-from-my-secret-group.html</a><br><a target="_blank" rel="noopener" href="http://arsenetang.com/2021/07/26/RCE%E7%AF%87%E4%B9%8B%E6%97%A0%E5%8F%82%E6%95%B0rce/">http://arsenetang.com/2021/07/26/RCE%E7%AF%87%E4%B9%8B%E6%97%A0%E5%8F%82%E6%95%B0rce/</a><br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/261800.html">https://www.freebuf.com/articles/web/261800.html</a><br><a target="_blank" rel="noopener" href="https://liduoan.github.io/2020/04/03/%E5%9B%9B%E6%9C%88/%E6%97%A0%E5%8F%82%E6%95%B0RCE/#%E5%89%8D%E8%A8%80">https://liduoan.github.io/2020/04/03/%E5%9B%9B%E6%9C%88/%E6%97%A0%E5%8F%82%E6%95%B0RCE/#%E5%89%8D%E8%A8%80</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Manuffer/article/details/120738755">https://blog.csdn.net/Manuffer/article/details/120738755</a><br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9360">https://xz.aliyun.com/t/9360</a></p>
+<p><a name="aSgM8"></a></p>
+<h1><span id="nine">Nine</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679276437342-523f9fb9-fb69-4d2a-a8c6-55bbc9586b1a.png#averageHue=%23dbdbdb&clientId=u566cbd81-608b-4&from=paste&height=950&id=u74ea7496&name=image.png&originHeight=950&originWidth=1495&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39130&status=done&style=none&taskId=u306183e9-ba8b-4518-97da-b603490c179&title=&width=1495" alt="image.png"><br>docker 拉取不了  给了源文件  开始代码审计 <br>这个题 有全局变量 ip <br>shell_exec 函数 稳稳的RCE了  </p>
+<blockquote>
+<p>$substitutions &#x3D; array(<br>‘&amp;’  &#x3D;&gt; ‘’,<br>‘;’  &#x3D;&gt; ‘’,<br>‘|’ &#x3D;&gt; ‘’,<br>‘-‘  &#x3D;&gt; ‘’,<br>‘$’  &#x3D;&gt; ‘’,<br>‘(‘  &#x3D;&gt; ‘’,<br>‘)’  &#x3D;&gt; ‘’,<br>‘&#96;’  &#x3D;&gt; ‘’,<br>‘||’ &#x3D;&gt; ‘’,<br>);</p>
+</blockquote>
+<p>存在过滤 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679276655218-4050cc32-3d98-4105-ac12-b090163fc0b9.png#averageHue=%23e2e1e1&clientId=u566cbd81-608b-4&from=paste&height=921&id=uf5e1942c&name=image.png&originHeight=921&originWidth=884&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35771&status=done&style=none&taskId=uc726d8d4-f78a-4dd4-a503-973c93770c8&title=&width=884" alt="image.png"><br>尝试输入一个ip地址  <br>是可以执行命令的 ，但是由于我这里是window系统 看看能不能存在 windows的过滤方法<br>找了半天没有存在的绕过windows的方法 ，这里由于是windows搭建的 参加的方法被过滤掉了 <br>linux可以使用 %0a  去进行 绕过 <br>完整payload </p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://localhost:3000/challenge9.php?ip=127.0.0.1%0Als">http://localhost:3000/challenge9.php?ip=127.0.0.1%0als</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://localhost:3000/challenge9.php?ip=127.0.0.1%0Acat$IFS$9flag.php">http://localhost:3000/challenge9.php?ip=127.0.0.1%0acat$IFS$9flag.php</a><br>这里$IFS$9是绕过空格  </p>
+</blockquote>
+<p><a name="hjSED"></a></p>
+<h1><span id="ten">Ten</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679278107188-c9831ff1-f26e-4646-81e8-1118d39d34a9.png#averageHue=%230d0d0d&clientId=u8309ea0a-429e-4&from=paste&height=494&id=uf60ac09c&name=image.png&originHeight=494&originWidth=1096&originalType=binary&ratio=1&rotation=0&showTitle=false&size=83560&status=done&style=none&taskId=uebd3ddb4-7f8a-491f-9870-ed01d227ee3&title=&width=1096" alt="image.png"><br>**端口  23120 **<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679278168913-4127e320-87d6-4281-bbb5-1d2455ff8c04.png#averageHue=%23e1e0e0&clientId=u8309ea0a-429e-4&from=paste&height=925&id=ue005692d&name=image.png&originHeight=925&originWidth=918&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36538&status=done&style=none&taskId=u4728afcc-99ed-4559-bccf-ebe78c1f6c4&title=&width=918" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">noother_says_correct</span>(<span class="hljs-params"><span class="hljs-variable">$number</span></span>) </span><br><span class="hljs-function"></span>&#123; <br>    <span class="hljs-variable">$one</span> = <span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-string">&#x27;1&#x27;</span>); <br>    <span class="hljs-variable">$nine</span> = <span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-string">&#x27;9&#x27;</span>); <br>    <span class="hljs-comment"># Check all the input characters! </span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$number</span>); <span class="hljs-variable">$i</span>++) <br>    &#123; <br>        <span class="hljs-comment"># Disallow all the digits! </span><br>        <span class="hljs-variable">$digit</span> = <span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-variable">$number</span>&#123;<span class="hljs-variable">$i</span>&#125;); <br>        <span class="hljs-keyword">if</span> ( (<span class="hljs-variable">$digit</span> &gt;= <span class="hljs-variable">$one</span>) &amp;&amp; (<span class="hljs-variable">$digit</span> &lt;= <span class="hljs-variable">$nine</span>) ) <br>        &#123; <br>            <span class="hljs-comment"># Aha, digit not allowed! </span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <br>        &#125; <br>    &#125; <br>    <span class="hljs-comment"># Allow the magic number ... </span><br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$number</span> == <span class="hljs-string">&quot;3735929054&quot;</span>; <br>&#125; <br></code></pre></td></tr></table></figure>
+<p>主要在于  </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> ( (<span class="hljs-variable">$digit</span> &gt;= <span class="hljs-variable">$one</span>) &amp;&amp; (<span class="hljs-variable">$digit</span> &lt;= <span class="hljs-variable">$nine</span>) ) <br>&#123; <br>    <span class="hljs-comment"># Aha, digit not allowed! </span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <br></code></pre></td></tr></table></figure>
+<p>one &#x3D;1  nine &#x3D; 9<br>不能大于等于1  小于等于 9  <br>否则就是false <br>然后这里 传入的number 还必须等于   3735929054<br>看见  &#x3D;&#x3D; 就可以使用php 弱比较 <br> 把 3735929054 这个转为 16进制看看 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679279167816-894d939f-9f54-4eb7-9843-3e67ec4bafd7.png#averageHue=%23121212&clientId=u8309ea0a-429e-4&from=paste&height=72&id=u9a799142&name=image.png&originHeight=72&originWidth=775&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5172&status=done&style=none&taskId=u810e9a93-e2e8-4bc9-b3c7-8d4a9885b35&title=&width=775" alt="image.png"><br>十六进制的3735929054，只包含字母与0，满足条件<br>Payload  为</p>
+<blockquote>
+<p>answer&#x3D;0xdeadc0de</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679279209846-754adf4d-365f-4474-a39f-6b243f7efd50.png#averageHue=%23c8c7c7&clientId=u8309ea0a-429e-4&from=paste&height=1049&id=u7a82d9fa&name=image.png&originHeight=1049&originWidth=652&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45491&status=done&style=none&taskId=ue65f6321-0803-49a4-8e60-860acb9ac49&title=&width=652" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>内存取证</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/DC%20-9/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      DC-9
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="post-tag">#PHP代码审计</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

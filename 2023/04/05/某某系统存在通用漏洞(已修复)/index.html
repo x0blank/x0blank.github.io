@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        某某系统存在通用漏洞 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">某某系统存在通用漏洞</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" class="post-tag">#信息泄露</a><a href="/tags/edusrc/" class="post-tag">#edusrc</a><a href="/tags/%E5%82%A8%E5%AD%98xss/" class="post-tag">#储存xss</a><a href="/tags/%E8%B6%8A%E6%9D%83/" class="post-tag">#越权</a>
+
+
+          <span class="post-date">2023-04-05</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+
+<p>去年入门挖edusrc的时候挖到的，水漏洞<br>存在10多个漏洞站点 ，但部分不能使用注册，就没去测试，可能存在api接口注册 ，去注册绕过（当时没想到，不知道可行不，没尝试） <br>一 ： 存储XSS<br><a target="_blank" rel="noopener" href="http://zbxnfz.sylu.edu.cn/xxxx/login">http://zbxnfz.sylu.edu.cn/xxxx/login</a><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328552876-80991267-615d-4a0c-9a80-d16db7ddd070.png#averageHue=%234c77c3&clientId=udcb18deb-b7bc-4&from=paste&height=460&id=u90634217&name=image.png&originHeight=920&originWidth=1438&originalType=binary&ratio=2&rotation=0&showTitle=false&size=440282&status=done&style=none&taskId=uebf966e4-79c2-4dac-a94e-f3a7f0e8f14&title=&width=719" alt="image.png"><br>注册账号<br>学生<br>xxxxx 电话号码<br>Admin@123<br>实验报告列表<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328233269-d84b6ec5-c822-423d-b6e1-6214e6879828.png#averageHue=%239d936a&clientId=udcb18deb-b7bc-4&from=paste&id=u7c292d51&name=image.png&originHeight=1245&originWidth=1564&originalType=url&ratio=2&rotation=0&showTitle=false&size=1219433&status=done&style=none&taskId=ua7631bd9-8a31-4353-9f20-76237c3b462&title=" alt="image.png"><br>添加报告<br>修改 然后添加js代码 可以触发代码<br><a target="_blank" rel="noopener" href="http://zbxnfz.sylu.edu.cn/xxxx/xxxxxt/index/write">http://zbxnfz.sylu.edu.cn/xxxx/xxxxxt/index/write</a><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328233193-f93f280b-0976-4294-9602-3961eaf7ed46.png#averageHue=%2384827a&clientId=udcb18deb-b7bc-4&from=paste&id=u82ad1756&name=image.png&originHeight=1245&originWidth=1564&originalType=url&ratio=2&rotation=0&showTitle=false&size=1070496&status=done&style=none&taskId=u449c7021-e1fe-46f6-96a6-61b67dcc8f6&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328232416-de69f53c-4cb4-46dd-8c24-ead688740883.png#averageHue=%23fbfbfb&clientId=udcb18deb-b7bc-4&from=paste&id=u54892bfa&name=image.png&originHeight=1245&originWidth=1564&originalType=url&ratio=2&rotation=0&showTitle=false&size=118264&status=done&style=none&taskId=u553f8e13-ffbf-4987-992d-ab495060b99&title=" alt="image.png"><br>弹cookie<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328232987-33cb5dcc-dd77-42b4-be71-162dd8af734c.png#averageHue=%23edece5&clientId=udcb18deb-b7bc-4&from=paste&id=u534b9018&name=image.png&originHeight=1245&originWidth=1564&originalType=url&ratio=2&rotation=0&showTitle=false&size=888612&status=done&style=none&taskId=uae0f16f0-c343-4018-bc8b-b999e059e32&title=" alt="image.png"><br>二 ： 信息泄露 + 普通用户越权教师用户 + 越权删除<br>注册教师账号<br>xxxxxxxxxxx<br>Admin@123<br><a target="_blank" rel="noopener" href="http://zbxnfz.sylu.edu.cn/module/experiment/index/groupstudent/?id=42&page=2">http://zbxnfz.sylu.edu.cn/module/experiment/index/groupstudent/?id=42&amp;page=2</a><br>登录之后 一开始是没有班级的<br>添加分班<br>之后点击 班名<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328234607-192583b6-68c6-4232-a07d-424f905eb36c.png#averageHue=%238f865a&clientId=udcb18deb-b7bc-4&from=paste&id=ud7c7e518&name=image.png&originHeight=1245&originWidth=1564&originalType=url&ratio=2&rotation=0&showTitle=false&size=1273052&status=done&style=none&taskId=u9ea1ee3b-37d7-4550-beda-40aaff9b0db&title=" alt="image.png"><br>出现 七百多 个 姓名 学号 手机号<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328234789-b6559d27-ffae-491e-a483-3a08ade62b3f.png#averageHue=%23f6f5f3&clientId=udcb18deb-b7bc-4&from=paste&id=u3175c759&name=image.png&originHeight=1245&originWidth=1564&originalType=url&ratio=2&rotation=0&showTitle=false&size=437060&status=done&style=none&taskId=u295851ec-f923-4176-adf2-43940726aea&title=" alt="image.png"><br>越权<br>185 这个陈真用户是注册的教师<br><a target="_blank" rel="noopener" href="http://zbxnfz.sylu.edu.cn/module/experiment/index/groupstudent/?id=43&page=2">http://zbxnfz.sylu.edu.cn/module/experiment/index/groupstudent/?id=43&amp;page=2</a><br>把链接给学生用户 打开<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328234723-33077fbb-948b-472d-bb4c-1b173004ca0f.png#averageHue=%23f8f8f7&clientId=udcb18deb-b7bc-4&from=paste&id=u3528924e&name=image.png&originHeight=1245&originWidth=1564&originalType=url&ratio=2&rotation=0&showTitle=false&size=262309&status=done&style=none&taskId=u433445f9-7d64-447e-8fa6-ddcb1ec92b1&title=" alt="image.png"><br>成功越权查看<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328235542-fe22010e-d67e-4a30-bb7b-49f03f58d3fb.png#averageHue=%23fafaf9&clientId=udcb18deb-b7bc-4&from=paste&id=u45e6bfd9&name=image.png&originHeight=975&originWidth=1807&originalType=url&ratio=2&rotation=0&showTitle=false&size=160545&status=done&style=none&taskId=uec285f78-c829-4767-b3b5-319337acae3&title=" alt="image.png"><br>越权删除 学生 列表里面的学生<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328236468-3c13c9e2-e025-423c-89f4-9d87b1ffbf59.png#averageHue=%23918658&clientId=udcb18deb-b7bc-4&from=paste&id=u5fcc8729&name=image.png&originHeight=1245&originWidth=1488&originalType=url&ratio=2&rotation=0&showTitle=false&size=1163506&status=done&style=none&taskId=u1fca5893-87c8-4e2e-8aa3-1b68cf27bf4&title=" alt="image.png"><br>抓包 替换cookie 为学生的<br>教师退出登录之后 cookie 就会失效<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328236308-de91ef88-c82f-4522-a186-29e43ce75789.png#averageHue=%23fafaf9&clientId=udcb18deb-b7bc-4&from=paste&id=u2fad798f&name=image.png&originHeight=942&originWidth=1640&originalType=url&ratio=2&rotation=0&showTitle=false&size=124860&status=done&style=none&taskId=u32086f15-4d0b-4318-912c-d5ae445a2c6&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328236551-ec835f8c-5fbc-418d-8664-f567067f7cef.png#averageHue=%23faf9f9&clientId=udcb18deb-b7bc-4&from=paste&id=u7d0c6eb9&name=image.png&originHeight=942&originWidth=1640&originalType=url&ratio=2&rotation=0&showTitle=false&size=126768&status=done&style=none&taskId=ue4fa58e6-9692-45bd-811b-39506faf3b3&title=" alt="image.png"><br>使用学生的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328236710-bebfb83a-d2ba-41fd-94bf-d3b29de529a1.png#averageHue=%23fbfafa&clientId=udcb18deb-b7bc-4&from=paste&id=ub2827ddb&name=image.png&originHeight=942&originWidth=1640&originalType=url&ratio=2&rotation=0&showTitle=false&size=108676&status=done&style=none&taskId=u1d9fee72-c796-434f-ac5d-2db17d72c85&title=" alt="image.png"><br>复制 cookie 和 thinkjs<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1682328237527-a03d1711-b4c4-427d-ad1d-4f0f3d3e9533.png#averageHue=%23fafaf9&clientId=udcb18deb-b7bc-4&from=paste&id=u9bf9e056&name=image.png&originHeight=942&originWidth=1640&originalType=url&ratio=2&rotation=0&showTitle=false&size=126466&status=done&style=none&taskId=uc659b309-bdad-46bd-888d-b93ac6dc893&title=" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/04/10/%E4%B8%80%E4%B8%AA%E8%BF%90%E6%B0%94%E8%AF%81%E4%B9%A6%E7%AB%99%E7%9A%84%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>一个运气证书站的挖掘</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/26/EvilBox---One/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      EvilBox---One
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" class="post-tag">#信息泄露</a><a href="/tags/edusrc/" class="post-tag">#edusrc</a><a href="/tags/%E5%82%A8%E5%AD%98xss/" class="post-tag">#储存xss</a><a href="/tags/%E8%B6%8A%E6%9D%83/" class="post-tag">#越权</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

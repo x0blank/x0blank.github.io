@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        PHP代码审计 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet"
+        type="text/css"
+        href="/css/category.css" />
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <div class="tag-page-title">#PHP代码审计</div>
+  <div class="post-list">
+    
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/24/Challenge-21-25/" class="post-title hover-line">Challenge-21-25</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+
+<p><a name="qbXIz"></a></p>
+<h1><span id="twenty-one">Twenty-one</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679571197334-eff91bf7-1aa6-4e33-979e-0a5c9aca8fef.png#averageHue=%23fefdfd&clientId=u3668e4ba-acc6-4&from=paste&height=598&id=u49907114&name=image.png&originHeight=598&originWidth=843&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13059&status=done&style=none&taskId=uc54cbabe-f916-4a1f-9f57-dc7e9b9a4c9&title=&width=843" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> &gt;= <span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^[[:graph:]]&#123;12,&#125;$/&#x27;</span>, <span class="hljs-variable">$password</span>))<br>&#123;<br>  <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Wrong Format&#x27;</span>;<br>  <span class="hljs-keyword">exit</span>;<br>&#125;<br></code></pre></td></tr></table></figure></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="post-tag">#PHP代码审计</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/23/Challenge-11-20/" class="post-title hover-line">Challenge-11-20</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+
+<p><a name="Eleven"></a></p>
+<h1><span id="eleven">Eleven</span></h1><p>docker   又拉取失败 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679279711693-3cd298dd-43dc-4491-ba47-cc28996b844e.png#averageHue=%23121212&clientId=u1ce9842f-122a-4&from=paste&height=399&id=ubabbd901&name=image.png&originHeight=399&originWidth=1071&originalType=binary&ratio=1&rotation=0&showTitle=false&size=66327&status=done&style=none&taskId=u6ced93a6-b1cd-4c42-ad44-b2cebd0cb5e&title=&width=1071#averageHue=%23121212&id=OwHHy&originHeight=399&originWidth=1071&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=" alt="image.png"><br>这不是11题嘛 为啥copy 10 <br>解决方法：<br>在根目录创建 challenge10.php  代码改成11题的代码就好了 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679279797814-1162aa11-5b38-4014-ad34-8266145cd379.png#averageHue=%230e0e0e&clientId=u1ce9842f-122a-4&from=paste&height=544&id=u7ebf0a44&name=image.png&originHeight=544&originWidth=1082&originalType=binary&ratio=1&rotation=0&showTitle=false&size=90688&status=done&style=none&taskId=uf4629069-31a1-463d-907f-084492a9f7a&title=&width=1082#averageHue=%230e0e0e&id=L3MJm&originHeight=544&originWidth=1082&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679279662653-2880e5a0-3692-4992-81c2-30c5e6d71c5d.png#averageHue=%23dddddd&clientId=u1ce9842f-122a-4&from=paste&height=945&id=u9bb611e2&name=image.png&originHeight=945&originWidth=1197&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33095&status=done&style=none&taskId=u09766683-bb9c-46b3-aee2-08aadffa8df&title=&width=1197#averageHue=%23dddddd&id=EtIKG&originHeight=945&originWidth=1197&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;flag.php&quot;</span>;<br><span class="hljs-variable">$a</span> = @<span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">&#x27;hello&#x27;</span>];<br><span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^\w*$/&#x27;</span>,<span class="hljs-variable">$a</span> ))&#123;<br>  <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;ERROR&#x27;</span>);<br>&#125;<br><span class="hljs-keyword">eval</span>(<span class="hljs-string">&quot;var_dump($<span class="hljs-subst">$a</span>);&quot;</span>);<br><span class="hljs-title function_ invoke__">show_source</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="post-tag">#PHP代码审计</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/19/Challenge-1-10/" class="post-title hover-line">Challenge-1-10</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p><a name="CCLUh"></a></p>
+<h1><span id="one">One</span></h1><p>使用docker 拉取环境 <br><code>docker-compose.exe  -f .\docker-compose.yml  up -d</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760302558-5b0cffcb-1350-4349-9c1f-cb36aa8019db.png#averageHue=%230d0d0d&clientId=ub70d79ea-7321-4&from=paste&height=415&id=u42f9e2f9&name=image.png&originHeight=415&originWidth=1110&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71324&status=done&style=none&taskId=u9f6a186e-5a61-4f55-ba34-5b576466954&title=&width=1110" alt="image.png"><br>进行访问 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760326761-1ff38625-fd85-4039-9b83-79cfacf920d0.png#averageHue=%23fdfdfd&clientId=ub70d79ea-7321-4&from=paste&height=284&id=ud0cc8055&name=image.png&originHeight=284&originWidth=999&originalType=binary&ratio=1&rotation=0&showTitle=false&size=8984&status=done&style=none&taskId=u2123f485-b304-4b89-997d-03c4781bbec&title=&width=999" alt="image.png"><br>首先看到从上而下看到一个 base64 编码的数据 <br> 然后就是 引入lib.php<br>然后就是输出一个 编码过的flag <br>对第一行的base64 编码进行解密操作 ，进行反向解密操作<br>对每一个函数进行解释<br>:::info<br>base64-encode()   进行base64加密 <br>hex2bin  16进行转换为 ASCII 码  <br>strrev  进行反转 <br>bin2hex  ASCII 码转为 16 进制<br>:::<br>  编写PHP 脚本 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760683675-10904dc0-4fb6-432f-812f-06ee46fddacc.png#averageHue=%23201f1e&clientId=ub70d79ea-7321-4&from=paste&height=270&id=u04dded9b&name=image.png&originHeight=270&originWidth=591&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12625&status=done&style=none&taskId=u5810407f-f723-4d54-a788-a1e2b000777&title=&width=591" alt="image.png"><br>对其进行反转操作就可以了  我们最终的数据是ASCII码 不是 16 进行 所以这里不要按照直的顺序进行编码<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760746533-b6be0816-ddf2-4223-9aaa-51685bd4324c.png#averageHue=%23fbfbfa&clientId=ub70d79ea-7321-4&from=paste&height=102&id=u157b2820&name=image.png&originHeight=102&originWidth=636&originalType=binary&ratio=1&rotation=0&showTitle=false&size=3748&status=done&style=none&taskId=u120d4f67-b429-4c98-bb26-bc172165186&title=&width=636" alt="image.png"><br>得到flag <br>如果按照纯顺序来做会报错<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678760841724-446ce8b6-e2b4-4905-839a-da2f5b0de8cf.png#averageHue=%23a59d95&clientId=ub70d79ea-7321-4&from=paste&height=379&id=uc245f098&name=image.png&originHeight=379&originWidth=2122&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82212&status=done&style=none&taskId=u68b0c525-231b-44ed-bc0e-92decabf2e6&title=&width=2122" alt="image.png"></p>
+<p><a name="eQjdd"></a></p></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="post-tag">#PHP代码审计</a>
+
+</div>
+    </div>
+  </div>
+
+
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  </body>
+</html>

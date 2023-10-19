@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        内存取证 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">内存取证</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E5%8F%96%E8%AF%81/" class="post-tag">#取证</a><a href="/tags/Volatility/" class="post-tag">#Volatility</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Volatility基本使用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Linux 端:</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Windows:</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">MemLabs</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Challenge</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">MemoryDump_Lab1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">MemoryDump_Lab2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">MemoryDump_Lab3</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">MemoryDump_Lab4</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">MemoryDump_Lab5</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">MemoryDump_Lab6</span></a></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p>取证工具 :  Volatility <br>V3:<a target="_blank" rel="noopener" href="https://github.com/volatilityfoundation/volatility3">https://github.com/volatilityfoundation/volatility3</a><br>V2:<a target="_blank" rel="noopener" href="https://github.com/volatilityfoundation/volatility">https://github.com/volatilityfoundation/volatility</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2022/pdf/22356351/1653393507175-b7c65d2c-4bda-4bbb-86fe-290603376e1e.pdf">Volatility2.6.pdf</a></p>
+<p><a name="YTtaU"></a></p>
+<h1><span id="volatility基本使用命令">Volatility基本使用命令</span></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">    ./vol.py ‐f [image] ­‐profile=[profile] [plugin]<br>     -f后面需要跟绝对路径<br>     查看扫描检查、插件、地址空间等信息<br>    ./vol.py --info<br>     查看帮助信息<br>     ./vol.py -h/--help<br>     查看指定插件的说明<br>     ./vol.py [plugin] –<span class="hljs-built_in">help</span><br>查找插件：<br>     不带前缀的是windows的插件，带linux前缀的是linux的插件<br>     vol.py --info | grep -i linux_ （列出所有linux插件）<br>     vol.py --info | grep -i windows (windows 插件)<br></code></pre></td></tr></table></figure>
+
+<p><a name="VZmSt"></a></p>
+<h2><span id="linux-端">Linux 端:</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">更多方法查看 <br>vol.py --info | grep -i Linux_<br>查看系统ARP 表:<br>vol.py -f   file(文件)  --profile= 查到的profile 文件  linux_arp<br>查看系统信息表:<br>vol.py  -f  /root/centos7.lime --profile=Linuxcentos7x64 linux_banner<br>查看系统进程信息 <br>vol.py -f /root/centos7.lime --profile=Linuxcentos7x64  linux_psaux<br>查看系统隐藏进程<br>vol.py -f /root/centos7.lime --profile=Linuxcentos7x64 linux_pidhashtable<br>查看具体进程的情况<br>vol.py -f /root/centos7.lime --profile=Linuxcentos7x64 linux_proc_maps | grep httpd<br>查看网络连接<br>vol.py -f /root/centos7.lime --profiel=Linuxcentos7x64 linux_netstat<br></code></pre></td></tr></table></figure>
+
+<p><a name="s17sR"></a></p>
+<h2><span id="windows">Windows:</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs bash">常见使用方法 <br>分析  镜像文件系统  <br>vol.py imageinfo  -f  [file]<br>常见进程 windows 进程 <br>Lsass 进程 <br>lsass.exe是一个系统进程，用于微软Windows系统的安全机制。它用于本地安全和登陆策略。一个正常的windows xp系统在启动的时候，只会通过winlogon.exe创建一个lsass进程。<br>Stuxnet会将自身注入到services.exe，然后创建两个新的lsass.exe，然后释放出mrxnet.sys（驱动）和Mrxcls.sys（驱动）等恶意文件。<br>查看进程 插件 pstree<br>vol.py pstree -f stuxnet.vmen --profile=WinXPSP3x86  <br>说明：PID：进程ID，PPID：父进程ID HndsTime：进程创建时间<br>筛选 程序 lsass  <br>调用lsass.exe 是由winlogon.exe 创建的 另外两个是由 services.exe 创建的<br>vol.py pstree -f stuxnet.vmen --profile=WinXPSP3x86 | egrep <span class="hljs-string">&#x27;(service.exe|lsass.exe|winlogon.exe)&#x27;</span><br>检查 恶意链接<br>vol.py connections -f stuxnet.vmen --profile=WinXPSP3x86 <br>检查端口<br>vol.py  sockets -f stuxnet.vmen --profile=WinXPSP3x86<br>分析 lsass.exe 调用的dll文件<br>参数  dlllist  -p[pid]   过滤pid<br>寻找隐藏的dll   ldrmoudles -p[pid]<br>vol.py -f stuxnet.vmem --profile=WinXPSP3x86  ldrmodules -p 1928   <br>找出注入的可执行代码或者 DLL  malfind<br>vol.py  -f stuxnet.vmem --profile=WinXPSP3x86  malfind -p 1928   <span class="hljs-comment">#PID 号 </span><br>分析api 调用<br>利用内存转存技术可以将内存中运算的程序导出 <br>vol.py  -procdump -p 680,868,1928 -D out/  --profile=WinXPSP3x86  -f stuxnet.vmem<br>进入交换模式  <br>vol.py  volshell  --profile=WinXPSP3x86 -f stuxnet.vmem<br>检查恶意程序驱动<br>vol.py --profile=WinXPSP3x86  -f stuxnet.vmem modules <br>使用 moddump 提取驱动程序<br>vol.py --profile=WinXPSP3x86 -f stuxnet.vmem  moddump -D out/  --base 0xb21d8000<br>检查驱动内核回调<br>callbacks  <br>vol.py  --profile=WinXPSP3x86 -f stuxnet.vmem  callbacks <br>vol.py --profile=WinXPSP3x86  -f stuxnet.vmem callbacks | grep mrx<br>查看恶意注册表项 <br>Services注册表项 <br>ControlSet001\Services\SERVICENAME<br>通过关键字查找 <br>vol.py --profile=WinXPSP3x86 -f stuxnet.vmem printkey  -K <span class="hljs-string">&#x27;ControlSet001\Services\MrxNet&#x27;</span> <br><br>查看服务 <br>vol.py --profile=WinXPSP3x86 -f stuxnet.vmem svcscan<br>volpy --profile=WinXPSP3x86  -f stuxnet.vmem svcscan | grep -i MRX<br><br>查看文件属于信息 <br>volatility  -f cridex.vmem imageinfo<br><br>查看ps相关的的插件<br>volatility --profile=WinXPSP3x86 -f cridex.vmem pslist<br><br>与pslist 相似的 pstree <br>还可以识别子进程 父进程 <br>volatility  pstree  --profile=WinXPSP3x86 -f cridex.vmem <br><br>psscan  显示被恶意软件隐藏的进程<br>volatility  --profile=WinXPSP3x86 -f crdiex.vmem  psscan<br><br>connections  列出活跃的连接合端口 ，以及本地合远程的ip PID 端口 <br>volatility --profile=WinXPSP3x86 -f cridex.vmem connections<br><br>connscan  列出已经被终止的连接<br>volatility --profile=WinXPSP3x86 -f cridex.vmem connscan<br><br>sockets 展示出额外的连接信息监听的sockets ，sockets插件支持所有的协议<br>volatility --profile=WinXPSP3x86 -f cridex.vmem sockets<br><br>DLL分析<br>列出PE文件的版本信息<br>volatility --profile=WinXPSP3x86 -f cridex.vmem virinfo<br><br>列出正在运行的dll<br>volatility -profile=WinXPSP3x86 -f cridex.vmem dlllist<br><br><br>注册表分析<br>hivescan 显示了可用的注册表配置单元的物理地址<br>volatility --profile=WinXPSP3x86 -f cridex.vmem hivescan<br><br>hivelist 显示虚拟地址，物理地址的细节以及更加容易识别的路径<br>volatility --profile=WinXPSP3x86 -f cridex.vmem hivelist<br><br>timeliner 插件可以通过提供所有时间发生时的时间线来帮助取证分析<br>volatility --profile=WinXPSP3x86 -f cridex.vmem timeliner<br><br>恶意软件分析<br>malfind  寻找可能注入到各种进程的恶意软件， <br>volatility --profile=WinXPSP3x86  -f cridex.vmem malfind <br>指定进程<br>volatility --profile=WinXPSP3x86 -f cridex.vmem malfind -p 111<br>寻找sid <br>volatility --profile=Win7SP1x86 -f  Crang.raw  getsid<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/22356351/1653385253008-73af93f1-ead8-49ea-986e-5bdb2afb5041.jpeg"></p>
+<p><a name="EdeKU"></a></p>
+<h1><span id="memlabs">MemLabs</span></h1><p>通过<a target="_blank" rel="noopener" href="https://github.com/stuxnet999/MemLabs">MemLabs</a>  靶场  了解 内存取证    <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653294148843-f7317b25-e430-4014-8b1e-e8c10cb70402.png#clientId=u66a08afd-3519-4&from=paste&height=145&id=u4afb9d06&name=image.png&originHeight=181&originWidth=1040&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20274&status=done&style=none&taskId=ud1b0e241-fe7a-4145-8ff7-2a65e45cf5f&title=&width=832" alt="image.png"><br><a name="dWYpH"></a></p>
+<h2><span id="challenge">Challenge</span></h2><p>挑战说明   <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653294351057-c14b1212-00df-4ca9-a084-21d65e49b0f0.png#clientId=u66a08afd-3519-4&from=paste&height=486&id=u221f1aeb&name=image.png&originHeight=607&originWidth=1425&originalType=binary&ratio=1&rotation=0&showTitle=false&size=95143&status=done&style=none&taskId=u76bba6a2-9855-44d9-a367-4231a53130f&title=&width=1140" alt="image.png"><br>分析 基本信息  <br>volatility.exe -f .\Challenge.raw  imageinfo<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653294484617-2fa1ce40-a56b-42a5-aece-ba24137b1a39.png#clientId=u66a08afd-3519-4&from=paste&height=294&id=u812d7049&name=image.png&originHeight=367&originWidth=1007&originalType=binary&ratio=1&rotation=0&showTitle=false&size=267465&status=done&style=none&taskId=u7a88cdcd-24e0-4a99-9d1b-d6b43e22813&title=&width=805.6" alt="image.png"><br>列出 活动 进程 <br>volatility.exe -f .\Challenge.raw  –profile&#x3D;Win7SP1x86 pslist<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653294685125-122c0445-4b37-409f-94ae-58009f5b7cc4.png#clientId=u66a08afd-3519-4&from=paste&height=559&id=u7bba9db4&name=image.png&originHeight=699&originWidth=1334&originalType=binary&ratio=1&rotation=0&showTitle=false&size=478388&status=done&style=none&taskId=u6635c2e6-fffb-4f34-aa55-7bbf6a9dac5&title=&width=1067.2" alt="image.png"><br>看看cmd输出了啥 <br>volatility.exe -f .\Challenge.raw –profile&#x3D;Win7SP1x86 cmdscan<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653294893206-7a4af593-1c44-4f9e-8c96-64346e21dcec.png#clientId=u66a08afd-3519-4&from=paste&height=473&id=ue1b1281a&name=image.png&originHeight=591&originWidth=1165&originalType=binary&ratio=1&rotation=0&showTitle=false&size=380425&status=done&style=none&taskId=ua1cf1556-861f-40d9-b364-c61f390a31f&title=&width=932" alt="image.png"><br>cmd 执行了demon.py 文件  看有没有输出到控制台 <br>volatility.exe -f .\Challenge.raw –profile&#x3D;Win7SP1x86 consoles<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653295003389-00f220e0-dec5-40c1-bd88-ae45cb1bd741.png#clientId=u66a08afd-3519-4&from=paste&height=564&id=ua39c46b2&name=image.png&originHeight=705&originWidth=1317&originalType=binary&ratio=1&rotation=0&showTitle=false&size=305027&status=done&style=none&taskId=u8a058eb3-5a5e-4925-ac15-5ded162cf7f&title=&width=1053.6" alt="image.png"><br>输出了  一段 16 进制 335d366f5d6031767631707f<br>对16进制进行转字符串 看看   <br>不知道这是啥 先留着<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653295301292-f499ab05-729d-4e4d-bf2f-509b580ee1fb.png#clientId=u66a08afd-3519-4&from=paste&height=86&id=uf6437716&name=image.png&originHeight=107&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20618&status=done&style=none&taskId=u13d5c005-12db-47a2-94a7-7f356d78dd7&title=&width=628" alt="image.png"><br>根据挑战描述  有一个变量的线索  试试查看环境变量<br>找到个 疑点  <br>XOR and  password <br>需要和密码进行异或处理   嗯  密码又是啥呢<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653295688260-3f094543-cc04-469f-bdff-ba3820dde188.png#clientId=u66a08afd-3519-4&from=paste&height=114&id=u59f96f22&name=image.png&originHeight=142&originWidth=1557&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39948&status=done&style=none&taskId=ufc81ab09-a262-46c2-ba8f-09a27d511b6&title=&width=1245.6" alt="image.png"><br>对 刚才的 乱码进行 异或 处理试试 <br>输出了 还是很多乱码 但是 有 一个看着像半个flag   <br>1_4m_b3tt3r}<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653295951891-e8c913f2-d913-41ef-ba61-c8860bb66a27.png#clientId=u66a08afd-3519-4&from=paste&height=409&id=uffa6ea3a&name=image.png&originHeight=511&originWidth=625&originalType=binary&ratio=1&rotation=0&showTitle=false&size=90741&status=done&style=none&taskId=u0b4b8691-a0d1-4473-aa07-c99fabc64e4&title=&width=500" alt="image.png"><br>使用hashdump dump 出 账号密码 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653296651792-0ae56212-9a2e-42c1-b9c4-f835b1779b68.png#clientId=u66a08afd-3519-4&from=paste&height=118&id=u7c81da62&name=image.png&originHeight=147&originWidth=1090&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40248&status=done&style=none&taskId=u5edda309-162c-4ed8-aa6b-dc5f7f90a0e&title=&width=872" alt="image.png"><br>101da33f44e92c27835e64322d72e8b7 <br>使用在线网站把这个碰撞出来  就得出flag 前半部分 <br><strong>flag{you_are_good_but1_4m_b3tt3r}</strong></p>
+<p><a name="jT5PX"></a></p>
+<h2><span id="memorydump_lab1">MemoryDump_Lab1</span></h2><p>挑战说明<br>此挑战由三个flag 组成 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653299018865-3cd87381-30e9-4860-82fd-0e22361353fb.png#clientId=u66a08afd-3519-4&from=paste&height=313&id=ucaa9cbf6&name=image.png&originHeight=391&originWidth=1474&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55309&status=done&style=none&taskId=ud3ec9f7b-0947-4b6e-a8fe-c06bce85789&title=&width=1179.2" alt="image.png"></p>
+<p>imageinfo<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653394091268-ed2505fb-af95-4f53-b39e-3890241a97bc.png#clientId=u303693a9-95e1-4&from=paste&height=287&id=ufadf9f43&name=image.png&originHeight=359&originWidth=1408&originalType=binary&ratio=1&rotation=0&showTitle=false&size=37834&status=done&style=none&taskId=u9780f034-b1c9-47d5-adbc-8ba4c314dcc&title=&width=1126.4" alt="image.png"><br>volatility.exe -f .\MemoryDump_Lab1.raw –profile&#x3D;Win7SP1x64  psscan<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653394148557-4c81fe1c-8ae5-4fe2-be22-5345a0db6eb6.png#clientId=u303693a9-95e1-4&from=paste&height=657&id=u619e2284&name=image.png&originHeight=821&originWidth=1382&originalType=binary&ratio=1&rotation=0&showTitle=false&size=115768&status=done&style=none&taskId=u8674382c-045a-42e2-bf13-fc92790e5e6&title=&width=1105.6" alt="image.png"><br>查看cmd  进程  <br>cmdline  cmdscan  无果 ，查看cmd输出  consoles<br>volatility.exe -f .\MemoryDump_Lab1.raw –profile&#x3D;Win7SP1x64  consoles<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653394242691-7ed7b472-669e-4e9c-b8b7-75cb9fd24559.png#clientId=u303693a9-95e1-4&from=paste&height=559&id=ub52d2d64&name=image.png&originHeight=699&originWidth=1134&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61554&status=done&style=none&taskId=u647cac12-1a25-4a3f-b6e8-a9ffb7478b7&title=&width=907.2" alt="image.png"><br>发现 一串 base64 码     ZmxhZ3t0aDFzXzFzX3RoM18xc3Rfc3Q0ZzMhIX0&#x3D;<br>解码  得到 第一个flag<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653394332776-d2a88d89-8434-453d-89fd-9b6c651830eb.png#clientId=u303693a9-95e1-4&from=paste&height=130&id=u90d9b0b3&name=image.png&originHeight=162&originWidth=780&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10604&status=done&style=none&taskId=u17d5cb10-c68e-40ed-b55b-5da18c344c4&title=&width=624" alt="image.png"></p>
+<p>返回查看进程<br> volatility.exe -f .\MemoryDump_Lab1.raw –profile&#x3D;Win7SP1x64  pslist<br>有一个mspaint.exe 这是一个画图软件<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653394879556-eb99fe8f-bffb-471f-abf8-fe98b86f6a96.png#clientId=u303693a9-95e1-4&from=paste&height=91&id=u5b114200&name=image.png&originHeight=114&originWidth=1174&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16113&status=done&style=none&taskId=u3de0abdf-2019-467d-8f8a-820a290d447&title=&width=939.2" alt="image.png"><br>提取为数据   查看<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653395053115-389e50e8-2ca1-4536-a13a-a02054a985aa.png#clientId=u303693a9-95e1-4&from=paste&height=140&id=u8d1be977&name=image.png&originHeight=175&originWidth=1143&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15604&status=done&style=none&taskId=uf3b4ede6-47ea-4edf-a85d-a4cb75b648d&title=&width=914.4" alt="image.png"><br>用Ubuntu 使用 gimp 打开 数据以图片查看 <br>调节参数 <br>得到个flag  反转之后就是flag 了<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653397906022-56a18588-f358-43ef-99c2-cbb69499153f.png#clientId=u303693a9-95e1-4&from=paste&height=642&id=u62ceaaa5&name=image.png&originHeight=803&originWidth=1247&originalType=binary&ratio=1&rotation=0&showTitle=false&size=271956&status=done&style=none&taskId=u499e2653-cad1-4aa8-9c4b-7933f9ee2cb&title=&width=997.6" alt="image.png"></p>
+<p>返回前看  cmdline  好像有一个RAR包  尝试提取出来 看看 <br>volatility.exe -f .\MemoryDump_Lab1.raw –profile&#x3D;Win7SP1x64  cmdline<img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653395914573-b50c7645-41c7-4634-a1a5-3405ea3ad855.png#clientId=u303693a9-95e1-4&from=paste&height=254&id=u456d0ab0&name=image.png&originHeight=318&originWidth=1175&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31443&status=done&style=none&taskId=ufac2402c-cee7-4b96-92c9-179745b56c1&title=&width=940" alt="image.png"></p>
+<p>volatility.exe -f .\MemoryDump_Lab1.raw –profile&#x3D;Win7SP1x64  filescan | Select-String rar<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653396061181-93fd6399-3203-402a-87c4-8b9d51c55b86.png#clientId=u303693a9-95e1-4&from=paste&height=258&id=u238d496a&name=image.png&originHeight=322&originWidth=1401&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54536&status=done&style=none&taskId=ud518e1d6-af58-418e-9332-757ebc08361&title=&width=1120.8" alt="image.png"><br>使用 dumpfiles 提取 rar 文件 <br>volatility.exe -f .\MemoryDump_Lab1.raw –profile&#x3D;Win7SP1x64  dumpfiles -Q 0x000000003fac3bc0 -D .\a&lt;br &#x2F;&gt;改名   mv .\file.None.0xfffffa8001034450.dat .\file.None.0xfffffa8001034450.rar <br>打开需要 密码 <br>注释 密码 是 Alissa’s 用户的NTLM hash 值 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653396124825-63835f30-ded9-460f-a791-6014a50ebc75.png#clientId=u303693a9-95e1-4&from=paste&height=575&id=u6d09633c&name=image.png&originHeight=719&originWidth=830&originalType=binary&ratio=1&rotation=0&showTitle=false&size=66315&status=done&style=none&taskId=u1985cfb3-e374-4c5d-859d-e3e8c877497&title=&width=664" alt="image.png"><br>使用hashdump dump出来<br>volatility.exe -f .\MemoryDump_Lab1.raw –profile&#x3D;Win7SP1x64  hashdump<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653396242793-0beaa446-f5ae-4642-b2be-05b94302f497.png#clientId=u303693a9-95e1-4&from=paste&height=166&id=u6bd77dc7&name=image.png&originHeight=208&originWidth=1167&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27994&status=done&style=none&taskId=u002155be-4a83-4ec4-9817-172af377d3a&title=&width=933.6" alt="image.png"><br>转换成大写 <br>a.upper()  大写<br>a.lower() 小写<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653396505937-ef92dd0f-b493-41af-b13b-80ea9629ee74.png#clientId=u303693a9-95e1-4&from=paste&height=82&id=u99aa295e&name=image.png&originHeight=102&originWidth=686&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6495&status=done&style=none&taskId=u296f9c84-844f-486b-97bd-c3cef33a321&title=&width=548.8" alt="image.png"><br>得出 第三个flag<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653396524643-ebb3eb64-6964-4ee8-bdb3-9d0e3eb53f91.png#clientId=u303693a9-95e1-4&from=paste&height=430&id=ub9c1572e&name=image.png&originHeight=537&originWidth=680&originalType=binary&ratio=1&rotation=0&showTitle=false&size=62499&status=done&style=none&taskId=ub7a9bbb6-823a-4e01-816d-092e9b0e657&title=&width=544" alt="image.png"></p>
+<p><a name="eqyJC"></a></p>
+<h2><span id="memorydump_lab2">MemoryDump_Lab2</span></h2><p>通过说明 了解到 三个 flag  <br>可能存在于 环境  –  浏览器  – 密码管理器  ？？<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653463008781-e8e6acf5-2802-457e-8029-e07504491641.png#clientId=u0ed59c94-ee29-4&from=paste&height=297&id=ufdf864ef&name=image.png&originHeight=371&originWidth=1360&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55589&status=done&style=none&taskId=u1c9d3915-47ef-474a-8d73-d2749958a2b&title=&width=1088" alt="image.png"><br>imageinfo<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653462951803-b0309b90-3707-42dc-aca7-300cb402beee.png#clientId=u0ed59c94-ee29-4&from=paste&height=286&id=u44b8345b&name=image.png&originHeight=358&originWidth=1356&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38516&status=done&style=none&taskId=ue1073e8f-a2a5-4772-9b4c-225e843887a&title=&width=1084.8" alt="image.png"><br>查看环境变量  发现存在很多base64 加密 的 文件夹 名<br>volatility.exe -f .\MemoryDump_Lab2.raw  –profile&#x3D;Win7SP1x64  envars<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653463388638-f5498765-164c-4680-b065-ac5e4b87afd1.png#clientId=u0ed59c94-ee29-4&from=paste&height=755&id=u66f67cb1&name=image.png&originHeight=944&originWidth=1656&originalType=binary&ratio=1&rotation=0&showTitle=false&size=135359&status=done&style=none&taskId=u2474288f-41e7-4b3f-9efe-fc9736ae5f8&title=&width=1324.8" alt="image.png"><br>解码  ZmxhZ3t3M2xjMG0zX1QwXyRUNGczXyFfT2ZfTDRCXzJ9<br>获得得一个flag<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653463458625-04a29de8-1a02-44bc-8654-ad90584eeb42.png#clientId=u0ed59c94-ee29-4&from=paste&height=127&id=u3247160d&name=image.png&originHeight=159&originWidth=652&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10735&status=done&style=none&taskId=u00a4e3a4-0fb3-466d-8bf2-73aec3a8ba0&title=&width=521.6" alt="image.png"></p>
+<p>使用filescan  查看 存在哪些文件  一一 提取出来 看看<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653463784380-62ad6433-25d3-4bf9-a896-158539cd666a.png#clientId=u0ed59c94-ee29-4&from=paste&height=406&id=u1607465c&name=image.png&originHeight=507&originWidth=1558&originalType=binary&ratio=1&rotation=0&showTitle=false&size=74286&status=done&style=none&taskId=u1413a014-5355-43fb-ac42-bde03b0f53e&title=&width=1246.4" alt="image.png"><br>只 dumpfiles 两张图片 <br>volatility.exe -f .\MemoryDump_Lab2.raw  –profile&#x3D;Win7SP1x64  dumpfiles -Q 0x000000003fce1c70 -D .\a&lt;br &#x2F;&gt;这张信息里面有个 pass sword is   xxx 有点信息 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653464033957-0ec8a63f-92d8-4089-9eba-7d8dd4afd915.png#clientId=u0ed59c94-ee29-4&from=paste&height=610&id=u3f0fb559&name=image.png&originHeight=762&originWidth=1286&originalType=binary&ratio=1&rotation=0&showTitle=false&size=108742&status=done&style=none&taskId=ube3b6857-30ed-4270-9834-251e2db5171&title=&width=1028.8" alt="image.png">查找压缩文件  无果 <br>看看cmd 输出了什么   打印命令行参数 <br>volatility.exe -f .\MemoryDump_Lab2.raw  –profile&#x3D;Win7SP1x64 cmdline<br>.kdbx 文件  可能存在flag  这个kdbx 文件需要密码 打开  刚刚已经获取到一个密码了  尝试提取<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653464367889-496316a6-ebdd-481e-8040-41f721840775.png#clientId=u0ed59c94-ee29-4&from=paste&height=422&id=ud2941b8b&name=image.png&originHeight=527&originWidth=857&originalType=binary&ratio=1&rotation=0&showTitle=false&size=94552&status=done&style=none&taskId=u07d40157-9b21-4090-a45a-16713539e43&title=&width=685.6" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653464290800-aa197dd2-2c95-45c1-8404-2ab040edebc2.png#clientId=u0ed59c94-ee29-4&from=paste&height=379&id=u2fd0404f&name=image.png&originHeight=474&originWidth=1280&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39737&status=done&style=none&taskId=ud7150708-af6f-4a05-b718-097c2e79d9a&title=&width=1024" alt="image.png"><br>提取出<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653464692876-003273d7-4381-402a-b4be-5ffb691fa60b.png#clientId=u0ed59c94-ee29-4&from=paste&height=210&id=uf9624884&name=image.png&originHeight=262&originWidth=1393&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30870&status=done&style=none&taskId=u7b7f24bb-102e-4969-8baf-2c3dbba2bc8&title=&width=1114.4" alt="image.png"><br>使用keepass password  软件打开 <br>得2个flag<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653464752330-68bbda76-5875-4e64-bdc6-b7f357d40a0f.png#clientId=u0ed59c94-ee29-4&from=paste&id=uc01f26dc&name=image.png&originHeight=309&originWidth=820&originalType=url&ratio=1&rotation=0&showTitle=false&size=34846&status=done&style=none&taskId=u071ec2ad-5d73-46c5-8490-ee12d589e1b&title=" alt="image.png"></p>
+<p>题目说还有一个和 浏览器 相关  <br>volatility — plugins&#x3D;plugins&#x2F; -f MemoryDump_Lab2.raw iehistory  无果<br>volatility — plugins&#x3D;plugins&#x2F; -f MemoryDump_Lab2.raw chromehistory</p>
+<p>下载 链接 <br><a target="_blank" rel="noopener" href="https://mega.nz/folder/TrgSQQTS#H0ZrUzF0B-ZKNM3y9E76lg">https://mega.nz/folder/TrgSQQTS#H0ZrUzF0B-ZKNM3y9E76lg</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653464982600-428a0a4b-e819-4552-9d01-a0c7b84a3630.png#clientId=u0ed59c94-ee29-4&from=paste&id=ue2491793&name=image.png&originHeight=405&originWidth=1400&originalType=url&ratio=1&rotation=0&showTitle=false&size=185783&status=done&style=none&taskId=ue9bcc996-2143-48ec-9b21-3c07c111131&title=" alt="image.png"><br>下载文件<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653465246116-3b53e450-a344-4f1f-9c0e-d80f78dddd0d.png#clientId=u0ed59c94-ee29-4&from=paste&height=638&id=u4c72a150&name=image.png&originHeight=798&originWidth=1347&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51390&status=done&style=none&taskId=u9561cfce-f701-414d-9a6f-b368afc1c41&title=&width=1077.6" alt="image.png"><br>打开之后 要密码 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653465309082-47dfd661-6c1f-45fe-868f-fd38fbdfeed5.png#clientId=u0ed59c94-ee29-4&from=paste&height=594&id=u339cbe5b&name=image.png&originHeight=742&originWidth=1314&originalType=binary&ratio=1&rotation=0&showTitle=false&size=113472&status=done&style=none&taskId=u1f296934-7123-432b-b5b3-07e45c73c29&title=&width=1051.2" alt="image.png"><br>注释提示是 第一关的 flag小写<br><a target="_blank" rel="noopener" href="https://www.cmd5.com/hash.aspx?s=123456">https://www.cmd5.com/hash.aspx?s=123456</a><br>加密 为 SHA1<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653465760260-97260f29-aa74-4e3d-b79e-4fc5b647590e.png#clientId=u0ed59c94-ee29-4&from=paste&height=583&id=u45150d4f&name=image.png&originHeight=729&originWidth=1108&originalType=binary&ratio=1&rotation=0&showTitle=false&size=85189&status=done&style=none&taskId=u48c6d0ab-c54d-4750-b619-f38e311756f&title=&width=886.4" alt="image.png"><br>打开 获得第三个flag<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653465816600-1467cf74-bdca-49a3-9f59-af1812c253b9.png#clientId=u0ed59c94-ee29-4&from=paste&height=582&id=u5e763a0d&name=image.png&originHeight=727&originWidth=1294&originalType=binary&ratio=1&rotation=0&showTitle=false&size=168515&status=done&style=none&taskId=u57da43f7-5585-4e8c-908d-7b0abf1ccfd&title=&width=1035.2" alt="image.png"></p>
+<p><a name="FNKxx"></a></p>
+<h2><span id="memorydump_lab3">MemoryDump_Lab3</span></h2><p>关键点 脚本   一个flag 两部分       steghide 工具<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653466034921-5d426fa3-d7d4-4d85-864b-6516068cb5dc.png#clientId=u0ed59c94-ee29-4&from=paste&height=434&id=u8a615809&name=image.png&originHeight=542&originWidth=1296&originalType=binary&ratio=1&rotation=0&showTitle=false&size=59679&status=done&style=none&taskId=u2fe7714a-52c3-4560-af07-2c81499bf86&title=&width=1036.8" alt="image.png"></p>
+<p>imageinfo<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653466303911-71f9ee7e-8753-4551-99d4-36ca87efda55.png#clientId=u0ed59c94-ee29-4&from=paste&height=273&id=ubd343bdc&name=image.png&originHeight=341&originWidth=1001&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32205&status=done&style=none&taskId=u8e57eca6-c604-4d3a-8f64-38b9c15fc21&title=&width=800.8" alt="image.png"><br>查看cmd输出 命令行参数<br>volatility.exe -f .\MemoryDump_Lab3.raw –profile&#x3D;Win7SP1x86 cmdline<br>发现两个文件 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653466356796-8e20f9a6-6b7f-40a0-9b26-6301eb71ee35.png#clientId=u0ed59c94-ee29-4&from=paste&height=145&id=u5949bc52&name=image.png&originHeight=181&originWidth=1109&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16481&status=done&style=none&taskId=u40d897d4-e255-4738-af42-18111a3be3d&title=&width=887.2" alt="image.png"><br>使用filescan   dumpfiles <br>得到两个文件 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653466772190-81e48ad5-b2e3-42c7-9216-cc1302087a94.png#clientId=u0ed59c94-ee29-4&from=paste&height=616&id=u84d0b89d&name=image.png&originHeight=770&originWidth=1499&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42939&status=done&style=none&taskId=uf60fcd12-d368-499f-abfc-518e98adfea&title=&width=1199.2" alt="image.png">一个base64  一个py 加密 算法文件<br>py文件的大概意思就是对 vip.txt 文件进行 解码 <br>再对 解码后的 字符串 进行三次XOR 异或 <br>得出前半段 flag  inctf{0n3_h4lf<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653468079976-78e80fa3-76ab-4877-9628-57589da8639f.png#clientId=u0ed59c94-ee29-4&from=paste&height=106&id=u22db7d13&name=image.png&originHeight=132&originWidth=547&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6340&status=done&style=none&taskId=u0912fd15-8c90-4d94-b47d-c3fb6cc69f8&title=&width=437.6" alt="image.png"><br>根据提示 我们安装了一个工具 steghide<br>是一个隐写工具 ,那就需要寻找被隐写的文件 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653468472835-b484b495-7697-43a0-aafc-3471f991c064.png#clientId=u0ed59c94-ee29-4&from=paste&height=158&id=ub2e522ca&name=image.png&originHeight=197&originWidth=1249&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40528&status=done&style=none&taskId=u2c48912d-5a3a-40c6-bf62-0dbda7ea9f9&title=&width=999.2" alt="image.png"><br>filescan 寻找 图片 <br>volatility.exe -f .\MemoryDump_Lab3.raw –profile&#x3D;Win7SP1x86 filescan | Select-String jpeg<br>png ,jpg 文件太大 不太像 只有jpeg 文件  提取 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653468736722-0f3a5131-6695-4f1d-803f-e279821c8974.png#clientId=u0ed59c94-ee29-4&from=paste&height=519&id=u2cc5448f&name=image.png&originHeight=649&originWidth=936&originalType=binary&ratio=1&rotation=0&showTitle=false&size=523211&status=done&style=none&taskId=u60261433-615b-4252-92f7-8adac11f8a0&title=&width=748.8" alt="image.png"><br>steghide  extract -sf file.jpeg<br>使用工具提取 密码是 前半部分 flag <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653468843011-59c9a918-b117-4a8f-911f-477250eb18eb.png#clientId=u0ed59c94-ee29-4&from=paste&height=317&id=u23d7c43a&name=image.png&originHeight=396&originWidth=1272&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32888&status=done&style=none&taskId=u74a260b0-0131-4bb1-83e1-a9603c30cd3&title=&width=1017.6" alt="image.png"><br><a name="jc5eg"></a></p>
+<h2><span id="memorydump_lab4">MemoryDump_Lab4</span></h2><p>数据被删 ，内存转储  。。。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653469125847-ca5df6fb-494a-47ba-90a0-f5dc3cf5f2a0.png#clientId=u0ed59c94-ee29-4&from=paste&height=333&id=u82bd53a8&name=image.png&originHeight=416&originWidth=1425&originalType=binary&ratio=1&rotation=0&showTitle=false&size=53858&status=done&style=none&taskId=u2d90af42-d890-4df5-ba96-e7e0042de35&title=&width=1140" alt="image.png"></p>
+<p>volatility.exe -f .\MemoryDump_Lab4.raw –profile&#x3D;Win7SP1x64 psscan<br> 查看进程  有浏览器  查看浏览器 记录<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653469887344-95a0242c-20e1-433c-8388-df5f228fa814.png#clientId=u0ed59c94-ee29-4&from=paste&height=174&id=u3e902e12&name=image.png&originHeight=217&originWidth=1067&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17417&status=done&style=none&taskId=u3d7ecba3-e448-47cb-b81a-edadb44cedc&title=&width=853.6" alt="image.png"></p>
+<p>volatility.exe  -f MemoryDump_Lab4.raw –profile&#x3D;Win7SP1x64 iehistory<br>之后查看到  ecrets.txt、flag.txt.txt、Important.txt.txt等 文件 <br>一 一 提取出来</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653534223596-91eafdba-4480-46d1-ab1f-c7aceaeb8852.png#clientId=uc84b0293-e4d6-4&from=paste&height=170&id=u30661b97&name=image.png&originHeight=213&originWidth=1242&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30154&status=done&style=none&taskId=ubacc0f80-e395-47a7-aeba-3bbb4678598&title=&width=993.6" alt="image.png"></p>
+<p>只提取出了Important.txt SCHEDLGU.txt 文件 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653534527887-0853375e-ab85-4e2a-91e7-1ab9cabb48f0.png#clientId=uc84b0293-e4d6-4&from=paste&height=194&id=u42046adf&name=image.png&originHeight=243&originWidth=1263&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46758&status=done&style=none&taskId=uf1435dac-7515-4b96-aa52-fd3dd3f15a0&title=&width=1010.4" alt="image.png"><br>没啥信息   根据挑战信息 可能要查看MFT 表 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653534808423-0796f72e-fcef-4a68-a38d-43d5a1676a2b.png#clientId=uc84b0293-e4d6-4&from=paste&height=584&id=u7665673b&name=image.png&originHeight=730&originWidth=1176&originalType=binary&ratio=1&rotation=0&showTitle=false&size=77354&status=done&style=none&taskId=ua3330e0d-2746-49ae-a870-b9591ab5b4a&title=&width=940.8" alt="image.png"></p>
+<p> mftparser - 扫描并解析潜在的 MFT 条目  <br>\volatility.exe  -f MemoryDump_Lab4.raw –profile&#x3D;Win2008R2SP1x64 mftparser &gt; mft.txt<br>在 mft 条目里面 寻找刚才的那 几个 文件 <br>在 Important.txt 下 找到flag <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653535163745-e32b60f6-cd3b-4965-86e3-578aebe52395.png#clientId=uc84b0293-e4d6-4&from=paste&height=439&id=uf476b1a4&name=image.png&originHeight=549&originWidth=1915&originalType=binary&ratio=1&rotation=0&showTitle=false&size=50172&status=done&style=none&taskId=u7b268fa5-d6f4-4eb2-be5e-fb0b4114f19&title=&width=1532" alt="image.png"><br>FLAG <br>inctf{1_is_n0t_EQu4l_7o_2_bUt_th1s_d0s3nt_m4ke_s3ns3}</p>
+<p><a name="iUFjW"></a></p>
+<h2><span id="memorydump_lab5">MemoryDump_Lab5</span></h2><p>三个flag   只有获取到第一个flag 才能获取到第二个flag <br>内存转储  文件很怪  <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653551768075-b40e3f4e-448b-4240-bd24-2ad116fd0e05.png#clientId=uc84b0293-e4d6-4&from=paste&height=514&id=u719f2512&name=image.png&originHeight=643&originWidth=1436&originalType=binary&ratio=1&rotation=0&showTitle=false&size=100806&status=done&style=none&taskId=u5ff39539-2bcc-4a69-aff2-6520894cdd3&title=&width=1148.8" alt="image.png"></p>
+<p>imageinfo<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653552074958-72b759e9-0771-4300-b078-7a6c36dcd6f1.png#clientId=uc84b0293-e4d6-4&from=paste&height=315&id=u28336da0&name=image.png&originHeight=394&originWidth=1220&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39016&status=done&style=none&taskId=u86ee2407-cfad-4c61-aab8-b75e3a00255&title=&width=976" alt="image.png"><br>查看进程 <br>volatility.exe  -f .\MemoryDump_Lab5.raw  –profile&#x3D;Win7SP1x64 pstree<br>发现两个大写的 NOTEPAD.exe 记事本程序 提取看看<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653552222969-d9e81184-4408-4ea5-98b2-b0e3f3ec2def.png#clientId=uc84b0293-e4d6-4&from=paste&height=178&id=ub38dd675&name=image.png&originHeight=223&originWidth=1285&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32200&status=done&style=none&taskId=u4f850ec5-8e03-4c1b-b593-87188bd9aaf&title=&width=1028" alt="image.png"><br>volatility.exe -f .\MemoryDump_Lab5.raw  –profile&#x3D;Win7SP1x64  procdump -p 2724  -D .\a&lt;br &#x2F;&gt;<img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653552361364-6041674f-33f7-4eab-94d2-0c87b5fbccaa.png#clientId=uc84b0293-e4d6-4&from=paste&height=118&id=u793fa066&name=image.png&originHeight=148&originWidth=1182&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15942&status=done&style=none&taskId=udb3ab6b8-47e1-4baf-941a-d42edf9a1c3&title=&width=945.6" alt="image.png"><br>使用IDA 进行查看 <br>进行反编译 找到一堆 eax 寄存器   寄存器里面存了单个的字符  flag<br>按R 对 进制进行 快速转换 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653553477530-b1904938-76ca-4145-9185-3b94f1cbd1d0.png#clientId=uc84b0293-e4d6-4&from=paste&height=625&id=u23c2be91&name=image.png&originHeight=781&originWidth=719&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71840&status=done&style=none&taskId=u3ebac08a-edcb-4a67-9550-4eeb7f3b4b9&title=&width=575.2" alt="image.png"><br>bi0s{M3m_l4b5_OVeR_!}<br>volatility.exe -f .\MemoryDump_Lab5.raw  –profile&#x3D;Win7SP1x64  iehistory  <br>找到一串字符串  base64 <br>ZmxhZ3shIV93M0xMX2QwbjNfU3Q0ZzMtMV8wZl9MNEJfNV9EMG4zXyEhfQ<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653553600596-9f48e53e-ec0d-4085-9bf5-201c74b9ac25.png#clientId=uc84b0293-e4d6-4&from=paste&height=171&id=u613bba08&name=image.png&originHeight=214&originWidth=1150&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25042&status=done&style=none&taskId=ue33c5b53-b935-411d-9807-18370ef1a0e&title=&width=920" alt="image.png"><br>解码 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653553706932-271ca535-5924-4e30-9607-36ae2f286a18.png#clientId=uc84b0293-e4d6-4&from=paste&height=84&id=u4397b0a0&name=image.png&originHeight=105&originWidth=1035&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13533&status=done&style=none&taskId=u734585c0-7a32-4f9a-8bc6-c294e55161e&title=&width=828" alt="image.png"><br>flag{!!<em>w3LL_d0n3_St4g3-1_0f_L4B_5_D0n3</em>!!}<br>前面提到很奇怪的文件 <br>filescan  查看一下<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653554820378-7ccf987a-8cc7-46c6-a620-c28bdaa8df1f.png#clientId=uc84b0293-e4d6-4&from=paste&height=172&id=ud03103fb&name=image.png&originHeight=215&originWidth=1381&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26926&status=done&style=none&taskId=u3b338b67-df5a-48eb-ba39-173f70189b8&title=&width=1104.8" alt="image.png"><br>提取一下 图片 和 rar 压缩包<br>volatility.exe -f .\MemoryDump_Lab5.raw  –profile&#x3D;Win7SP1x64  dumpfiles -Q 0x000000003eed56f0  -D .\a&lt;br &#x2F;&gt;<img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653555178468-2b95833c-1174-487e-86be-7b40c984c24e.png#clientId=uc84b0293-e4d6-4&from=paste&height=78&id=u51bc4515&name=image.png&originHeight=97&originWidth=1403&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16177&status=done&style=none&taskId=u56355eb5-30a8-4f29-ae48-da18ff3e7fb&title=&width=1122.4" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653555159090-3f86ac84-59f4-4272-88ad-e1495f87b21a.png#clientId=uc84b0293-e4d6-4&from=paste&height=478&id=u581ae6e9&name=image.png&originHeight=598&originWidth=1170&originalType=binary&ratio=1&rotation=0&showTitle=false&size=92639&status=done&style=none&taskId=u230c530b-3d9c-4f3a-a288-7bbad978f47&title=&width=936" alt="image.png"></p>
+<p><a name="vZPJl"></a></p>
+<h2><span id="memorydump_lab6">MemoryDump_Lab6</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653568587895-1f258773-aa2c-4968-b644-5660054ee2b9.png#clientId=uc84b0293-e4d6-4&from=paste&height=388&id=u1a3ef83f&name=image.png&originHeight=485&originWidth=1514&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73059&status=done&style=none&taskId=ucfb13d5c-d1da-4f08-a799-adb006387d4&title=&width=1211.2" alt="image.png"><br>imageinfo<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653568931276-85182b24-4276-47f4-83c1-5fa562a1de46.png#clientId=uc84b0293-e4d6-4&from=paste&height=303&id=uf6bed2f4&name=image.png&originHeight=379&originWidth=970&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33904&status=done&style=none&taskId=u50892c6e-c438-446e-ae07-92a7449ca3b&title=&width=776" alt="image.png"></p>
+<p>volatility.exe -f .\MemoryDump_Lab6.raw  –profile&#x3D;Win7SP1x64 cmdline<br>看到一个flag.rar 文件 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653575258627-2eb4186d-632d-4ad7-8d9c-22f4ec25224d.png#clientId=u977218fd-f393-4&from=paste&height=120&id=ue20da804&name=image.png&originHeight=150&originWidth=1232&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14980&status=done&style=none&taskId=uf1911400-0533-4823-80c8-9b011bca644&title=&width=985.6" alt="image.png"><br>提取之后要密码<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653575324256-a18cdd18-dfbe-4865-b6fe-89c443bd2ad8.png#clientId=u977218fd-f393-4&from=paste&height=564&id=u5e5d1fd6&name=image.png&originHeight=705&originWidth=1161&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84325&status=done&style=none&taskId=uc34a5af0-5a95-413c-8ac6-b8ed834bacd&title=&width=928.8" alt="image.png"><br>找密码可以使用 搜索关键字 查找<br>.\volatility.exe -f .\MemoryDump_Lab6.raw  –profile&#x3D;Win7SP1x64 envars | Select-String password<br>easypeasyvirus<br>在环境变量中找到 密码 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653575380133-1f8108d1-e52f-4208-a4c9-f00243750a74.png#clientId=u977218fd-f393-4&from=paste&height=450&id=u5df8464a&name=image.png&originHeight=563&originWidth=1324&originalType=binary&ratio=1&rotation=0&showTitle=false&size=70790&status=done&style=none&taskId=u2749ead4-5f6d-405d-8411-51d3c28b651&title=&width=1059.2" alt="image.png"><br>得到后一半 flag<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653575467068-b8777ad9-9734-4f8d-abfe-61ebe5677491.png#clientId=u977218fd-f393-4&from=paste&height=464&id=ub9768cbb&name=image.png&originHeight=580&originWidth=966&originalType=binary&ratio=1&rotation=0&showTitle=false&size=361770&status=done&style=none&taskId=ub77c24f3-b191-4c66-b715-d35454b123e&title=&width=772.8" alt="image.png"></p>
+<p>volatility –plugins&#x3D;plugins&#x2F; -f MemoryDump_Lab6.raw –profile Win7SP1x64 chromehistory &gt; chromehistory.txt<br>找一下  chrome 的 浏览器 记录 <br>找到个pastebin链接   <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653575714087-3175a418-7b04-43b8-a01e-f63dcec213a1.png#clientId=u977218fd-f393-4&from=paste&height=677&id=u328af57b&name=image.png&originHeight=846&originWidth=1578&originalType=binary&ratio=1&rotation=0&showTitle=false&size=150629&status=done&style=none&taskId=u5415ae85-9d25-4301-93e5-47a46af6130&title=&width=1262.4" alt="image.png"><br>里面有一段链接 打开是篇文章 <br><a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1lptcksPt1l_w7Y29V4o6vkEnHToAPqiCkgNNZfS9rCk/edit">https://docs.google.com/document/d/1lptcksPt1l_w7Y29V4o6vkEnHToAPqiCkgNNZfS9rCk&#x2F;edit</a><br>浏览文章的时候 发现又一段 链接<br><a target="_blank" rel="noopener" href="https://mega.nz/#!SrxQxYTQ">https://mega.nz/#!SrxQxYTQ</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653576044958-ea1c3f49-bbe2-4b1b-9a98-46455eac9347.png#clientId=u977218fd-f393-4&from=paste&height=385&id=ua0e45499&name=image.png&originHeight=481&originWidth=935&originalType=binary&ratio=1&rotation=0&showTitle=false&size=109934&status=done&style=none&taskId=u3d837afe-5fe7-42ea-ab77-60d6c289263&title=&width=748" alt="image.png"><br>结果 要密码 。。 感觉有点套娃了 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653576099824-ce7905ba-968c-4f95-9e11-3a1c4d26d2e2.png#clientId=u977218fd-f393-4&from=paste&height=450&id=ufbbb27a0&name=image.png&originHeight=562&originWidth=1122&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87557&status=done&style=none&taskId=ubec3e477-aa8d-4db9-92e7-00b3a6ca031&title=&width=897.6" alt="image.png"><br>这里 看了wp之后 发现 找这个密钥 必须 输入 几个好的参数 不然<br>会出现一堆key  。。。<br>strings  MemoryDump_Lab6.raw  | grep “Mega Drive Key”<br>在内存中寻找 字符串  <br>在这里看到Key值   zyWxCjCYYSEMA-hZe552qWVXiPwa5TecODbjnsscMIU<br>下载之后是图片<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653576733006-22b72456-2f14-47a3-be9f-e3c20f6256dc.png#clientId=u977218fd-f393-4&from=paste&height=605&id=uf0bfb047&name=image.png&originHeight=756&originWidth=1446&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28411&status=done&style=none&taskId=u98ce181d-eb8e-42bb-823c-59d73093173&title=&width=1156.8" alt="image.png"><br>打不开  可能存在文件错误 需要恢复  <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653576748187-4f11fad5-e812-4990-a224-19a98c3b7245.png#clientId=u977218fd-f393-4&from=paste&height=588&id=u16bba78b&name=image.png&originHeight=735&originWidth=1238&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38961&status=done&style=none&taskId=u24f0f405-064f-4e55-98d0-d1117c996e2&title=&width=990.4" alt="image.png"></p>
+<p>png文件头查看 百度 png文件头 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653576943827-08c6d02a-774d-4555-8683-cce47951661d.png#clientId=u977218fd-f393-4&from=paste&height=542&id=uf6e8b891&name=image.png&originHeight=677&originWidth=1162&originalType=binary&ratio=1&rotation=0&showTitle=false&size=75679&status=done&style=none&taskId=uf2c2e0a4-f052-474f-8c4f-fb985ac3368&title=&width=929.6" alt="image.png"><br>进行对比<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653576961691-49a171f9-1165-4048-8ba4-50ea7a19615a.png#clientId=u977218fd-f393-4&from=paste&height=522&id=u8b0aac96&name=image.png&originHeight=653&originWidth=741&originalType=binary&ratio=1&rotation=0&showTitle=false&size=136539&status=done&style=none&taskId=u757157ba-8803-4160-903d-dd0af0c3dff&title=&width=592.8" alt="image.png"><br>发现 49 被改成了69 改回来  成功 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1653577016933-46d367d3-d85a-4048-9ba1-0e6e23a3f57c.png#clientId=u977218fd-f393-4&from=paste&height=610&id=udcc97b15&name=image.png&originHeight=762&originWidth=979&originalType=binary&ratio=1&rotation=0&showTitle=false&size=125873&status=done&style=none&taskId=u070e9965-0c24-4698-914e-31fbab8b6d6&title=&width=783.2" alt="image.png"><br>内存取证 告一段落  ，接这就是流量分析 ？？？？</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/SOCIAL%20NETWORK/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Soclal Network</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/Challenge-1-10/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Challenge-1-10
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E5%8F%96%E8%AF%81/" class="post-tag">#取证</a><a href="/tags/Volatility/" class="post-tag">#Volatility</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

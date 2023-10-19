@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        6-反序列化漏洞--CVE,session,phar | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">6-反序列化漏洞--CVE,session,phar</div>
+        <div class="post-info">
+          
+  
+
+
+          <span class="post-date">2023-03-22</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">CVE-2016-7124</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">session反序列化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">默认情况下用php格式储存</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">声明session储存格式为php_serialize</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">声明session储存格式为php_binarry</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">PHP session反序列化漏洞 例题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">例题二</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">phar反序列化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">什么是phar</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">phar 结构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">phar漏洞原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">受影响的函数</span></a></li></ol></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="rLpX4"></a></p>
+<h1><span id="cve-2016-7124">CVE-2016-7124</span></h1><p>漏洞产生原因:<br>如果存在_wakeup方法，调用unserilize()方法前则先调用_wakeup方法，<br>但是序列化字符串中表示对象属性个数的值大于真实的属性个数时，会跳过__wakeup()的执行</p>
+<blockquote>
+<p>版本：<br>PHP5&lt;5.6.25<br>PHP7&lt;7.0.10</p>
+</blockquote>
+<blockquote>
+<p>O:4:”test”:2:{s:2:”v1”;s:6:”benben”;s:2:”v2”;s:3:”123”;}<br>O:4:”test”:3:{s:2:”v1”;s:6:”benben”;s:2:”v2”;s:3:”123”;}</p>
+</blockquote>
+<p>成员属性个数值为3，但后面实际只有v1和v2 两个成员属性</p>
+<blockquote>
+<p>例题</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679475036882-62400f11-2d1d-4212-a5d0-c1a7126c1eae.png#averageHue=%23fefefe&clientId=ucecc514c-5376-4&from=paste&height=522&id=u7310c765&name=image.png&originHeight=522&originWidth=1074&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11368&status=done&style=none&taskId=u7bf4c7da-a81b-4f5a-b3e8-491b590f333&title=&width=1074" alt="image.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">secret</span></span>&#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-variable">$file</span>=<span class="hljs-string">&#x27;index.php&#x27;</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$file</span></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;file=<span class="hljs-variable">$file</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">include_once</span>(<span class="hljs-variable language_">$this</span>-&gt;file);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;file=<span class="hljs-string">&#x27;index.php&#x27;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$cmd</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>];<br><span class="hljs-keyword">if</span> (!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$cmd</span>))&#123;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br>&#125;<br><span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/[oc]:\d+:/i&#x27;</span>,<span class="hljs-variable">$cmd</span>))&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Are you daydreaming?&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$cmd</span>);<br>    &#125;<br>&#125;<br><span class="hljs-comment">//sercet in flag.php</span><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>如果$cmd为空，显示源代码<br>如果不为空，进行正则表达，o:后面不能出现数字<br>目标:反序列化后，调用_destruct(),把file定义成flag.php输出<br>构造POC<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679475354501-f562b988-ffe7-47d5-9b7b-42fc7cfcbbbe.png#averageHue=%2321201f&clientId=ucecc514c-5376-4&from=paste&height=789&id=u10604453&name=image.png&originHeight=789&originWidth=749&originalType=binary&ratio=1&rotation=0&showTitle=false&size=62965&status=done&style=none&taskId=u3591564d-d51c-473f-ac8f-f61d1e9c94b&title=&width=749" alt="image.png"><br>然后有修改 POC <br>O后面是不能跟数字的不然就去正则匹配 <br>把成员属性数量值写成2，就可以跳过_wakeup()<br>O:+6:”secret”:2:{s:4:”file”;s:8:”flag.php”;}<br>加号+跳过正则表达式判断<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679475860656-532c3910-0bff-4f4e-92aa-0bd5d2ed0c6a.png#averageHue=%2321201f&clientId=ucecc514c-5376-4&from=paste&height=827&id=ufd9dc788&name=image.png&originHeight=827&originWidth=873&originalType=binary&ratio=1&rotation=0&showTitle=false&size=50729&status=done&style=none&taskId=u94e2c23c-9e94-4ae2-b310-eea52db704c&title=&width=873" alt="image.png"></p>
+<blockquote>
+<p>O%3A%2B6%3A%22secret%22%3A2%3A%7Bs%3A4%3A%22file%22%3Bs%3A8%3A%22flag.php%22%3B%7D</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679475888017-4b5b01b4-bb38-40b2-8fc9-636b3525e6d0.png#averageHue=%23cdcdcd&clientId=ucecc514c-5376-4&from=paste&height=878&id=udb1676ea&name=image.png&originHeight=878&originWidth=1023&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42917&status=done&style=none&taskId=ub927870d-30e4-4d72-9d1b-6ae24d3ba09&title=&width=1023" alt="image.png"><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679475888257-dcfd5bfc-2a29-4c11-9fdd-8f779d749c05.png#averageHue=%23cdcdcd&clientId=ucecc514c-5376-4&from=paste&height=878&id=u66a005bd&name=image.png&originHeight=878&originWidth=1023&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42917&status=done&style=none&taskId=u00d49d9c-2681-4238-bd47-5ea12d3839e&title=&width=1023" alt="image.png"></p>
+<p><a name="yGVQf"></a></p>
+<h1><span id="session反序列化">session反序列化</span></h1><blockquote>
+<p>当session_start()被调用或者php.ini中session.auto_start为1时，<br>PHP内部调用会话管理器，访问用户session被序列化以后，<br>存储到指定目录(默认为&#x2F;tmp)存取数据的格式有多种，常用的有三种</p>
+</blockquote>
+<p><strong>漏洞产生:</strong></p>
+<blockquote>
+<p>写入格式和读取格式不一致</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>处理器</th>
+<th>对应的储存格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>php</td>
+<td>键名＋竖线＋经过serialize()函数序列化处理的值</td>
+</tr>
+<tr>
+<td>php_serialize (php&gt;&#x3D;5.5.4)</td>
+<td>经过serialize()函数序列化处理的数组</td>
+</tr>
+<tr>
+<td>php_binary</td>
+<td>键名的长度对应的ASCII字符＋键名＋经过serialize()函数反序列处理的值</td>
+</tr>
+</tbody></table>
+<p><a name="taFN8"></a></p>
+<h2><span id="默认情况下用php格式储存">默认情况下用php格式储存</span></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;benben&#x27;</span>]= <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;ben&#x27;</span>];<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>?ben&#x3D;dazhuang</p>
+</blockquote>
+<blockquote>
+<p>benben|s:8:”dazhuang”;<br>php:键名＋竖线＋经过serialize()函数序列化处理的值</p>
+</blockquote>
+<p><a name="vdqkl"></a></p>
+<h2><span id="声明session储存格式为php_serialize">声明session储存格式为php_serialize</span></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;session.serialize_handler&#x27;</span>,<span class="hljs-string">&#x27;php_serialize&#x27;</span>);<br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;benben&#x27;</span>] = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;ben&#x27;</span>];<br><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;b&#x27;</span>] = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b&#x27;</span>];<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>?ben&#x3D;dazhuang&amp;b&#x3D;666<br>a:2:{s:6:”benben”;s:8:”dazhuang”;s:1:”b”;s:3:”666”;}<br>php_serialize ;经过serialize()函数序列化处理的数组</p>
+</blockquote>
+<p><a name="oVM4i"></a></p>
+<h2><span id="声明session储存格式为php_binarry">声明session储存格式为php_binarry</span></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;session.serialize_handler&#x27;</span>,<span class="hljs-string">&#x27;php_binary&#x27;</span>);<br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;benben&#x27;</span>] = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;ben&#x27;</span>];<br><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;b&#x27;</span>] = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b&#x27;</span>];<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>?ben&#x3D;dazhuang&amp;b&#x3D;666<br>ACKbenbens:8:”dazhuang”;SOHbs:3:”666”;<br>php_binary:键名的长度对应的ASCll字符＋键名＋经过serialize()函数序列化处理的值</p>
+</blockquote>
+<p><a name="mH3ha"></a></p>
+<h2><span id="php-session反序列化漏洞-例题">PHP session反序列化漏洞 例题</span></h2><blockquote>
+<p>当网站序列化并存储session,<br>与反序列化并读取session的方式不同，<br>就可能导致session反序列化漏洞的产生。</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679488370214-bcd9b0a7-cbdf-4274-84e1-19137e042deb.png#averageHue=%23fefcfc&clientId=ucecc514c-5376-4&from=paste&height=153&id=ucffeb5b0&name=image.png&originHeight=153&originWidth=434&originalType=binary&ratio=1&rotation=0&showTitle=false&size=2766&status=done&style=none&taskId=u6f44466a-319f-4523-b1ea-9163e0653aa&title=&width=434" alt="image.png">                  <img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679488409403-d077aca7-bdb8-4629-9989-d79ea34566d4.png#averageHue=%23fefefe&clientId=ucecc514c-5376-4&from=paste&height=267&id=uca61ab4b&name=image.png&originHeight=267&originWidth=555&originalType=binary&ratio=1&rotation=0&showTitle=false&size=3993&status=done&style=none&taskId=u8c45a3bd-ff20-47a1-a255-4586dee67ce&title=&width=555" alt="image.png">     </p>
+<p>第一张图的写入的格式是 php_serialize 格式的 <br>第二张图片读取的格式 是php 格式的<br>这样会容易造成session 反序列化漏洞的<br>先生成一个 序列化内容 ，<br>因为class 类里面  __destruct魔法方法是会执行命令的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679488831950-0577d193-9883-4c59-87fd-b28f2bf5d93a.png#averageHue=%23232221&clientId=ucecc514c-5376-4&from=paste&height=408&id=u5d479cf9&name=image.png&originHeight=408&originWidth=690&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35109&status=done&style=none&taskId=u3974bb55-f988-4c9f-8c9e-cb0a1a405b2&title=&width=690" alt="image.png"></p>
+<blockquote>
+<p>O:1:”D”:1:{s:1:”a”;s:10:”phpinfo();”;}</p>
+</blockquote>
+<p>因为读取的格式是php  ，要在序列化前加上  |  <br>所以是：</p>
+<blockquote>
+<p>?a&#x3D;|O:1:”D”:1:{s:1:”a”;s:10:”phpinfo();”;}</p>
+</blockquote>
+<p>这是经过处理的值<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679488794717-2d191c29-523a-40cd-99a0-224a4edb51e6.png#averageHue=%23fcfdfb&clientId=ucecc514c-5376-4&from=paste&height=106&id=u8021741e&name=image.png&originHeight=106&originWidth=1316&originalType=binary&ratio=1&rotation=0&showTitle=false&size=142766&status=done&style=none&taskId=u7edd429c-ff44-4230-9fca-4d63f3e3738&title=&width=1316" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679488918601-e36a1aa0-c185-4cef-91b1-45b3898e520b.png#averageHue=%23d8be76&clientId=ucecc514c-5376-4&from=paste&height=248&id=u06e07fb6&name=image.png&originHeight=248&originWidth=775&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14502&status=done&style=none&taskId=u69d014a5-c5bd-4ba5-89f3-ac09d8b803d&title=&width=775" alt="image.png"><br>先去把序列化的内容传给a <br>然后在去看vul.php 的内容<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679488963775-97baad49-debd-4962-88bb-9688a2edb01a.png#averageHue=%23caa86f&clientId=ucecc514c-5376-4&from=paste&height=1112&id=u5186277e&name=image.png&originHeight=1112&originWidth=1103&originalType=binary&ratio=1&rotation=0&showTitle=false&size=107190&status=done&style=none&taskId=uc3c7b955-1d55-4f64-a81b-d8ff178ddf1&title=&width=1103" alt="image.png"><br>发现成功执行了 phpinfo()</p>
+<p><a name="hJkB7"></a></p>
+<h2><span id="例题二">例题二</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679489145947-591d3ae6-d038-4a71-a0b3-ce6ac3643547.png#averageHue=%23fefefe&clientId=ucecc514c-5376-4&from=paste&height=294&id=ue3d03248&name=image.png&originHeight=294&originWidth=469&originalType=binary&ratio=1&rotation=0&showTitle=false&size=4630&status=done&style=none&taskId=u6f2b12b4-a943-4dbb-9372-dc103b3912e&title=&width=469" alt="image.png"><br>这是第一个页面<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679489171556-6a021d38-eb66-4e0e-ae7a-141119db35e9.png#averageHue=%23fdfbfb&clientId=ucecc514c-5376-4&from=paste&height=166&id=ue0796f00&name=image.png&originHeight=166&originWidth=459&originalType=binary&ratio=1&rotation=0&showTitle=false&size=2938&status=done&style=none&taskId=uf421f448-8ced-435e-9b02-754e912a6e2&title=&width=459" alt="image.png"><br>这是第二页面 <br>传值的页面 ，然后第一个页面是执行的页面 <br>看第一个页面 有哪些要求</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-variable language_">$this</span>-&gt;her=<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">rand</span>(<span class="hljs-number">1</span>, <span class="hljs-number">10000</span>));<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;name===<span class="hljs-variable language_">$this</span>-&gt;her)&#123;<br>        <span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;flag.php&#x27;</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>需要name  &#x3D;&#x3D;&#x3D; her <br>就会输出flag .php<br>这里就要使用<strong>引用</strong>的技巧了 ** **</p>
+<blockquote>
+<p><strong>$a-&gt;name &#x3D; &amp;$a-&gt;her</strong></p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679489392711-229e4a2d-10fa-4e97-a82a-5d4f2664219f.png#averageHue=%23222120&clientId=ucecc514c-5376-4&from=paste&height=512&id=ucf43362b&name=image.png&originHeight=512&originWidth=851&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42913&status=done&style=none&taskId=u7065ba90-edd0-4e71-921c-80e9df1521a&title=&width=851" alt="image.png"></p>
+<blockquote>
+<p>O:4:”Flag”:2:{s:4:”name”;N;s:3:”her”;R:2;}</p>
+</blockquote>
+<p>去输入  ，这里要加入|  因为格式不一样，读取的格式是php<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679489527047-323bcf7a-8688-4b1a-9159-4c928bc2f4a7.png#averageHue=%23d9cd7a&clientId=ucecc514c-5376-4&from=paste&height=171&id=ua127ff3c&name=image.png&originHeight=171&originWidth=825&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15184&status=done&style=none&taskId=u5d9a4b2d-63bd-4d9b-a8e0-5e03c8b2bfc&title=&width=825" alt="image.png"></p>
+<p>然后访问 index.php 页面就返回了flag</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679489630917-7f1be48b-b067-4bad-b18b-8731e7134cb6.png#averageHue=%23fefdfc&clientId=ucecc514c-5376-4&from=paste&height=394&id=u3ce175d7&name=image.png&originHeight=394&originWidth=702&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17681&status=done&style=none&taskId=u40a1f988-8401-40b5-a7ce-d0074cefd7e&title=&width=702" alt="image.png"></p>
+<p><a name="Z9Jwx"></a></p>
+<h1><span id="phar反序列化">phar反序列化</span></h1><p><a name="uSbC0"></a></p>
+<h2><span id="什么是phar">什么是phar</span></h2><p>JAR是开发lava程序一个应用，包括所有的可执行、可访问的文件，都打包进了一个IAR文件里,使得部署过程十分简单。<br>like a Java JAR,but foe PHP</p>
+<blockquote>
+<p>PHAR(“Php ARchive”)是PHP里类似于JAR的一种打包文件。<br>对于PHP 5.3或更高版本，Phar后缀文件是默认开启支持的，可以直接使用它。</p>
+</blockquote>
+<blockquote>
+<p>文件包含 : phar 伪协议 ，可读取  .phar文件</p>
+</blockquote>
+<p><a name="yzoKY"></a></p>
+<h3><span id="phar-结构">phar 结构</span></h3><blockquote>
+<p>stub phar文件标识，格式为xxx<?php xxx;_HALT_COMPiLER();?>;	(头部信息)<br>manifest	压缩文件的属性等信息，以序列化存储;<br>contents	压缩文件的内容;<br>signature	签名，放在文件末尾;</p>
+<p>Phar协议解析文件时，会自动触发对manifest字段的序列化字符串进行反序列化</p>
+</blockquote>
+<p><strong>压缩与解压方法</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679490159818-3216392f-fe14-4193-bad6-577f31318175.png#averageHue=%23e9e9e9&clientId=ucecc514c-5376-4&from=paste&height=364&id=u4a6bc1f8&name=image.png&originHeight=364&originWidth=924&originalType=binary&ratio=1&rotation=0&showTitle=false&size=155038&status=done&style=none&taskId=u115bc548-9091-4451-b437-1dd230e45ee&title=&width=924" alt="image.png"></p>
+<p><a name="fyggM"></a></p>
+<h2><span id="phar漏洞原理">phar漏洞原理</span></h2><blockquote>
+<p>manifest压缩文件的属性等信息，以序列化存储;存在一段序列化的字符串;<br>调用phar伪协议，可读取.phar文件;<br>Phar协议解析文件时，会自动触发对manifest字段的序列化字符串进行反序列化。<br>注意版本<br>Phar需要PHP &gt;&#x3D; 5.2<br>在php.ini中将phar.readonly设为off(注意去掉前面的分号)</p>
+</blockquote>
+<p><a name="PAe5s"></a></p>
+<h3><span id="受影响的函数">受影响的函数</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679490299774-fa274d06-49c3-4088-b91e-e2d2d490e768.png#averageHue=%23e5d1cf&clientId=ucecc514c-5376-4&from=paste&height=284&id=u30523ceb&name=image.png&originHeight=284&originWidth=882&originalType=binary&ratio=1&rotation=0&showTitle=false&size=151146&status=done&style=none&taskId=u8e7d8207-8a21-4030-8ed5-15faab355db&title=&width=882" alt="image.png"></p>
+<p>漏洞代码:<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679490348513-7486c47b-5a27-4c68-a8e1-d682e26757d6.png#averageHue=%23fefdfd&clientId=ucecc514c-5376-4&from=paste&height=285&id=u2fed0a88&name=image.png&originHeight=285&originWidth=370&originalType=binary&ratio=1&rotation=0&showTitle=false&size=4667&status=done&style=none&taskId=u5e0107e5-f6de-4068-848e-9fd015e01dc&title=&width=370" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679490457279-0c25362d-320d-4c4e-861a-fbeeed4d7739.png#averageHue=%23fefbf9&clientId=ucecc514c-5376-4&from=paste&height=294&id=uf734ca9d&name=image.png&originHeight=294&originWidth=574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9077&status=done&style=none&taskId=u54b7d030-6e4f-4c35-9e13-892c6b0d78b&title=&width=574" alt="image.png"><br>利用：<br>test.phar  是在  第二张图生成的 <br>然后只需要再后面加&amp;输入a&#x3D;要执行的命令<br>因为他这里是把eval($_GET[“a”])写进去的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679490804879-ea74f17d-53ea-4620-b926-2651e1d12afd.png#averageHue=%23fdf7f5&clientId=ucecc514c-5376-4&from=paste&height=149&id=u069c668d&name=image.png&originHeight=149&originWidth=446&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5295&status=done&style=none&taskId=u8151a673-c48c-48a7-8b31-2fe2b5eff95&title=&width=446" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679490982358-8e55bc72-9344-46c5-88d5-9d77f5da5f85.png#averageHue=%23f7f4e4&clientId=ucecc514c-5376-4&from=paste&height=661&id=uf99ea093&name=image.png&originHeight=661&originWidth=1405&originalType=binary&ratio=1&rotation=0&showTitle=false&size=517766&status=done&style=none&taskId=u34920bd7-29f8-4a2f-86ac-e3e1c19f4aa&title=&width=1405" alt="image.png"><br>——————————-<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679490730285-1ed4ae59-f1c5-467f-ad37-a7a9ea773e79.png#averageHue=%23d3d3d3&clientId=ucecc514c-5376-4&from=paste&height=870&id=u939de915&name=image.png&originHeight=870&originWidth=997&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45900&status=done&style=none&taskId=u4e23b075-197b-4f34-bf15-8176119162e&title=&width=997" alt="image.png"></p>
+<p>利用条件 ：</p>
+<blockquote>
+<p>phar文件能上传到服务器端;<br>要有可用反序列化魔术方法作为跳板;<br>要有文件操作函数，如file_exists(), fopen(), file_get_contents()<br>文件操作函数参数可控，且:、&#x2F;、phar等特殊字符没有被过滤</p>
+</blockquote>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/22/edusrc%20%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%8C%96%E6%8E%98%20%EF%BC%88%E5%B7%B2%E4%BF%AE%E5%A4%8D%EF%BC%89/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>edusrc信息泄露挖掘</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/22/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8%E5%9F%BA%E7%A1%80/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      5-字符串逃逸
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

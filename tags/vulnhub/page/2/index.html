@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        vulnhub | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet"
+        type="text/css"
+        href="/css/category.css" />
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <div class="tag-page-title">#vulnhub</div>
+  <div class="post-list">
+    
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/19/Hard_socnet2/" class="post-title hover-line">Hard_socnet2</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+<p><a name="o5taF"></a></p>
+<h1><span id="描述">描述</span></h1><p><strong>——————————————————————————————————————</strong><br><strong>Description</strong><br><strong>You’ve been assigned to test another social networking webapp.</strong><br><strong>You have been given access to a dev server.</strong><br><strong>The current devs use many custom tools and scripts that you’ll have to review and attack.</strong><br><strong>Difficulty: Hard</strong><br><strong>Tasks involved:</strong></p>
+<ul>
+<li><strong>port scanning</strong></li>
+<li><strong>webapp attacks</strong></li>
+<li><strong>code review</strong></li>
+<li><strong>custom bruteforcing</strong></li>
+<li><strong>reverse engineering</strong></li>
+<li><strong>buffer overflow</strong></li>
+<li><strong>exploitation</strong></li>
+</ul></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/19/Prime_Series_Level-1/" class="post-title hover-line">Prime_series_Level-1</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+<p>攻击机：Kali  					靶机：Ubuntu<br>IP： 192.168.119.153			IP:</p>
+<p><a name="Bhvh3"></a></p>
+<h1><span id="扫描局域网c段主机">扫描局域网c段主机</span></h1><p>方法一： nmap -sV -T4 -O 192.168.119.0&#x2F;24 <br>方法二： netdiscover -i eth0 -r 192.168.119.1&#x2F;24 <br>1.扫描到是1,2 ，245这种基本不是要找的靶机 <br>下面这个.152很适合 开启了 22,80端口<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642565132313-c53fceb9-40ff-4892-bd34-e943a6d16668.png#clientId=u2d2af93c-7c38-4&from=paste&height=151&id=u4f3910c6&name=image.png&originHeight=301&originWidth=865&originalType=binary&ratio=1&rotation=0&showTitle=false&size=37845&status=done&style=none&taskId=ued28e15a-66f8-46e9-b58f-e2c23649ccd&title=&width=432.5" alt="image.png"><br>方法三：arp-scan -l <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642565327974-8089af0e-0370-43bb-a548-4611b6bea15b.png#clientId=u2d2af93c-7c38-4&from=paste&height=113&id=uf459e104&name=image.png&originHeight=226&originWidth=831&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27659&status=done&style=none&taskId=ud2c2b0af-e225-4135-8332-a8588fcf5f8&title=&width=415.5" alt="image.png"><br><a name="vKeNZ"></a></p></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/19/Sunset-1/" class="post-title hover-line">Sunset-1</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p><a name="bAG5X"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p>arp-scan -l<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642942791181-bdb19a5a-1e00-4017-85c1-b012d1f1a12a.png#clientId=ucb844903-144c-4&from=paste&height=71&id=u4a489ccd&name=image.png&originHeight=141&originWidth=741&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61057&status=done&style=none&taskId=ub6952c29-b433-4759-98d0-b23174e620d&title=&width=370.5" alt="image.png"><br>发现靶机 192.168.119.158<br>nmap -A -p1-65535 192.168.119.158<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943153367-aec75502-08d0-4002-bcb4-e311aef18c54.png#clientId=ucb844903-144c-4&from=paste&height=92&id=u4028272d&name=image.png&originHeight=183&originWidth=674&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63336&status=done&style=none&taskId=u9ca37e23-2547-4553-b296-f0c490d8afd&title=&width=337" alt="image.png"><br>登录ftp <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943193396-7a440bba-c928-4225-a731-bc5d19c91035.png#clientId=ucb844903-144c-4&from=paste&height=117&id=u9a5b332d&name=image.png&originHeight=234&originWidth=510&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6708&status=done&style=none&taskId=u8ff74c2a-4784-4713-b154-2d88aa09741&title=&width=255" alt="image.png"><br>打开 是一个密文<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642943293775-f6ae65be-62a2-4acb-831a-6835cd06c6dd.png#clientId=ucb844903-144c-4&from=paste&height=240&id=u611fb546&name=image.png&originHeight=479&originWidth=672&originalType=binary&ratio=1&rotation=0&showTitle=false&size=88759&status=done&style=none&taskId=u27ec99ff-ac7a-47b7-a1e2-894eaad83b3&title=&width=336" alt="image.png"><br>解压字典<br> gunzip   &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt.gz<br><a name="jFwsh"></a></p>
+<h1><span id="识别加密类型">识别加密类型</span></h1></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/19/SOCIAL%20NETWORK/" class="post-title hover-line">Soclal Network</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p>攻击机：Kali                          靶机：Ubuntu<br>IP： 192.168.0.133                未知 </p>
+<p><a name="J2omD"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p>由于在于局域网   <br>使用  nmap  神器进行ip 发现 和扫描 <br>这里使用列出 几种 方式<br><a name="kAa4o"></a></p></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/03/19/DC%20-9/" class="post-title hover-line">DC-9</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p><a name="GLrzP"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p>arp-scan -l<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743304546-a71f7d7e-a722-40d3-8a5e-7d87b981355d.png#clientId=u94e44d79-6e06-4&from=paste&height=86&id=u58f9cc96&name=image.png&originHeight=172&originWidth=842&originalType=binary&ratio=1&rotation=0&showTitle=false&size=21301&status=done&style=none&taskId=u281bd03e-aadc-42db-b09b-a64e57411cc&title=&width=421" alt="image.png"><br>发现192.168.119.155 IP 段<br>扫描端口 –服务<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743455966-48788aa8-28b7-4280-85c2-124c0bb585fe.png#clientId=u94e44d79-6e06-4&from=paste&height=195&id=u6decfb1d&name=image.png&originHeight=390&originWidth=952&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44907&status=done&style=none&taskId=u7dcc2e5e-6679-4c11-b573-99a474fab61&title=&width=476" alt="image.png"><br>22 端口 — 80 端口 <br>这里22端口有一个（filtered）过滤的保护<br>先针对80端口进行一个查看<br>这是一个员工详细表 —–那就是说可以查看员工信息 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743663526-6a31b84b-7e27-474d-b6e5-787dcd51f3b5.png#clientId=u94e44d79-6e06-4&from=paste&height=292&id=u1c02e8ca&name=image.png&originHeight=584&originWidth=1151&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55553&status=done&style=none&taskId=u304de723-26bc-4e04-92c2-e42bf978dc9&title=&width=575.5" alt="image.png"><br>发现一个查询框和一个登录框 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642743992895-2764c63e-eee6-472a-ace9-126076ddb449.png#clientId=u94e44d79-6e06-4&from=paste&height=136&id=u4aa76bba&name=image.png&originHeight=271&originWidth=602&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13247&status=done&style=none&taskId=u26342627-ada9-4546-bf3f-083c06bbddc&title=&width=301" alt="image.png">	    <img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642744010631-615da956-fe73-45aa-bdc4-bc5346e32c3b.png#clientId=u94e44d79-6e06-4&from=paste&height=219&id=u03f9ea39&name=image.png&originHeight=437&originWidth=798&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20434&status=done&style=none&taskId=ud4d32294-8fbc-486c-9be1-7e7c9aeab97&title=&width=399" alt="image.png"></p>
+<p>1：查询框是否存在SQL注入呢 <br>2：登录框是否可以弱口令暴力破解呢<br>** nikto -host 192.168.119.155  (web 漏洞扫描工具)**<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642744458056-e18ecea0-e92b-4ea2-a4c2-0b80233dc205.png#clientId=u94e44d79-6e06-4&from=paste&height=236&id=ucd5f336e&name=image.png&originHeight=472&originWidth=1108&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64850&status=done&style=none&taskId=u2208ccc0-6976-4498-8e8e-322ef662560&title=&width=554" alt="image.png"><br>发现了 &#x2F;config.php: PHP Config file may contain database IDs and passwords.<br>说可能存在数据库ID账号密码 <br>。。 一片空白没有啥 —下面还有一个网页<br>这像是一个文件包含文件上传啊<br>还有几个网页也都没有什么信息 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642744840460-bb91b067-f625-48cc-b7cd-7e43ceea89f1.png#clientId=u94e44d79-6e06-4&from=paste&height=177&id=uff8737bb&name=image.png&originHeight=353&originWidth=884&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40538&status=done&style=none&taskId=u1821a933-6fe1-496c-b666-2e567ebfcb5&title=&width=442" alt="image.png"><br>返回 页面<br><a name="Iqoa3"></a></p></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+    </div>
+  </div>
+
+
+    <div class="paginator"><a class="page-number" href="/tags/vulnhub/">1</a><span class="page-number current">2</span></div>
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  </body>
+</html>

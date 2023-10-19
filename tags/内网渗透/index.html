@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        内网渗透 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet"
+        type="text/css"
+        href="/css/category.css" />
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <div class="tag-page-title">#内网渗透</div>
+  <div class="post-list">
+    
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/07/20/ATT&CK(%E4%B8%83)/" class="post-title hover-line">ATT&CK红队评估(七)</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+<a name="anchor-name"></a>
+
+<p><a name="PF0xI"></a></p>
+<h1><span id="开局"><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1689865345899-60e6dd5b-4c81-4e60-83bc-5fbd7942b293.png#averageHue=%23fefefd&clientId=ufeb9cd91-dbfa-4&from=paste&height=981&id=u9479a556&originHeight=981&originWidth=1500&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98568&status=done&style=none&taskId=ud44788b3-8fff-4408-9c9f-9cfd35363f1&title=&width=1500" alt="image.png">开局</span></h1><p>目标地址： 10.10.10.10<br>进行端口扫描  </p></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/06/06/ATT&CK(%E4%BA%94)/" class="post-title hover-line">ATT&CK红队评估(五)</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1685949656213-5dc9110a-9991-4fe1-b375-e28f9b0ea908.png#averageHue=%23fefefe&clientId=u01d3985c-b0c4-4&from=paste&height=367&id=u5e58e41c&originHeight=733&originWidth=1915&originalType=binary&ratio=2&rotation=0&showTitle=false&size=40555&status=done&style=none&taskId=ud9c3a270-3273-401f-9103-29265be1b6b&title=&width=957.5" alt="image.png"><br>目标  主机  ：192.168.145.150<br><a name="wT2x0"></a></p>
+<h1><span id="web">WEB</span></h1><p>对其进行信息搜集 （目录扫描，端口扫描，服务发现 ，漏扫，等等）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">nmap -sV -T4 -sC -p 1-65525 192.168.145.150<br></code></pre></td></tr></table></figure></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a><a href="/tags/ThinkPHP5-%E6%BC%8F%E6%B4%9E/" class="post-tag">#ThinkPHP5 漏洞</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/05/25/ATT&CK(%E4%B8%89)/" class="post-title hover-line">ATT&CK红队评估(三)</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/22356351/1684918702073-d80acc37-4a81-43cd-ad17-d1d8cddaef35.jpeg"><br><a name="rApj2"></a></p>
+<h1><span id="外网web">外网WEB</span></h1><p><a name="qMrUd"></a></p>
+<h2><span id="信息搜集">信息搜集</span></h2></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a><a href="/tags/joomla-CMS/" class="post-tag">#joomla CMS</a><a href="/tags/sc%E5%91%BD%E4%BB%A4/" class="post-tag">#sc命令</a><a href="/tags/%E8%84%8F%E7%89%9B%E6%8F%90%E6%9D%83/" class="post-tag">#脏牛提权</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/05/17/ATT&CK(%E4%BA%8C)/" class="post-title hover-line">ATT&CK红队评估(二)</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/22356351/1684220361919-3070b9e6-6e88-4b02-94dd-bca504a769e6.jpeg"></p>
+<p><a name="mvcN8"></a></p>
+<h1><span id="web服务器">WEB服务器</span></h1><p><a name="v9CtK"></a></p></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a><a href="/tags/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="post-tag">#权限维持</a><a href="/tags/Venom/" class="post-tag">#Venom</a>
+
+</div>
+    </div>
+  </div>
+
+  
+  <div class="post-card">
+    <div class="post__head">
+      <a href="/2023/05/10/ATT&CK%20(%E4%B8%80)/" class="post-title hover-line">ATT&CK红队评估(一)</a>
+      
+    </div>
+    <div class="post__body">
+      
+      <div class="post-excerpt"><meta name="referrer" content="no-referrer">
+
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683617573984-19d364f3-bd2a-4183-b2f6-8dd9a7b94e55.png#averageHue=%23fdfdfd&clientId=u73000579-755b-4&from=paste&height=655&id=ua95a5f8a&originHeight=655&originWidth=1193&originalType=binary&ratio=2&rotation=0&showTitle=false&size=46362&status=done&style=none&taskId=ue22af745-55e0-4ca1-a8c7-0a583888e1c&title=&width=1193" alt="image.png"><br><a name="ukHY8"></a></p>
+<h1><span id="web服务器-初探">WEB服务器 初探</span></h1><p>对目标主机进行扫描探测 <br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1683618086147-11896755-1527-45bf-b0c5-7b64fe02a04a.png#averageHue=%2318191b&clientId=u73000579-755b-4&from=paste&height=968&id=u7f70d641&originHeight=968&originWidth=2269&originalType=binary&ratio=2&rotation=0&showTitle=false&size=231844&status=done&style=none&taskId=uc812f5d8-e256-40a9-bc91-1a356805914&title=&width=2269" alt="image.png"><br>给出的信息 存在80端口 3306 数据库端口<br>先去访问他的80 端口查看是什么<br><a name="a2Dfb"></a></p>
+<h2><span id="phpstudy探针">phpstudy探针</span></h2></div>
+    </div>
+    <div class="post__foot">
+      <div class="post-tags">
+  <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="post-tag">#内网渗透</a><a href="/tags/ATT-CK/" class="post-tag">#ATT&CK</a>
+
+</div>
+    </div>
+  </div>
+
+
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  </body>
+</html>

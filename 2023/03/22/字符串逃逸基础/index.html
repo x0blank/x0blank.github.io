@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        5-字符串逃逸 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">5-字符串逃逸</div>
+        <div class="post-info">
+          
+  
+
+
+          <span class="post-date">2023-03-22</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">字符串减少</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">字符串增多</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">增多例题：</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">减少例题：</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+<p><a name="FhpZv"></a></p>
+<h1><span id="字符串减少">字符串减少</span></h1><p><strong>反序列化分隔符</strong><br>反序列化以;}结束，后面的字符串不影响正常的反序列化<br><strong>属性逃逸</strong><br>一般在数据先经过一次serialize再经过unserialize，<br>在这个中间反序列化的字符串变多或者变少的时候有可能存在反序列化属性逃逸。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679468769877-b8addaf9-bf5b-47e0-81cf-3961d7c9da4b.png#averageHue=%23201f1f&clientId=uaa5c355a-8464-4&from=paste&height=956&id=u3283dd2c&name=image.png&originHeight=956&originWidth=1101&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71514&status=done&style=none&taskId=ubc48420d-742e-4256-9dac-0949542f5a6&title=&width=1101" alt="image.png"><br>这样是反序列不了 ， 成员属性 不对  $b成员属性是两个 <br>所以要改成<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679468677379-b174b73d-97b2-4096-910e-829d396024cf.png#averageHue=%231f1e1e&clientId=uaa5c355a-8464-4&from=paste&height=966&id=u0df3671d&name=image.png&originHeight=966&originWidth=846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42729&status=done&style=none&taskId=u4bec83ac-a813-44a5-885d-e307496a87c&title=&width=846" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679468959711-0b34c393-b22f-475c-a9d9-8afaaac8c0f4.png#averageHue=%231f1e1e&clientId=uaa5c355a-8464-4&from=paste&height=201&id=u3bdeae38&name=image.png&originHeight=201&originWidth=525&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11071&status=done&style=none&taskId=u1a2f8847-cad4-442f-aeb5-1b924d26e3a&title=&width=525" alt="image.png"></p>
+<blockquote>
+<p>O:1:”A”:1:{s:2:”v1”;s:3:”a”b”;}</p>
+</blockquote>
+<p>是字符还是格式符号 ，是由字符串长度3  来判断的<br>在前面字符串没有问题的情况下，;}是反序列化结束符,后面的字符串不影响反序列化结果<br>没有问题指的是三个一致：</p>
+<blockquote>
+<p>成员属性数量一致<br>成员属性名称长度一致，<br>内容长度一致</p>
+</blockquote>
+<p><strong>属性逃逸</strong><br>一般在数据先经过一次serialize再经过unserialize，<br>在这个中间反序列化的字符串变多或者变少的时候才有可能存在反序列化属性逃逸。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679471136777-ee603f39-cfe0-4423-be9a-2911d5a04e0e.png#averageHue=%23252321&clientId=uaa5c355a-8464-4&from=paste&height=721&id=u03cbac50&name=image.png&originHeight=721&originWidth=678&originalType=binary&ratio=1&rotation=0&showTitle=false&size=75269&status=done&style=none&taskId=ue433b6a4-5bc9-4d18-b348-def90a7b5dc&title=&width=678" alt="image.png"><br>这里他肯定是不成功的 <br>原本的序列化内容是这样的<br><code>O:1:&quot;A&quot;:2:&#123;s:2:&quot;v1&quot;;s:11:&quot;abcsystem()&quot;;s:2:&quot;v2&quot;;s:3:&quot;123&quot;;&#125;</code><br>但是经过<br>str_replace(“system()”,””,$data);<br>就是这样的<br><code>O:1:&quot;A&quot;:2:&#123;s:2:&quot;v1&quot;;s:11:&quot;abc&quot;;s:2:&quot;v2&quot;;s:3:&quot;123&quot;;&#125;</code><br>长度都不一致了 看到反序列化不了 ，所以会直接flase</p>
+<p>思考： 通过修改v2的值 “123”达到逃逸效果<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679471647771-b4d20c63-0578-4672-9beb-62a7c9e470b2.png#averageHue=%23fcfdfa&clientId=uaa5c355a-8464-4&from=paste&height=579&id=ue859232e&name=image.png&originHeight=579&originWidth=1161&originalType=binary&ratio=1&rotation=0&showTitle=false&size=471632&status=done&style=none&taskId=ub9aab5ac-7409-44fc-99f2-ea3a184c7e0&title=&width=1161" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679472027964-08d5a4a6-4a9c-466d-985d-f8a88e5e08ac.png#averageHue=%23201f1f&clientId=uaa5c355a-8464-4&from=paste&height=971&id=ud9373c48&name=image.png&originHeight=971&originWidth=927&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61265&status=done&style=none&taskId=uaa296c0b-dc8c-40f6-b578-6c065ea065e&title=&width=927" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679472036221-f4895e67-af41-4295-b4ef-3149a6cde5cb.png#averageHue=%23fbf8f5&clientId=uaa5c355a-8464-4&from=paste&height=647&id=u0ded32ac&name=image.png&originHeight=647&originWidth=1084&originalType=binary&ratio=1&rotation=0&showTitle=false&size=365621&status=done&style=none&taskId=u01059828-8ebe-43ba-a841-3e10535b93a&title=&width=1084" alt="image.png"></p>
+<p><a name="XHYnb"></a></p>
+<h1><span id="字符串增多">字符串增多</span></h1><p><strong>字符串逃逸</strong><br>反序列化字符串减少逃逸:多逃逸出一个成员属性<br>第一个字符串减少，吃掉有效代码，在第二个字符串构造代码<br>反序列化字符串增多逃逸:构造出一个逃逸成员属性<br>第一个字符串增多，吐出多余代码，把多余位代码构造成逃逸的成员属性</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$v1</span> = <span class="hljs-string">&#x27;ls&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$v2</span> = <span class="hljs-string">&#x27;123&#x27;</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$arga</span>,<span class="hljs-variable">$argc</span></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;v1 = <span class="hljs-variable">$arga</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;v2 = <span class="hljs-variable">$argc</span>;<br>    &#125;<br>&#125;<br><span class="hljs-variable">$data</span> =  <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">A</span>(<span class="hljs-variable">$a</span>,<span class="hljs-variable">$b</span>));<br><span class="hljs-variable">$data</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;ls&quot;</span>,<span class="hljs-string">&quot;pwd&quot;</span>,<span class="hljs-variable">$data</span>);<br><br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$data</span>));<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679472459675-24b4b20e-4de2-41bc-9513-149b5f30044c.png#averageHue=%2321201f&clientId=uaa5c355a-8464-4&from=paste&height=788&id=ub5703dc9&name=image.png&originHeight=788&originWidth=603&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43340&status=done&style=none&taskId=ufba2c762-c7a3-4d4f-bbfb-9e90fb778e7&title=&width=603" alt="image.png"><br>str_replace把”ls”替换为”pwd”<br>字符增多，会把末尾多出来的字符挤出bool(false)<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679472528828-4e6d2c80-2efc-4265-bcbf-d9c7c1b89c6e.png#averageHue=%23212020&clientId=uaa5c355a-8464-4&from=paste&height=912&id=u86ffcead&name=image.png&originHeight=912&originWidth=634&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52014&status=done&style=none&taskId=u7990bf37-6724-4e28-96a0-f8d6212f698&title=&width=634" alt="image.png"><br>就会放回bool(false)<br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679472724123-def52c4c-7934-48ec-ac6d-0e960f0acf78.png#averageHue=%23fcfdfa&clientId=uaa5c355a-8464-4&from=paste&height=560&id=ua128424d&name=image.png&originHeight=560&originWidth=1217&originalType=binary&ratio=1&rotation=0&showTitle=false&size=503430&status=done&style=none&taskId=u50a71bb3-b10d-4691-883c-d1e460013e6&title=&width=1217" alt="image.png"><br><code>lslslslslslslslslslslslslslslslslslslslslsls&quot;;s:2:&quot;v3&quot;;s:3:&quot;666&quot;;&#125;</code><br><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679473185521-59de8858-1f2d-4af2-9494-9eaee917f9b1.png#averageHue=%23d4d4d4&clientId=uf133261a-8acd-4&from=paste&height=842&id=ua2c633a6&name=image.png&originHeight=842&originWidth=1497&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44084&status=done&style=none&taskId=u41437149-84f1-4cc3-b01d-e79ed770557&title=&width=1497" alt="image.png"><br>这样就可以逃逸了 <br>第一个字符串增多，吐出多余代码，把多余位代码构造成逃逸成员属性</p>
+<p><a name="mtXeM"></a></p>
+<h1><span id="增多例题">增多例题：</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/22356351/1679474022842-2a3d0ff5-d246-4446-87e0-9120d7c51bf9.png#averageHue=%23a4a4a4&clientId=uf133261a-8acd-4&from=paste&height=918&id=u6a570d0e&name=image.png&originHeight=918&originWidth=1675&originalType=binary&ratio=1&rotation=0&showTitle=false&size=86546&status=done&style=none&taskId=u5fc2e4ee-e4c0-42d1-b519-36226f3b282&title=&width=1675" alt="image.png"></p>
+<p><a name="g0eM5"></a></p>
+<h1><span id="减少例题">减少例题：</span></h1>
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/22/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>6-反序列化漏洞--CVE,session,phar</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/21/%E5%85%B3%E4%BA%8E%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%EF%BC%9F/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      4-关于魔术方法？
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>

